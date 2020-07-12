@@ -467,9 +467,14 @@
                                 return data[0];
                             }
 
+                            var dataToShow = data;
+                            if (data.length > 10) {
+                                dataToShow = data.slice(0, 8).concat(['(' + (data.length - 9)  + ' more items)']).concat(data.slice(-1));
+                            }
+
                             var element = $('<abbr data-toggle="tooltip" data-html="true"></abbr>')
-                                .text(data[0])
-                                .prop('title', 'Seen in:<br>' + data.join('<br>'));
+                                .text(dataToShow[0])
+                                .prop('title', 'Seen in:<br>' + dataToShow.join('<br>'));
 
                             return element[0].outerHTML;
                         }
