@@ -38,6 +38,10 @@
         }
 
         /* Cursor for disabled buttons: https://stackoverflow.com/a/50349274 */
+        button:disabled {
+            cursor: not-allowed;
+        }
+
         .disabled-cursor {
             cursor: not-allowed;
         }
@@ -86,13 +90,6 @@
             /* keep dropdown list on top */
             position: relative;
             z-index: 1;
-        }
-        #winbindex-file-value {
-            position: absolute;
-            left: 30px;
-            top: 30px;
-            width: 0;
-            overflow: hidden;
         }
         #winbindex-file-select-container button {
             width: 100%;
@@ -145,12 +142,10 @@
                         <!--select id="winbindex-file-select" name="file" class="form-control" required>
                             <option></option>
                         </select-->
-		                <div id="winbindex-file-select"></div>
-                        <div id="winbindex-file-value">
-                            <input type="text" name="file" required>
-                        </div>
+                        <div id="winbindex-file-select"></div>
+                        <input id="winbindex-file-value" type="hidden" name="file">
 
-                        <button type="submit" class="btn btn-primary">Show</button>
+                        <button type="submit" class="btn btn-primary" disabled>Show</button>
                     </div>
                 </div>
             </form>
@@ -414,7 +409,8 @@
             $('#winbindex-file-select').virtualselect({
                 dataProvider: dataProvider,
                 onSelect: function (item) {
-                    $('#winbindex-file-value input').val(item.id);
+                    $('#winbindex-file-value').val(item.id);
+                    $('#winbindex-file-select-container button[type=submit]').removeAttr('disabled');
                 },
             }).virtualselect('load');
         }
