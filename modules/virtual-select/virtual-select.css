@@ -1,0 +1,64 @@
+.ui-virtual-select {
+}
+
+.ui-virtual-select--search-input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  outline: none;
+  border: 1px solid currentColor;
+  font-size: 14px;
+  color: grey;
+}
+
+.ui-virtual-select.open .ui-virtual-select--search-input,
+.ui-virtual-select.loading .ui-virtual-select--search-input {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.ui-virtual-select--loading-indicator {
+  border: 1px solid grey;
+  border-top: none;
+  background-color: white;
+  box-sizing: border-box;
+  font-size: 14px;
+  line-height: 18px;
+  padding: 6px 10px;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+  font-style: italic;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.ui-virtual-select--items {
+  border: 1px solid grey;
+  border-top: none;
+  background-color: white;
+}
+
+.ui-virtual-select--item {
+  box-sizing: border-box;
+  font-size: 14px;
+  line-height: 18px;
+  padding: 6px 10px;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.ui-virtual-select--item.active {
+  background-color: lightgrey;
+}
+
+/*.select.open .items {
+	display: block;
+}*/
+
+/*# sourceMappingURL=virtual-select.css.map */
