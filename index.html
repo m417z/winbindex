@@ -283,10 +283,9 @@
                 fallingCharArr.push(new Point(i * fontSize, randomFloat(-500, 0)));
             }
 
-            var animationOn = true;
+            var animationOn = false;
             var frameDelay = 0;
             var animationFramePending = false;
-            var interactiveMode = false;
             var frameCount = 0;
             var update = function () {
                 ctx.fillStyle = "rgba(0,0,0,0.05)";
@@ -299,14 +298,10 @@
                 }
 
                 frameCount++;
-                if (!interactiveMode && frameCount >= 100) {
-                    animationOn = false;
-                }
-
-                if (!animationOn) {
-                    frameDelay += 10;
-                } else if (animationOn) {
+                if (frameCount < 100 || animationOn) {
                     frameDelay = 0;
+                } else {
+                    frameDelay += 10;
                 }
 
                 if (frameDelay < 100) {
@@ -324,7 +319,6 @@
             }
 
             canvas.parentNode.onmouseover = function () {
-                interactiveMode = true;
                 animationOn = true;
                 if (!animationFramePending) {
                     update();
@@ -332,7 +326,6 @@
             }
 
             canvas.parentNode.onmouseout = function () {
-                interactiveMode = true;
                 animationOn = false;
             }
 
