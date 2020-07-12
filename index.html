@@ -258,11 +258,11 @@
             function Point(x, y) {
                 this.x = x;
                 this.y = y;
+                this.speed = randomFloat(2, 5);
             }
 
             Point.prototype.draw = function (ctx) {
                 this.value = charArr[randomInt(0, charArr.length - 1)].toUpperCase();
-                this.speed = randomFloat(1, 5);
 
                 ctx.fillStyle = "#0F0";
                 ctx.font = fontSize + "px san-serif";
@@ -271,6 +271,7 @@
                 this.y += this.speed;
                 if (this.y > ch) {
                     this.y = randomFloat(-100, 0);
+                    this.speed = randomFloat(2, 5);
                 }
             }
 
@@ -451,7 +452,7 @@
 
                             var seeMoreLink = $('<a data-toggle="tooltip" data-html="true" href="#"></a>')
                                 .text(textShown + '…')
-                                .prop('title', data + '<br><br>Click to copy')
+                                .prop('title', escapeHtml(data) + '<br><br>Click to copy')
                                 .attr('onclick', 'arguments[0].stopPropagation(); return globalFunctions.onHashCopyClick(this, "' + data + '");');
 
                             return seeMoreLink[0].outerHTML;
@@ -474,7 +475,7 @@
 
                             var element = $('<abbr data-toggle="tooltip" data-html="true"></abbr>')
                                 .text(dataToShow[0])
-                                .prop('title', 'Seen in:<br>' + dataToShow.join('<br>'));
+                                .prop('title', 'Seen in:<br>' + dataToShow.map(escapeHtml).join('<br>'));
 
                             return element[0].outerHTML;
                         }
@@ -740,6 +741,16 @@
                     onFailure();
                 }
             }
+        }
+
+        // https://stackoverflow.com/a/6234804
+        function escapeHtml(unsafe) {
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
         }
     })();
 </script>
