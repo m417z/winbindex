@@ -381,8 +381,9 @@
             };
             DataProvider.prototype.filter = function (search) {
                 if (search.length > 0) {
+                    var searchLower = search.toLowerCase();
                     this.items = this.availableItems.filter(function (item) {
-                        return item.name.indexOf(search) !== -1;
+                        return item.name.indexOf(searchLower) !== -1;
                     });
                 } else {
                     this.items = this.availableItems;
