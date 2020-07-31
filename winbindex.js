@@ -223,7 +223,6 @@ var globalFunctions = {};
         var filesTable = $('#winbindex-table').DataTable({
             responsive: true,
             stateSave: true,
-            //"dom": 'lfrtip',
             fnStateLoadParams: function (oSettings, oData) {
                 delete oData.columns;
                 oData.search.search = searchQuery || '';
@@ -329,6 +328,21 @@ var globalFunctions = {};
                         return escapeHtml(humanFileSize(data));
                     }
                 }, {
+                    targets: 'target-file-signing-date',
+                    render: function (data, type) {
+                        if (!data || data.length === 0) {
+                            return '???';
+                        }
+
+                        var text = data[0].slice(0, '2000-01-01'.length);
+
+                        if (type !== 'display') {
+                            return escapeHtmlAsUnicodeLookalike(text);
+                        }
+
+                        return escapeHtml(text);
+                    }
+                }, {
                     targets: 'target-extra-button',
                     className: 'text-center',
                     width: '1%',
@@ -336,7 +350,7 @@ var globalFunctions = {};
                     sortable: false,
                     render: function (data) {
                         var element = $('<a href="#" class="btn btn-secondary btn-sm">Show</a>')
-                            .attr('onclick', 'arguments[0].stopPropagation(); return globalFunctions.onShowExtraClick(this, "' + encodeURIComponent(JSON.stringify(data, null, 4)) + '");');
+                            .attr('onclick', 'arguments[0].stopPropagation(); return globalFunctions.onShowExtraClick(this, "' + data.hash + '", "' + encodeURIComponent(JSON.stringify(data.data, null, 4)) + '");');
 
                         return element[0].outerHTML;
                     }
@@ -368,6 +382,19 @@ var globalFunctions = {};
                             .prop('href', url).attr('onclick', 'arguments[0].stopPropagation();');
 
                         return element[0].outerHTML;
+                    }
+                }, {
+                    targets: 'target-plain-text',
+                    render: function (data, type) {
+                        if (!data) {
+                            return '???';
+                        }
+
+                        if (type !== 'display') {
+                            return escapeHtmlAsUnicodeLookalike(data);
+                        }
+
+                        return escapeHtml(data);
                     }
                 }
             ],
@@ -409,6 +436,8 @@ var globalFunctions = {};
 
         yadcf.init(filesTable, yadcfColumns);
 
+        initHiddenColumns(filesTable);
+
         filesTable.responsive.recalc();
 
         $.ajax({
@@ -438,9 +467,7 @@ var globalFunctions = {};
                     var machineType = fileInfo.machineType || null;
                     var signingDate = fileInfo.signingDate || null;
                     var size = fileInfo.size || null;
-                    var timestamp = fileInfo.timestamp || null;
                     var version = fileInfo.version || null;
-                    var virtualSize = fileInfo.virtualSize || null;
 
                     var assemblyArchitecture = getAssemblyParam(d, 'processorArchitecture');
                     var assemblyVersion = getAssemblyParam(d, 'version');
@@ -450,23 +477,23 @@ var globalFunctions = {};
 
                     rows.push([
                         hash,
-                        //sha1,
-                        //md5,
+                        sha1,
+                        md5,
                         win10Versions,
                         updateKbs,
                         machineType,
                         version,
                         size,
-                        d,
+                        signingDate,
+                        assemblyArchitecture,
+                        assemblyVersion,
+                        { hash: hash, data: d },
                         fileInfo
                     ]);
 
-                    if (updateKbs[0] && updateKbs[0] > mainDescriptionUpdate) {
-                        var newMainDescription = (d.fileInfo || {}).description;
-                        if (newMainDescription) {
-                            mainDescription = newMainDescription;
-                            mainDescriptionUpdate = updateKbs[0];
-                        }
+                    if (description && updateKbs.items[0] && updateKbs.items[0] > mainDescriptionUpdate) {
+                        mainDescription = description;
+                        mainDescriptionUpdate = updateKbs.items[0];
                     }
                 });
                 $('#winbindex-table-container').removeClass('winbindex-table-container-hidden');
@@ -485,8 +512,69 @@ var globalFunctions = {};
         });
     }
 
-    function getAssemblyParam(data) {
+    function initHiddenColumns(table) {
+        var hiddenColumns = null;
+        try {
+            hiddenColumns = localStorage.getItem('winbindex-hidden-columns');
+        } catch (e) { }
 
+        if (!hiddenColumns) {
+            hiddenColumns = [];
+            $('#winbindex-table thead th.hidden-by-default').each(function () {
+                hiddenColumns.push($(this).index());
+            });
+        }
+
+        hiddenColumns.forEach(function (columnIndex) {
+            table.column(columnIndex).visible(false);
+        });
+
+        var settingsButton = $('#winbindex-settings-button');
+        $('#winbindex-table_filter').append(settingsButton);
+
+        settingsButton.find('.dropdown-menu .dropdown-item-column').each(function (columnIndex) {
+            if (hiddenColumns.indexOf(columnIndex) === -1) {
+                $(this).find('input[type="checkbox"]').prop('checked', true);
+            }
+
+            $(this).click(function () {
+                toggleHiddenColumn(this, table, columnIndex);
+                return false;
+            });
+        });
+    }
+
+    function toggleHiddenColumn(element, table, columnIndex) {
+        var checkbox = $(element).find('input[type="checkbox"]');
+        var checked = checkbox.prop('checked');
+        table.column(columnIndex).visible(!checked);
+        checkbox.prop('checked', !checked);
+    }
+
+    function getAssemblyParam(data, param) {
+        var values = {};
+
+        var windowsVersions = data.windowsVersions;
+        Object.keys(windowsVersions).forEach(function (windowsVersion) {
+            Object.keys(windowsVersions[windowsVersion]).forEach(function (update) {
+                if (update !== 'BASE') {
+                    var assemblies = windowsVersions[windowsVersion][update].assemblies;
+                    Object.keys(assemblies).forEach(function (assembly) {
+                        var paramValue = assemblies[assembly].assemblyIdentity[param];
+                        if (paramValue) {
+                            values[paramValue] = true;
+                        }
+                    });
+                }
+            });
+        });
+
+        values = Object.keys(values);
+        if (values.length === 1) {
+            return values[0];
+        }
+
+        return null;
     }
 
     function getWin10Versions(data) {
@@ -584,16 +672,58 @@ var globalFunctions = {};
         return false;
     }
 
-    function onShowExtraClick(element, encoded) {
+    function onShowExtraClick(element, fileHash, encoded) {
         var text = decodeURIComponent(encoded);
 
         BootstrapDialog.show({
             title: 'Extra info',
-            message: $('<pre></pre>').text(text),
-            size: BootstrapDialog.SIZE_WIDE
+            message: $('<pre class="winbindex-extra-info-json"></pre>').text(text),
+            size: BootstrapDialog.SIZE_WIDE,
+            onshow: function (dialog) {
+                var modalBody = dialog.getModalBody();
+                modalBody.css('padding', '0');
+            },
+            buttons: [{
+                label: 'Download',
+                action: function (dialog) {
+                    downloadFile(fileHash + '.json', text);
+                }
+            }, {
+                label: 'Copy to clipboard',
+                action: function (dialog) {
+                    var button = $(this);
+                    copyToClipboard(text, function () {
+                        button.prop('title', 'Copied').tooltip('show');
+                        setTimeout(function () {
+                            button.removeProp('title').tooltip('dispose');
+                        }, 500);
+                    }, function () {
+                        alert('Failed to copy to clipboard');
+                    });
+                }
+            }, {
+                label: 'Close',
+                action: function (dialog) {
+                    dialog.close();
+                }
+            }]
         });
 
         return false;
+    }
+
+    // https://stackoverflow.com/a/18197341
+    function downloadFile(filename, text) {
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+        element.setAttribute('download', filename);
+
+        element.style.display = 'none';
+        document.body.appendChild(element);
+
+        element.click();
+
+        document.body.removeChild(element);
     }
 
     // https://stackoverflow.com/a/901144

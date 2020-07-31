@@ -94,3 +94,17 @@ button:disabled {
 #winbindex-table .select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered {
     line-height: 28px;
 }
+
+#winbindex-settings-button .settings-button {
+    font-size: .8rem;
+}
+
+#winbindex-settings-button .dropdown-item input[type="checkbox"] {
+    pointer-events: none;
+}
+
+.winbindex-extra-info-json {
+    /* https://stackoverflow.com/a/28852473 */
+    max-height: calc(100vh - 225px);
+    padding: 10px;
+}
