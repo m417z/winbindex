@@ -61,18 +61,49 @@
             </form>
         </div>
 
+        <div class="d-none">
+            <div id="winbindex-settings-button" class="d-inline-block ml-3 align-top">
+                <button class="btn btn-secondary btn-sm settings-button dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <!-- https://icons.getbootstrap.com/icons/gear-fill/ -->
+                    <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-gear-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 0 0-5.86 2.929 2.929 0 0 0 0 5.858z"/>
+                    </svg>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right pre-scrollable" aria-labelledby="dropdownMenuButton">
+                    <h6 class="dropdown-header">Show/hide columns</h6>
+                    <a class="dropdown-item dropdown-item-column disabled" href="#"><input type="checkbox" disabled> SHA256</a>
+                    <a class="dropdown-item dropdown-item-column" href="#"><input type="checkbox"> SHA1</a>
+                    <a class="dropdown-item dropdown-item-column" href="#"><input type="checkbox"> MD5</a>
+                    <a class="dropdown-item dropdown-item-column" href="#"><input type="checkbox"> Windows</a>
+                    <a class="dropdown-item dropdown-item-column" href="#"><input type="checkbox"> Update</a>
+                    <a class="dropdown-item dropdown-item-column" href="#"><input type="checkbox"> File arch</a>
+                    <a class="dropdown-item dropdown-item-column" href="#"><input type="checkbox"> File version</a>
+                    <a class="dropdown-item dropdown-item-column" href="#"><input type="checkbox"> File size</a>
+                    <a class="dropdown-item dropdown-item-column" href="#"><input type="checkbox"> Signing date</a>
+                    <a class="dropdown-item dropdown-item-column" href="#"><input type="checkbox"> Asm arch</a>
+                    <a class="dropdown-item dropdown-item-column" href="#"><input type="checkbox"> Asm version</a>
+                    <a class="dropdown-item dropdown-item-column" href="#"><input type="checkbox"> Extra</a>
+                    <a class="dropdown-item dropdown-item-column" href="#"><input type="checkbox"> Download</a>
+                    <!--h6 class="dropdown-header">Other options</h6-->
+                </div>
+            </div>
+        </div>
+
         <div id="winbindex-table-container" class="winbindex-table-container-hidden">
             <table id="winbindex-table" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
                 <tr>
                     <th class="target-hash">SHA256</th>
-                    <!--th class="target-hash">SHA1</th>
-                    <th class="target-hash">MD5</th-->
+                    <th class="target-hash hidden-by-default">SHA1</th>
+                    <th class="target-hash hidden-by-default">MD5</th>
                     <th class="target-array-of-values"><span class="winbindex-column-header-with-yadcf winbindex-yadcf-multiple">Windows</span></th>
                     <th class="target-array-of-values order-default-sort"><span class="winbindex-column-header-with-yadcf winbindex-yadcf-multiple">Update</span></th>
                     <th class="target-file-arch"><span class="winbindex-column-header-with-yadcf">File arch</span></th>
                     <th class="target-file-version"><span class="winbindex-column-header-with-yadcf">File version</span></th>
                     <th class="target-file-size">File size</th>
+                    <th class="target-file-signing-date hidden-by-default">Signing date</th>
+                    <th class="target-plain-text hidden-by-default"><span class="winbindex-column-header-with-yadcf">Asm arch</span></th>
+                    <th class="target-plain-text hidden-by-default"><span class="winbindex-column-header-with-yadcf">Asm version</span></th>
                     <th class="target-extra-button">Extra</th>
                     <th class="target-download-button">Download</th>
                 </tr>
@@ -80,13 +111,16 @@
                 <tfoot>
                 <tr>
                     <th>SHA256</th>
-                    <!--th>SHA1</th>
-                    <th>MD5</th-->
+                    <th>SHA1</th>
+                    <th>MD5</th>
                     <th>Windows</th>
                     <th>Update</th>
                     <th>File arch</th>
                     <th>File version</th>
                     <th>File size</th>
+                    <th>Signing date</th>
+                    <th>Asm arch</th>
+                    <th>Asm version</th>
                     <th>Extra</th>
                     <th>Download</th>
                 </tr>
