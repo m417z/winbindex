@@ -222,6 +222,7 @@ var globalFunctions = {};
     function loadFileInfoToTable(fileToLoad, searchQuery) {
         var filesTable = $('#winbindex-table').DataTable({
             responsive: true,
+            deferRender: true,
             stateSave: true,
             fnStateLoadParams: function (oSettings, oData) {
                 delete oData.columns;
