@@ -55,15 +55,17 @@ def prepare_updates():
     with open(config.out_path.joinpath('updates.json'), 'w') as f:
         json.dump(single_update, f, indent=4)
 
-    return filter_updates(uptodate_updates, last_time_update_kbs | {update_kb})
+    return single_update, filter_updates(uptodate_updates, last_time_update_kbs | {update_kb})
 
 def run_deploy():
     with zipfile.ZipFile('tools.zip', 'r') as zip_ref:
         zip_ref.extractall('tools')
 
-    new_updates = prepare_updates()
-    if not new_updates:
+    result = prepare_updates()
+    if not result:
         return False
+
+    new_single_update, new_updates = result
 
     print('Running upd02_get_manifests_from_updates')
     upd02_get_manifests_from_updates()
@@ -84,7 +86,7 @@ def run_deploy():
     shutil.rmtree(config.out_path.joinpath('manifests'))
     shutil.rmtree(config.out_path.joinpath('parsed'))
 
-    return True
+    return f'Updated with files from {new_single_update}'
 
 def can_deploy():
     # Can deploy only if there's no pending PR yet.
