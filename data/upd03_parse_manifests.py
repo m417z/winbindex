@@ -88,6 +88,8 @@ def parse_manifests(manifests_dir, output_dir):
         except Exception as e:
             print(f'ERROR: failed to process {path}')
             print('    ' + str(e))
+            if config.exit_on_first_error:
+                raise
             continue
 
         if not parsed or len(parsed['files']) == 0:

@@ -64,6 +64,8 @@ def get_virustotal_data_for_update(parsed_dir, output_dir):
         except Exception as e:
             print(f'ERROR: failed to process {path}')
             print('    ' + str(e))
+            if config.exit_on_first_error:
+                raise
 
 def main():
     with open(config.out_path.joinpath('updates.json')) as f:

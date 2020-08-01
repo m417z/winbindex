@@ -111,6 +111,8 @@ def get_manifests_from_update(windows_version, update_kb):
         except Exception as e:
             print(f'[{update_kb}] ERROR: Failed to process update')
             print(f'[{update_kb}]        ' + str(e))
+            if config.exit_on_first_error:
+                raise
             return
         print(f'[{update_kb}] Extracted manifest files')
 
@@ -138,6 +140,8 @@ def main():
             except Exception as e:
                 print(f'[{update_kb}] ERROR: Failed to process update')
                 print(f'[{update_kb}]        ' + str(e))
+                if config.exit_on_first_error:
+                    raise
 
         print()
 

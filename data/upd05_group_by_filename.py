@@ -150,7 +150,12 @@ def add_file_info_from_update(filename, output_dir, *, file_hash, file_info, win
     if attributes not in x:
         x.append(attributes)
 
-    file_info_data[filename] = data
+    if config.high_mem_usage_for_performance:
+        file_info_data[filename] = data
+    else:
+        output_path = output_dir.joinpath(filename + '.json.gz')
+        with gzip.open(output_path, 'wt', encoding='utf-8') as f:
+            json.dump(data, f, indent=4, sort_keys=True)
 
 virustotal_info_cache = {}
 
@@ -167,7 +172,8 @@ def get_virustotal_info(file_hash):
 
     filename = config.out_path.joinpath('virustotal', file_hash + '.json')
     if not filename.is_file():
-        virustotal_info_cache[file_hash] = None
+        if config.high_mem_usage_for_performance:
+            virustotal_info_cache[file_hash] = None
         return None
 
     with open(filename) as f:
@@ -256,7 +262,9 @@ def get_virustotal_info(file_hash):
 
     assert not has_signature_overlay or file_verified
 
-    virustotal_info_cache[file_hash] = info
+    if config.high_mem_usage_for_performance:
+        virustotal_info_cache[file_hash] = info
+
     return info
 
 def group_update_assembly_by_filename(input_filename, output_dir, *, windows_version, update_kb, update_info, manifest_name):
@@ -306,15 +314,17 @@ def group_update_by_filename(windows_version, update_kb, update, parsed_dir):
         if count % 1000 == 0:
             print(f' ...{count}', end='', flush=True)
 
-        #try:
-        group_update_assembly_by_filename(str(path), output_dir,
-            windows_version=windows_version,
-            update_kb=update_kb,
-            update_info=update,
-            manifest_name=path.stem)
-        #except Exception as e:
-        #    print(f'ERROR: failed to process {path}')
-        #    print('    ' + str(e))
+        try:
+            group_update_assembly_by_filename(str(path), output_dir,
+                windows_version=windows_version,
+                update_kb=update_kb,
+                update_info=update,
+                manifest_name=path.stem)
+        except Exception as e:
+            print(f'ERROR: failed to process {path}')
+            print('    ' + str(e))
+            if config.exit_on_first_error:
+                raise
 
 def add_file_info_from_iso_data(filename, output_dir, *, file_hash, file_info, source_path, windows_version, windows_version_info):
     if filename in file_info_data:
