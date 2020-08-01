@@ -44,7 +44,7 @@ def write_all_file_info():
 
         output_path = output_dir.joinpath(filename + '.json.gz')
         with gzip.open(output_path, 'wt', encoding='utf-8') as f:
-            ujson.dump(data, f, indent=4, sort_keys=True)
+            ujson.dump(data, f, indent=4, sort_keys=True, escape_forward_slashes=False)
 
     all_filenames = sorted(list(all_filenames))
 
@@ -54,10 +54,10 @@ def write_all_file_info():
     }
 
     with open(index_filename, 'w') as f:
-        ujson.dump(index_data, f, indent=4, sort_keys=True)
+        ujson.dump(index_data, f, indent=4, sort_keys=True, escape_forward_slashes=False)
 
     with open(filenames_filename, 'w') as f:
-        ujson.dump(all_filenames, f, indent=4, sort_keys=True)
+        ujson.dump(all_filenames, f, indent=4, sort_keys=True, escape_forward_slashes=False)
 
 def assert_fileinfo_close_enough(file_info_1, file_info_2):
     def canonical_fileinfo(file_info):
@@ -154,8 +154,8 @@ def add_file_info_from_update(filename, output_dir, *, file_hash, file_info, win
         file_info_data[filename] = data
     else:
         output_path = output_dir.joinpath(filename + '.json.gz')
-        with gzip.open(output_path, 'wt', compresslevel=6, encoding='utf-8') as f:
-            ujson.dump(data, f, indent=4, sort_keys=True)
+        with gzip.open(output_path, 'wt', encoding='utf-8') as f:
+            ujson.dump(data, f, indent=4, sort_keys=True, escape_forward_slashes=False)
 
 virustotal_info_cache = {}
 
@@ -314,8 +314,6 @@ def group_update_by_filename(windows_version, update_kb, update, parsed_dir):
             count += 1
             if count % 200 == 0:
                 print(f' ...{count}', end='', flush=True)
-            if count == 1000:
-            	exit('Aborted')
 
         try:
             group_update_assembly_by_filename(str(path), output_dir,
