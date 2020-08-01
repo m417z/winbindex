@@ -1,5 +1,6 @@
 import subprocess
 import requests
+import zipfile
 import shutil
 import json
 import time
@@ -57,6 +58,9 @@ def prepare_updates():
     return filter_updates(uptodate_updates, last_time_update_kbs | {update_kb})
 
 def run_deploy():
+    with zipfile.ZipFile('tools.zip', 'r') as zip_ref:
+        zip_ref.extractall('tools')
+
     new_updates = prepare_updates()
     if not new_updates:
         return False
@@ -76,6 +80,7 @@ def run_deploy():
     with open(config.out_path.joinpath('updates.json'), 'w') as f:
         json.dump(new_updates, f, indent=4)
 
+    shutil.rmtree(config.out_path.joinpath('tools'))
     shutil.rmtree(config.out_path.joinpath('manifests'))
     shutil.rmtree(config.out_path.joinpath('parsed'))
 
