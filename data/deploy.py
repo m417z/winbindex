@@ -83,7 +83,8 @@ def run_deploy():
 
 def can_deploy():
     # Can deploy only if there's no pending PR yet.
-    url = 'https://api.github.com/search/issues?q=is:pr+repo:m417z/winbindex+author:winbindex-deploy-bot'
+    #url = 'https://api.github.com/search/issues?q=is:pr+repo:m417z/winbindex+author:winbindex-deploy-bot'
+    url = 'https://api.github.com/search/issues?q=is:pr+repo:m417z/winbindex+author:m417z'
     return requests.get(url).json()['total_count'] == 0
 
 def commit_deploy(pr_title):
@@ -95,7 +96,7 @@ def commit_deploy(pr_title):
         ['git', 'checkout', '-b', branch_name],
         ['git', 'add', '-A'],
         ['git', 'commit', '-m', pr_title],
-        ['git', 'remote', 'add', 'push-origin', f'https://{os.environ["GITHUB_TOKEN"]}@github.com/m417z/winbindex.git'],
+        ['git', 'remote', 'add', 'push-origin', f'https://{os.environ["GITHUB_TOKEN_TEMP"]}@github.com/m417z/winbindex.git'],
         ['git', 'push', 'push-origin', branch_name],
     ]
 
@@ -109,7 +110,7 @@ def commit_deploy(pr_title):
     }
     headers = {
         'Accept': 'application/vnd.github.v3+json',
-        'Authorization': f'token {os.environ["GITHUB_TOKEN"]}'
+        'Authorization': f'token {os.environ["GITHUB_TOKEN_TEMP"]}'
     }
     response = requests.post('https://api.github.com/repos/m417z/winbindex/pulls', data=json.dumps(data), headers=headers)
     response.raise_for_status()
