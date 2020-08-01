@@ -1,8 +1,8 @@
 from datetime import datetime
 from pathlib import Path
 import bisect
+import ujson
 import gzip
-import json
 
 import config
 
@@ -15,7 +15,7 @@ def write_all_file_info():
 
     if index_filename.is_file():
         with open(index_filename, 'r') as f:
-            index_data = json.load(f)
+            index_data = ujson.load(f)
 
         all_filenames = set(index_data['filenames'])
         sha256_to_filename = index_data['sha256ToFilename']
@@ -42,9 +42,9 @@ def write_all_file_info():
                             (len(new) == len(old) and new < old)):
                             sha256_to_filename[sha256] = filename
 
-        output_path = output_dir.joinpath(filename + '.json.gz')
+        output_path = output_dir.joinpath(filename + '.ujson.gz')
         with gzip.open(output_path, 'wt', encoding='utf-8') as f:
-            json.dump(data, f, indent=4, sort_keys=True)
+            ujson.dump(data, f, indent=4, sort_keys=True)
 
     all_filenames = sorted(list(all_filenames))
 
@@ -54,10 +54,10 @@ def write_all_file_info():
     }
 
     with open(index_filename, 'w') as f:
-        json.dump(index_data, f, indent=4, sort_keys=True)
+        ujson.dump(index_data, f, indent=4, sort_keys=True)
 
     with open(filenames_filename, 'w') as f:
-        json.dump(all_filenames, f, indent=4, sort_keys=True)
+        ujson.dump(all_filenames, f, indent=4, sort_keys=True)
 
 def assert_fileinfo_close_enough(file_info_1, file_info_2):
     def canonical_fileinfo(file_info):
@@ -113,10 +113,10 @@ def add_file_info_from_update(filename, output_dir, *, file_hash, file_info, win
     if filename in file_info_data:
         data = file_info_data[filename]
     else:
-        output_path = output_dir.joinpath(filename + '.json.gz')
+        output_path = output_dir.joinpath(filename + '.ujson.gz')
         if output_path.is_file():
             with gzip.open(output_path, 'rt', encoding='utf-8') as f:
-                data = json.load(f)
+                data = ujson.load(f)
         else:
             data = {}
 
@@ -153,9 +153,9 @@ def add_file_info_from_update(filename, output_dir, *, file_hash, file_info, win
     if config.high_mem_usage_for_performance:
         file_info_data[filename] = data
     else:
-        output_path = output_dir.joinpath(filename + '.json.gz')
-        with gzip.open(output_path, 'wt', compresslevel=6, encoding='utf-8') as f:
-            json.dump(data, f, indent=4, sort_keys=True)
+        output_path = output_dir.joinpath(filename + '.ujson.gz')
+        with gzip.open(output_path, 'wt', encoding='utf-8') as f:
+            ujson.dump(data, f, indent=4, sort_keys=True)
 
 virustotal_info_cache = {}
 
@@ -177,7 +177,7 @@ def get_virustotal_info(file_hash):
         return None
 
     with open(filename) as f:
-        data = json.load(f)
+        data = ujson.load(f)
 
     attr = data['data']['attributes']
 
@@ -269,7 +269,7 @@ def get_virustotal_info(file_hash):
 
 def group_update_assembly_by_filename(input_filename, output_dir, *, windows_version, update_kb, update_info, manifest_name):
     with open(input_filename) as f:
-        data = json.load(f)
+        data = ujson.load(f)
 
     assembly_identity = data['assemblyIdentity']
 
@@ -330,10 +330,10 @@ def add_file_info_from_iso_data(filename, output_dir, *, file_hash, file_info, s
     if filename in file_info_data:
         data = file_info_data[filename]
     else:
-        output_path = output_dir.joinpath(filename + '.json.gz')
+        output_path = output_dir.joinpath(filename + '.ujson.gz')
         if output_path.is_file():
             with gzip.open(output_path, 'rt', encoding='utf-8') as f:
-                data = json.load(f)
+                data = ujson.load(f)
         else:
             data = {}
 
@@ -362,13 +362,12 @@ def add_file_info_from_iso_data(filename, output_dir, *, file_hash, file_info, s
 
     file_info_data[filename] = data
 
-def group_iso_data_by_filename(windows_version, windows_release_date):
-    iso_data_file = config.out_path.joinpath('from_iso', windows_version + '.json')
+def group_iso_data_by_filename(windows_version, windows_release_date, iso_data_file):
     output_dir = config.out_path.joinpath('by_filename_compressed')
     output_dir.mkdir(parents=True, exist_ok=True)
 
     with open(iso_data_file) as f:
-        iso_data = json.load(f)
+        iso_data = ujson.load(f)
 
     assert windows_version == iso_data['windowsVersion']
 
@@ -405,7 +404,7 @@ def group_iso_data_by_filename(windows_version, windows_release_date):
 
 def main():
     with open(config.out_path.joinpath('updates.json')) as f:
-        updates = json.load(f)
+        updates = ujson.load(f)
 
     for windows_version in updates:
         if windows_version == '1909':
@@ -426,21 +425,23 @@ def main():
     print('Processing data from ISO files')
 
     windows_versions_from_iso = {
-        #'2004': '2020-05-27',
-        #'1909': '2019-11-12',
-        #'1903': '2019-05-21',
-        #'1809': '2018-11-13',
-        #'1803': '2018-04-30',
-        #'1709': '2017-10-17',
-        #'1703': '2017-04-05',
-        #'1607': '2016-08-02',
-        #'1511': '2015-11-10',
-        #'1507': '2015-07-29',
+        '2004': '2020-05-27',
+        '1909': '2019-11-12',
+        '1903': '2019-05-21',
+        '1809': '2018-11-13',
+        '1803': '2018-04-30',
+        '1709': '2017-10-17',
+        '1703': '2017-04-05',
+        '1607': '2016-08-02',
+        '1511': '2015-11-10',
+        '1507': '2015-07-29',
     }
 
     for windows_version in windows_versions_from_iso:
-        print(' ' + windows_version, end='', flush=True)
-        group_iso_data_by_filename(windows_version, windows_versions_from_iso[windows_version])
+        iso_data_file = config.out_path.joinpath('from_iso', windows_version + '.json')
+        if iso_data_file.is_file():
+            print(' ' + windows_version, end='', flush=True)
+            group_iso_data_by_filename(windows_version, windows_versions_from_iso[windows_version], iso_data_file)
 
     print()
 
