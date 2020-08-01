@@ -90,8 +90,8 @@ def run_deploy():
 
 def can_deploy():
     # Can deploy only if there's no pending PR yet.
-    #url = 'https://api.github.com/search/issues?q=is:pr+repo:m417z/winbindex+author:winbindex-deploy-bot'
-    url = 'https://api.github.com/search/issues?q=is:pr+repo:m417z/winbindex+author:m417z'
+    #url = 'https://api.github.com/search/issues?q=is:pr+is:open+repo:m417z/winbindex+author:winbindex-deploy-bot'
+    url = 'https://api.github.com/search/issues?q=is:pr+is:open+repo:m417z/winbindex+author:m417z'
     return requests.get(url).json()['total_count'] == 0
 
 def commit_deploy(pr_title):
