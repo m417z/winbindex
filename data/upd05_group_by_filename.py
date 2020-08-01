@@ -154,7 +154,7 @@ def add_file_info_from_update(filename, output_dir, *, file_hash, file_info, win
         file_info_data[filename] = data
     else:
         output_path = output_dir.joinpath(filename + '.json.gz')
-        with gzip.open(output_path, 'wt', encoding='utf-8') as f:
+        with gzip.open(output_path, 'wt', compresslevel=6, encoding='utf-8') as f:
             json.dump(data, f, indent=4, sort_keys=True)
 
 virustotal_info_cache = {}
@@ -311,7 +311,7 @@ def group_update_by_filename(windows_version, update_kb, update, parsed_dir):
             continue
 
         count += 1
-        if count % 1000 == 0:
+        if count % 200 == 0:
             print(f' ...{count}', end='', flush=True)
 
         try:
