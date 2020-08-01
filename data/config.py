@@ -1,5 +1,5 @@
 from pathlib import Path
 
 out_path = Path('.')
-verbose = True
+verbose = False
 extract_in_a_new_thread = False

@@ -297,19 +297,24 @@ def group_update_by_filename(windows_version, update_kb, update, parsed_dir):
     output_dir = config.out_path.joinpath('by_filename_compressed')
     output_dir.mkdir(parents=True, exist_ok=True)
 
+    count = 0
     for path in parsed_dir.glob('*.json'):
         if not path.is_file():
             continue
 
-        try:
-            group_update_assembly_by_filename(str(path), output_dir,
-                windows_version=windows_version,
-                update_kb=update_kb,
-                update_info=update,
-                manifest_name=path.stem)
-        except Exception as e:
-            print(f'ERROR: failed to process {path}')
-            print('    ' + str(e))
+        count += 1
+        if count % 1000 == 0:
+            print(f' ...{count}', end='', flush=True)
+
+        #try:
+        group_update_assembly_by_filename(str(path), output_dir,
+            windows_version=windows_version,
+            update_kb=update_kb,
+            update_info=update,
+            manifest_name=path.stem)
+        #except Exception as e:
+        #    print(f'ERROR: failed to process {path}')
+        #    print('    ' + str(e))
 
 def add_file_info_from_iso_data(filename, output_dir, *, file_hash, file_info, source_path, windows_version, windows_version_info):
     if filename in file_info_data:
