@@ -579,9 +579,11 @@ var globalFunctions = {};
     }
 
     function getWin10Versions(data) {
-        var items = Object.keys(data.windowsVersions).sort().map(function (item) {
+        var items = Object.keys(data.windowsVersions).map(function (item) {
             return 'Windows 10 ' + item;
         });
+
+        items.sort();
 
         var title = items[0] || '-';
 
@@ -611,6 +613,8 @@ var globalFunctions = {};
                 }
             });
         });
+
+        items.sort();
 
         var title = '-';
         if (items.length > 0) {
