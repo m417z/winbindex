@@ -113,7 +113,7 @@ def commit_deploy(pr_title):
     data = {
         'title': pr_title,
         'head': branch_name,
-        'base': 'master'
+        'base': 'gh-pages'
     }
     headers = {
         'Accept': 'application/vnd.github.v3+json',
