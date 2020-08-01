@@ -55,7 +55,7 @@ def prepare_updates():
     with open(config.out_path.joinpath('updates.json'), 'w') as f:
         json.dump(single_update, f, indent=4)
 
-    return single_update, filter_updates(uptodate_updates, last_time_update_kbs | {update_kb})
+    return update_kb, filter_updates(uptodate_updates, last_time_update_kbs | {update_kb})
 
 def run_deploy():
     with zipfile.ZipFile('tools.zip', 'r') as zip_ref:
@@ -120,6 +120,7 @@ def commit_deploy(pr_title):
         'Authorization': f'token {os.environ["GITHUB_TOKEN_TEMP"]}'
     }
     response = requests.post('https://api.github.com/repos/m417z/winbindex/pulls', data=json.dumps(data), headers=headers)
+    print(response.text)
     response.raise_for_status()
 
 def main():
