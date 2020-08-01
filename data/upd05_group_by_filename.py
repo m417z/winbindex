@@ -314,6 +314,8 @@ def group_update_by_filename(windows_version, update_kb, update, parsed_dir):
             count += 1
             if count % 200 == 0:
                 print(f' ...{count}', end='', flush=True)
+            elif count > 2200:
+                print(f'{count}-{path.stem}')
 
         try:
             group_update_assembly_by_filename(str(path), output_dir,
