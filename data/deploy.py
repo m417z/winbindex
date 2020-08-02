@@ -1,3 +1,4 @@
+from pathlib import Path
 import subprocess
 import requests
 import zipfile
@@ -43,10 +44,11 @@ def prepare_updates():
     assert len(last_time_update_kbs - uptodate_update_kbs) == 0
     assert len(uptodate_update_kbs - last_time_update_kbs) > 0
 
-    print(f'New updates: {uptodate_update_kbs - last_time_update_kbs}')
+    new_update_kbs = sorted(uptodate_update_kbs - last_time_update_kbs)
+    print(f'New updates: {new_update_kbs}')
 
     # Update one at a time.
-    update_kb = sorted(uptodate_update_kbs - last_time_update_kbs)[0]
+    update_kb = new_update_kbs[0]
 
     print(f'Updating {update_kb}')
 
@@ -58,8 +60,10 @@ def prepare_updates():
     return update_kb, filter_updates(uptodate_updates, last_time_update_kbs | {update_kb})
 
 def run_deploy():
-    with zipfile.ZipFile('tools.zip', 'r') as zip_ref:
-        zip_ref.extractall('tools')
+    tools_extracted = Path('tools.zip').is_file()
+    if tools_extracted:
+        with zipfile.ZipFile('tools.zip', 'r') as zip_ref:
+            zip_ref.extractall('tools')
 
     result = prepare_updates()
     if not result:
@@ -82,13 +86,17 @@ def run_deploy():
     with open(config.out_path.joinpath('updates.json'), 'w') as f:
         json.dump(new_updates, f, indent=4)
 
-    shutil.rmtree(config.out_path.joinpath('tools'))
     shutil.rmtree(config.out_path.joinpath('manifests'))
     shutil.rmtree(config.out_path.joinpath('parsed'))
+    if tools_extracted:
+        shutil.rmtree(config.out_path.joinpath('tools'))
 
     return f'Updated with files from {new_single_update}'
 
 def can_deploy():
+    # Unsupported in this flow.
+    assert not config.extract_in_a_new_thread
+
     # Can deploy only if there's no pending PR yet.
     #url = 'https://api.github.com/search/issues?q=is:pr+is:open+repo:m417z/winbindex+author:winbindex-deploy-bot'
     url = 'https://api.github.com/search/issues?q=is:pr+is:open+repo:m417z/winbindex+author:m417z'
