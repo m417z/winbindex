@@ -258,7 +258,6 @@ var globalFunctions = {};
                     }
                 }, {
                     targets: 'target-array-of-values',
-                    width: '18%',
                     render: function (data, type) {
                         if (type !== 'display') {
                             return escapeHtmlAsUnicodeLookalike(data.sort || data.title);
@@ -437,10 +436,6 @@ var globalFunctions = {};
 
         yadcf.init(filesTable, yadcfColumns);
 
-        initHiddenColumns(filesTable);
-
-        filesTable.responsive.recalc();
-
         $.ajax({
             url: 'data/by_filename_compressed/' + displayFile + '.json.gz',
             // https://stackoverflow.com/a/17682424
@@ -499,6 +494,7 @@ var globalFunctions = {};
                 });
                 $('#winbindex-table-container').removeClass('winbindex-table-container-hidden');
                 filesTable.rows.add(rows).draw();
+                initHiddenColumns(filesTable);
                 $('#page-loader').hide();
 
                 $('#main-description').text(mainDescription);
@@ -526,9 +522,7 @@ var globalFunctions = {};
             });
         }
 
-        hiddenColumns.forEach(function (columnIndex) {
-            table.column(columnIndex).visible(false);
-        });
+        table.columns(hiddenColumns).visible(false);
 
         var settingsButton = $('#winbindex-settings-button');
         $('#winbindex-table_filter').append(settingsButton);
@@ -579,9 +573,11 @@ var globalFunctions = {};
     }
 
     function getWin10Versions(data) {
-        var items = Object.keys(data.windowsVersions).sort().map(function (item) {
+        var items = Object.keys(data.windowsVersions).map(function (item) {
             return 'Windows 10 ' + item;
         });
+
+        items.sort();
 
         var title = items[0] || '-';
 
@@ -611,6 +607,8 @@ var globalFunctions = {};
                 }
             });
         });
+
+        items.sort();
 
         var title = '-';
         if (items.length > 0) {
