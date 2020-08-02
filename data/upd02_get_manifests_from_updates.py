@@ -65,7 +65,7 @@ def download_update(windows_version, update_kb):
     #    with open(local_path, 'wb') as f:
     #        shutil.copyfileobj(r.raw, f)
 
-    args = ['tools/aria2c.exe', '-x4', '-o', local_path, '--allow-overwrite=true', download_url]
+    args = ['aria2c', '-x4', '-o', local_path, '--allow-overwrite=true', download_url]
     subprocess.run(args, check=True, stdout=None if config.verbose_run else subprocess.DEVNULL)
 
     return download_url, local_dir, local_path
@@ -74,7 +74,7 @@ def extract_manifest_files(local_dir, local_path):
     extract1_dir = local_dir.joinpath('extract1')
     extract1_dir.mkdir(parents=True, exist_ok=True)
 
-    subprocess.run(['expand', '-f:*.cab', local_path, extract1_dir], check=True, stdout=None if config.verbose_run else subprocess.DEVNULL)
+    subprocess.run(['cabextract', '-F', '*.cab', '-b', extract1_dir, local_path], check=True, stdout=None if config.verbose_run else subprocess.DEVNULL)
 
     extract2_dir = local_dir.joinpath('extract2')
     extract2_dir.mkdir(parents=True, exist_ok=True)
@@ -83,17 +83,17 @@ def extract_manifest_files(local_dir, local_path):
         if cab.name.lower() == 'WSUSSCAN.cab'.lower():
             continue
 
-        subprocess.run(['expand', '-f:*.cab', cab, extract2_dir], check=True, stdout=None if config.verbose_run else subprocess.DEVNULL)
+        subprocess.run(['cabextract', '-F', '*.cab', '-b', extract2_dir, cab], check=True, stdout=None if config.verbose_run else subprocess.DEVNULL)
 
     if any(extract2_dir.glob('*.cab')):
         for cab in extract2_dir.glob('*.cab'):
-            subprocess.run(['expand', '-f:*.manifest', cab, local_dir], check=True, stdout=None if config.verbose_run else subprocess.DEVNULL)
+            subprocess.run(['cabextract', '-F', '*.manifest', '-b', local_dir, cab], check=True, stdout=None if config.verbose_run else subprocess.DEVNULL)
     else:
         for cab in extract1_dir.glob('*.cab'):
             if cab.name.lower() == 'WSUSSCAN.cab'.lower():
                 continue
 
-            subprocess.run(['expand', '-f:*.manifest', cab, local_dir], check=True, stdout=None if config.verbose_run else subprocess.DEVNULL)
+            subprocess.run(['cabextract', '-F', '*.manifest', '-b', local_dir, cab], check=True, stdout=None if config.verbose_run else subprocess.DEVNULL)
 
     shutil.rmtree(extract1_dir)
     shutil.rmtree(extract2_dir)

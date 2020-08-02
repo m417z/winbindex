@@ -1,12 +1,14 @@
-os: windows
-language: shell       # 'language: python' is an error on Travis CI Windows
+language: python
+python:
+  - "3.8"
 before_install:
-  - fsutil 8dot3name set 1
-  - choco install python --version 3.8.0
-  - python -m pip install --upgrade pip
-  - python -m pip install python-rapidjson requests
-env: PATH=/c/Python38:/c/Python38/Scripts:$PATH
-install: pip install --upgrade pip
+  - sudo apt-get -y install aria2
+  - sudo apt-get -y install cabextract
+addons:
+  apt:
+    update: true
+install:
+  - pip install python-rapidjson requests
 script:
   - cd data
   - python deploy.py
