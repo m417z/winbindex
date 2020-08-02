@@ -155,8 +155,7 @@ def add_file_info_from_update(filename, output_dir, *, file_hash, file_info, win
     else:
         output_path = output_dir.joinpath(filename + '.json.gz')
         with gzip.open(output_path, 'wt', encoding='utf-8') as f:
-            #rapidjson.dump(data, f, indent=4, sort_keys=True)
-            f.write(rapidjson.dumps(data, indent=4, sort_keys=True))
+            rapidjson.dump(data, f, indent=4, compresslevel=6, sort_keys=True)
 
 virustotal_info_cache = {}
 
@@ -315,8 +314,6 @@ def group_update_by_filename(windows_version, update_kb, update, parsed_dir):
             count += 1
             if count % 200 == 0:
                 print(f' ...{count}', end='', flush=True)
-            if count == 600:
-                exit('Aborted')
 
         try:
             group_update_assembly_by_filename(str(path), output_dir,
