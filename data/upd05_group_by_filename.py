@@ -43,7 +43,7 @@ def write_all_file_info():
                             sha256_to_filename[sha256] = filename
 
         output_path = output_dir.joinpath(filename + '.json.gz')
-        with gzip.open(output_path, 'wt', encoding='utf-8') as f:
+        with gzip.open(output_path, 'wt', compresslevel=6, encoding='utf-8') as f:
             rapidjson.dump(data, f, indent=4, sort_keys=True)
 
     all_filenames = sorted(list(all_filenames))
