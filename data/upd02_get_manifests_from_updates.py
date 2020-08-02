@@ -84,6 +84,7 @@ def extract_manifest_files(local_dir, local_path):
             continue
 
         subprocess.run(['expand', '-f:*.cab', cab, extract2_dir], check=True, stdout=None if config.verbose_run else subprocess.DEVNULL)
+
     if any(extract2_dir.glob('*.cab')):
         for cab in extract2_dir.glob('*.cab'):
             subprocess.run(['expand', '-f:*.manifest', cab, local_dir], check=True, stdout=None if config.verbose_run else subprocess.DEVNULL)
