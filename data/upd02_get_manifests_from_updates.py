@@ -74,7 +74,7 @@ def extract_manifest_files(local_dir, local_path):
     extract1_dir = local_dir.joinpath('extract1')
     extract1_dir.mkdir(parents=True, exist_ok=True)
 
-    subprocess.run(['cabextract', '-F', '*.cab', '-b', extract1_dir, local_path], check=True, stdout=None if config.verbose_run else subprocess.DEVNULL)
+    subprocess.run(['cabextract', '-F', '*.cab', '-d', extract1_dir, local_path], check=True, stdout=None if config.verbose_run else subprocess.DEVNULL)
 
     extract2_dir = local_dir.joinpath('extract2')
     extract2_dir.mkdir(parents=True, exist_ok=True)
@@ -83,17 +83,17 @@ def extract_manifest_files(local_dir, local_path):
         if cab.name.lower() == 'WSUSSCAN.cab'.lower():
             continue
 
-        subprocess.run(['cabextract', '-F', '*.cab', '-b', extract2_dir, cab], check=True, stdout=None if config.verbose_run else subprocess.DEVNULL)
+        subprocess.run(['cabextract', '-F', '*.cab', '-d', extract2_dir, cab], check=True, stdout=None if config.verbose_run else subprocess.DEVNULL)
 
     if any(extract2_dir.glob('*.cab')):
         for cab in extract2_dir.glob('*.cab'):
-            subprocess.run(['cabextract', '-F', '*.manifest', '-b', local_dir, cab], check=True, stdout=None if config.verbose_run else subprocess.DEVNULL)
+            subprocess.run(['cabextract', '-F', '*.manifest', '-d', local_dir, cab], check=True, stdout=None if config.verbose_run else subprocess.DEVNULL)
     else:
         for cab in extract1_dir.glob('*.cab'):
             if cab.name.lower() == 'WSUSSCAN.cab'.lower():
                 continue
 
-            subprocess.run(['cabextract', '-F', '*.manifest', '-b', local_dir, cab], check=True, stdout=None if config.verbose_run else subprocess.DEVNULL)
+            subprocess.run(['cabextract', '-F', '*.manifest', '-d', local_dir, cab], check=True, stdout=None if config.verbose_run else subprocess.DEVNULL)
 
     shutil.rmtree(extract1_dir)
     shutil.rmtree(extract2_dir)
