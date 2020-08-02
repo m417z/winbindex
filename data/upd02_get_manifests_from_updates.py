@@ -1,6 +1,7 @@
 from threading import Thread
 from pathlib import Path
 import subprocess
+import platform
 import requests
 import shutil
 import json
@@ -65,16 +66,28 @@ def download_update(windows_version, update_kb):
     #    with open(local_path, 'wb') as f:
     #        shutil.copyfileobj(r.raw, f)
 
-    args = ['tools/aria2c.exe', '-x4', '-o', local_path, '--allow-overwrite=true', download_url]
+    if platform.system() == 'Windows':
+        aria2c_app = 'tools/aria2c.exe'
+    else:
+        aria2c_app = 'aria2c'
+
+    args = [aria2c_app, '-x4', '-o', local_path, '--allow-overwrite=true', download_url]
     subprocess.run(args, check=True, stdout=None if config.verbose_run else subprocess.DEVNULL)
 
     return download_url, local_dir, local_path
 
 def extract_manifest_files(local_dir, local_path):
+    def cab_exctract(pattern, from_file, to_dir):
+        if platform.system() == 'Windows':
+            args = ['expand', f'-f:{pattern}', from_file, to_dir]
+        else:
+            args = ['cabextract', '-F', pattern, '-d', to_dir, from_file]
+        subprocess.run(args, check=True, stdout=None if config.verbose_run else subprocess.DEVNULL)
+
     extract1_dir = local_dir.joinpath('extract1')
     extract1_dir.mkdir(parents=True, exist_ok=True)
 
-    subprocess.run(['expand', '-f:*.cab', local_path, extract1_dir], check=True, stdout=None if config.verbose_run else subprocess.DEVNULL)
+    cab_exctract('*.cab', local_path, extract1_dir)
 
     extract2_dir = local_dir.joinpath('extract2')
     extract2_dir.mkdir(parents=True, exist_ok=True)
@@ -83,17 +96,17 @@ def extract_manifest_files(local_dir, local_path):
         if cab.name.lower() == 'WSUSSCAN.cab'.lower():
             continue
 
-        subprocess.run(['expand', '-f:*.cab', cab, extract2_dir], check=True, stdout=None if config.verbose_run else subprocess.DEVNULL)
+        cab_exctract('*.cab', cab, extract2_dir)
 
     if any(extract2_dir.glob('*.cab')):
         for cab in extract2_dir.glob('*.cab'):
-            subprocess.run(['expand', '-f:*.manifest', cab, local_dir], check=True, stdout=None if config.verbose_run else subprocess.DEVNULL)
+            cab_exctract('*.manifest', cab, local_dir)
     else:
         for cab in extract1_dir.glob('*.cab'):
             if cab.name.lower() == 'WSUSSCAN.cab'.lower():
                 continue
 
-            subprocess.run(['expand', '-f:*.manifest', cab, local_dir], check=True, stdout=None if config.verbose_run else subprocess.DEVNULL)
+            cab_exctract('*.manifest', cab, local_dir)
 
     shutil.rmtree(extract1_dir)
     shutil.rmtree(extract2_dir)
