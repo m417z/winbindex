@@ -1,7 +1,7 @@
 from datetime import datetime
 from pathlib import Path
+import rapidjson
 import bisect
-import ujson
 import gzip
 
 import config
@@ -15,7 +15,7 @@ def write_all_file_info():
 
     if index_filename.is_file():
         with open(index_filename, 'r') as f:
-            index_data = ujson.load(f)
+            index_data = rapidjson.load(f)
 
         all_filenames = set(index_data['filenames'])
         sha256_to_filename = index_data['sha256ToFilename']
@@ -44,7 +44,7 @@ def write_all_file_info():
 
         output_path = output_dir.joinpath(filename + '.json.gz')
         with gzip.open(output_path, 'wt', encoding='utf-8') as f:
-            ujson.dump(data, f, indent=4, sort_keys=True, escape_forward_slashes=False)
+            rapidjson.dump(data, f, indent=4, sort_keys=True)
 
     all_filenames = sorted(list(all_filenames))
 
@@ -54,10 +54,10 @@ def write_all_file_info():
     }
 
     with open(index_filename, 'w') as f:
-        ujson.dump(index_data, f, indent=4, sort_keys=True, escape_forward_slashes=False)
+        rapidjson.dump(index_data, f, indent=4, sort_keys=True)
 
     with open(filenames_filename, 'w') as f:
-        ujson.dump(all_filenames, f, indent=4, sort_keys=True, escape_forward_slashes=False)
+        rapidjson.dump(all_filenames, f, indent=4, sort_keys=True)
 
 def assert_fileinfo_close_enough(file_info_1, file_info_2):
     def canonical_fileinfo(file_info):
@@ -116,7 +116,7 @@ def add_file_info_from_update(filename, output_dir, *, file_hash, file_info, win
         output_path = output_dir.joinpath(filename + '.json.gz')
         if output_path.is_file():
             with gzip.open(output_path, 'rt', encoding='utf-8') as f:
-                data = ujson.load(f)
+                data = rapidjson.load(f)
         else:
             data = {}
 
@@ -155,7 +155,7 @@ def add_file_info_from_update(filename, output_dir, *, file_hash, file_info, win
     else:
         output_path = output_dir.joinpath(filename + '.json.gz')
         with gzip.open(output_path, 'wt', encoding='utf-8') as f:
-            ujson.dump(data, f, indent=4, sort_keys=True, escape_forward_slashes=False)
+            rapidjson.dump(data, f, indent=4, sort_keys=True)
 
 virustotal_info_cache = {}
 
@@ -177,7 +177,7 @@ def get_virustotal_info(file_hash):
         return None
 
     with open(filename) as f:
-        data = ujson.load(f)
+        data = rapidjson.load(f)
 
     attr = data['data']['attributes']
 
@@ -269,7 +269,7 @@ def get_virustotal_info(file_hash):
 
 def group_update_assembly_by_filename(input_filename, output_dir, *, windows_version, update_kb, update_info, manifest_name):
     with open(input_filename) as f:
-        data = ujson.load(f)
+        data = rapidjson.load(f)
 
     assembly_identity = data['assemblyIdentity']
 
@@ -314,8 +314,6 @@ def group_update_by_filename(windows_version, update_kb, update, parsed_dir):
             count += 1
             if count % 200 == 0:
                 print(f' ...{count}', end='', flush=True)
-            elif count > 2200:
-                print(f'{count}-{path.stem}')
 
         try:
             group_update_assembly_by_filename(str(path), output_dir,
@@ -336,7 +334,7 @@ def add_file_info_from_iso_data(filename, output_dir, *, file_hash, file_info, s
         output_path = output_dir.joinpath(filename + '.json.gz')
         if output_path.is_file():
             with gzip.open(output_path, 'rt', encoding='utf-8') as f:
-                data = ujson.load(f)
+                data = rapidjson.load(f)
         else:
             data = {}
 
@@ -370,7 +368,7 @@ def group_iso_data_by_filename(windows_version, windows_release_date, iso_data_f
     output_dir.mkdir(parents=True, exist_ok=True)
 
     with open(iso_data_file) as f:
-        iso_data = ujson.load(f)
+        iso_data = rapidjson.load(f)
 
     assert windows_version == iso_data['windowsVersion']
 
@@ -407,7 +405,7 @@ def group_iso_data_by_filename(windows_version, windows_release_date, iso_data_f
 
 def main():
     with open(config.out_path.joinpath('updates.json')) as f:
-        updates = ujson.load(f)
+        updates = rapidjson.load(f)
 
     for windows_version in updates:
         if windows_version == '1909':
