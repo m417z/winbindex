@@ -674,6 +674,13 @@
     ],
     "1803": [
         {
+            "heading": "July 14, 2020\u2014KB4565489 (OS Build 17134.1610)",
+            "updateKb": "KB4565489",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4565489",
+            "releaseDate": "2020-07-14T00:00:00",
+            "releaseVersion": "OS Build 17134.1610"
+        },
+        {
             "heading": "June 16, 2020\u2014KB4567514 (OS Build 17134.1553)",
             "updateKb": "KB4567514",
             "updateUrl": "https://support.microsoft.com/en-us/help/4567514",
