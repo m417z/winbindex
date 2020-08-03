@@ -24,6 +24,13 @@
             "releaseVersion": "1903-OS Build 18362.997 and 1909-OS Build 18363.997"
         },
         {
+            "heading": "July 14, 2020\u2014KB4565483 (OS Builds 18362.959 and 18363.959)",
+            "updateKb": "KB4565483",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4565483",
+            "releaseDate": "2020-07-14T00:00:00",
+            "releaseVersion": "1903-OS Build 18362.959 and 1909-OS Build 18363.959"
+        },
+        {
             "heading": "June 16, 2020\u2014KB4567512 (OS Builds 18362.904 and 18363.904)",
             "updateKb": "KB4567512",
             "updateUrl": "https://support.microsoft.com/en-us/help/4567512",
@@ -136,6 +143,13 @@
             "updateUrl": "https://support.microsoft.com/en-us/help/4559004",
             "releaseDate": "2020-07-21T00:00:00",
             "releaseVersion": "1903-OS Build 18362.997 and 1909-OS Build 18363.997"
+        },
+        {
+            "heading": "July 14, 2020\u2014KB4565483 (OS Builds 18362.959 and 18363.959)",
+            "updateKb": "KB4565483",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4565483",
+            "releaseDate": "2020-07-14T00:00:00",
+            "releaseVersion": "1903-OS Build 18362.959 and 1909-OS Build 18363.959"
         },
         {
             "heading": "June 16, 2020\u2014KB4567512 (OS Builds 18362.904 and 18363.904)",
