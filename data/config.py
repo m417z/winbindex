@@ -6,4 +6,4 @@ verbose_progress = True
 extract_in_a_new_thread = False
 exit_on_first_error = True
 high_mem_usage_for_performance = False
-compression_level = 2
+compression_level = 1
