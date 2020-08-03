@@ -1,64 +1,20 @@
 from datetime import datetime
 from pathlib import Path
-import rapidjson
 import bisect
 import orjson
 import gzip
+import json
 
 import config
 
 file_info_data = {}
 
 def write_all_file_info():
-    index_filename = config.out_path.joinpath('index.json')
-    filenames_filename = config.out_path.joinpath('filenames.json')
     output_dir = config.out_path.joinpath('by_filename_compressed')
+    all_filenames = sorted(path.with_suffix('').stem for path in output_dir.glob('*.json.gz'))
 
-    if index_filename.is_file():
-        with open(index_filename, 'r') as f:
-            index_data = rapidjson.load(f)
-
-        all_filenames = set(index_data['filenames'])
-        sha256_to_filename = index_data['sha256ToFilename']
-    else:
-        all_filenames = set()
-        sha256_to_filename = {}
-
-    for filename in file_info_data:
-        data = file_info_data[filename]
-
-        all_filenames.add(filename)
-
-        if not filename.endswith('.mui'):
-            for sha256 in data:
-                is_pe_file = 'fileInfo' in data[sha256] and 'machineType' in data[sha256]['fileInfo']
-                if is_pe_file:
-                    if sha256 not in sha256_to_filename:
-                        sha256_to_filename[sha256] = filename
-                    elif sha256_to_filename[sha256] != filename:
-                        old = sha256_to_filename[sha256]
-                        new = filename
-                        if ((old.endswith('.tmp') and not new.endswith('.tmp')) or
-                            len(new) < len(old) or
-                            (len(new) == len(old) and new < old)):
-                            sha256_to_filename[sha256] = filename
-
-        output_path = output_dir.joinpath(filename + '.json.gz')
-        with gzip.open(output_path, 'wt', compresslevel=config.compression_level, encoding='utf-8') as f:
-            rapidjson.dump(data, f, indent=4, sort_keys=True)
-
-    all_filenames = sorted(list(all_filenames))
-
-    index_data = {
-        'filenames': all_filenames,
-        'sha256ToFilename': sha256_to_filename,
-    }
-
-    with open(index_filename, 'w') as f:
-        rapidjson.dump(index_data, f, indent=4, sort_keys=True)
-
-    with open(filenames_filename, 'w') as f:
-        rapidjson.dump(all_filenames, f, indent=4, sort_keys=True)
+    with open(config.out_path.joinpath('filenames.json'), 'w') as f:
+        json.dump(all_filenames, f, indent=4, sort_keys=True)
 
 def assert_fileinfo_close_enough(file_info_1, file_info_2):
     def canonical_fileinfo(file_info):
@@ -178,7 +134,7 @@ def get_virustotal_info(file_hash):
         return None
 
     with open(filename) as f:
-        data = rapidjson.load(f)
+        data = json.load(f)
 
     attr = data['data']['attributes']
 
@@ -270,7 +226,7 @@ def get_virustotal_info(file_hash):
 
 def group_update_assembly_by_filename(input_filename, output_dir, *, windows_version, update_kb, update_info, manifest_name):
     with open(input_filename) as f:
-        data = rapidjson.load(f)
+        data = json.load(f)
 
     assembly_identity = data['assemblyIdentity']
 
@@ -302,21 +258,37 @@ def group_update_assembly_by_filename(input_filename, output_dir, *, windows_ver
             assembly_identity=assembly_identity,
             attributes=file_item['attributes'])
 
-def group_update_by_filename(windows_version, update_kb, update, parsed_dir):
+def group_update_by_filename(windows_version, update_kb, update, parsed_dir, progress_state=None):
     output_dir = config.out_path.joinpath('by_filename_compressed')
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    count = 0
-    for path in parsed_dir.glob('*.json'):
+    paths = parsed_dir.glob('*.json')
+
+    if progress_state:
+        assert progress_state['update_kb'] == update_kb
+
+        count = progress_state['files_processed']
+        paths = sorted(paths)  # for reproducible order
+        paths = paths[count:]
+
+        if progress_state['files_total'] is None:
+            progress_state['files_total'] = len(paths)
+        else:
+            assert progress_state['files_total'] == len(paths)
+    else:
+        count = 0
+
+    for path in paths:
         if not path.is_file():
             continue
 
-        if config.verbose_progress:
-            count += 1
-            if count % 200 == 0:
-                print(f' ...{count}', end='', flush=True)
-            if count == 10000:
-                exit('Aborted')
+        count += 1
+        if count % 200 == 0 and config.verbose_progress:
+            print(f' ...{count}', end='', flush=True)
+
+        if progress_state and datetime.now() >= progress_state['time_to_stop']:
+            progress_state['files_processed'] = count
+            break
 
         try:
             group_update_assembly_by_filename(str(path), output_dir,
@@ -330,6 +302,9 @@ def group_update_by_filename(windows_version, update_kb, update, parsed_dir):
             if config.exit_on_first_error:
                 raise
 
+    if progress_state:
+        progress_state['done'] = count == len(paths)
+
 def add_file_info_from_iso_data(filename, output_dir, *, file_hash, file_info, source_path, windows_version, windows_version_info):
     if filename in file_info_data:
         data = file_info_data[filename]
@@ -337,7 +312,7 @@ def add_file_info_from_iso_data(filename, output_dir, *, file_hash, file_info, s
         output_path = output_dir.joinpath(filename + '.json.gz')
         if output_path.is_file():
             with gzip.open(output_path, 'rt', encoding='utf-8') as f:
-                data = rapidjson.load(f)
+                data = json.load(f)
         else:
             data = {}
 
@@ -371,7 +346,7 @@ def group_iso_data_by_filename(windows_version, windows_release_date, iso_data_f
     output_dir.mkdir(parents=True, exist_ok=True)
 
     with open(iso_data_file) as f:
-        iso_data = rapidjson.load(f)
+        iso_data = json.load(f)
 
     assert windows_version == iso_data['windowsVersion']
 
@@ -406,9 +381,9 @@ def group_iso_data_by_filename(windows_version, windows_release_date, iso_data_f
             windows_version=windows_version,
             windows_version_info=windows_version_info)
 
-def main():
+def main(progress_state=None):
     with open(config.out_path.joinpath('updates.json')) as f:
-        updates = rapidjson.load(f)
+        updates = json.load(f)
 
     for windows_version in updates:
         if windows_version == '1909':
@@ -421,7 +396,7 @@ def main():
 
             parsed_dir = config.out_path.joinpath('parsed', windows_version, update_kb)
             if parsed_dir.is_dir():
-                group_update_by_filename(windows_version, update_kb, update, parsed_dir)
+                group_update_by_filename(windows_version, update_kb, update, parsed_dir, progress_state)
                 print(' ' + update_kb, end='', flush=True)
 
         print()
