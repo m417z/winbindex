@@ -155,7 +155,7 @@ def add_file_info_from_update(filename, output_dir, *, file_hash, file_info, win
         file_info_data[filename] = data
     else:
         output_path = output_dir.joinpath(filename + '.json.gz')
-        with gzip.open(output_path, 'w') as f:
+        with gzip.open(output_path, 'w', compresslevel=config.compression_level) as f:
             f.write(orjson.dumps(data))
 
 virustotal_info_cache = {}
