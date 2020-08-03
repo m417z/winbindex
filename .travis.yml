@@ -8,10 +8,10 @@ addons:
   apt:
     update: true
 install:
-  - pip install orjson python-rapidjson requests
+  - pip install orjson requests
 script:
   - cd data
-  - python -m cProfile -s tottime deploy.py
+  - python deploy.py
 git:
   depth: 1
 
