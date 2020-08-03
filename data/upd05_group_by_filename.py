@@ -2,6 +2,7 @@ from datetime import datetime
 from pathlib import Path
 import rapidjson
 import bisect
+import orjson
 import gzip
 
 import config
@@ -115,8 +116,8 @@ def add_file_info_from_update(filename, output_dir, *, file_hash, file_info, win
     else:
         output_path = output_dir.joinpath(filename + '.json.gz')
         if output_path.is_file():
-            with gzip.open(output_path, 'rt', encoding='utf-8') as f:
-                data = rapidjson.load(f)
+            with gzip.open(output_path, 'r') as f:
+                data = orjson.loads(f.read())
         else:
             data = {}
 
@@ -154,8 +155,8 @@ def add_file_info_from_update(filename, output_dir, *, file_hash, file_info, win
         file_info_data[filename] = data
     else:
         output_path = output_dir.joinpath(filename + '.json.gz')
-        with gzip.open(output_path, 'wt', compresslevel=config.compression_level, encoding='utf-8') as f:
-            rapidjson.dump(data, f, indent=4, sort_keys=True)
+        with gzip.open(output_path, 'w') as f:
+            f.write(orjson.dumps(data))
 
 virustotal_info_cache = {}
 
