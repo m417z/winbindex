@@ -269,12 +269,13 @@ def group_update_by_filename(windows_version, update_kb, update, parsed_dir, pro
 
         count = progress_state['files_processed']
         paths = sorted(paths)  # for reproducible order
-        paths = paths[count:]
 
         if progress_state['files_total'] is None:
             progress_state['files_total'] = len(paths)
         else:
             assert progress_state['files_total'] == len(paths)
+
+        paths = paths[count:]
     else:
         count = 0
 

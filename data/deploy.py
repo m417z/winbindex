@@ -112,14 +112,14 @@ def run_deploy():
         with open(progress_file, 'w') as f:
             json.dump(progress_state, f, indent=4)
 
-        return f'Updated with files from {new_single_update} ({progress_state["files_processed"]} of {progress_state["files_total"]})'
+        return f'Updated with files from {progress_state["update_kb"]} ({progress_state["files_processed"]} of {progress_state["files_total"]})'
 
     progress_file.unlink()
 
     with open(config.out_path.joinpath('updates.json'), 'w') as f:
         json.dump(progress_state['new_updates'], f, indent=4)
 
-    return f'Updated with files from {new_single_update}'
+    return f'Updated with files from {progress_state["update_kb"]}'
 
 def can_deploy():
     # Unsupported in this flow.
@@ -133,7 +133,7 @@ def commit_deploy(pr_title):
     branch_name = f'deploy-{time.time()}'
 
     commands = [
-        ['git', 'config', '--global', 'user.email', 'winbindex-deploy-bot@m417z.com'],
+        ['git', 'config', '--global', 'user.email', '69083578+winbindex-deploy-bot@users.noreply.github.com'],
         ['git', 'config', '--global', 'user.name', 'winbindex-deploy-bot'],
         ['git', 'checkout', '-b', branch_name],
         ['git', 'add', '-A'],
@@ -147,7 +147,7 @@ def commit_deploy(pr_title):
 
     data = {
         'title': pr_title,
-        'head': f'winbindex-deploy-bot:{branch_name}',
+        'head': branch_name,
         'base': 'gh-pages'
     }
     headers = {
