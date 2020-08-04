@@ -3260,6 +3260,13 @@
     ],
     "1507": [
         {
+            "heading": "July 14, 2020\u2014KB4565513 (OS Build 10240.18638)",
+            "updateKb": "KB4565513",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4565513",
+            "releaseDate": "2020-07-14T00:00:00",
+            "releaseVersion": "OS Build 10240.18638"
+        },
+        {
             "heading": "June 18, 2020\u2014KB4567518 (OS Build 10240.18609)",
             "updateKb": "KB4567518",
             "updateUrl": "https://support.microsoft.com/en-us/help/4567518",
