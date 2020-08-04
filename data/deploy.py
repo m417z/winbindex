@@ -83,8 +83,7 @@ def run_deploy():
             'update_kb': new_single_update,
             'new_updates': new_updates,
             'files_processed': 0,
-            'files_total': None,
-            'done': False
+            'files_total': None
         }
 
     print('Running upd02_get_manifests_from_updates')
@@ -108,11 +107,13 @@ def run_deploy():
     if tools_extracted:
         shutil.rmtree(config.out_path.joinpath('tools'))
 
-    if not progress_state['done']:
+    if progress_state['files_processed'] < progress_state['files_total']:
         with open(progress_file, 'w') as f:
             json.dump(progress_state, f, indent=4)
 
         return f'Updated with files from {progress_state["update_kb"]} ({progress_state["files_processed"]} of {progress_state["files_total"]})'
+
+    assert progress_state['files_processed'] == progress_state['files_total']
 
     progress_file.unlink()
 
