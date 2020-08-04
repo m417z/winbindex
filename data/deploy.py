@@ -72,6 +72,8 @@ def run_deploy():
     if progress_file.is_file():
         with open(progress_file, 'r') as f:
             progress_state = json.load(f)
+
+        progress_file.unlink()
     else:
         result = prepare_updates()
         if not result:
@@ -114,8 +116,6 @@ def run_deploy():
         return f'Updated with files from {progress_state["update_kb"]} ({progress_state["files_processed"]} of {progress_state["files_total"]})'
 
     assert progress_state['files_processed'] == progress_state['files_total']
-
-    progress_file.unlink()
 
     with open(config.out_path.joinpath('updates.json'), 'w') as f:
         json.dump(progress_state['new_updates'], f, indent=4)
