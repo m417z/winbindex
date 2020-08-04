@@ -288,7 +288,6 @@ def group_update_by_filename(windows_version, update_kb, update, parsed_dir, pro
             print(f' ...{count}', end='', flush=True)
 
         if progress_state and datetime.now() >= progress_state['time_to_stop']:
-            progress_state['files_processed'] = count
             break
 
         try:
@@ -304,7 +303,7 @@ def group_update_by_filename(windows_version, update_kb, update, parsed_dir, pro
                 raise
 
     if progress_state:
-        progress_state['done'] = count == len(paths)
+        progress_state['files_processed'] = count
 
 def add_file_info_from_iso_data(filename, output_dir, *, file_hash, file_info, source_path, windows_version, windows_version_info):
     if filename in file_info_data:
