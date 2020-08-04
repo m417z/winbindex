@@ -1,6 +1,20 @@
 {
     "2004": [
         {
+            "heading": "July 31, 2020\u2014KB4568831 (OS Build 19041.423) Preview",
+            "updateKb": "KB4568831",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4568831",
+            "releaseDate": "2020-07-31T00:00:00",
+            "releaseVersion": "OS Build 19041.423"
+        },
+        {
+            "heading": "July 14, 2020\u2014KB4565503 (OS Build 19041.388)",
+            "updateKb": "KB4565503",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4565503",
+            "releaseDate": "2020-07-14T00:00:00",
+            "releaseVersion": "OS Build 19041.388"
+        },
+        {
             "heading": "June 18, 2020\u2014KB4567523 (OS Build 19041.331)",
             "updateKb": "KB4567523",
             "updateUrl": "https://support.microsoft.com/en-us/help/4567523",
@@ -1081,6 +1095,13 @@
         }
     ],
     "1709": [
+        {
+            "heading": "July 14, 2020\u2014KB4565508 (OS Build 16299.1992)",
+            "updateKb": "KB4565508",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4565508",
+            "releaseDate": "2020-07-14T00:00:00",
+            "releaseVersion": "OS Build 16299.1992"
+        },
         {
             "heading": "June 18, 2020\u2014KB4567515 (OS Build 16299.1937)",
             "updateKb": "KB4567515",
@@ -2290,6 +2311,13 @@
     ],
     "1607": [
         {
+            "heading": "July 14, 2020\u2014KB4565511 (OS Build 14393.3808)",
+            "updateKb": "KB4565511",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4565511",
+            "releaseDate": "2020-07-14T00:00:00",
+            "releaseVersion": "OS Build 14393.3808"
+        },
+        {
             "heading": "June 18, 2020\u2014KB4567517 (OS Build 14393.3755)",
             "updateKb": "KB4567517",
             "updateUrl": "https://support.microsoft.com/en-us/help/4567517",
@@ -3238,6 +3266,13 @@
         }
     ],
     "1507": [
+        {
+            "heading": "July 14, 2020\u2014KB4565513 (OS Build 10240.18638)",
+            "updateKb": "KB4565513",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4565513",
+            "releaseDate": "2020-07-14T00:00:00",
+            "releaseVersion": "OS Build 10240.18638"
+        },
         {
             "heading": "June 18, 2020\u2014KB4567518 (OS Build 10240.18609)",
             "updateKb": "KB4567518",
