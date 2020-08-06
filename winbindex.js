@@ -5,31 +5,48 @@ var globalFunctions = {};
 (function () {
     'use strict';
 
-    animateLogo();
+    run();
 
-    globalFunctions.onHashCopyClick = onHashCopyClick;
-    globalFunctions.onShowExtraClick = onShowExtraClick;
+    function run() {
+        globalFunctions.onHashCopyClick = onHashCopyClick;
+        globalFunctions.onShowExtraClick = onShowExtraClick;
 
-    var displayFile = getParameterByName('file');
-    if (displayFile) {
-        if (/(^\.\.[/\\]|^\/etc\/)/.test(displayFile)) {
-            location = 'https://www.youtube.com/watch?v=sTSA_sWGM44';
+        animateLogo();
+
+        var index = getParameterByName('index');
+        if (index !== null) {
+            showIndex(index || '');
             return;
         }
 
-        displayFile = displayFile.replace(/[<>:"/\|?*]/g, '');
-    }
+        var indexFile = getParameterByName('index_file');
+        if (indexFile) {
+            var fileHash = getParameterByName('hash');
+            showIndexFile(indexFile, fileHash);
+            return;
+        }
 
-    if (displayFile) {
-        var newTitle = displayFile + ' - Winbindex';
-        $('#main-title').text(newTitle);
-        document.title = newTitle;
+        var displayFile = getParameterByName('file');
+        if (displayFile) {
+            if (/(^\.\.[/\\]|^\/etc\/)/.test(displayFile)) {
+                location = 'https://www.youtube.com/watch?v=sTSA_sWGM44';
+                return;
+            }
 
-        var searchQuery = getParameterByName('search');
+            displayFile = displayFile.replace(/[<>:"/\|?*]/g, '');
+        }
 
-        loadFileInfoToTable(displayFile, searchQuery);
-    } else {
-        loadFileNames();
+        if (displayFile) {
+            var newTitle = displayFile + ' - Winbindex';
+            $('#main-title').text(newTitle);
+            document.title = newTitle;
+
+            var searchQuery = getParameterByName('search');
+
+            loadFileInfoToTable(displayFile, searchQuery);
+        } else {
+            loadFileNames();
+        }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -166,10 +183,10 @@ var globalFunctions = {};
                     }, 0);
 
                     deferred.resolve();
-                }).fail(function (jqXHR, textStatus, errorThrown) {
+                }).fail(function (jqXHR, textStatus) {
                     var msg = textStatus;
-                    if (errorThrown) {
-                        msg += ': ' + errorThrown;
+                    if (jqXHR.status) {
+                        msg += ': status code ' + jqXHR.status;
                     }
                     alert(msg);
                 });
@@ -245,12 +262,8 @@ var globalFunctions = {};
                             return data;
                         }
 
-                        var textLimit = 6;
-                        var textShown = data.slice(0, textLimit);
-                        //var textHidden = data.slice(textLimit);
-
                         var seeMoreLink = $('<a data-toggle="tooltip" data-html="true" href="#"></a>')
-                            .text(textShown + '…')
+                            .text(data.slice(0, 6) + '…')
                             .prop('title', escapeHtml(data) + '<br><br>Click to copy')
                             .attr('onclick', 'arguments[0].stopPropagation(); return globalFunctions.onHashCopyClick(this, "' + data + '");');
 
@@ -362,7 +375,7 @@ var globalFunctions = {};
                     sortable: false,
                     render: function (data) {
                         if (!data.timestamp || !data.virtualSize) {
-                            if (/\.(exe|dll|sys)$/.test(displayFile)) {
+                            if (/\.(exe|dll|sys)$/.test(fileToLoad)) {
                                 var msg = 'Download is not available since the file isn\'t available on VirusTotal';
                             } else {
                                 var msg = 'Download is only available for executables such as exe, dll, and sys files';
@@ -374,7 +387,7 @@ var globalFunctions = {};
                         // "%s/%s/%08X%x/%s" % (serverName, peName, timeStamp, imageSize, peName)
                         // https://randomascii.wordpress.com/2013/03/09/symbols-the-microsoft-way/
 
-                        var fileName = displayFile;
+                        var fileName = fileToLoad;
                         var fileId = ('0000000' + data.timestamp.toString(16).toUpperCase()).slice(-8) + data.virtualSize.toString(16).toLowerCase();
                         var url = 'https://msdl.microsoft.com/download/symbols/' + fileName + '/' + fileId + '/' + fileName;
 
@@ -437,7 +450,7 @@ var globalFunctions = {};
         yadcf.init(filesTable, yadcfColumns);
 
         $.ajax({
-            url: 'data/by_filename_compressed/' + displayFile + '.json.gz',
+            url: 'data/by_filename_compressed/' + fileToLoad + '.json.gz',
             // https://stackoverflow.com/a/17682424
             xhrFields: {
                 responseType: 'blob'
@@ -500,10 +513,10 @@ var globalFunctions = {};
                 $('#main-description').text(mainDescription);
             };
             fileReader.readAsArrayBuffer(compressed);
-        }).fail(function (jqXHR, textStatus, errorThrown) {
+        }).fail(function (jqXHR, textStatus) {
             var msg = textStatus;
-            if (errorThrown) {
-                msg += ': ' + errorThrown;
+            if (jqXHR.status) {
+                msg += ': status code ' + jqXHR.status;
             }
             alert(msg);
         });
@@ -789,5 +802,266 @@ var globalFunctions = {};
             .replace(/"/g, 'ʺ') // MODIFIER LETTER DOUBLE PRIME
             //.replace(/'/g, 'ʹ') // MODIFIER LETTER PRIME
             ;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    function showIndex(index) {
+        $.ajax({
+            url: 'data/filenames.json'
+        }).done(function (data) {
+            var ui = simpleViewIndexHtml(index, data);
+            document.title = ui.title;
+            onLoadComplete(ui.html);
+        }).fail(function (jqXHR, textStatus) {
+            var msg = textStatus;
+            if (jqXHR.status) {
+                msg += ': status code ' + jqXHR.status;
+            }
+            onLoadComplete(msg);
+        });
+
+        function onLoadComplete(html) {
+            $('#page-loader').hide();
+            $('#winbindex-container').css('margin-bottom', 'auto').html(html);
+        }
+    }
+
+    function simpleViewIndexHtml(index, data) {
+        var html = $('<div>').append('<h3>Index of binary files</h3>');
+
+        index = index.slice(0, 2).toLowerCase().replace(/[^a-z0-9]/g, '');
+
+        var makeIndex = function (prefix, skipLink) {
+            var indexCharset = 'abcdefghijklmnopqrstuvwxyz0123456789'.split('');
+            var htmlIndex = $('<div>');
+            indexCharset.forEach(function (letter) {
+                if (letter === skipLink) {
+                    htmlIndex.append($('<strong>', {
+                        text: (prefix + letter).toUpperCase()
+                    }));
+                } else {
+                    htmlIndex.append($('<a>', {
+                        href: '?index=' + encodeURIComponent(prefix + letter),
+                        text: (prefix + letter).toUpperCase()
+                    }));
+                }
+                htmlIndex.append(' ');
+            });
+            return htmlIndex;
+        };
+
+        var makeFiles = function (prefix) {
+            var files = data.filter(function (name) {
+                name = name.toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, prefix.length);
+                return name === prefix;
+            });
+            return files;
+        };
+
+        html.append(makeIndex('', index[0]));
+
+        var files = null;
+        var newTitle = null;
+        if (index[0]) {
+            files = makeFiles(index[0]);
+            newTitle = index[0];
+            if (files.length > 100) {
+                files = null;
+                html.append(makeIndex(index[0], index[1]));
+                if (index[1]) {
+                    files = makeFiles(index);
+                    newTitle = index;
+                    if (files.length === 0) {
+                        html.append('<br>No files match<br>');
+                        files = null;
+                    }
+                }
+            }
+        }
+
+        if (newTitle) {
+            newTitle = newTitle.toUpperCase() + ' - Winbindex';
+        }
+
+        html.append('<br>');
+
+        if (!files) {
+            files = [
+                'ntdll.dll',
+                'ntoskrnl.exe',
+                'kernel32.dll',
+                'cmd.exe',
+                'dns.exe',
+                'explorer.exe',
+                'calc.exe',
+                'srv2.sys',
+                'notepad.exe',
+                'svchost.exe',
+                'win32k.sys',
+                'appcmd.exe',
+                'lsass.exe',
+                'powershell.exe',
+                'user32.dll'
+            ];
+
+            html.append('<h3>Popular files</h3>');
+            html.append('<ul>');
+        }
+
+        files.forEach(function (file) {
+            html.append($('<li>').append($('<a>', {
+                href: '?index_file=' + encodeURIComponent(file),
+                text: file
+            })));
+        });
+
+        html.append('</ul>');
+
+        return {
+            title: newTitle,
+            html: html
+        };
+    }
+
+    function showIndexFile(indexFile, fileHash) {
+        $.ajax({
+            url: 'data/by_filename_compressed/' + indexFile + '.json.gz',
+            // https://stackoverflow.com/a/17682424
+            xhrFields: {
+                responseType: 'blob'
+            }
+        }).done(function (compressed) {
+            var fileReader = new FileReader();
+            fileReader.onload = function (event) {
+                var arrayBuffer = event.target.result;
+
+                var data = JSON.parse(pako.ungzip(arrayBuffer, { to: 'string' }));
+
+                if (fileHash) {
+                    var ui = simpleViewSingleFileHtml(indexFile, fileHash, data);
+                } else {
+                    var ui = simpleViewFilesHtml(indexFile, data);
+                }
+
+                document.title = ui.title;
+                onLoadComplete(ui.html);
+            };
+            fileReader.readAsArrayBuffer(compressed);
+        }).fail(function (jqXHR, textStatus) {
+            var msg = textStatus;
+            if (jqXHR.status) {
+                msg += ': status code ' + jqXHR.status;
+            }
+            onLoadComplete(msg);
+        });
+
+        function onLoadComplete(html) {
+            $('#page-loader').hide();
+            $('#winbindex-container').css('margin-bottom', 'auto').html(html);
+        }
+    }
+
+    function simpleViewSingleFileHtml(indexFile, fileHash, data) {
+        var header = $('<h3>', {
+            text: indexFile
+        }).append(' ', $('<a>', {
+            href: '?file=' + encodeURIComponent(indexFile),
+            text: '(interactive table view)'
+        }));
+
+        var html = $('<div>').append(header, '<br>');
+
+        var table = $('<table class="table table-hover"></table>');
+
+        var tbody = $('<tbody class="thead-light">');
+
+        var d = data[fileHash];
+        var fileInfo = d.fileInfo || {};
+
+        var tableRows = {
+            'SHA256': fileHash,
+            'SHA1': fileInfo.sha1,
+            'MD5': fileInfo.md5,
+            'Description': fileInfo.description,
+            'Machine Type': fileInfo.machineType,
+            'Signing Date': fileInfo.signingDate,
+            'File Size': fileInfo.size,
+            'File Version': fileInfo.version
+        };
+
+        Object.keys(tableRows).forEach(function (key) {
+            var value = tableRows[key];
+            if (value) {
+                tbody.append($('<tr>').append([
+                    $('<th>', {
+                        text: key
+                    }),
+                    $('<td>', {
+                        text: value
+                    })
+                ]));
+            }
+        });
+
+        table.append(tbody);
+        html.append($('<div class="table-responsive"></div>').append(table));
+
+        return {
+            title: indexFile + ' ' + fileHash + ' - Winbindex',
+            html: html
+        };
+    }
+
+    function simpleViewFilesHtml(indexFile, data) {
+        var header = $('<h3>', {
+            text: indexFile
+        }).append(' ', $('<a>', {
+            href: '?file=' + encodeURIComponent(indexFile),
+            text: '(interactive table view)'
+        }));
+
+        var html = $('<div>').append(header, '<br>');
+
+        var table = $('<table class="table table-hover"></table>')
+            .append($('<thead class="thead-light"></thead>')
+                .append($('<tr>')
+                    .append([
+                        '<th>SHA256</th>',
+                        '<th>SHA1</th>',
+                        '<th>MD5</th>'
+                    ])));
+
+        var tbody = $('<tbody>');
+
+        Object.keys(data).forEach(function (hash) {
+            var d = data[hash];
+            var fileInfo = d.fileInfo || {};
+
+            tbody.append($('<tr>').append([
+                $('<td>', {
+                    class: 'text-monospace small'
+                }).append($('<a>', {
+                    href: '?index_file=' + encodeURIComponent(indexFile) + '&hash=' + encodeURIComponent(hash),
+                    text: hash
+                })),
+                $('<td>', {
+                    class: 'text-monospace small',
+                    text: fileInfo.sha1 || '???'
+                }),
+                $('<td>', {
+                    class: 'text-monospace small',
+                    text: fileInfo.md5 || '???'
+                })
+            ]));
+        });
+
+        table.append(tbody);
+        html.append($('<div class="table-responsive"></div>').append(table));
+
+        return {
+            title: indexFile + ' - Winbindex',
+            html: html
+        };
     }
 })();
