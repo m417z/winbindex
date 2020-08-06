@@ -811,7 +811,11 @@ var globalFunctions = {};
             url: 'data/filenames.json'
         }).done(function (data) {
             var ui = simpleViewIndexHtml(index, data);
-            document.title = ui.title;
+
+            if (ui.title) {
+                document.title = ui.title;
+            }
+
             onLoadComplete(ui.html);
         }).fail(function (jqXHR, textStatus) {
             var msg = textStatus;
