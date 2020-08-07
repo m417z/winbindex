@@ -3,7 +3,7 @@ from pathlib import Path
 import subprocess
 import requests
 import zipfile
-import shutil
+import socket
 import json
 import time
 import os
@@ -26,19 +26,22 @@ def filter_updates(updates, update_kbs):
     return filtered
 
 def prepare_updates():
-    with open(config.out_path.joinpath('updates.json')) as f:
+    last_time_updates_path = config.out_path.joinpath('updates_last.json')
+    with open(last_time_updates_path, 'r') as f:
         last_time_updates = json.load(f)
 
     last_time_update_kbs = {item['updateKb'] for items in last_time_updates.values() for item in items}
 
     upd01_get_list_of_updates()
 
-    with open(config.out_path.joinpath('updates.json')) as f:
+    temp_updates_path = config.out_path.joinpath('updates.json')
+    with open(temp_updates_path, 'r') as f:
         uptodate_updates = json.load(f)
 
     uptodate_update_kbs = {item['updateKb'] for items in uptodate_updates.values() for item in items}
 
     if last_time_update_kbs == uptodate_update_kbs:
+        temp_updates_path.unlink()
         print('No new updates')
         return None
 
@@ -55,10 +58,66 @@ def prepare_updates():
 
     single_update = filter_updates(uptodate_updates, {update_kb})
 
-    with open(config.out_path.joinpath('updates.json'), 'w') as f:
+    with open(temp_updates_path, 'w') as f:
         json.dump(single_update, f, indent=4)
 
-    return update_kb, filter_updates(uptodate_updates, last_time_update_kbs | {update_kb})
+    with open(last_time_updates_path, 'w') as f:
+        last_time_updates = filter_updates(uptodate_updates, last_time_update_kbs | {update_kb})
+        json.dump(last_time_updates, f, indent=4)
+
+    return update_kb
+
+def check_pymultitor(address='127.0.0.1', port=8080):
+    s = socket.socket()
+    try:
+        s.connect((address, port))
+        return True
+    except socket.error:
+        return False
+
+def run_virustotal_updates(start_time):
+    #time_to_stop = start_time + timedelta(minutes=46)
+    time_to_stop = start_time + timedelta(minutes=2)
+
+    # Install pymultitor.
+    commands = [
+        ['pip', 'install', 'mitmproxy'],
+        ['sudo', 'apt', 'install', '-y', 'tor'],
+        ['pip', 'install', 'pymultitor'],
+    ]
+
+    for args in commands:
+        subprocess.run(args, check=True)
+
+    #subprocess.Popen(['pymultitor', '--on-error-code', '429'])  # not implemented yet - https://github.com/realgam3/pymultitor/issues/24
+    #subprocess.Popen(['pymultitor', '--on-regex', '^((?!"attributes").)*$'])  # https://stackoverflow.com/a/406408, doesn't work too actually
+    subprocess.Popen(['pymultitor', '--on-count', '20'])  # not the best, temporary
+
+    while not check_pymultitor():
+        time.sleep(1)
+
+    virustotal_path = config.out_path.joinpath('virustotal')
+    files_count_before = sum(1 for x in virustotal_path.glob('*.json') if not x.name.startswith('_'))
+
+    print('Running upd04_get_virustotal_data')
+    upd04_get_virustotal_data(time_to_stop)
+
+    files_count_after = sum(1 for x in virustotal_path.glob('*.json') if not x.name.startswith('_'))
+    if files_count_before == files_count_after:
+        print('No new files')
+        return None
+
+    # Empty updates file - don't handle updates, only VT.
+    temp_updates_path = config.out_path.joinpath('updates.json')
+    with open(temp_updates_path, 'w') as f:
+        json.dump({}, f)
+
+    print('Running upd05_group_by_filename')
+    upd05_group_by_filename()
+
+    temp_updates_path.unlink()
+
+    return f'Updated info of {files_count_after - files_count_before} files from VirusTotal'
 
 def run_deploy():
     start_time = datetime.now()
@@ -75,15 +134,13 @@ def run_deploy():
 
         progress_file.unlink()
     else:
-        result = prepare_updates()
-        if not result:
-            return False
-
-        new_single_update, new_updates = result
+        new_single_update = False  # prepare_updates()
+        if not new_single_update:
+            # No updates, try to fetch stuff from VT instead.
+            return run_virustotal_updates(start_time)
 
         progress_state = {
             'update_kb': new_single_update,
-            'new_updates': new_updates,
             'files_processed': 0,
             'files_total': None
         }
@@ -94,20 +151,10 @@ def run_deploy():
     print('Running upd03_parse_manifests')
     upd03_parse_manifests()
 
-    #print('Running upd04_get_virustotal_data')
-    #upd04_get_virustotal_data()
-
-    progress_state['time_to_stop'] = start_time + timedelta(minutes=46)
+    time_to_stop = start_time + timedelta(minutes=46)
 
     print('Running upd05_group_by_filename')
-    upd05_group_by_filename(progress_state)
-
-    del progress_state['time_to_stop']
-
-    shutil.rmtree(config.out_path.joinpath('manifests'))
-    shutil.rmtree(config.out_path.joinpath('parsed'))
-    if tools_extracted:
-        shutil.rmtree(config.out_path.joinpath('tools'))
+    upd05_group_by_filename(progress_state, time_to_stop)
 
     if progress_state['files_processed'] < progress_state['files_total']:
         with open(progress_file, 'w') as f:
@@ -117,8 +164,7 @@ def run_deploy():
 
     assert progress_state['files_processed'] == progress_state['files_total']
 
-    with open(config.out_path.joinpath('updates.json'), 'w') as f:
-        json.dump(progress_state['new_updates'], f, indent=4)
+    config.out_path.joinpath('updates.json').unlink()
 
     return f'Updated with files from {progress_state["update_kb"]}'
 
@@ -133,11 +179,21 @@ def can_deploy():
 def commit_deploy(pr_title):
     branch_name = f'deploy-{time.time()}'
 
+    exclude_from_commit = [
+        'data/tools',
+        'data/manifests',
+        'data/parsed',
+        'data/virustotal'
+    ]
+
+    # https://stackoverflow.com/a/51914162
+    extra_commit_params = [f':!{path}/*' for path in exclude_from_commit]
+
     commands = [
         ['git', 'config', '--global', 'user.email', '69083578+winbindex-deploy-bot@users.noreply.github.com'],
         ['git', 'config', '--global', 'user.name', 'winbindex-deploy-bot'],
         ['git', 'checkout', '-b', branch_name],
-        ['git', 'add', '-A'],
+        ['git', 'add', '-A'] + extra_commit_params,
         ['git', 'commit', '-m', pr_title],
         ['git', 'remote', 'add', 'push-origin', f'https://{os.environ["GITHUB_TOKEN"]}@github.com/m417z/winbindex.git'],
         ['git', 'push', 'push-origin', branch_name],

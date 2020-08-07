@@ -6,6 +6,8 @@ import json
 import sys
 import re
 
+import config
+
 # To get data from an ISO file use the following commands:
 #
 # 7z.exe e C:\path\to\windows.iso sources\install.wim -oC:\path\to\output
@@ -156,9 +158,6 @@ class hashabledict(dict):
         return hash(tuple(sorted(self.items())))
 
 def main(folder, windows_version, iso_sha256):
-    output_dir = Path('out', 'from_iso')
-    output_dir.mkdir(parents=True, exist_ok=True)
-
     sigcheck_file = folder.joinpath('sigcheck64.txt')
     pe_files_extra_data = folder.joinpath('pe_files_extra_data.txt')
 
@@ -185,6 +184,7 @@ def main(folder, windows_version, iso_sha256):
     print('Gathering results...')
 
     result_files = set()
+    file_hashes = {}
     for item in sigcheck_data:
         filename = item['FileName']
         file_size = Path(filename).stat().st_size
@@ -218,6 +218,12 @@ def main(folder, windows_version, iso_sha256):
 
         result_files.add(hashabledict(result_item))
 
+        name = filename.split('\\')[-1].lower()
+        if (name.endswith('.exe') or
+            name.endswith('.dll') or
+            name.endswith('.sys')):
+            file_hashes.setdefault(name, set()).add(item['SHA256'].lower())
+
     result = {
         'windowsVersion': windows_version,
         'windowsIsoSha256': iso_sha256,
@@ -226,8 +232,24 @@ def main(folder, windows_version, iso_sha256):
 
     print('Writing results...')
 
+    output_dir = config.out_path.joinpath('from_iso')
+    output_dir.mkdir(parents=True, exist_ok=True)
     with open(output_dir.joinpath(windows_version + '.json'), 'w') as f:
         json.dump(result, f, indent=4)
+
+    info_sources_path = config.out_path.joinpath('info_sources.json')
+    if info_sources_path.is_file():
+        with open(info_sources_path, 'r') as f:
+            info_sources = json.load(f)
+    else:
+        info_sources = {}
+
+    for name in file_hashes:
+        for file_hash in file_hashes[name]:
+            info_sources.setdefault(name, {})[file_hash] = 'file'
+
+    with open(info_sources_path, 'w') as f:
+        json.dump(info_sources, f)
 
 if __name__ == '__main__':
     if len(sys.argv) != 4:
