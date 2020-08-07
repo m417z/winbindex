@@ -1,92 +1,134 @@
+from datetime import datetime
 from pathlib import Path
 import requests
+import urllib3
 import json
 import time
 
 import config
 
-def get_virustotal_data_for_file(session, input_filename, output_dir):
-    with open(input_filename) as f:
-        data = json.load(f)
+file_hashes = {
+    'found': {},
+    'not_found': {}
+}
 
-    for file_item in data['files']:
-        filename = file_item['attributes']['name']
-        if (not filename.endswith('.exe') and
-            not filename.endswith('.dll') and
-            not filename.endswith('.sys')):
-            continue
+def update_file_hashes():
+    info_sources_path = config.out_path.joinpath('info_sources.json')
+    if info_sources_path.is_file():
+        with open(info_sources_path, 'r') as f:
+            info_sources = json.load(f)
+    else:
+        info_sources = {}
 
-        if 'sha1' in file_item:
-            file_hash = file_item['sha1']
-        else:
-            file_hash = file_item['sha256']
+    for name in file_hashes['found']:
+        for file_hash in file_hashes['found'][name]:
+            assert info_sources[name][file_hash] in ['none', 'novt']
+            info_sources[name][file_hash] = 'newvt'
 
-        if output_dir.joinpath(file_hash + '.json').is_file() or output_dir.joinpath('_404_' + file_hash + '.json').is_file():
-            continue
+    file_hashes['found'].clear()
 
-        #time.sleep(1)
-        while True:
-            url = 'https://www.virustotal.com/ui/files/' + file_hash
-            r = session.get(url, verify=False)
+    for name in file_hashes['not_found']:
+        for file_hash in file_hashes['not_found'][name]:
+            assert info_sources[name][file_hash] in ['none', 'novt']
+            info_sources[name][file_hash] = 'novt'
 
-            if r.status_code == 429:
-                time.sleep(60)
-                continue
+    file_hashes['not_found'].clear()
 
-            virustotal_data = r.text
+    with open(info_sources_path, 'w') as f:
+        json.dump(info_sources, f)
 
-            prefix = ''
-            if r.status_code != 200:
-                prefix = f'_{r.status_code}_'
-            elif '"pe_info": {' not in virustotal_data:
-                prefix = '_no_pe_info_'  # no PE info, need to rescan it on VirusTotal
+def get_virustotal_data_for_file(session, file_hash, output_dir):
+    if output_dir.joinpath(file_hash + '.json').is_file() or output_dir.joinpath('_404_' + file_hash + '.json').is_file():
+        return 'exists'
 
-            break
+    url = 'https://www.virustotal.com/ui/files/' + file_hash
+    r = session.get(url, verify=False)
+    if r.status_code == 429:
+        return 'retry'
 
-        output_filename = output_dir.joinpath(prefix + file_hash + '.json')
+    virustotal_data = r.text
 
-        with open(output_filename, 'w') as f:
-            f.write(virustotal_data)
+    prefix = ''
+    if r.status_code != 200:
+        prefix = f'_{r.status_code}_'
+        result = 'not_found' if r.status_code == 404 else str(r.status_code)
+    elif '"pe_info": {' not in virustotal_data:
+        prefix = '_no_pe_info_'  # no PE info, need to rescan it on VirusTotal
+        result = 'no_pe_info'
+    else:
+        result = 'ok'
 
-def get_virustotal_data_for_update(parsed_dir, output_dir):
+    output_filename = output_dir.joinpath(prefix + file_hash + '.json')
+
+    with open(output_filename, 'w') as f:
+        f.write(virustotal_data)
+
+    return result
+
+def get_virustotal_data(time_to_stop=None):
+    with open(config.out_path.joinpath('info_sources.json')) as f:
+        info_sources = json.load(f)
+
+    # https://stackoverflow.com/a/28002687
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
     session = requests.Session()
-    session.headers.update({'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36'})
-    session.proxies.update({'https': 'http://127.0.0.1:8080'})
+    session.headers.update({'User-Agent': 'Mozilla/5.0'})
+    session.proxies.update({'https': 'http://127.0.0.1:8080'})  # for pymultitor
 
+    output_dir = config.out_path.joinpath('virustotal')
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    for path in parsed_dir.glob('*.json'):
-        if not path.is_file():
-            continue
+    # If at least one file wasn't even checked against VT, check all such files.
+    # Otherwise, check again the file that were checked before, perhaps they're on VT now.
+    if any(info_sources[name][file_hash] == 'none' for name in info_sources for file_hash in info_sources[name]):
+        target_source = 'none'
+    else:
+        target_source = 'novt'
 
-        try:
-            get_virustotal_data_for_file(session, str(path), output_dir)
-        except Exception as e:
-            print(f'ERROR: failed to process {path}')
-            print('    ' + str(e))
-            if config.exit_on_first_error:
-                raise
+    count = 0
+    total_count = sum(1 for name in info_sources for file_hash in info_sources[name] if info_sources[name][file_hash] == target_source)
+    print(f'{total_count} items of type {target_source}')
 
-def main():
-    with open(config.out_path.joinpath('updates.json')) as f:
-        updates = json.load(f)
+    for name in info_sources:
+        for file_hash in info_sources[name]:
+            info_source = info_sources[name][file_hash]
+            if info_source != target_source:
+                continue
 
-    for windows_version in updates:
-        if windows_version == '1909':
-            continue  # same updates as 1903
+            count += 1
+            if count % 200 == 0 and config.verbose_progress:
+                print(f' ...{count}', end='', flush=True)
 
-        print(f'Processing Windows version {windows_version}:', end='', flush=True)
+            while True:
+                if time_to_stop and datetime.now() >= time_to_stop:
+                    return
 
-        for update in updates[windows_version]:
-            update_kb = update['updateKb']
+                try:
+                    result = get_virustotal_data_for_file(session, file_hash, output_dir)
+                except Exception as e:
+                    print(f'ERROR: failed to process {file_hash}')
+                    print('    ' + str(e))
+                    if config.exit_on_first_error:
+                        raise
 
-            parsed_dir = config.out_path.joinpath('parsed', windows_version, update_kb)
-            if parsed_dir.is_dir():
-                output_dir = config.out_path.joinpath('virustotal')
-                get_virustotal_data_for_update(parsed_dir, output_dir)
-                print(' ' + update_kb, end='', flush=True)
+                if result != 'retry':
+                    break
 
-        print()
+                #print('Waiting to retry... ', end='', flush=True)
+                #time.sleep(30)
+                print('Retrying')
+
+            if result in ['ok', 'exists']:
+                file_hashes['found'].setdefault(name, set()).add(file_hash)
+            elif result == 'not_found':
+                file_hashes['not_found'].setdefault(name, set()).add(file_hash)
+            else:
+                print(f'WARNING: got result {result} for {file_hash} ({name})')
+
+def main(time_to_stop=None):
+    get_virustotal_data(time_to_stop)
+    update_file_hashes()
 
 if __name__ == '__main__':
     main()
