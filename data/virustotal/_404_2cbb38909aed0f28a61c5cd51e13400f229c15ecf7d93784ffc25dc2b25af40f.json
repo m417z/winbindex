@@ -1,0 +1,6 @@
+{
+    "error": {
+        "code": "NotFoundError",
+        "message": "File \"2cbb38909aed0f28a61c5cd51e13400f229c15ecf7d93784ffc25dc2b25af40f\" not found"
+    }
+}

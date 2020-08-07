@@ -1,0 +1,2011 @@
+{
+    "data": {
+        "attributes": {
+            "authentihash": "cc27c95a632e9997235581caf164b07089fcac8b8d26f1a13d28fa9f138ad564",
+            "creation_date": 1512783779,
+            "first_submission_date": 1522398446,
+            "last_analysis_date": 1562875633,
+            "last_analysis_results": {
+                "ALYac": {
+                    "category": "undetected",
+                    "engine_name": "ALYac",
+                    "engine_update": "20190711",
+                    "engine_version": "1.1.1.5",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "APEX": {
+                    "category": "undetected",
+                    "engine_name": "APEX",
+                    "engine_update": "20190710",
+                    "engine_version": "5.37",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "AVG": {
+                    "category": "undetected",
+                    "engine_name": "AVG",
+                    "engine_update": "20190711",
+                    "engine_version": "18.4.3895.0",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Acronis": {
+                    "category": "undetected",
+                    "engine_name": "Acronis",
+                    "engine_update": "20190710",
+                    "engine_version": "1.0.1.51",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Ad-Aware": {
+                    "category": "undetected",
+                    "engine_name": "Ad-Aware",
+                    "engine_update": "20190711",
+                    "engine_version": "3.0.5.370",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "AegisLab": {
+                    "category": "undetected",
+                    "engine_name": "AegisLab",
+                    "engine_update": "20190711",
+                    "engine_version": "4.2",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "AhnLab-V3": {
+                    "category": "undetected",
+                    "engine_name": "AhnLab-V3",
+                    "engine_update": "20190711",
+                    "engine_version": "3.15.3.24531",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Alibaba": {
+                    "category": "undetected",
+                    "engine_name": "Alibaba",
+                    "engine_update": "20190527",
+                    "engine_version": "0.3.0.5",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Antiy-AVL": {
+                    "category": "undetected",
+                    "engine_name": "Antiy-AVL",
+                    "engine_update": "20190711",
+                    "engine_version": "3.0.0.1",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Arcabit": {
+                    "category": "undetected",
+                    "engine_name": "Arcabit",
+                    "engine_update": "20190711",
+                    "engine_version": "1.0.0.850",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Avast": {
+                    "category": "undetected",
+                    "engine_name": "Avast",
+                    "engine_update": "20190711",
+                    "engine_version": "18.4.3895.0",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Avast-Mobile": {
+                    "category": "undetected",
+                    "engine_name": "Avast-Mobile",
+                    "engine_update": "20190711",
+                    "engine_version": "190711-02",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Avira": {
+                    "category": "undetected",
+                    "engine_name": "Avira",
+                    "engine_update": "20190711",
+                    "engine_version": "8.3.3.8",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Baidu": {
+                    "category": "undetected",
+                    "engine_name": "Baidu",
+                    "engine_update": "20190318",
+                    "engine_version": "1.0.0.2",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "BitDefender": {
+                    "category": "undetected",
+                    "engine_name": "BitDefender",
+                    "engine_update": "20190711",
+                    "engine_version": "7.2",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Bkav": {
+                    "category": "undetected",
+                    "engine_name": "Bkav",
+                    "engine_update": "20190711",
+                    "engine_version": "1.3.0.10239",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "CAT-QuickHeal": {
+                    "category": "undetected",
+                    "engine_name": "CAT-QuickHeal",
+                    "engine_update": "20190711",
+                    "engine_version": "14.00",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "CMC": {
+                    "category": "undetected",
+                    "engine_name": "CMC",
+                    "engine_update": "20190321",
+                    "engine_version": "1.1.0.977",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "ClamAV": {
+                    "category": "undetected",
+                    "engine_name": "ClamAV",
+                    "engine_update": "20190711",
+                    "engine_version": "0.101.2.0",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Comodo": {
+                    "category": "undetected",
+                    "engine_name": "Comodo",
+                    "engine_update": "20190711",
+                    "engine_version": "31156",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "CrowdStrike": {
+                    "category": "undetected",
+                    "engine_name": "CrowdStrike",
+                    "engine_update": "20190212",
+                    "engine_version": "1.0",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Cybereason": {
+                    "category": "type-unsupported",
+                    "engine_name": "Cybereason",
+                    "engine_update": "20190616",
+                    "engine_version": "1.2.449",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Cylance": {
+                    "category": "undetected",
+                    "engine_name": "Cylance",
+                    "engine_update": "20190711",
+                    "engine_version": "2.3.1.101",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Cyren": {
+                    "category": "undetected",
+                    "engine_name": "Cyren",
+                    "engine_update": "20190711",
+                    "engine_version": "6.2.0.1",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "DrWeb": {
+                    "category": "undetected",
+                    "engine_name": "DrWeb",
+                    "engine_update": "20190711",
+                    "engine_version": "7.0.34.11020",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "ESET-NOD32": {
+                    "category": "undetected",
+                    "engine_name": "ESET-NOD32",
+                    "engine_update": "20190711",
+                    "engine_version": "19670",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Emsisoft": {
+                    "category": "undetected",
+                    "engine_name": "Emsisoft",
+                    "engine_update": "20190711",
+                    "engine_version": "2018.12.0.1641",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Endgame": {
+                    "category": "undetected",
+                    "engine_name": "Endgame",
+                    "engine_update": "20190522",
+                    "engine_version": "3.0.12",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "F-Prot": {
+                    "category": "undetected",
+                    "engine_name": "F-Prot",
+                    "engine_update": "20190711",
+                    "engine_version": "4.7.1.166",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "F-Secure": {
+                    "category": "undetected",
+                    "engine_name": "F-Secure",
+                    "engine_update": "20190711",
+                    "engine_version": "12.0.86.52",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "FireEye": {
+                    "category": "undetected",
+                    "engine_name": "FireEye",
+                    "engine_update": "20190711",
+                    "engine_version": "29.7.0.0",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Fortinet": {
+                    "category": "undetected",
+                    "engine_name": "Fortinet",
+                    "engine_update": "20190711",
+                    "engine_version": "5.4.247.0",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "GData": {
+                    "category": "undetected",
+                    "engine_name": "GData",
+                    "engine_update": "20190711",
+                    "engine_version": "A:25.22701B:25.15528",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Ikarus": {
+                    "category": "undetected",
+                    "engine_name": "Ikarus",
+                    "engine_update": "20190711",
+                    "engine_version": "0.1.5.2",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Invincea": {
+                    "category": "undetected",
+                    "engine_name": "Invincea",
+                    "engine_update": "20190525",
+                    "engine_version": "6.3.6.26157",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Jiangmin": {
+                    "category": "undetected",
+                    "engine_name": "Jiangmin",
+                    "engine_update": "20190711",
+                    "engine_version": "16.0.100",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "K7AntiVirus": {
+                    "category": "undetected",
+                    "engine_name": "K7AntiVirus",
+                    "engine_update": "20190711",
+                    "engine_version": "11.56.31455",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "K7GW": {
+                    "category": "undetected",
+                    "engine_name": "K7GW",
+                    "engine_update": "20190711",
+                    "engine_version": "11.56.31454",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Kaspersky": {
+                    "category": "undetected",
+                    "engine_name": "Kaspersky",
+                    "engine_update": "20190711",
+                    "engine_version": "15.0.1.13",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Kingsoft": {
+                    "category": "undetected",
+                    "engine_name": "Kingsoft",
+                    "engine_update": "20190711",
+                    "engine_version": "2013.8.14.323",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "MAX": {
+                    "category": "undetected",
+                    "engine_name": "MAX",
+                    "engine_update": "20190711",
+                    "engine_version": "2018.9.12.1",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Malwarebytes": {
+                    "category": "undetected",
+                    "engine_name": "Malwarebytes",
+                    "engine_update": "20190711",
+                    "engine_version": "2.1.1.1115",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "McAfee": {
+                    "category": "undetected",
+                    "engine_name": "McAfee",
+                    "engine_update": "20190711",
+                    "engine_version": "6.0.6.653",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "McAfee-GW-Edition": {
+                    "category": "undetected",
+                    "engine_name": "McAfee-GW-Edition",
+                    "engine_update": "20190711",
+                    "engine_version": "v2017.3010",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "MicroWorld-eScan": {
+                    "category": "undetected",
+                    "engine_name": "MicroWorld-eScan",
+                    "engine_update": "20190711",
+                    "engine_version": "14.0.297.0",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Microsoft": {
+                    "category": "undetected",
+                    "engine_name": "Microsoft",
+                    "engine_update": "20190711",
+                    "engine_version": "1.1.16100.4",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "NANO-Antivirus": {
+                    "category": "undetected",
+                    "engine_name": "NANO-Antivirus",
+                    "engine_update": "20190711",
+                    "engine_version": "1.0.134.24849",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Paloalto": {
+                    "category": "undetected",
+                    "engine_name": "Paloalto",
+                    "engine_update": "20190711",
+                    "engine_version": "1.0",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Panda": {
+                    "category": "undetected",
+                    "engine_name": "Panda",
+                    "engine_update": "20190711",
+                    "engine_version": "4.6.4.2",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Qihoo-360": {
+                    "category": "undetected",
+                    "engine_name": "Qihoo-360",
+                    "engine_update": "20190711",
+                    "engine_version": "1.0.0.1120",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Rising": {
+                    "category": "undetected",
+                    "engine_name": "Rising",
+                    "engine_update": "20190711",
+                    "engine_version": "25.0.0.24",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "SUPERAntiSpyware": {
+                    "category": "undetected",
+                    "engine_name": "SUPERAntiSpyware",
+                    "engine_update": "20190705",
+                    "engine_version": "5.6.0.1032",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "SentinelOne": {
+                    "category": "undetected",
+                    "engine_name": "SentinelOne",
+                    "engine_update": "20190604",
+                    "engine_version": "1.0.27.333",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Sophos": {
+                    "category": "undetected",
+                    "engine_name": "Sophos",
+                    "engine_update": "20190711",
+                    "engine_version": "4.98.0",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Symantec": {
+                    "category": "undetected",
+                    "engine_name": "Symantec",
+                    "engine_update": "20190711",
+                    "engine_version": "1.9.0.0",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "SymantecMobileInsight": {
+                    "category": "type-unsupported",
+                    "engine_name": "SymantecMobileInsight",
+                    "engine_update": "20190705",
+                    "engine_version": "2.0",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "TACHYON": {
+                    "category": "undetected",
+                    "engine_name": "TACHYON",
+                    "engine_update": "20190711",
+                    "engine_version": "2019-07-11.03",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Tencent": {
+                    "category": "undetected",
+                    "engine_name": "Tencent",
+                    "engine_update": "20190711",
+                    "engine_version": "1.0.0.1",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "TotalDefense": {
+                    "category": "undetected",
+                    "engine_name": "TotalDefense",
+                    "engine_update": "20190711",
+                    "engine_version": "37.1.62.1",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Trapmine": {
+                    "category": "undetected",
+                    "engine_name": "Trapmine",
+                    "engine_update": "20190522",
+                    "engine_version": "3.1.62.789",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "TrendMicro": {
+                    "category": "undetected",
+                    "engine_name": "TrendMicro",
+                    "engine_update": "20190711",
+                    "engine_version": "11.0.0.1006",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "TrendMicro-HouseCall": {
+                    "category": "undetected",
+                    "engine_name": "TrendMicro-HouseCall",
+                    "engine_update": "20190711",
+                    "engine_version": "10.0.0.1040",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Trustlook": {
+                    "category": "undetected",
+                    "engine_name": "Trustlook",
+                    "engine_update": "20190711",
+                    "engine_version": "1.0",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "VBA32": {
+                    "category": "undetected",
+                    "engine_name": "VBA32",
+                    "engine_update": "20190711",
+                    "engine_version": "4.0.0",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "VIPRE": {
+                    "category": "undetected",
+                    "engine_name": "VIPRE",
+                    "engine_update": "20190711",
+                    "engine_version": "76348",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "ViRobot": {
+                    "category": "undetected",
+                    "engine_name": "ViRobot",
+                    "engine_update": "20190711",
+                    "engine_version": "2014.3.20.0",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Webroot": {
+                    "category": "undetected",
+                    "engine_name": "Webroot",
+                    "engine_update": "20190711",
+                    "engine_version": "1.0.0.403",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Yandex": {
+                    "category": "undetected",
+                    "engine_name": "Yandex",
+                    "engine_update": "20190711",
+                    "engine_version": "5.5.2.24",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Zillya": {
+                    "category": "undetected",
+                    "engine_name": "Zillya",
+                    "engine_update": "20190711",
+                    "engine_version": "2.0.0.3851",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "ZoneAlarm": {
+                    "category": "undetected",
+                    "engine_name": "ZoneAlarm",
+                    "engine_update": "20190711",
+                    "engine_version": "1.0",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Zoner": {
+                    "category": "undetected",
+                    "engine_name": "Zoner",
+                    "engine_update": "20190711",
+                    "engine_version": "1.0",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "eGambit": {
+                    "category": "undetected",
+                    "engine_name": "eGambit",
+                    "engine_update": "20190711",
+                    "engine_version": "v4.3.6",
+                    "method": "blacklist",
+                    "result": null
+                }
+            },
+            "last_analysis_stats": {
+                "confirmed-timeout": 0,
+                "failure": 0,
+                "harmless": 0,
+                "malicious": 0,
+                "suspicious": 0,
+                "timeout": 0,
+                "type-unsupported": 2,
+                "undetected": 70
+            },
+            "last_modification_date": 1572167309,
+            "last_submission_date": 1554383891,
+            "magic": "PE32+ executable for MS Windows (DLL) (console) Mono/.Net assembly",
+            "md5": "f1942513908136de61cd19ad99a35fce",
+            "meaningful_name": "aceodbc.dll",
+            "names": [
+                "aceodbc",
+                "aceodbc.dll",
+                "ACEODBC.DLL",
+                "5686EF83EC3E957C61A9D219B1316E3F7A26DCE92CA83820064BBBE027F273D4",
+                "F1942513908136DE61CD19AD99A35FCE",
+                "partmgr.sys"
+            ],
+            "pe_info": {
+                "entry_point": 222608,
+                "exports": [
+                    "AdvancedDialogProc",
+                    "AssertSzFail",
+                    "ConfigDSN",
+                    "ConfigDSNExW",
+                    "ConfigDSNW",
+                    "ConfigDialogProc",
+                    "ConfigDriverW",
+                    "DefTxtFmtDlgProc",
+                    "DllMain",
+                    "InitDialogAgain",
+                    "InitializeLoginDialog",
+                    "InvisibleSelectDb",
+                    "LoadByOrdinal",
+                    "LoginDialogProc",
+                    "OpenDirHook",
+                    "RepairCompactProc",
+                    "SQLAllocConnect",
+                    "SQLAllocEnv",
+                    "SQLAllocHandle",
+                    "SQLAllocStmt",
+                    "SQLBindCol",
+                    "SQLBindParameter",
+                    "SQLBulkOperations",
+                    "SQLCancel",
+                    "SQLCloseCursor",
+                    "SQLColAttributeW",
+                    "SQLColumnsW",
+                    "SQLConnectW",
+                    "SQLCopyDesc",
+                    "SQLDescribeColW",
+                    "SQLDisconnect",
+                    "SQLDriverConnectW",
+                    "SQLEndTran",
+                    "SQLExecDirectW",
+                    "SQLExecute",
+                    "SQLExtendedFetch",
+                    "SQLFetch",
+                    "SQLFetchScroll",
+                    "SQLFreeConnect",
+                    "SQLFreeEnv",
+                    "SQLFreeHandle",
+                    "SQLFreeStmt",
+                    "SQLGetConnectAttrW",
+                    "SQLGetCursorNameW",
+                    "SQLGetData",
+                    "SQLGetDescFieldW",
+                    "SQLGetDescRecW",
+                    "SQLGetDiagFieldW",
+                    "SQLGetDiagRecW",
+                    "SQLGetFunctions",
+                    "SQLGetInfoW",
+                    "SQLGetStmtAttrW",
+                    "SQLGetTypeInfoW",
+                    "SQLMoreResults",
+                    "SQLNativeSqlW",
+                    "SQLNumParams",
+                    "SQLNumResultCols",
+                    "SQLParamData",
+                    "SQLPrepareW",
+                    "SQLProcedureColumnsW",
+                    "SQLProceduresW",
+                    "SQLPutData",
+                    "SQLRowCount",
+                    "SQLSetConnectAttrW",
+                    "SQLSetCursorNameW",
+                    "SQLSetDescFieldW",
+                    "SQLSetDescRec",
+                    "SQLSetEnvAttr",
+                    "SQLSetPos",
+                    "SQLSetScrollOptions",
+                    "SQLSetStmtAttrW",
+                    "SQLSpecialColumnsW",
+                    "SQLStatisticsW",
+                    "SQLTablesW",
+                    "SelectIndexDlgProc",
+                    "SelectUIdxDlgProc"
+                ],
+                "imphash": "693288b7fdc553e38441ea299ddc3b1a",
+                "import_list": [
+                    {
+                        "imported_functions": [
+                            "GetSaveFileNameW",
+                            "GetOpenFileNameW"
+                        ],
+                        "library_name": "COMDLG32.dll"
+                    },
+                    {
+                        "imported_functions": [
+                            "_ecvt_s",
+                            "strtod",
+                            "_wtol",
+                            "wcstol",
+                            "_wtoi"
+                        ],
+                        "library_name": "api-ms-win-crt-convert-l1-1-0.dll"
+                    },
+                    {
+                        "imported_functions": [
+                            "wcstok_s",
+                            "_strnicmp",
+                            "_wcsicmp",
+                            "wcspbrk",
+                            "strncpy_s",
+                            "wcsncat_s",
+                            "_wcsnicmp",
+                            "wcsncpy_s",
+                            "_stricmp",
+                            "wcscmp",
+                            "wcscspn",
+                            "wcsncmp",
+                            "towlower",
+                            "isdigit",
+                            "towupper",
+                            "isxdigit",
+                            "iswctype",
+                            "isspace"
+                        ],
+                        "library_name": "api-ms-win-crt-string-l1-1-0.dll"
+                    },
+                    {
+                        "imported_functions": [
+                            "_wgetcwd"
+                        ],
+                        "library_name": "api-ms-win-crt-environment-l1-1-0.dll"
+                    },
+                    {
+                        "imported_functions": [
+                            "_configure_narrow_argv",
+                            "_cexit",
+                            "_errno",
+                            "_seh_filter_dll",
+                            "_execute_onexit_table",
+                            "_initialize_onexit_table",
+                            "_initialize_narrow_environment",
+                            "_initterm",
+                            "_initterm_e"
+                        ],
+                        "library_name": "api-ms-win-crt-runtime-l1-1-0.dll"
+                    },
+                    {
+                        "imported_functions": [
+                            "GetLastError",
+                            "GetNumberFormatA",
+                            "LoadLibraryExW",
+                            "GetDriveTypeW",
+                            "OutputDebugStringW",
+                            "GetSystemInfo",
+                            "GetModuleFileNameW",
+                            "FreeLibrary",
+                            "QueryPerformanceCounter",
+                            "EnterCriticalSection",
+                            "IsDebuggerPresent",
+                            "GetTickCount",
+                            "UnhandledExceptionFilter",
+                            "VirtualProtect",
+                            "LoadLibraryA",
+                            "GetFileAttributesW",
+                            "DeleteCriticalSection",
+                            "GetCurrentProcess",
+                            "GetDateFormatA",
+                            "LoadLibraryExA",
+                            "GetWindowsDirectoryW",
+                            "GetCurrentProcessId",
+                            "GetUserDefaultLCID",
+                            "LockResource",
+                            "GetModuleHandleW",
+                            "RtlVirtualUnwind",
+                            "WideCharToMultiByte",
+                            "GetSystemDefaultLCID",
+                            "SetErrorMode",
+                            "MultiByteToWideChar",
+                            "DeleteFileW",
+                            "GetProcAddress",
+                            "InitializeSListHead",
+                            "GetPrivateProfileStringW",
+                            "WritePrivateProfileStringW",
+                            "GetTempFileNameW",
+                            "LeaveCriticalSection",
+                            "RaiseException",
+                            "InitializeCriticalSection",
+                            "GetCPInfo",
+                            "GetSystemDirectoryW",
+                            "HeapSetInformation",
+                            "FindNextFileW",
+                            "FormatMessageA",
+                            "SetUnhandledExceptionFilter",
+                            "GetTempPathW",
+                            "RtlCaptureContext",
+                            "GetTimeFormatA",
+                            "IsProcessorFeaturePresent",
+                            "FindFirstFileW",
+                            "ExpandEnvironmentStringsA",
+                            "WerRegisterMemoryBlock",
+                            "GetProcessHeap",
+                            "LocalFree",
+                            "TerminateProcess",
+                            "GetCurrentDirectoryW",
+                            "GetModuleFileNameA",
+                            "GetSystemTimeAsFileTime",
+                            "GetModuleHandleExW",
+                            "GetCurrencyFormatA",
+                            "LoadResource",
+                            "RtlLookupFunctionEntry",
+                            "CreateFileW",
+                            "VirtualQuery",
+                            "FindClose",
+                            "MoveFileW",
+                            "GetProcessVersion",
+                            "GetCurrentThreadId",
+                            "FindResourceA",
+                            "CloseHandle"
+                        ],
+                        "library_name": "KERNEL32.dll"
+                    },
+                    {
+                        "imported_functions": [
+                            "__stdio_common_vsnwprintf_s",
+                            "__stdio_common_vswprintf",
+                            "__stdio_common_vsnprintf_s",
+                            "__stdio_common_vswscanf",
+                            "__stdio_common_vswprintf_s"
+                        ],
+                        "library_name": "api-ms-win-crt-stdio-l1-1-0.dll"
+                    },
+                    {
+                        "imported_functions": [
+                            "__initialize_lconv_for_unsigned_char"
+                        ],
+                        "library_name": "api-ms-win-crt-locale-l1-1-0.dll"
+                    },
+                    {
+                        "imported_functions": [
+                            "_wsplitpath_s",
+                            "_wfullpath",
+                            "_wchdir",
+                            "_wstat64i32"
+                        ],
+                        "library_name": "api-ms-win-crt-filesystem-l1-1-0.dll"
+                    },
+                    {
+                        "imported_functions": [
+                            "_localtime64_s",
+                            "_time64"
+                        ],
+                        "library_name": "api-ms-win-crt-time-l1-1-0.dll"
+                    },
+                    {
+                        "imported_functions": [
+                            "calloc",
+                            "malloc",
+                            "_heapmin",
+                            "free"
+                        ],
+                        "library_name": "api-ms-win-crt-heap-l1-1-0.dll"
+                    },
+                    {
+                        "imported_functions": [
+                            "GetTextExtentPointW"
+                        ],
+                        "library_name": "GDI32.dll"
+                    },
+                    {
+                        "imported_functions": [
+                            "bsearch"
+                        ],
+                        "library_name": "api-ms-win-crt-utility-l1-1-0.dll"
+                    },
+                    {
+                        "imported_functions": [
+                            "strchr",
+                            "__C_specific_handler",
+                            "memmove",
+                            "memset",
+                            "wcschr",
+                            "memcpy",
+                            "wcsstr",
+                            "__std_type_info_destroy_list",
+                            "wcsrchr"
+                        ],
+                        "library_name": "VCRUNTIME140.dll"
+                    },
+                    {
+                        "imported_functions": [
+                            "RegCreateKeyExW",
+                            "RegCloseKey",
+                            "GetUserNameW",
+                            "RegQueryValueExA",
+                            "RegGetValueW",
+                            "RegEnumKeyExW",
+                            "RegOpenKeyExW",
+                            "RegDeleteKeyW",
+                            "RegOpenKeyExA",
+                            "RegQueryValueExW",
+                            "RegSetValueExW"
+                        ],
+                        "library_name": "ADVAPI32.dll"
+                    },
+                    {
+                        "imported_functions": [
+                            "modf",
+                            "floor"
+                        ],
+                        "library_name": "api-ms-win-crt-math-l1-1-0.dll"
+                    }
+                ],
+                "machine_type": 34404,
+                "overlay": {
+                    "chi2": 9278.6787109375,
+                    "entropy": 7.440771102905273,
+                    "filetype": "data",
+                    "md5": "c423a59b49e0c23b1f4ca72de71c4406",
+                    "offset": 334336,
+                    "size": 7216
+                },
+                "resource_details": [
+                    {
+                        "chi2": 8061.23095703125,
+                        "entropy": 1.1929993629455566,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "7bb65b3ff7c2bc6dcfc730bb4d72ad79335973c3d22c753d9da4af9360eadd2f",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 7930.57080078125,
+                        "entropy": 0.8477415442466736,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "654428608b176f9968d3499f80795d8c827950aaebc8bd9a467c74466be08188",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 8015.904296875,
+                        "entropy": 0.6845331192016602,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "eb7f5c5c6d69232f2be50f46356e9c14c51acbf43fa586998339f4c310f34f7d",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 8361.2255859375,
+                        "entropy": 1.4339691400527954,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "a273536bd75e96299197fe86f785f6caba77fcef93cb4b92d74f4828dcb93451",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 8061.23095703125,
+                        "entropy": 1.1929993629455566,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "5fc0b1ac831538b81015448a8345c0c5ffd3d0b98d42b845ee08ac355fea9a3e",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 7930.57080078125,
+                        "entropy": 0.8477415442466736,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "654428608b176f9968d3499f80795d8c827950aaebc8bd9a467c74466be08188",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 8061.23095703125,
+                        "entropy": 1.1929993629455566,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "b94cee87cc75c5e4e541eab848d5f1274f8d6ebc30da59e97618de2bea9c4759",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 7930.57080078125,
+                        "entropy": 0.8477415442466736,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "95fbfff3205663fc47b290373cb081c3db28c732b86f02abfe0d3a7e7af02a35",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 7930.57080078125,
+                        "entropy": 0.8477415442466736,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "bf65e350090d22642de1bcc563809ae0f3546e0303af875709a1882d1080aacf",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 7930.57080078125,
+                        "entropy": 0.8477415442466736,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "33f93565e9e156b1e874c3b62f9a71718f28377dca505feaafccb2305e1d2ff9",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 7930.57080078125,
+                        "entropy": 0.8477415442466736,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "4bb21de3395a0409fe4178d2df7f11464fd25400a1febf10571547f55360379f",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 7930.57080078125,
+                        "entropy": 0.8477415442466736,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "bf65e350090d22642de1bcc563809ae0f3546e0303af875709a1882d1080aacf",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 7930.57080078125,
+                        "entropy": 0.8477415442466736,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "fe17f3e91e4a5eaece1eef5fb9092362f673e34ac393e1865d62442ec63de765",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 7930.57080078125,
+                        "entropy": 0.8477415442466736,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "663e596946f6ab44207b60e663eed655ab25cb8da21a4e6ba4454c6430775eec",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 7930.57080078125,
+                        "entropy": 0.8477415442466736,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "97daed048c5b2d1bb19d3b33c5cb2ac095bf674ed4770ee5f5da5ddb9abbfc2b",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 8061.23095703125,
+                        "entropy": 1.1929993629455566,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "c14ae9c9428550dcf0e9da86ba96574613f320f8952fdfa9769bac1b4e98cf79",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 7930.57080078125,
+                        "entropy": 0.8477415442466736,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "fff4ae6fcb4ceebb378349d8c1e09c8e7b153d511969715f7e8e54c4adc8e529",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 8061.23095703125,
+                        "entropy": 1.1929993629455566,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "98d06f320b57793872a2de45e6a8cdf382503767a90678153701226fcd49ebe6",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 7930.57080078125,
+                        "entropy": 0.8477415442466736,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "663e596946f6ab44207b60e663eed655ab25cb8da21a4e6ba4454c6430775eec",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 7930.57080078125,
+                        "entropy": 0.8477415442466736,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "654428608b176f9968d3499f80795d8c827950aaebc8bd9a467c74466be08188",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 7930.57080078125,
+                        "entropy": 0.8477415442466736,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "0845ac62da5e59570a1d839ac51cb1a7640170fa0bcf3bf763340dd87e3030d0",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 12249.08984375,
+                        "entropy": 1.8087942600250244,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "1ea153f773314a2cf3e7146bee6fe262a74d7f3e815d9b304fefd203d21c4136",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 16191.9990234375,
+                        "entropy": 1.896240472793579,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "2653116cbb749bdc5f4a04e93c3a634b11308ac593d38095d7e84275010b5d5f",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 13537.263671875,
+                        "entropy": 1.8470710515975952,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "c7a486692ce663450e21d61793c10f34d0ccdf646463b0145a45099e10c7f60e",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 16191.9990234375,
+                        "entropy": 1.896240472793579,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "2653116cbb749bdc5f4a04e93c3a634b11308ac593d38095d7e84275010b5d5f",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 16191.9990234375,
+                        "entropy": 1.896240472793579,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "2653116cbb749bdc5f4a04e93c3a634b11308ac593d38095d7e84275010b5d5f",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 15273.650390625,
+                        "entropy": 2.024212598800659,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "6b9c218a1ed8496274889a75d9f12f6e8dcf6706848e4293c674603e4f262956",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 14568.8359375,
+                        "entropy": 2.035393714904785,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "eb3625477ea4daea80c0712bc46ebd357284fd9383ba493668f35596e32342a5",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 15206.1328125,
+                        "entropy": 2.0506110191345215,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "7ef3f6f3843d9b0d47167eff2d45ffcb854dcbfe3b96f5d1e93a21ebcca6260e",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 15442.439453125,
+                        "entropy": 1.94455087184906,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "0c4c87fb534eceec11630e7899202db34fdb46dfb290c4610e272f21afe3bbb2",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 16191.9990234375,
+                        "entropy": 1.896240472793579,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "9fa3d4a88d7ccb49d42a9002dc138d261117659684897beacb3f520cc4e8e874",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 15983.9990234375,
+                        "entropy": 2.0122759342193604,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "00b933ffc49797c6106166934716814e3a1113651169fc775e625f96d8b39166",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 8802.666015625,
+                        "entropy": 1.5157896280288696,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "1dd6810472de26210116836eeb74e565cfc0b22a58f6061d65a315a3b30f70a2",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 7930.57080078125,
+                        "entropy": 0.8477415442466736,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "4d5cb055e244a9dce2f49c6c6cdac258cc0fefba3e87a6e24010b0a726599f9d",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 9569.2158203125,
+                        "entropy": 1.845903754234314,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "18aad68ac061136a09689ba667d1574daa92c0c259a5635b5b89c4bd85bbcc60",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 8377.7412109375,
+                        "entropy": 1.3895354270935059,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "51fc6b8bac5596594f188b970dc052216a387146edc10f871eaec1a1c388d03d",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 8802.666015625,
+                        "entropy": 1.5157896280288696,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "bd11d3aa01b2b2eda9cd34540c70b60a7797e1315db3b6f1c3ac206de1107b05",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 10409.05859375,
+                        "entropy": 1.715498447418213,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "644e6a272ec4ae9c8b35d1b01ff68c5eea3fc02309d0de628f82fef72aa30a6e",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 9165.2197265625,
+                        "entropy": 1.7315095663070679,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "05adde1c77ad339d04887c3b2562fb8c018ee19c9768a7432a28ccca87971719",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 7906.18994140625,
+                        "entropy": 0.9133341312408447,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "b978867ad077b44a721ebd95f6bcd6f46be0a417f1eb5db1ff80d9b2910ff9e8",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 9747.3046875,
+                        "entropy": 1.7868196964263916,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "918414d296b378a5e41f6b806197fcdd85d237eaf03087e7ff0fd4d3e014ef6c",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 8377.7412109375,
+                        "entropy": 1.3895354270935059,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "e5ac431d972c1e8026ed0d12a5900e36997d21375cc5e07843fe4a6b5f259a8a",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 15762.6640625,
+                        "entropy": 2.0763742923736572,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "227988224e3ca3e4b667c7a9179f84b29f5d48b729cf2c142e7686443a8d616f",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 9296.341796875,
+                        "entropy": 1.60322105884552,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "306a791c7a1f11a48de55ad4365cc3adc7b3fc191bfd4d8403314e287d9c794c",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 8377.7412109375,
+                        "entropy": 1.3895354270935059,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "b90d784a2d97f9038960ed63b704612ade8a6c539dc9319f2466513e2daf51c3",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 7930.57080078125,
+                        "entropy": 0.8477415442466736,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "852b4a91a6e1a06aa0716f9a803d834bc82a53700b7409e60dcc9a860b7da5b2",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 8061.23095703125,
+                        "entropy": 1.1929993629455566,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "6a9057d3aef7fea9caa5c01aefa3f818cd13a287a5f3d396616c5ccf4d9fed32",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 13203.7900390625,
+                        "entropy": 1.945080280303955,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "b47d7edfe4ba60b94adb5712fe5593293df45d06303e01fdbbeedace5361dfaf",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 13883.2333984375,
+                        "entropy": 1.9951015710830688,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "122cc8e30a4d009480088e4744a6a5dae83f1f793272183f1f19e0c955f610ed",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 15735.9970703125,
+                        "entropy": 2.093026638031006,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "c81e64b12f754237a467a7e05dc2117519f05ef49ada35343fbf01fe074dac00",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 11005.7158203125,
+                        "entropy": 1.753434419631958,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "e02641d64ec00fbd6fe0a2c2b40b32334aaee85ce32b23ada9e196178f19968d",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 7930.57080078125,
+                        "entropy": 0.8477415442466736,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "4d48ff072fbabee2c32761709d54b148437ad0c485b1d62c003732847f4d777b",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 9296.341796875,
+                        "entropy": 1.60322105884552,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "219162c769e9409007a0b36bb88bc2757439885d3155a9a78a3fea8bdd2dd33c",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 11620.4248046875,
+                        "entropy": 1.7838733196258545,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "a75e6e3002292f9f3d111bad7989bff508c3298d92c6b85b380bb3a51f12bb82",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 9221.416015625,
+                        "entropy": 1.7216295003890991,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "4da94f15ff43f98818f272cb507e9f7112cb908d25fb5fbd554176990994cbc2",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 8738.66796875,
+                        "entropy": 1.654678463935852,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "2a0e094c3c664d34be734222a94dfbec24393e2377f25c3334aa8a4601656a6f",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 8061.23095703125,
+                        "entropy": 1.1929993629455566,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "ea7dace57d22cc865923035422c2d9268acccba2b978cd2d5618f8146a293678",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 8278.6455078125,
+                        "entropy": 1.5514565706253052,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "a3525b391270604186c2293dbe7571318410fbe30507cb4431c00ed827d691c7",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 9741.73828125,
+                        "entropy": 1.727604627609253,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "b49dae7d7200391f0d09b18aae317e33ab28e107fbffac8cbd094ed401428bff",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 8061.23095703125,
+                        "entropy": 1.1929993629455566,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "3bf9aad5b50245075c551af22817dd0ad475b38b04c68df0d580d6ea353ca7c8",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 12758.95703125,
+                        "entropy": 1.935522437095642,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "5d983c8744f001b2316cf799a16d97d5cd9ad9e926d378e0fddb000010f56b35",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 8011.99951171875,
+                        "entropy": 1.2314609289169312,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "03d9cc28001ad0fa0a38be192879aaf6f30226acb4a5f4766cfe7aac7793c837",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 11958.505859375,
+                        "entropy": 2.1656737327575684,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "268b9873910dc9a322367a22d061ff3f244eb58027cf04da85b1bb11adbc1b5a",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 8681.779296875,
+                        "entropy": 1.657607913017273,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "c1f249196f09cf02057042c238b99109b8ef3d50391c6921a98734b30d4e6d5a",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 9846.861328125,
+                        "entropy": 2.0406341552734375,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "9f86982c760bf1a57680c29454a1ba0f4129dd27b92db0976073b1805439880e",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 7893.99951171875,
+                        "entropy": 0.9609531760215759,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "d57a1c51c75835376a3367fb303e7e45cfc6cc56a73810724437336cc4c3e717",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 12192.87109375,
+                        "entropy": 2.133852243423462,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "0b04c27816c95935cea782577f7602bc0d899d65e9389657689c93e835649555",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 10409.05859375,
+                        "entropy": 1.715498447418213,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "97f1161a30ff5a16e50bd26ef120b6261c4f5b19a080527867e92ddb76f55bb1",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 9208.9267578125,
+                        "entropy": 1.6678599119186401,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "210158751403c3e08d9693c2ed787ea5047e7e1b8cfba01ef903b0e385392459",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 8760.0,
+                        "entropy": 1.6059316396713257,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "b34d3844562609b247b63d66db9ab05efe4d8270ff4c9573fbef088a9a0140f6",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 10941.7158203125,
+                        "entropy": 1.8310863971710205,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "b9f3a2aec7ba60a1d21d4d9ca1a239dc552cf01fb8819eda13a04bb94147d107",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 14312.8359375,
+                        "entropy": 2.084834337234497,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "60a2d0ba851da5fe78d0568aadd7f66e45047cfec5a0d6a12c3d19c357c134eb",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 15318.6591796875,
+                        "entropy": 1.982564091682434,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "eb23cd96f0977351bd8d065128df6f1056b78e6a7fca8e4ae16db1f022e0d60b",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 14199.0107421875,
+                        "entropy": 2.1912474632263184,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "514f8a4598c3f2d804780cb7805fb6f1962a025252d0ddc4a4d3a1b9ee2080f9",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 8731.556640625,
+                        "entropy": 1.682456135749817,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "a02aa86fee3dbf48c7c41621b4f7d09ab84afd1b5bc0c336ca0f87381473256f",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 8061.23095703125,
+                        "entropy": 1.1929993629455566,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "051982f0d4aa72021770ace545fcae1849dd668e2cfeeace41df73125030d576",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 7930.57080078125,
+                        "entropy": 0.8477415442466736,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "bf03b9dda5792d7d9f6ce75ff6956e310750294f6e362d822d24eb7691e43941",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 8015.904296875,
+                        "entropy": 0.6845331192016602,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "eb7f5c5c6d69232f2be50f46356e9c14c51acbf43fa586998339f4c310f34f7d",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 8344.7099609375,
+                        "entropy": 1.478402853012085,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "67e4616a41960622423d01655c207ccafb78ebafc031c569cbcf52bdff7b2085",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 8061.23095703125,
+                        "entropy": 1.1929993629455566,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "96920d1e8d6ef18057512ac5f38160de518e0e56c1c0e3876e464a050334769f",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 7930.57080078125,
+                        "entropy": 0.8477415442466736,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "bf03b9dda5792d7d9f6ce75ff6956e310750294f6e362d822d24eb7691e43941",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 8061.23095703125,
+                        "entropy": 1.1929993629455566,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "8119a580f9676ed7c7f72ffed7ffaf889fb69372f30f70548c2f0f6e720d8b9f",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 7930.57080078125,
+                        "entropy": 0.8477415442466736,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "444ad5d32577ffe377a2f9190f8ea9e0d24fc0d5d84526a773d9ee53079b5d10",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 7930.57080078125,
+                        "entropy": 0.8477415442466736,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "2e0d1c1df6fd747acdb06a6440415603da5eef11c8a8b0b2d1c9b57e4687e5a1",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 7930.57080078125,
+                        "entropy": 0.8477415442466736,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "0a40bd768867e5561c32dd67577599359c909f392f0ee6e843b6d9134801e275",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 7930.57080078125,
+                        "entropy": 0.8477415442466736,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "2f4d1c8dfe9a6957fbb6fafb3f23990002e079ce15b2ef7cf2ce0d323e110833",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 7930.57080078125,
+                        "entropy": 0.8477415442466736,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "2e0d1c1df6fd747acdb06a6440415603da5eef11c8a8b0b2d1c9b57e4687e5a1",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 7930.57080078125,
+                        "entropy": 0.8477415442466736,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "3230dcb5bc075bb10efa98343e36252930a0ea941de07766d4bf621fc96265e0",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 7930.57080078125,
+                        "entropy": 0.8477415442466736,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "3f5dd2934cf2dc46ddd903507fc523144dd5d7a4896c19ac1912407d2f9cfcce",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 7930.57080078125,
+                        "entropy": 0.8477415442466736,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "09a62d4f8df6dbda3edde89f5f456b483fbeb497922959b3b37ad638c2e8376c",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 8061.23095703125,
+                        "entropy": 1.1929993629455566,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "7041e2259fc7d863ec6ec41f28a4ae508000a3522e1706c4a729d4d44650d3ff",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 7930.57080078125,
+                        "entropy": 0.8477415442466736,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "8ea5f28a1aeb310ec62cfe79c1c57ac8dacd651bac459b0fd1e74c15ac82c2e9",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 8061.23095703125,
+                        "entropy": 1.1929993629455566,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "a72edff4055f3469cd71b481cd7c1cc5734cc90faa83ac8663e4526e05aaa596",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 7930.57080078125,
+                        "entropy": 0.8477415442466736,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "3f5dd2934cf2dc46ddd903507fc523144dd5d7a4896c19ac1912407d2f9cfcce",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 7930.57080078125,
+                        "entropy": 0.8477415442466736,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "bf03b9dda5792d7d9f6ce75ff6956e310750294f6e362d822d24eb7691e43941",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 7930.57080078125,
+                        "entropy": 0.8477415442466736,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "f9a873a6a61eea49d4fc0367a213c0cb335ab14375fabeb0c45c3ffaa89b883f",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 13579.3828125,
+                        "entropy": 2.810676097869873,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "83565fcc90a8d3e97aa6e711e8ddce6696261b2dfdf6a460a2f9539433db56b1",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 11562.5458984375,
+                        "entropy": 2.4111623764038086,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "38868867482d10e223632445a4626883726b2eff8577cf073d58743f48000050",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 9399.7900390625,
+                        "entropy": 2.3919432163238525,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "6d76f238db55f650ca610142e2719fb39228737cffd4295e0868c61f107fae2c",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 9207.4775390625,
+                        "entropy": 2.4367740154266357,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "7f2285faad0deb4ac3e9db2750b4ee2c919a1627dc290880f0d0ee1cbd638c93",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 7645.130859375,
+                        "entropy": 1.2463929653167725,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "6d268e1428e5682a829154aeda2d836b9c67aa76f0997f49fd9cb90b6b5055e0",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 11442.1669921875,
+                        "entropy": 2.839397430419922,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "19501b147b72e08e3cf5135a4df0faf03541989109fbf7039e5b7110506fe35f",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 11963.56640625,
+                        "entropy": 2.858733654022217,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "ea7c0a65aa236cb0aa78c6ef44410c623ab4a9c79c8b805e1464992e5e10a773",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 11222.1162109375,
+                        "entropy": 2.7547504901885986,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "0df4febcfbf4786dc2304bff0e01e8894746c53994e4c32aa0f936c53df114f6",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 9605.025390625,
+                        "entropy": 3.0041756629943848,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "775d86383fb1833316f64eb5bd0c866b131b13efa92cf0eaaddb52cd95b2f090",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 10314.1923828125,
+                        "entropy": 2.9564483165740967,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "c561ca1de643fcda9176ed418d61efb513c0f64846ae48c0f106ec02c1121239",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 11575.1064453125,
+                        "entropy": 3.0870418548583984,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "37def3d2f37e7b822151671e35e3ce94c70fdeee47e8ba8d6aa06e34d8200aaf",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 12196.025390625,
+                        "entropy": 3.242931365966797,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "ee87dc097f3891583fcf5eba271c8713dcfe45e3d73621029cb9f23f9b6313b0",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 13584.25390625,
+                        "entropy": 3.027496337890625,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "bd21857d69449e1985819c2e0616d365f5bfb946b23b3f42cf9d825df892166c",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 8952.001953125,
+                        "entropy": 2.083913564682007,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "85545f18fd6bf4302a502131a901f6f33c01ed5c5dc4d452ed9d34f0efa42c28",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 10768.0009765625,
+                        "entropy": 2.5633232593536377,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "906277fc7b2dc0b8c68e377e1f51f78a003b2092c1509a28e5142c86ef2dd208",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 9336.001953125,
+                        "entropy": 1.8914724588394165,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "19163b0d47c8f7d103ed89d02078cb53bd5d39078211f582cac6b41f113fef5c",
+                        "type": "RT_STRING"
+                    },
+                    {
+                        "chi2": 551.3704223632812,
+                        "entropy": 3.7821221351623535,
+                        "filetype": "ASCII text",
+                        "lang": "ENGLISH US",
+                        "sha256": "ad4402584d5714c917d8626953bb69cd860ea0a9c5cd72b8c7d45e28996a5d4f",
+                        "type": "RT_RCDATA"
+                    },
+                    {
+                        "chi2": 87072.7265625,
+                        "entropy": 3.446488380432129,
+                        "filetype": "data",
+                        "lang": "ENGLISH US",
+                        "sha256": "b52ffe2af09e507ddca1de92644a5395b3461e6269067298257c877c361ba53c",
+                        "type": "RT_VERSION"
+                    }
+                ],
+                "resource_langs": {
+                    "ENGLISH US": 205
+                },
+                "resource_types": {
+                    "RT_RCDATA": 16,
+                    "RT_STRING": 188,
+                    "RT_VERSION": 1
+                },
+                "sections": [
+                    {
+                        "entropy": 6.39,
+                        "md5": "bf3add8859d3d2e48e8ce9e935afd0d9",
+                        "name": ".text",
+                        "raw_size": 223744,
+                        "virtual_address": 4096,
+                        "virtual_size": 223738
+                    },
+                    {
+                        "entropy": 4.59,
+                        "md5": "fd73e1a1e2af7fd234963181c1dc9130",
+                        "name": ".rdata",
+                        "raw_size": 35840,
+                        "virtual_address": 229376,
+                        "virtual_size": 35696
+                    },
+                    {
+                        "entropy": 2.63,
+                        "md5": "86d9150936f394ce1de45ee4243e3ee4",
+                        "name": ".data",
+                        "raw_size": 30208,
+                        "virtual_address": 266240,
+                        "virtual_size": 32200
+                    },
+                    {
+                        "entropy": 5.33,
+                        "md5": "8cf159f1675da75353b9cb531e907ca2",
+                        "name": ".pdata",
+                        "raw_size": 6144,
+                        "virtual_address": 299008,
+                        "virtual_size": 5904
+                    },
+                    {
+                        "entropy": 2.96,
+                        "md5": "15932b22a20a8c9ebf10a0b86b633772",
+                        "name": ".didat",
+                        "raw_size": 1024,
+                        "virtual_address": 307200,
+                        "virtual_size": 832
+                    },
+                    {
+                        "entropy": 3.08,
+                        "md5": "42761cfda9e768b301da948005ea49f7",
+                        "name": ".rsrc",
+                        "raw_size": 34304,
+                        "virtual_address": 311296,
+                        "virtual_size": 34120
+                    },
+                    {
+                        "entropy": 5.61,
+                        "md5": "5f8b1906f31ee3b9c99129a4e7c6f6cf",
+                        "name": ".reloc",
+                        "raw_size": 2048,
+                        "virtual_address": 348160,
+                        "virtual_size": 1900
+                    }
+                ],
+                "timestamp": 1512783779
+            },
+            "reputation": 0,
+            "sha1": "b00469ba488c1eea993907356c3f6c30e8e77a66",
+            "sha256": "5686ef83ec3e957c61a9d219b1316e3f7a26dce92ca83820064bbbe027f273d4",
+            "signature_info": {
+                "description": "Microsoft Access database engine ODBC International DLL",
+                "file version": "16.0.8907.1000",
+                "internal name": "aceodbc",
+                "original name": "aceodbc.dll",
+                "product": "Microsoft Office 2016",
+                "signing date": "10:07 PM 7/11/2019",
+                "verified": "A certificate chain processed, but terminated in a root certificate which is not trusted by the trust provider.",
+                "x509": [
+                    {
+                        "algorithm": "sha1RSA",
+                        "cert issuer": "Microsoft Time-Stamp PCA",
+                        "name": "Microsoft Time-Stamp Service",
+                        "serial number": "33 00 00 00 B9 BC 0F 4E 57 E3 66 65 38 00 00 00 00 00 B9",
+                        "thumbprint": "16BD30797E524159CBD2B9B68CB98B7C16B79C88",
+                        "valid from": "5:58 PM 9/7/2016",
+                        "valid to": "5:58 PM 9/7/2018",
+                        "valid_usage": "Timestamp Signing"
+                    },
+                    {
+                        "algorithm": "sha1RSA",
+                        "cert issuer": "Microsoft Root Certificate Authority",
+                        "name": "Microsoft Time-Stamp PCA",
+                        "serial number": "61 16 68 34 00 00 00 00 00 1C",
+                        "thumbprint": "375FCB825C3DC3752A02E34EB70993B4997191EF",
+                        "valid from": "12:53 PM 4/3/2007",
+                        "valid to": "1:03 PM 4/3/2021",
+                        "valid_usage": "Timestamp Signing"
+                    },
+                    {
+                        "algorithm": "sha256RSA",
+                        "cert issuer": "Microsoft Testing Root Certificate Authority 2010",
+                        "name": "MSIT Test CodeSign CA 6",
+                        "serial number": "33 00 00 00 1C 9A 95 51 59 04 EB 91 87 00 00 00 00 00 1C",
+                        "thumbprint": "98725873611882C17A9D478FDC46F9C172552D63",
+                        "valid from": "6:05 PM 12/19/2014",
+                        "valid to": "6:05 PM 12/19/2018",
+                        "valid_usage": null
+                    },
+                    {
+                        "algorithm": "sha256RSA",
+                        "cert issuer": "MSIT Test CodeSign CA 6",
+                        "name": "Microsoft Corporation",
+                        "serial number": "1D 01 83 94 10 9C C3 13 7F B5 01 4F CC 00 01 01 83 94 10",
+                        "thumbprint": "43C6C6863F1F8DADE4FFAFB93B1C27C6B000D328",
+                        "valid from": "10:23 PM 4/5/2016",
+                        "valid to": "10:23 PM 4/5/2018",
+                        "valid_usage": "0.4.1.311.10.3, Code Signing"
+                    }
+                ]
+            },
+            "size": 341552,
+            "ssdeep": "6144:Vj+RZRC0MC+RrhpCEfhvw4B7gbuKfnv+magE2cL1Sg0b0W+:V2zC00RVXfhvbB0P+PgE2cR2bZ+",
+            "tags": [
+                "64bits",
+                "assembly",
+                "pedll",
+                "trusted",
+                "overlay"
+            ],
+            "times_submitted": 2,
+            "total_votes": {
+                "harmless": 0,
+                "malicious": 0
+            },
+            "trid": [
+                {
+                    "file_type": "Win64 Executable (generic)",
+                    "probability": 82.0
+                },
+                {
+                    "file_type": "OS/2 Executable (generic)",
+                    "probability": 6.0
+                },
+                {
+                    "file_type": "Generic Win/DOS Executable",
+                    "probability": 5.9
+                },
+                {
+                    "file_type": "DOS Executable Generic",
+                    "probability": 5.9
+                }
+            ],
+            "trusted_verdict": {
+                "filename": "aceodbc.dll",
+                "generator": "Microsoft Corporation",
+                "organization": "Microsoft Corporation",
+                "verdict": "goodware"
+            },
+            "type_description": "Win32 DLL",
+            "type_tag": "pedll",
+            "unique_sources": 2,
+            "vhash": "135076651d155d151550b1z21z10046=z4c"
+        },
+        "id": "5686ef83ec3e957c61a9d219b1316e3f7a26dce92ca83820064bbbe027f273d4",
+        "links": {
+            "self": "https://www.virustotal.com/ui/files/5686ef83ec3e957c61a9d219b1316e3f7a26dce92ca83820064bbbe027f273d4"
+        },
+        "type": "file"
+    }
+}
