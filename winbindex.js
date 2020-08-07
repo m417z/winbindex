@@ -15,14 +15,14 @@ var globalFunctions = {};
 
         var index = getParameterByName('index');
         if (index !== null) {
-            showIndex(index || '');
-            return;
-        }
+            var indexFile = getParameterByName('file');
+            if (indexFile) {
+                var fileHash = getParameterByName('hash');
+                showIndexFile(indexFile, fileHash);
+                return;
+            }
 
-        var indexFile = getParameterByName('index_file');
-        if (indexFile) {
-            var fileHash = getParameterByName('hash');
-            showIndexFile(indexFile, fileHash);
+            showIndex(index || '');
             return;
         }
 
@@ -362,8 +362,17 @@ var globalFunctions = {};
                     searchable: false,
                     sortable: false,
                     render: function (data) {
+                        // Sort keys - https://stackoverflow.com/a/53593328
+                        var allKeys = [];
+                        JSON.stringify(data.data, function (key, value) {
+                            allKeys.push(key);
+                            return value;
+                        });
+                        allKeys.sort();
+                        var json = JSON.stringify(data.data, allKeys, 4);
+
                         var element = $('<a href="#" class="btn btn-secondary btn-sm">Show</a>')
-                            .attr('onclick', 'arguments[0].stopPropagation(); return globalFunctions.onShowExtraClick(this, "' + data.hash + '", "' + encodeURIComponent(JSON.stringify(data.data, null, 4)) + '");');
+                            .attr('onclick', 'arguments[0].stopPropagation(); return globalFunctions.onShowExtraClick(this, "' + data.hash + '", "' + encodeURIComponent(json) + '");');
 
                         return element[0].outerHTML;
                     }
@@ -384,12 +393,7 @@ var globalFunctions = {};
                                 '<a href="#" class="btn btn-secondary btn-sm disabled">Download</a></span>';
                         }
 
-                        // "%s/%s/%08X%x/%s" % (serverName, peName, timeStamp, imageSize, peName)
-                        // https://randomascii.wordpress.com/2013/03/09/symbols-the-microsoft-way/
-
-                        var fileName = fileToLoad;
-                        var fileId = ('0000000' + data.timestamp.toString(16).toUpperCase()).slice(-8) + data.virtualSize.toString(16).toLowerCase();
-                        var url = 'https://msdl.microsoft.com/download/symbols/' + fileName + '/' + fileId + '/' + fileName;
+                        var url = makeSymbolServerUrl(fileToLoad, data.timestamp, data.virtualSize);
 
                         var element = $('<a class="btn btn-secondary btn-sm">Download</a>')
                             .prop('href', url).attr('onclick', 'arguments[0].stopPropagation();');
@@ -635,6 +639,24 @@ var globalFunctions = {};
         };
     }
 
+    function getAssemblyNames(data) {
+        var items = {};
+
+        var windowsVersions = data.windowsVersions;
+        Object.keys(windowsVersions).forEach(function (windowsVersion) {
+            Object.keys(windowsVersions[windowsVersion]).forEach(function (update) {
+                if (update !== 'BASE') {
+                    var assemblies = windowsVersions[windowsVersion][update].assemblies;
+                    Object.keys(assemblies).forEach(function (assembly) {
+                        items[assembly] = true;
+                    });
+                }
+            });
+        });
+
+        return Object.keys(items).sort();
+    }
+
     // https://stackoverflow.com/a/20732091
     function humanFileSize(size) {
         var i = size === 0 ? 0 : Math.floor( Math.log(size) / Math.log(1024) );
@@ -654,6 +676,14 @@ var globalFunctions = {};
         }
 
         return arch;
+    }
+
+    function makeSymbolServerUrl(peName, timeStamp, imageSize) {
+        // "%s/%s/%08X%x/%s" % (serverName, peName, timeStamp, imageSize, peName)
+        // https://randomascii.wordpress.com/2013/03/09/symbols-the-microsoft-way/
+
+        var fileId = ('0000000' + timeStamp.toString(16).toUpperCase()).slice(-8) + imageSize.toString(16).toLowerCase();
+        return 'https://msdl.microsoft.com/download/symbols/' + peName + '/' + fileId + '/' + peName;
     }
 
     function onHashCopyClick(element, hash) {
@@ -915,7 +945,7 @@ var globalFunctions = {};
 
         files.forEach(function (file) {
             html.append($('<li>').append($('<a>', {
-                href: '?index_file=' + encodeURIComponent(file),
+                href: '?index&file=' + encodeURIComponent(file),
                 text: file
             })));
         });
@@ -987,11 +1017,15 @@ var globalFunctions = {};
             'SHA256': fileHash,
             'SHA1': fileInfo.sha1,
             'MD5': fileInfo.md5,
+            'File Size': fileInfo.size && humanFileSize(fileInfo.size),
+            'Machine Type': fileInfo.machineType && humanFileArch(fileInfo.machineType),
+            'File Version': fileInfo.version,
             'Description': fileInfo.description,
-            'Machine Type': fileInfo.machineType,
-            'Signing Date': fileInfo.signingDate,
-            'File Size': fileInfo.size,
-            'File Version': fileInfo.version
+            'Signing Date': fileInfo.signingDate && fileInfo.signingDate.join('\n'),
+            'Windows 10 Version': getWin10Versions(d).items.join('\n'),
+            'Update': getUpdateKbs(d).items.join('\n'),
+            'Assembly': getAssemblyNames(d).join('\n'),
+            'Download Link': fileInfo.timestamp && fileInfo.virtualSize && makeSymbolServerUrl(indexFile, fileInfo.timestamp, fileInfo.virtualSize)
         };
 
         Object.keys(tableRows).forEach(function (key) {
@@ -1002,6 +1036,7 @@ var globalFunctions = {};
                         text: key
                     }),
                     $('<td>', {
+                        style: 'white-space: pre-line',
                         text: value
                     })
                 ]));
@@ -1010,6 +1045,11 @@ var globalFunctions = {};
 
         table.append(tbody);
         html.append($('<div class="table-responsive"></div>').append(table));
+
+        html.append($('<a>', {
+            href: '?index&file=' + encodeURIComponent(indexFile),
+            text: '← Back to list'
+        }));
 
         return {
             title: indexFile + ' ' + fileHash + ' - Winbindex',
@@ -1038,7 +1078,7 @@ var globalFunctions = {};
 
         var tbody = $('<tbody>');
 
-        Object.keys(data).forEach(function (hash) {
+        Object.keys(data).sort().forEach(function (hash) {
             var d = data[hash];
             var fileInfo = d.fileInfo || {};
 
@@ -1046,7 +1086,7 @@ var globalFunctions = {};
                 $('<td>', {
                     class: 'text-monospace small'
                 }).append($('<a>', {
-                    href: '?index_file=' + encodeURIComponent(indexFile) + '&hash=' + encodeURIComponent(hash),
+                    href: '?index&file=' + encodeURIComponent(indexFile) + '&hash=' + encodeURIComponent(hash),
                     text: hash
                 })),
                 $('<td>', {
