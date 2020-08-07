@@ -76,8 +76,7 @@ def check_pymultitor(address='127.0.0.1', port=8080):
         return False
 
 def run_virustotal_updates(start_time):
-    #time_to_stop = start_time + timedelta(minutes=46)
-    time_to_stop = start_time + timedelta(minutes=2)
+    time_to_stop = start_time + timedelta(minutes=46)
 
     # Install pymultitor.
     commands = [
