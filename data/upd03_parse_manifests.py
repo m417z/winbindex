@@ -5,6 +5,25 @@ import json
 
 import config
 
+file_hashes = {}
+
+def update_file_hashes():
+    info_sources_path = config.out_path.joinpath('info_sources.json')
+    if info_sources_path.is_file():
+        with open(info_sources_path, 'r') as f:
+            info_sources = json.load(f)
+    else:
+        info_sources = {}
+
+    for name in file_hashes:
+        for file_hash in file_hashes[name]:
+            info_sources.setdefault(name, {}).setdefault(file_hash, 'none')
+
+    with open(info_sources_path, 'w') as f:
+        json.dump(info_sources, f)
+
+    file_hashes.clear()
+
 def parse_manifest_file(file_el):
     hashes = list(file_el.findall('hash'))
     if len(hashes) != 1:
@@ -32,6 +51,12 @@ def parse_manifest_file(file_el):
 
     digest_value_el = digest_values[0]
     sha256 = base64.b64decode(digest_value_el.text).hex()
+
+    filename = file_el.attrib['name'].split('\\')[-1].lower()
+    if (filename.endswith('.exe') or
+        filename.endswith('.dll') or
+        filename.endswith('.sys')):
+        file_hashes.setdefault(filename, set()).add(sha256)
 
     result = {
         algorithm: sha256,
@@ -119,6 +144,8 @@ def main():
                 print(' ' + update_kb, end='', flush=True)
 
         print()
+
+    update_file_hashes()
 
 if __name__ == '__main__':
     main()
