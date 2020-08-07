@@ -11,6 +11,16 @@ file_info_data = {}
 
 def write_all_file_info():
     output_dir = config.out_path.joinpath('by_filename_compressed')
+
+    for filename in file_info_data:
+        data = file_info_data[filename]
+
+        output_path = output_dir.joinpath(filename + '.json.gz')
+        with gzip.open(output_path, 'w', compresslevel=config.compression_level) as f:
+            f.write(orjson.dumps(data))
+
+    file_info_data.clear()
+
     all_filenames = sorted(path.with_suffix('').stem for path in output_dir.glob('*.json.gz'))
 
     with open(config.out_path.joinpath('filenames.json'), 'w') as f:
@@ -64,7 +74,7 @@ def assert_fileinfo_close_enough(file_info_1, file_info_2):
 
         # VirusTotal returns the time in a local, unknown timestamp.
         # "the maximum difference could be over 30 hours", https://stackoverflow.com/a/8131056
-        assert hours <= 32
+        assert hours <= 32, f'{hours} {file_info_1["sha256"]}'
 
 def add_file_info_from_update(filename, output_dir, *, file_hash, file_info, windows_version, update_kb, update_info, manifest_name, assembly_identity, attributes):
     if filename in file_info_data:
@@ -124,7 +134,7 @@ def get_virustotal_info(file_hash):
     def align_by(n, alignment):
         return ((n + alignment - 1) // alignment) * alignment
 
-    if file_hash in virustotal_info_cache:
+    if config.high_mem_usage_for_performance and file_hash in virustotal_info_cache:
         return virustotal_info_cache[file_hash]
 
     filename = config.out_path.joinpath('virustotal', file_hash + '.json')
@@ -188,19 +198,28 @@ def get_virustotal_info(file_hash):
                 has_signature_overlay = True
 
     info['signingStatus'] = 'Unsigned'
-    file_verified = False
+    file_signed = False
 
     if 'signature_info' in attr:
         signature_info = attr['signature_info']
+
         if 'file version' in signature_info:
             info['version'] = signature_info['file version']
+
         if 'description' in signature_info:
             info['description'] = signature_info['description']
+
+        signing_date_reliable = False
         if 'verified' in signature_info:
             info['signingStatus'] = signature_info['verified']
             info['signatureType'] = 'Overlay' if has_signature_overlay else 'Catalog file'
-            file_verified = True
-        if has_signature_overlay and 'signing date' in signature_info:
+            file_signed = True
+
+            # If the value is something else, the "signing date" is often the analysis (file modified?) date.
+            if signature_info['verified'] == 'Signed':
+                signing_date_reliable = True
+
+        if has_signature_overlay and 'signing date' in signature_info and signing_date_reliable:
             spaces = signature_info['signing date'].count(' ')
             if spaces == 1:
                 # Examples:
@@ -217,10 +236,12 @@ def get_virustotal_info(file_hash):
             datetime_object = datetime.strptime(signature_info['signing date'], date_format)
             info['signingDate'] = [datetime_object.isoformat()]
 
-    assert not has_signature_overlay or file_verified
+    assert not has_signature_overlay or file_signed
 
     if config.high_mem_usage_for_performance:
         virustotal_info_cache[file_hash] = info
+    else:
+        virustotal_info_cache[file_hash] = True
 
     return info
 
@@ -233,8 +254,8 @@ def group_update_assembly_by_filename(input_filename, output_dir, *, windows_ver
     for file_item in data['files']:
         filename = file_item['attributes']['name'].split('\\')[-1].lower()
 
-        hashIsSha256 = 'sha256' in file_item
-        if hashIsSha256:
+        hash_is_sha256 = 'sha256' in file_item
+        if hash_is_sha256:
             file_hash = file_item['sha256']
         else:
             file_hash = file_item['sha1']
@@ -243,9 +264,9 @@ def group_update_assembly_by_filename(input_filename, output_dir, *, windows_ver
         if virustotal_info and file_hash != virustotal_info['sha256']:
             assert file_hash == virustotal_info['sha1']
             file_hash = virustotal_info['sha256']
-            hashIsSha256 = True
+            hash_is_sha256 = True
 
-        if not hashIsSha256:
+        if not hash_is_sha256:
             raise Exception('No SHA256 hash')
 
         add_file_info_from_update(filename, output_dir,
@@ -258,7 +279,7 @@ def group_update_assembly_by_filename(input_filename, output_dir, *, windows_ver
             assembly_identity=assembly_identity,
             attributes=file_item['attributes'])
 
-def group_update_by_filename(windows_version, update_kb, update, parsed_dir, progress_state=None):
+def group_update_by_filename(windows_version, update_kb, update, parsed_dir, progress_state=None, time_to_stop=None):
     output_dir = config.out_path.joinpath('by_filename_compressed')
     output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -287,7 +308,7 @@ def group_update_by_filename(windows_version, update_kb, update, parsed_dir, pro
         if count % 200 == 0 and config.verbose_progress:
             print(f' ...{count}', end='', flush=True)
 
-        if progress_state and datetime.now() >= progress_state['time_to_stop']:
+        if time_to_stop and datetime.now() >= time_to_stop:
             break
 
         try:
@@ -304,6 +325,89 @@ def group_update_by_filename(windows_version, update_kb, update, parsed_dir, pro
 
     if progress_state:
         progress_state['files_processed'] = count
+
+def process_updates(progress_state=None, time_to_stop=None):
+    with open(config.out_path.joinpath('updates.json')) as f:
+        updates = json.load(f)
+
+    for windows_version in updates:
+        if windows_version == '1909':
+            continue  # same updates as 1903
+
+        print(f'Processing Windows version {windows_version}:', end='', flush=True)
+
+        for update in updates[windows_version]:
+            update_kb = update['updateKb']
+
+            parsed_dir = config.out_path.joinpath('parsed', windows_version, update_kb)
+            if parsed_dir.is_dir():
+                group_update_by_filename(windows_version, update_kb, update, parsed_dir, progress_state, time_to_stop)
+                print(' ' + update_kb, end='', flush=True)
+
+        print()
+
+def add_file_info_from_virustotal_data(filename, output_dir, *, file_hash, file_info):
+    if filename in file_info_data:
+        data = file_info_data[filename]
+    else:
+        output_path = output_dir.joinpath(filename + '.json.gz')
+        if output_path.is_file():
+            with gzip.open(output_path, 'r') as f:
+                data = orjson.loads(f.read())
+        else:
+            data = {}
+
+    x = data[file_hash]
+
+    if file_info:
+        if 'fileInfo' not in x:
+            x['fileInfo'] = file_info
+        else:
+            assert_fileinfo_close_enough(x['fileInfo'], file_info)
+            return
+
+    if config.high_mem_usage_for_performance:
+        file_info_data[filename] = data
+    else:
+        output_path = output_dir.joinpath(filename + '.json.gz')
+        with gzip.open(output_path, 'w', compresslevel=config.compression_level) as f:
+            f.write(orjson.dumps(data))
+
+def process_virustotal_data():
+    output_dir = config.out_path.joinpath('by_filename_compressed')
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    info_sources_path = config.out_path.joinpath('info_sources.json')
+    if info_sources_path.is_file():
+        with open(info_sources_path, 'r') as f:
+            info_sources = json.load(f)
+    else:
+        info_sources = {}
+
+    for name in info_sources:
+        for file_hash in info_sources[name]:
+            if info_sources[name][file_hash] != 'newvt':
+                continue
+
+            info_sources[name][file_hash] = 'vt'
+
+            if file_hash in virustotal_info_cache:
+                # Was already added with one of the updates.
+                continue
+
+            virustotal_info = get_virustotal_info(file_hash)
+            if file_hash != virustotal_info['sha256']:
+                assert file_hash == virustotal_info['sha1']
+                file_hash = virustotal_info['sha256']
+
+            add_file_info_from_virustotal_data(name, output_dir,
+                file_hash=file_hash,
+                file_info=virustotal_info)
+
+    with open(info_sources_path, 'w') as f:
+        json.dump(info_sources, f)
+
+    virustotal_info_cache.clear()
 
 def add_file_info_from_iso_data(filename, output_dir, *, file_hash, file_info, source_path, windows_version, windows_version_info):
     if filename in file_info_data:
@@ -381,28 +485,7 @@ def group_iso_data_by_filename(windows_version, windows_release_date, iso_data_f
             windows_version=windows_version,
             windows_version_info=windows_version_info)
 
-def main(progress_state=None):
-    with open(config.out_path.joinpath('updates.json')) as f:
-        updates = json.load(f)
-
-    for windows_version in updates:
-        if windows_version == '1909':
-            continue  # same updates as 1903
-
-        print(f'Processing Windows version {windows_version}:', end='', flush=True)
-
-        for update in updates[windows_version]:
-            update_kb = update['updateKb']
-
-            parsed_dir = config.out_path.joinpath('parsed', windows_version, update_kb)
-            if parsed_dir.is_dir():
-                group_update_by_filename(windows_version, update_kb, update, parsed_dir, progress_state)
-                print(' ' + update_kb, end='', flush=True)
-
-        print()
-
-    print('Processing data from ISO files')
-
+def process_iso_files():
     windows_versions_from_iso = {
         '2004': '2020-05-27',
         '1909': '2019-11-12',
@@ -423,6 +506,16 @@ def main(progress_state=None):
             group_iso_data_by_filename(windows_version, windows_versions_from_iso[windows_version], iso_data_file)
 
     print()
+
+def main(progress_state=None, time_to_stop=None):
+    print('Processing data from updates')
+    process_updates(progress_state, time_to_stop)
+
+    print('Processing data from VirusTotal')
+    process_virustotal_data()
+
+    print('Processing data from ISO files')
+    process_iso_files()
 
     write_all_file_info()
 
