@@ -1,0 +1,1229 @@
+{
+    "data": {
+        "attributes": {
+            "authentihash": "7263407daf863a1f01fd8a29e5af97edc2e1f3ed924630ce4865f920d385f4d2",
+            "creation_date": 1594958862,
+            "first_submission_date": 1595374474,
+            "last_analysis_date": 1596808038,
+            "last_analysis_results": {
+                "ALYac": {
+                    "category": "undetected",
+                    "engine_name": "ALYac",
+                    "engine_update": "20200807",
+                    "engine_version": "1.1.1.5",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "APEX": {
+                    "category": "undetected",
+                    "engine_name": "APEX",
+                    "engine_update": "20200807",
+                    "engine_version": "6.57",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "AVG": {
+                    "category": "undetected",
+                    "engine_name": "AVG",
+                    "engine_update": "20200807",
+                    "engine_version": "18.4.3895.0",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Acronis": {
+                    "category": "undetected",
+                    "engine_name": "Acronis",
+                    "engine_update": "20200806",
+                    "engine_version": "1.1.1.77",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Ad-Aware": {
+                    "category": "undetected",
+                    "engine_name": "Ad-Aware",
+                    "engine_update": "20200807",
+                    "engine_version": "3.0.5.370",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "AegisLab": {
+                    "category": "undetected",
+                    "engine_name": "AegisLab",
+                    "engine_update": "20200807",
+                    "engine_version": "4.2",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "AhnLab-V3": {
+                    "category": "undetected",
+                    "engine_name": "AhnLab-V3",
+                    "engine_update": "20200807",
+                    "engine_version": "3.18.1.10026",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Alibaba": {
+                    "category": "undetected",
+                    "engine_name": "Alibaba",
+                    "engine_update": "20190527",
+                    "engine_version": "0.3.0.5",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Antiy-AVL": {
+                    "category": "undetected",
+                    "engine_name": "Antiy-AVL",
+                    "engine_update": "20200807",
+                    "engine_version": "3.0.0.1",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Arcabit": {
+                    "category": "undetected",
+                    "engine_name": "Arcabit",
+                    "engine_update": "20200807",
+                    "engine_version": "1.0.0.877",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Avast": {
+                    "category": "undetected",
+                    "engine_name": "Avast",
+                    "engine_update": "20200807",
+                    "engine_version": "18.4.3895.0",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Avast-Mobile": {
+                    "category": "type-unsupported",
+                    "engine_name": "Avast-Mobile",
+                    "engine_update": "20200807",
+                    "engine_version": "200807-00",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Avira": {
+                    "category": "undetected",
+                    "engine_name": "Avira",
+                    "engine_update": "20200807",
+                    "engine_version": "8.3.3.8",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Baidu": {
+                    "category": "undetected",
+                    "engine_name": "Baidu",
+                    "engine_update": "20190318",
+                    "engine_version": "1.0.0.2",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "BitDefender": {
+                    "category": "undetected",
+                    "engine_name": "BitDefender",
+                    "engine_update": "20200807",
+                    "engine_version": "7.2",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "BitDefenderTheta": {
+                    "category": "undetected",
+                    "engine_name": "BitDefenderTheta",
+                    "engine_update": "20200805",
+                    "engine_version": "7.2.37796.0",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Bkav": {
+                    "category": "undetected",
+                    "engine_name": "Bkav",
+                    "engine_update": "20200807",
+                    "engine_version": "1.3.0.9899",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "CAT-QuickHeal": {
+                    "category": "undetected",
+                    "engine_name": "CAT-QuickHeal",
+                    "engine_update": "20200807",
+                    "engine_version": "14.00",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "CMC": {
+                    "category": "undetected",
+                    "engine_name": "CMC",
+                    "engine_update": "20200807",
+                    "engine_version": "2.7.2019.1",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "ClamAV": {
+                    "category": "undetected",
+                    "engine_name": "ClamAV",
+                    "engine_update": "20200807",
+                    "engine_version": "0.102.4.0",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Comodo": {
+                    "category": "undetected",
+                    "engine_name": "Comodo",
+                    "engine_update": "20200728",
+                    "engine_version": "32668",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "CrowdStrike": {
+                    "category": "undetected",
+                    "engine_name": "CrowdStrike",
+                    "engine_update": "20190702",
+                    "engine_version": "1.0",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Cybereason": {
+                    "category": "undetected",
+                    "engine_name": "Cybereason",
+                    "engine_update": "20190616",
+                    "engine_version": "1.2.449",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Cylance": {
+                    "category": "undetected",
+                    "engine_name": "Cylance",
+                    "engine_update": "20200807",
+                    "engine_version": "2.3.1.101",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Cynet": {
+                    "category": "undetected",
+                    "engine_name": "Cynet",
+                    "engine_update": "20200807",
+                    "engine_version": "4.0.0.24",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Cyren": {
+                    "category": "undetected",
+                    "engine_name": "Cyren",
+                    "engine_update": "20200807",
+                    "engine_version": "6.3.0.2",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "DrWeb": {
+                    "category": "undetected",
+                    "engine_name": "DrWeb",
+                    "engine_update": "20200807",
+                    "engine_version": "7.0.46.3050",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "ESET-NOD32": {
+                    "category": "undetected",
+                    "engine_name": "ESET-NOD32",
+                    "engine_update": "20200805",
+                    "engine_version": "21771",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Elastic": {
+                    "category": "undetected",
+                    "engine_name": "Elastic",
+                    "engine_update": "20200727",
+                    "engine_version": "4.0.6",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Emsisoft": {
+                    "category": "undetected",
+                    "engine_name": "Emsisoft",
+                    "engine_update": "20200807",
+                    "engine_version": "2018.12.0.1641",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "F-Prot": {
+                    "category": "undetected",
+                    "engine_name": "F-Prot",
+                    "engine_update": "20200807",
+                    "engine_version": "4.7.1.166",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "F-Secure": {
+                    "category": "undetected",
+                    "engine_name": "F-Secure",
+                    "engine_update": "20200807",
+                    "engine_version": "12.0.86.52",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "FireEye": {
+                    "category": "undetected",
+                    "engine_name": "FireEye",
+                    "engine_update": "20200807",
+                    "engine_version": "32.36.1.0",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Fortinet": {
+                    "category": "undetected",
+                    "engine_name": "Fortinet",
+                    "engine_update": "20200807",
+                    "engine_version": "6.2.142.0",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "GData": {
+                    "category": "undetected",
+                    "engine_name": "GData",
+                    "engine_update": "20200807",
+                    "engine_version": "A:25.26506B:27.19715",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Ikarus": {
+                    "category": "undetected",
+                    "engine_name": "Ikarus",
+                    "engine_update": "20200807",
+                    "engine_version": "0.1.5.2",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Invincea": {
+                    "category": "undetected",
+                    "engine_name": "Invincea",
+                    "engine_update": "20200502",
+                    "engine_version": "6.3.6.26157",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Jiangmin": {
+                    "category": "undetected",
+                    "engine_name": "Jiangmin",
+                    "engine_update": "20200807",
+                    "engine_version": "16.0.100",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "K7AntiVirus": {
+                    "category": "undetected",
+                    "engine_name": "K7AntiVirus",
+                    "engine_update": "20200807",
+                    "engine_version": "11.128.34929",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "K7GW": {
+                    "category": "undetected",
+                    "engine_name": "K7GW",
+                    "engine_update": "20200807",
+                    "engine_version": "11.128.34929",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Kaspersky": {
+                    "category": "undetected",
+                    "engine_name": "Kaspersky",
+                    "engine_update": "20200807",
+                    "engine_version": "15.0.1.13",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Kingsoft": {
+                    "category": "undetected",
+                    "engine_name": "Kingsoft",
+                    "engine_update": "20200807",
+                    "engine_version": "2013.8.14.323",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "MAX": {
+                    "category": "undetected",
+                    "engine_name": "MAX",
+                    "engine_update": "20200807",
+                    "engine_version": "2019.9.16.1",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Malwarebytes": {
+                    "category": "undetected",
+                    "engine_name": "Malwarebytes",
+                    "engine_update": "20200807",
+                    "engine_version": "3.6.4.335",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "MaxSecure": {
+                    "category": "undetected",
+                    "engine_name": "MaxSecure",
+                    "engine_update": "20200806",
+                    "engine_version": "1.0.0.1",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "McAfee": {
+                    "category": "undetected",
+                    "engine_name": "McAfee",
+                    "engine_update": "20200807",
+                    "engine_version": "6.0.6.653",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "McAfee-GW-Edition": {
+                    "category": "failure",
+                    "engine_name": "McAfee-GW-Edition",
+                    "engine_update": "20200807",
+                    "engine_version": null,
+                    "method": "blacklist",
+                    "result": null
+                },
+                "MicroWorld-eScan": {
+                    "category": "undetected",
+                    "engine_name": "MicroWorld-eScan",
+                    "engine_update": "20200807",
+                    "engine_version": "14.0.409.0",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Microsoft": {
+                    "category": "undetected",
+                    "engine_name": "Microsoft",
+                    "engine_update": "20200807",
+                    "engine_version": "1.1.17300.4",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "NANO-Antivirus": {
+                    "category": "undetected",
+                    "engine_name": "NANO-Antivirus",
+                    "engine_update": "20200807",
+                    "engine_version": "1.0.134.25119",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Paloalto": {
+                    "category": "undetected",
+                    "engine_name": "Paloalto",
+                    "engine_update": "20200807",
+                    "engine_version": "1.0",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Panda": {
+                    "category": "undetected",
+                    "engine_name": "Panda",
+                    "engine_update": "20200807",
+                    "engine_version": "4.6.4.2",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Qihoo-360": {
+                    "category": "undetected",
+                    "engine_name": "Qihoo-360",
+                    "engine_update": "20200807",
+                    "engine_version": "1.0.0.1120",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Rising": {
+                    "category": "undetected",
+                    "engine_name": "Rising",
+                    "engine_update": "20200807",
+                    "engine_version": "25.0.0.26",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "SUPERAntiSpyware": {
+                    "category": "undetected",
+                    "engine_name": "SUPERAntiSpyware",
+                    "engine_update": "20200807",
+                    "engine_version": "5.6.0.1032",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Sangfor": {
+                    "category": "undetected",
+                    "engine_name": "Sangfor",
+                    "engine_update": "20200423",
+                    "engine_version": "1.0",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "SentinelOne": {
+                    "category": "undetected",
+                    "engine_name": "SentinelOne",
+                    "engine_update": "20200725",
+                    "engine_version": "4.4.0.0",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Sophos": {
+                    "category": "undetected",
+                    "engine_name": "Sophos",
+                    "engine_update": "20200807",
+                    "engine_version": "4.98.0",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Symantec": {
+                    "category": "undetected",
+                    "engine_name": "Symantec",
+                    "engine_update": "20200807",
+                    "engine_version": "1.11.0.0",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "SymantecMobileInsight": {
+                    "category": "type-unsupported",
+                    "engine_name": "SymantecMobileInsight",
+                    "engine_update": "20200806",
+                    "engine_version": "2.0",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "TACHYON": {
+                    "category": "undetected",
+                    "engine_name": "TACHYON",
+                    "engine_update": "20200807",
+                    "engine_version": "2020-08-07.02",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Tencent": {
+                    "category": "undetected",
+                    "engine_name": "Tencent",
+                    "engine_update": "20200807",
+                    "engine_version": "1.0.0.1",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "TotalDefense": {
+                    "category": "undetected",
+                    "engine_name": "TotalDefense",
+                    "engine_update": "20200807",
+                    "engine_version": "37.1.62.1",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Trapmine": {
+                    "category": "type-unsupported",
+                    "engine_name": "Trapmine",
+                    "engine_update": "20200727",
+                    "engine_version": "3.5.0.1023",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "TrendMicro": {
+                    "category": "undetected",
+                    "engine_name": "TrendMicro",
+                    "engine_update": "20200807",
+                    "engine_version": "11.0.0.1006",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "TrendMicro-HouseCall": {
+                    "category": "undetected",
+                    "engine_name": "TrendMicro-HouseCall",
+                    "engine_update": "20200807",
+                    "engine_version": "10.0.0.1040",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Trustlook": {
+                    "category": "type-unsupported",
+                    "engine_name": "Trustlook",
+                    "engine_update": "20200807",
+                    "engine_version": "1.0",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "VBA32": {
+                    "category": "undetected",
+                    "engine_name": "VBA32",
+                    "engine_update": "20200807",
+                    "engine_version": "4.4.1",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "VIPRE": {
+                    "category": "undetected",
+                    "engine_name": "VIPRE",
+                    "engine_update": "20200807",
+                    "engine_version": "85762",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "ViRobot": {
+                    "category": "undetected",
+                    "engine_name": "ViRobot",
+                    "engine_update": "20200807",
+                    "engine_version": "2014.3.20.0",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Webroot": {
+                    "category": "undetected",
+                    "engine_name": "Webroot",
+                    "engine_update": "20200807",
+                    "engine_version": "1.0.0.403",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Yandex": {
+                    "category": "undetected",
+                    "engine_name": "Yandex",
+                    "engine_update": "20200707",
+                    "engine_version": "5.5.2.24",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Zillya": {
+                    "category": "undetected",
+                    "engine_name": "Zillya",
+                    "engine_update": "20200807",
+                    "engine_version": "2.0.0.4150",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "ZoneAlarm": {
+                    "category": "undetected",
+                    "engine_name": "ZoneAlarm",
+                    "engine_update": "20200807",
+                    "engine_version": "1.0",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "Zoner": {
+                    "category": "undetected",
+                    "engine_name": "Zoner",
+                    "engine_update": "20200807",
+                    "engine_version": "0.0.0.0",
+                    "method": "blacklist",
+                    "result": null
+                },
+                "eGambit": {
+                    "category": "undetected",
+                    "engine_name": "eGambit",
+                    "engine_update": "20200807",
+                    "engine_version": null,
+                    "method": "blacklist",
+                    "result": null
+                }
+            },
+            "last_analysis_stats": {
+                "confirmed-timeout": 0,
+                "failure": 1,
+                "harmless": 0,
+                "malicious": 0,
+                "suspicious": 0,
+                "timeout": 0,
+                "type-unsupported": 4,
+                "undetected": 71
+            },
+            "last_modification_date": 1596816101,
+            "last_submission_date": 1595374474,
+            "magic": "PE32+ executable for MS Windows (GUI) Mono/.Net assembly",
+            "md5": "132c633941a214b15478f251568375ab",
+            "meaningful_name": "AccountsControlHost.exe",
+            "names": [
+                "AccountsControlHost",
+                "AccountsControlHost.exe"
+            ],
+            "pe_info": {
+                "compiler_product_versions": [
+                    "[IMP] VS2008 SP1 build 30729 count=40",
+                    "id: 259, version: 26715 count=3",
+                    "id: 260, version: 26715 count=71",
+                    "id: 261, version: 26715 count=24",
+                    "[---] Unmarked objects count=253",
+                    "id: 257, version: 26715 count=5",
+                    "id: 265, version: 26715 count=4",
+                    "id: 256, version: 26715 count=1",
+                    "id: 255, version: 26715 count=1",
+                    "id: 258, version: 26715 count=1"
+                ],
+                "entry_point": 436688,
+                "exports": [
+                    "DllCanUnloadNow",
+                    "DllGetActivationFactory",
+                    "VSDesignerDllMain"
+                ],
+                "imphash": "e2a05fe8273e1b6d2dd7ff6bbc8dfd4f",
+                "import_list": [
+                    {
+                        "imported_functions": [
+                            "WideCharToMultiByte",
+                            "GetStringTypeW",
+                            "MultiByteToWideChar"
+                        ],
+                        "library_name": "api-ms-win-core-string-l1-1-0.dll"
+                    },
+                    {
+                        "imported_functions": [
+                            "EventActivityIdControl",
+                            "EventSetInformation",
+                            "EventWriteTransfer",
+                            "EventRegister",
+                            "EventUnregister"
+                        ],
+                        "library_name": "api-ms-win-eventing-provider-l1-1-0.dll"
+                    },
+                    {
+                        "imported_functions": [
+                            "RtlVirtualUnwind",
+                            "RtlLookupFunctionEntry",
+                            "RtlCaptureContext"
+                        ],
+                        "library_name": "api-ms-win-core-rtlsupport-l1-1-0.dll"
+                    },
+                    {
+                        "imported_functions": [
+                            "CoTaskMemFree",
+                            "CoTaskMemAlloc",
+                            "CoCreateFreeThreadedMarshaler"
+                        ],
+                        "library_name": "api-ms-win-core-com-l1-1-0.dll"
+                    },
+                    {
+                        "imported_functions": [
+                            "GetCurrentProcessId",
+                            "GetCurrentProcess",
+                            "TerminateProcess",
+                            "GetCurrentThreadId",
+                            "GetStartupInfoW"
+                        ],
+                        "library_name": "api-ms-win-core-processthreads-l1-1-0.dll"
+                    },
+                    {
+                        "imported_functions": [
+                            "SetRestrictedErrorInfo",
+                            "RoFailFastWithErrorContext",
+                            "RoOriginateError"
+                        ],
+                        "library_name": "api-ms-win-core-winrt-error-l1-1-0.dll"
+                    },
+                    {
+                        "imported_functions": [
+                            "QueryPerformanceCounter"
+                        ],
+                        "library_name": "api-ms-win-core-profile-l1-1-0.dll"
+                    },
+                    {
+                        "imported_functions": [
+                            "_purecall",
+                            "malloc",
+                            "___lc_codepage_func",
+                            "??0exception@@QEAA@XZ",
+                            "setlocale",
+                            "realloc",
+                            "??0bad_cast@@QEAA@AEBV0@@Z",
+                            "memset",
+                            "___lc_handle_func",
+                            "__dllonexit",
+                            "___mb_cur_max_func",
+                            "abort",
+                            "wcstol",
+                            "_ismbblead",
+                            "_onexit",
+                            "_fmode",
+                            "_vsnwprintf",
+                            "_cexit",
+                            "?terminate@@YAXXZ",
+                            "__crtCompareStringW",
+                            "memcpy_s",
+                            "_errno",
+                            "memmove_s",
+                            "??1type_info@@UEAA@XZ",
+                            "??0exception@@QEAA@AEBQEBD@Z",
+                            "wcslen",
+                            "_amsg_exit",
+                            "exit",
+                            "_XcptFilter",
+                            "memcmp",
+                            "??0bad_cast@@QEAA@PEBD@Z",
+                            "__setusermatherr",
+                            "wcsrchr",
+                            "_acmdln",
+                            "_CxxThrowException",
+                            "??0exception@@QEAA@AEBQEBDH@Z",
+                            "?what@exception@@UEBAPEBDXZ",
+                            "_wcsdup",
+                            "_unlock",
+                            "_commode",
+                            "free",
+                            "__CxxFrameHandler3",
+                            "__getmainargs",
+                            "calloc",
+                            "_callnewh",
+                            "memcpy",
+                            "__pctype_func",
+                            "__C_specific_handler",
+                            "??3@YAXPEAX@Z",
+                            "_free_locale",
+                            "memmove",
+                            "_lock",
+                            "strchr",
+                            "??1exception@@UEAA@XZ",
+                            "??0exception@@QEAA@AEBV0@@Z",
+                            "_get_current_locale",
+                            "??1bad_cast@@UEAA@XZ",
+                            "__crtLCMapStringW",
+                            "___lc_collate_cp_func",
+                            "wcsstr",
+                            "_initterm",
+                            "_exit",
+                            "_vsnprintf_s",
+                            "__set_app_type"
+                        ],
+                        "library_name": "msvcrt.dll"
+                    },
+                    {
+                        "imported_functions": [
+                            "GetModuleHandleExW",
+                            "GetProcAddress",
+                            "GetModuleFileNameA",
+                            "GetModuleHandleW"
+                        ],
+                        "library_name": "api-ms-win-core-libraryloader-l1-2-0.dll"
+                    },
+                    {
+                        "imported_functions": [
+                            "SetUnhandledExceptionFilter",
+                            "UnhandledExceptionFilter",
+                            "GetLastError",
+                            "SetLastError"
+                        ],
+                        "library_name": "api-ms-win-core-errorhandling-l1-1-0.dll"
+                    },
+                    {
+                        "imported_functions": [
+                            "HeapFree",
+                            "HeapAlloc",
+                            "GetProcessHeap"
+                        ],
+                        "library_name": "api-ms-win-core-heap-l1-1-0.dll"
+                    },
+                    {
+                        "imported_functions": [
+                            "?Allocate@Heap@Details@Platform@@SAPEAX_K0@Z",
+                            "?EventSourceAdd@Details@Platform@@YA?AVEventRegistrationToken@Foundation@Windows@@PEAPEAXPEAUEventLock@12@PE$AAVDelegate@2@@Z",
+                            "?__abi_WinRTraiseChangedStateException@@YAXXZ",
+                            "?GetCmdArguments@Details@Platform@@YAPEAPEA_WPEAH@Z",
+                            "??0Object@Platform@@QE$AAA@XZ",
+                            "?UninitializeData@Details@Platform@@YAXH@Z",
+                            "?EventSourceGetTargetArrayEvent@Details@Platform@@YAPEAXPEAXIPEBXPEA_J@Z",
+                            "?__abi_WinRTraiseDisconnectedException@@YAXXZ",
+                            "?__abi_cast_Object_to_String@__abi_details@@YAPE$AAVString@Platform@@_NPE$AAVObject@3@@Z",
+                            "??0OutOfBoundsException@Platform@@QE$AAA@XZ",
+                            "?__abi_FailFast@@YAXXZ",
+                            "?__abi_WinRTraiseClassNotRegisteredException@@YAXXZ",
+                            "??0NullReferenceException@Platform@@QE$AAA@XZ",
+                            "?GetIidsFn@@YAJHPEAKPEBU__s_GUID@@PEAPEAVGuid@Platform@@@Z",
+                            "?GetIBoxArrayVtable@Details@Platform@@YAPEAXPEAX@Z",
+                            "?EventSourceRemove@Details@Platform@@YAXPEAPEAXPEAUEventLock@12@VEventRegistrationToken@Foundation@Windows@@@Z",
+                            "?InitializeData@Details@Platform@@YAJH@Z",
+                            "??BType@Platform@@SA?AVTypeName@Interop@Xaml@UI@Windows@@PE$AAV01@@Z",
+                            "?__abi_make_type_id@@YAPE$AAVType@Platform@@AEBU__abi_type_descriptor@@@Z",
+                            "?__abi_WinRTraiseNullReferenceException@@YAXXZ",
+                            "?EventSourceGetTargetArraySize@Details@Platform@@YAIPEAX@Z",
+                            "??0ChangedStateException@Platform@@QE$AAA@XZ",
+                            "?GetActivationFactory@Details@Platform@@YAJPEAVModuleBase@1WRL@Microsoft@@PEAUHSTRING__@@PEAPEAUIActivationFactory@@@Z",
+                            "?ReCreateFromException@Details@Platform@@YAJPE$AAVException@2@@Z",
+                            "?__abi_WinRTraiseNotImplementedException@@YAXXZ",
+                            "?__abi_WinRTraiseOperationCanceledException@@YAXXZ",
+                            "?get@Message@Exception@Platform@@QE$AAAPE$AAVString@3@XZ",
+                            "?GetIBoxVtable@Details@Platform@@YAPEAXPEAX@Z",
+                            "??0Delegate@Platform@@QE$AAA@XZ",
+                            "?__abi_WinRTraiseFailureException@@YAXXZ",
+                            "?__abi_WinRTraiseInvalidCastException@@YAXXZ",
+                            "?__abi_WinRTraiseObjectDisposedException@@YAXXZ",
+                            "?__abi_WinRTraiseCOMException@@YAXJ@Z",
+                            "?TerminateModule@Details@Platform@@YA_NPEAVModuleBase@1WRL@Microsoft@@@Z",
+                            "?__abi_WinRTraiseOutOfBoundsException@@YAXXZ",
+                            "?CreateException@Exception@Platform@@SAPE$AAV12@HPE$AAVString@2@@Z",
+                            "?AllocateException@Heap@Details@Platform@@SAPEAX_K0@Z",
+                            "?__abi_WinRTraiseWrongThreadException@@YAXXZ",
+                            "?EventSourceUninitialize@Details@Platform@@YAXPEAPEAX@Z",
+                            "?GetActivationFactoryByPCWSTR@@YAJPEAXAEAVGuid@Platform@@PEAPEAX@Z",
+                            "?__abi_WinRTraiseOutOfMemoryException@@YAXXZ",
+                            "?EventSourceInitialize@Details@Platform@@YAXPEAPEAX@Z",
+                            "?__abi_WinRTraiseInvalidArgumentException@@YAXXZ",
+                            "?Free@Heap@Details@Platform@@SAXPEAX@Z",
+                            "?GetTypeCode@Type@Platform@@SA?AW4TypeCode@2@PE$AAV12@@Z",
+                            "??0OutOfMemoryException@Platform@@QE$AAA@XZ",
+                            "?__abi_WinRTraiseAccessDeniedException@@YAXXZ",
+                            "?EventSourceGetTargetArray@Details@Platform@@YAPEAXPEAXPEAUEventLock@12@@Z",
+                            "?ReleaseTarget@ControlBlock@Details@Platform@@AEAAXXZ",
+                            "?__abi_ObjectToString@__abi_details@@YAPE$AAVString@Platform@@PE$AAVObject@3@_N@Z",
+                            "?CreateValue@Details@Platform@@YAPE$AAVObject@2@W4TypeCode@2@PEBX@Z",
+                            "?AlignedFree@Heap@Details@Platform@@SAXPEAX@Z",
+                            "?__abi_cast_String_to_Object@__abi_details@@YAPE$AAVObject@Platform@@PE$AAVString@3@@Z",
+                            "?get@FullName@Type@Platform@@QE$AAAPE$AAVString@3@XZ",
+                            "?GetWeakReference@Details@Platform@@YAPEAU__abi_IUnknown@@QE$ADVObject@2@@Z",
+                            "?ResolveWeakReference@Details@Platform@@YAPE$AAVObject@2@AEBU_GUID@@PEAPEAU__abi_IUnknown@@@Z",
+                            "??0InvalidArgumentException@Platform@@QE$AAA@XZ",
+                            "??0FailureException@Platform@@QE$AAA@XZ",
+                            "??0NotImplementedException@Platform@@QE$AAA@XZ"
+                        ],
+                        "library_name": "wincorlib.DLL"
+                    },
+                    {
+                        "imported_functions": [
+                            "Sleep",
+                            "InitOnceComplete",
+                            "InitOnceBeginInitialize"
+                        ],
+                        "library_name": "api-ms-win-core-synch-l1-2-0.dll"
+                    },
+                    {
+                        "imported_functions": [
+                            "WindowsConcatString",
+                            "WindowsGetStringRawBuffer",
+                            "WindowsGetStringLen",
+                            "WindowsDeleteString",
+                            "WindowsCreateStringReference",
+                            "WindowsDuplicateString",
+                            "WindowsCompareStringOrdinal",
+                            "WindowsCreateString",
+                            "WindowsIsStringEmpty"
+                        ],
+                        "library_name": "api-ms-win-core-winrt-string-l1-1-0.dll"
+                    },
+                    {
+                        "imported_functions": [
+                            "CloseHandle"
+                        ],
+                        "library_name": "api-ms-win-core-handle-l1-1-0.dll"
+                    },
+                    {
+                        "imported_functions": [
+                            "ReleaseSRWLockShared",
+                            "DeleteCriticalSection",
+                            "WaitForSingleObjectEx",
+                            "EnterCriticalSection",
+                            "CreateSemaphoreExW",
+                            "ReleaseSemaphore",
+                            "ReleaseMutex",
+                            "AcquireSRWLockExclusive",
+                            "CreateMutexExW",
+                            "WaitForSingleObject",
+                            "AcquireSRWLockShared",
+                            "ReleaseSRWLockExclusive",
+                            "InitializeCriticalSectionEx",
+                            "OpenSemaphoreW",
+                            "LeaveCriticalSection"
+                        ],
+                        "library_name": "api-ms-win-core-synch-l1-1-0.dll"
+                    },
+                    {
+                        "imported_functions": [
+                            "FormatMessageW",
+                            "GetLocaleInfoEx"
+                        ],
+                        "library_name": "api-ms-win-core-localization-l1-2-0.dll"
+                    },
+                    {
+                        "imported_functions": [
+                            "WaitForThreadpoolTimerCallbacks",
+                            "CreateThreadpoolTimer",
+                            "CloseThreadpoolTimer",
+                            "SetThreadpoolTimer"
+                        ],
+                        "library_name": "api-ms-win-core-threadpool-l1-2-0.dll"
+                    },
+                    {
+                        "imported_functions": [
+                            "DecodePointer",
+                            "EncodePointer"
+                        ],
+                        "library_name": "api-ms-win-core-util-l1-1-0.dll"
+                    },
+                    {
+                        "imported_functions": [
+                            "OutputDebugStringW",
+                            "IsDebuggerPresent",
+                            "DebugBreak"
+                        ],
+                        "library_name": "api-ms-win-core-debug-l1-1-0.dll"
+                    },
+                    {
+                        "imported_functions": [
+                            "GetTickCount",
+                            "GetSystemTimeAsFileTime"
+                        ],
+                        "library_name": "api-ms-win-core-sysinfo-l1-1-0.dll"
+                    },
+                    {
+                        "imported_functions": [
+                            "RoReportUnhandledError"
+                        ],
+                        "library_name": "api-ms-win-core-winrt-error-l1-1-1.dll"
+                    }
+                ],
+                "machine_type": 34404,
+                "overlay": {
+                    "chi2": 14085.2265625,
+                    "entropy": 7.321376800537109,
+                    "filetype": "Data",
+                    "md5": "5f51823712b4e47461745cb9cf04887a",
+                    "offset": 773120,
+                    "size": 8512
+                },
+                "resource_details": [
+                    {
+                        "chi2": 73083.75,
+                        "entropy": 3.513725996017456,
+                        "filetype": "Data",
+                        "lang": "ENGLISH US",
+                        "sha256": "fddbebd20c4d519b00964a1b81b8d7cc2335e1d24db7bdba3a78f622f480ad8d",
+                        "type": "RT_VERSION"
+                    }
+                ],
+                "resource_langs": {
+                    "ENGLISH US": 1
+                },
+                "resource_types": {
+                    "RT_VERSION": 1
+                },
+                "rich_pe_header_hash": "7c6e22676cf621a1b7831f32fdc30a5f",
+                "sections": [
+                    {
+                        "chi2": 3776091.0,
+                        "entropy": 6.16,
+                        "flags": "rx",
+                        "md5": "8c5c407264493f8b32f1a9c65708105b",
+                        "name": ".text",
+                        "raw_size": 454656,
+                        "virtual_address": 4096,
+                        "virtual_size": 454636
+                    },
+                    {
+                        "chi2": 15419572.0,
+                        "entropy": 4.52,
+                        "flags": "r",
+                        "md5": "8795ae52d5ce9f2303eba30f5b8003a6",
+                        "name": ".rdata",
+                        "raw_size": 278528,
+                        "virtual_address": 458752,
+                        "virtual_size": 278062
+                    },
+                    {
+                        "chi2": 780157.5,
+                        "entropy": 3.86,
+                        "flags": "rw",
+                        "md5": "0de3e1850e71a97d265f7c97c1a1ea24",
+                        "name": ".data",
+                        "raw_size": 13824,
+                        "virtual_address": 737280,
+                        "virtual_size": 16712
+                    },
+                    {
+                        "chi2": 458482.81,
+                        "entropy": 5.84,
+                        "flags": "r",
+                        "md5": "2fe4b32d7ed6bd3fd41f4f768933b6a6",
+                        "name": ".pdata",
+                        "raw_size": 19968,
+                        "virtual_address": 757760,
+                        "virtual_size": 19764
+                    },
+                    {
+                        "chi2": 193934.34,
+                        "entropy": 2.53,
+                        "flags": "r",
+                        "md5": "ac533b7d73f472fb0c2ba777f868158e",
+                        "name": ".rsrc",
+                        "raw_size": 1536,
+                        "virtual_address": 778240,
+                        "virtual_size": 1056
+                    },
+                    {
+                        "chi2": 24796.0,
+                        "entropy": 5.33,
+                        "flags": "r",
+                        "md5": "5b986b4e4252318c8210cbaf8f36c815",
+                        "name": ".reloc",
+                        "raw_size": 3584,
+                        "virtual_address": 782336,
+                        "virtual_size": 3328
+                    }
+                ],
+                "timestamp": 1594958862
+            },
+            "reputation": 0,
+            "sha1": "b0f76a42d53114a141082eecb2aeff1da7af71d7",
+            "sha256": "2f3fd30fddd68440a26b6c58357618401d06106d914ee7afa9d5c5758b0669d7",
+            "signature_info": {
+                "copyright": "\u00a9 Microsoft Corporation. All rights reserved.",
+                "counter signers": "Microsoft Time-Stamp Service; Microsoft Time-Stamp PCA 2010; Microsoft Root Certificate Authority 2010",
+                "counter signers details": [
+                    {
+                        "algorithm": "sha256RSA",
+                        "cert issuer": "Microsoft Time-Stamp PCA 2010",
+                        "name": "Microsoft Time-Stamp Service",
+                        "serial number": "33 00 00 01 2F B1 A7 17 79 56 94 17 87 00 00 00 00 01 2F",
+                        "status": "Valid",
+                        "thumbprint": "33F099094A5C950F6A7EBFEBDF2F68B0820F4A64",
+                        "valid from": "02:15 AM 12/19/2019",
+                        "valid to": "02:15 AM 03/17/2021",
+                        "valid usage": "Timestamp Signing"
+                    },
+                    {
+                        "algorithm": "sha256RSA",
+                        "cert issuer": "Microsoft Root Certificate Authority 2010",
+                        "name": "Microsoft Time-Stamp PCA 2010",
+                        "serial number": "61 09 81 2A 00 00 00 00 00 02",
+                        "status": "Valid",
+                        "thumbprint": "2AA752FE64C49ABE82913C463529CF10FF2F04EE",
+                        "valid from": "09:36 PM 07/01/2010",
+                        "valid to": "09:46 PM 07/01/2025",
+                        "valid usage": "All"
+                    },
+                    {
+                        "algorithm": "sha256RSA",
+                        "cert issuer": "Microsoft Root Certificate Authority 2010",
+                        "name": "Microsoft Root Certificate Authority 2010",
+                        "serial number": "28 CC 3A 25 BF BA 44 AC 44 9A 9B 58 6B 43 39 AA",
+                        "status": "Valid",
+                        "thumbprint": "3B1EFD3A66EA28B16697394703A72CA340A05BD5",
+                        "valid from": "09:57 PM 06/23/2010",
+                        "valid to": "10:04 PM 06/23/2035",
+                        "valid usage": "All"
+                    }
+                ],
+                "description": "Accounts Control Host",
+                "file version": "10.0.18362.997 (WinBuild.160101.0800)",
+                "internal name": "AccountsControlHost",
+                "original name": "AccountsControlHost.exe",
+                "product": "Microsoft\u00ae Windows\u00ae Operating System",
+                "signers": "Microsoft Windows; Microsoft Windows Production PCA 2011; Microsoft Root Certificate Authority 2010",
+                "signers details": [
+                    {
+                        "algorithm": "sha256RSA",
+                        "cert issuer": "Microsoft Windows Production PCA 2011",
+                        "name": "Microsoft Windows",
+                        "serial number": "33 00 00 02 66 BD 15 80 EF A7 5C D6 D3 00 00 00 00 02 66",
+                        "status": "Valid",
+                        "thumbprint": "A4341B9FD50FB9964283220A36A1EF6F6FAA7840",
+                        "valid from": "07:30 PM 03/04/2020",
+                        "valid to": "07:30 PM 03/03/2021",
+                        "valid usage": "NT5 Crypto, Code Signing"
+                    },
+                    {
+                        "algorithm": "sha256RSA",
+                        "cert issuer": "Microsoft Root Certificate Authority 2010",
+                        "name": "Microsoft Windows Production PCA 2011",
+                        "serial number": "61 07 76 56 00 00 00 00 00 08",
+                        "status": "Valid",
+                        "thumbprint": "580A6F4CC4E4B669B9EBDC1B2B3E087B80D0678D",
+                        "valid from": "06:41 PM 10/19/2011",
+                        "valid to": "06:51 PM 10/19/2026",
+                        "valid usage": "All"
+                    },
+                    {
+                        "algorithm": "sha256RSA",
+                        "cert issuer": "Microsoft Root Certificate Authority 2010",
+                        "name": "Microsoft Root Certificate Authority 2010",
+                        "serial number": "28 CC 3A 25 BF BA 44 AC 44 9A 9B 58 6B 43 39 AA",
+                        "status": "Valid",
+                        "thumbprint": "3B1EFD3A66EA28B16697394703A72CA340A05BD5",
+                        "valid from": "09:57 PM 06/23/2010",
+                        "valid to": "10:04 PM 06/23/2035",
+                        "valid usage": "All"
+                    }
+                ],
+                "signing date": "6:38 AM 7/17/2020",
+                "verified": "Signed",
+                "x509": [
+                    {
+                        "algorithm": "sha256RSA",
+                        "cert issuer": "Microsoft Windows Production PCA 2011",
+                        "name": "Microsoft Windows",
+                        "serial number": "33 00 00 02 66 BD 15 80 EF A7 5C D6 D3 00 00 00 00 02 66",
+                        "thumbprint": "A4341B9FD50FB9964283220A36A1EF6F6FAA7840",
+                        "valid from": "2020-03-04 18:30:39",
+                        "valid to": "2021-03-03 18:30:39",
+                        "valid_usage": "0.4.1.311.10.3, Code Signing"
+                    },
+                    {
+                        "algorithm": "sha256RSA",
+                        "cert issuer": "Microsoft Root Certificate Authority 2010",
+                        "name": "Microsoft Windows Production PCA 2011",
+                        "serial number": "61 07 76 56 00 00 00 00 00 08",
+                        "thumbprint": "580A6F4CC4E4B669B9EBDC1B2B3E087B80D0678D",
+                        "valid from": "2011-10-19 18:41:42",
+                        "valid to": "2026-10-19 18:51:42",
+                        "valid_usage": null
+                    },
+                    {
+                        "algorithm": "sha256RSA",
+                        "cert issuer": "Microsoft Time-Stamp PCA 2010",
+                        "name": "Microsoft Time-Stamp Service",
+                        "serial number": "33 00 00 01 2F B1 A7 17 79 56 94 17 87 00 00 00 00 01 2F",
+                        "thumbprint": "33F099094A5C950F6A7EBFEBDF2F68B0820F4A64",
+                        "valid from": "2019-12-19 01:15:06",
+                        "valid to": "2021-03-17 01:15:06",
+                        "valid_usage": "Timestamp Signing"
+                    },
+                    {
+                        "algorithm": "sha256RSA",
+                        "cert issuer": "Microsoft Root Certificate Authority 2010",
+                        "name": "Microsoft Time-Stamp PCA 2010",
+                        "serial number": "61 09 81 2A 00 00 00 00 00 02",
+                        "thumbprint": "2AA752FE64C49ABE82913C463529CF10FF2F04EE",
+                        "valid from": "2010-07-01 21:36:55",
+                        "valid to": "2025-07-01 21:46:55",
+                        "valid_usage": null
+                    }
+                ]
+            },
+            "size": 781632,
+            "ssdeep": "12288:8Zix8wRNwX0pLb09QY/kyDBYD3xt1TUXmtmufyDG1OGyW4JwKGfpXyB:8Mx8wy0db09j/bDBYD3xt1TFLycJL4Jz",
+            "tags": [
+                "peexe",
+                "assembly",
+                "invalid-rich-pe-linker-version",
+                "overlay",
+                "signed",
+                "64bits"
+            ],
+            "times_submitted": 2,
+            "total_votes": {
+                "harmless": 0,
+                "malicious": 0
+            },
+            "trid": [
+                {
+                    "file_type": "Win64 Executable (generic)",
+                    "probability": 82.0
+                },
+                {
+                    "file_type": "OS/2 Executable (generic)",
+                    "probability": 6.0
+                },
+                {
+                    "file_type": "Generic Win/DOS Executable",
+                    "probability": 5.9
+                },
+                {
+                    "file_type": "DOS Executable Generic",
+                    "probability": 5.9
+                }
+            ],
+            "type_description": "Win32 EXE",
+            "type_tag": "peexe",
+            "unique_sources": 1,
+            "vhash": "075066651d1555155cz4=z3"
+        },
+        "id": "2f3fd30fddd68440a26b6c58357618401d06106d914ee7afa9d5c5758b0669d7",
+        "links": {
+            "self": "https://www.virustotal.com/ui/files/2f3fd30fddd68440a26b6c58357618401d06106d914ee7afa9d5c5758b0669d7"
+        },
+        "type": "file"
+    }
+}
