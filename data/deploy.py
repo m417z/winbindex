@@ -76,8 +76,7 @@ def check_pymultitor(address='127.0.0.1', port=8080):
         return False
 
 def run_virustotal_updates(start_time):
-    #time_to_stop = start_time + timedelta(minutes=46)
-    time_to_stop = start_time + timedelta(minutes=1)
+    time_to_stop = start_time + timedelta(minutes=46)
 
     # Install pymultitor.
     commands = [
@@ -91,7 +90,7 @@ def run_virustotal_updates(start_time):
 
     #subprocess.Popen(['pymultitor', '--on-error-code', '429'])  # not implemented yet - https://github.com/realgam3/pymultitor/issues/24
     #subprocess.Popen(['pymultitor', '--on-regex', '^((?!"attributes").)*$'])  # https://stackoverflow.com/a/406408, doesn't work too actually
-    subprocess.Popen(['pymultitor', '--debug', '--on-count', '20'])  # not the best, temporary
+    subprocess.Popen(['pymultitor', '--on-count', '20'])  # not the best, temporary
 
     while not check_pymultitor():
         time.sleep(1)
