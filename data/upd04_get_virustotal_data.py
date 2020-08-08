@@ -2,6 +2,7 @@ from datetime import datetime
 from pathlib import Path
 import requests
 import urllib3
+import random
 import json
 import time
 
@@ -90,7 +91,13 @@ def get_virustotal_data(time_to_stop=None):
     total_count = sum(1 for name in info_sources for file_hash in info_sources[name] if info_sources[name][file_hash] == target_source)
     print(f'{total_count} items of type {target_source}')
 
-    for name in info_sources:
+    names = info_sources.keys()
+    if time_to_stop:
+        # Time is limited, shuffle keys to try different ones at different runs.
+        names = list(names)
+        random.shuffle(names)
+
+    for name in names:
         for file_hash in info_sources[name]:
             info_source = info_sources[name][file_hash]
             if info_source != target_source:
