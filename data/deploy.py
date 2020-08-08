@@ -7,6 +7,7 @@ import socket
 import json
 import time
 import os
+import shutil
 
 from upd01_get_list_of_updates import main as upd01_get_list_of_updates
 from upd02_get_manifests_from_updates import main as upd02_get_manifests_from_updates
@@ -76,7 +77,8 @@ def check_pymultitor(address='127.0.0.1', port=8080):
         return False
 
 def run_virustotal_updates(start_time):
-    time_to_stop = start_time + timedelta(minutes=46)
+    #time_to_stop = start_time + timedelta(minutes=46)
+    time_to_stop = start_time + timedelta(minutes=1)
 
     # Install pymultitor.
     commands = [
@@ -88,9 +90,10 @@ def run_virustotal_updates(start_time):
     for args in commands:
         subprocess.run(args, check=True)
 
-    #subprocess.Popen(['pymultitor', '--on-error-code', '429'])  # not implemented yet - https://github.com/realgam3/pymultitor/issues/24
-    #subprocess.Popen(['pymultitor', '--on-regex', '^((?!"attributes").)*$'])  # https://stackoverflow.com/a/406408, doesn't work too actually
-    subprocess.Popen(['pymultitor', '--on-count', '20'])  # not the best, temporary
+    # Temporary
+    shutil.copy('_pymultitor.py', '/home/travis/virtualenv/python3.8.0/lib/python3.8/site-packages/pymultitor.py')
+
+    subprocess.Popen(['pymultitor', '--debug', '--on-error-code', '429'])
 
     while not check_pymultitor():
         time.sleep(1)
