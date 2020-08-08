@@ -8,6 +8,9 @@ import json
 import time
 import os
 
+# Temporary
+import shutil
+
 from upd01_get_list_of_updates import main as upd01_get_list_of_updates
 from upd02_get_manifests_from_updates import main as upd02_get_manifests_from_updates
 from upd03_parse_manifests import main as upd03_parse_manifests
@@ -88,9 +91,10 @@ def run_virustotal_updates(start_time):
     for args in commands:
         subprocess.run(args, check=True)
 
-    #subprocess.Popen(['pymultitor', '--on-error-code', '429'])  # not implemented yet - https://github.com/realgam3/pymultitor/issues/24
-    #subprocess.Popen(['pymultitor', '--on-regex', '^((?!"attributes").)*$'])  # https://stackoverflow.com/a/406408, doesn't work too actually
-    subprocess.Popen(['pymultitor', '--on-count', '20'])  # not the best, temporary
+    # Temporary
+    shutil.copy('_pymultitor.py', '/home/travis/virtualenv/python3.8.0/lib/python3.8/site-packages/pymultitor.py')
+
+    subprocess.Popen(['pymultitor', '--on-error-code', '429'])
 
     while not check_pymultitor():
         time.sleep(1)
