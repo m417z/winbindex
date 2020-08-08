@@ -5,7 +5,6 @@ import platform
 import requests
 import shutil
 import json
-import os
 import re
 
 import config

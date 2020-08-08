@@ -60,7 +60,7 @@ def parse_manifest_file(file_el):
 
     result = {
         algorithm: sha256,
-        'attributes': {key: value for (key, value) in file_el.attrib.items()},
+        'attributes': dict(file_el.attrib.items()),
     }
 
     return result
