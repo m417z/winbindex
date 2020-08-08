@@ -96,7 +96,7 @@ class Tor(object):
             self.logger.warning("[%05d] Cant Change Tor Identity (Need More Tor Processes)" % self.id)
             return False
 
-        self.logger.debug("[%05d] Changing Tor Identity" % self.id)
+        self.logger.info("[%05d] Changing Tor Identity" % self.id)
         self.controller.signal(Signal.NEWNYM)
         return True
 
