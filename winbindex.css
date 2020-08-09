@@ -107,4 +107,5 @@ button:disabled {
     /* https://stackoverflow.com/a/28852473 */
     max-height: calc(100vh - 225px);
     padding: 10px;
+    margin-bottom: 0;
 }
