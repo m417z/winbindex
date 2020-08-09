@@ -16,8 +16,8 @@ from mitmproxy.tools.main import mitmdump
 from multiprocessing.pool import ThreadPool
 from stem.control import Controller, Signal
 from requests.exceptions import ConnectionError
-from stem.process import launch_tor_with_config
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
+from stem.process import launch_tor_with_config, DEFAULT_INIT_TIMEOUT
 
 __version__ = '3.2.0'
 
@@ -27,9 +27,10 @@ def is_windows():
 
 
 class Tor(object):
-    def __init__(self, cmd='tor', config=None):
+    def __init__(self, cmd='tor', timeout=DEFAULT_INIT_TIMEOUT, config=None):
         self.logger = logging.getLogger(__name__)
         self.tor_cmd = cmd
+        self.tor_timeout = timeout
         self.tor_config = config or {}
         self.socks_port = self.free_port()
         self.control_port = self.free_port()
@@ -61,8 +62,8 @@ class Tor(object):
                     **self.tor_config
                 },
                 tor_cmd=self.tor_cmd,
-                init_msg_handler=self.print_bootstrapped_line,
-                timeout=None
+                timeout=self.tor_timeout or None,
+                init_msg_handler=self.print_bootstrapped_line
             )
         except Exception as e:
             self.logger.error("[%05d] Failed To Launch Tor Process: %s" % (self.id, str(e)))
@@ -123,9 +124,10 @@ class Tor(object):
 
 
 class MultiTor(object):
-    def __init__(self, size=2, cmd='tor', config=None):
+    def __init__(self, size=2, cmd='tor', timeout=DEFAULT_INIT_TIMEOUT, config=None):
         self.logger = logging.getLogger(__name__)
         self.cmd = cmd
+        self.timeout = timeout
         self.size = size
         self.list = []
         self.cycle = None
@@ -168,9 +170,9 @@ class MultiTor(object):
         # If OS Platform Is Windows Run Processes Async
         if is_windows():
             pool = ThreadPool(processes=self.size)
-            self.list = pool.map(lambda _: Tor(cmd=self.cmd, config=self.config).run(), range(self.size))
+            self.list = pool.map(lambda _: Tor(cmd=self.cmd, timeout=self.timeout, config=self.config).run(), range(self.size))
         else:
-            self.list = [Tor(cmd=self.cmd, config=self.config).run() for _ in range(self.size)]
+            self.list = [Tor(cmd=self.cmd, timeout=self.timeout, config=self.config).run() for _ in range(self.size)]
 
         self.logger.info("All Tor Processes Executed Successfully")
         self.cycle = itertools.cycle(self.list)
@@ -221,6 +223,12 @@ class PyMultiTor(object):
             typespec=str,
             default='tor',
             help="tor cmd (executable path + arguments)",
+        )
+        loader.add_option(
+            name="tor_timeout",
+            typespec=int,
+            default=DEFAULT_INIT_TIMEOUT,
+            help="number of seconds before we time out our attempt to start a tor instance",
         )
         loader.add_option(
             name="tor_config",
@@ -287,6 +295,7 @@ class PyMultiTor(object):
         self.multitor = MultiTor(
             size=ctx.options.tor_processes,
             cmd=ctx.options.tor_cmd,
+            timeout=ctx.options.tor_timeout,
             config=ctx.options.tor_config
         )
         try:
@@ -410,6 +419,11 @@ def main(args=None):
                         help="tor cmd (executable path + arguments)",
                         dest="cmd",
                         default="tor")
+    parser.add_argument("-t", "--tor-timeout",
+                        help="number of seconds before we time out our attempt to start a tor instance",
+                        dest="timeout",
+                        type=int,
+                        default=DEFAULT_INIT_TIMEOUT)
     parser.add_argument("-e", "--tor-config",
                         help="tor extended json configuration",
                         dest="config",
@@ -441,6 +455,7 @@ def main(args=None):
         '--listen-host', sys_args['listen_host'],
         '--listen-port', str(sys_args['listen_port']),
         '--set', f'tor_cmd={sys_args["cmd"]}',
+        '--set', f'tor_timeout={sys_args["timeout"]}',
         '--set', f'tor_config={sys_args["config"]}',
         '--set', f'tor_processes={sys_args["processes"]}',
         '--set', f'on_string={sys_args["on_string"]}',

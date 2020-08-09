@@ -94,7 +94,7 @@ def run_virustotal_updates(start_time):
     # Temporary
     shutil.copy('_pymultitor.py', '/home/travis/virtualenv/python3.8.0/lib/python3.8/site-packages/pymultitor.py')
 
-    subprocess.Popen(['pymultitor', '--on-error-code', '429'])
+    subprocess.Popen(['pymultitor', '--tor-timeout', '0', '--on-error-code', '429'])
 
     while not check_pymultitor():
         time.sleep(1)
