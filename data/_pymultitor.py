@@ -61,7 +61,8 @@ class Tor(object):
                     **self.tor_config
                 },
                 tor_cmd=self.tor_cmd,
-                init_msg_handler=self.print_bootstrapped_line
+                init_msg_handler=self.print_bootstrapped_line,
+                timeout=None
             )
         except Exception as e:
             self.logger.error("[%05d] Failed To Launch Tor Process: %s" % (self.id, str(e)))
