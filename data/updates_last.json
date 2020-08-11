@@ -1,6 +1,13 @@
 {
     "2004": [
         {
+            "heading": "August 11, 2020\u2014KB4566782 (OS Build 19041.450)",
+            "updateKb": "KB4566782",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4566782",
+            "releaseDate": "2020-08-11T00:00:00",
+            "releaseVersion": "OS Build 19041.450"
+        },
+        {
             "heading": "July 31, 2020\u2014KB4568831 (OS Build 19041.423) Preview",
             "updateKb": "KB4568831",
             "updateUrl": "https://support.microsoft.com/en-us/help/4568831",
