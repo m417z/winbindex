@@ -1131,6 +1131,13 @@
     ],
     "1709": [
         {
+            "heading": "August 11, 2020\u2014KB4571741 (OS Build 16299.2045)",
+            "updateKb": "KB4571741",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4571741",
+            "releaseDate": "2020-08-11T00:00:00",
+            "releaseVersion": "OS Build 16299.2045"
+        },
+        {
             "heading": "July 14, 2020\u2014KB4565508 (OS Build 16299.1992)",
             "updateKb": "KB4565508",
             "updateUrl": "https://support.microsoft.com/en-us/help/4565508",
