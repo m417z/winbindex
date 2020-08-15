@@ -24,7 +24,7 @@ def write_all_file_info():
     all_filenames = sorted(path.with_suffix('').stem for path in output_dir.glob('*.json.gz'))
 
     with open(config.out_path.joinpath('filenames.json'), 'w') as f:
-        json.dump(all_filenames, f, indent=4, sort_keys=True)
+        json.dump(all_filenames, f, indent=0, sort_keys=True)
 
 def assert_fileinfo_close_enough(file_info_1, file_info_2):
     def canonical_fileinfo(file_info):
