@@ -39,8 +39,11 @@ def update_file_hashes():
         json.dump(info_sources, f)
 
 def get_virustotal_data_for_file(session, file_hash, output_dir):
-    if output_dir.joinpath(file_hash + '.json').is_file() or output_dir.joinpath('_404_' + file_hash + '.json').is_file():
+    if output_dir.joinpath(file_hash + '.json').is_file():
         return 'exists'
+
+    if output_dir.joinpath('_404_' + file_hash + '.json').is_file():
+        return 'not_found'
 
     url = 'https://www.virustotal.com/ui/files/' + file_hash
     r = session.get(url, verify=False)
