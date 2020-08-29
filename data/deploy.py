@@ -180,7 +180,8 @@ def can_deploy():
     return requests.get(url).json()['total_count'] == 0
 
 def commit_deploy(pr_title):
-    branch_name = f'deploy-{time.time()}'
+    git_email = '69083578+winbindex-deploy-bot@users.noreply.github.com'
+    git_name = 'winbindex-deploy-bot'
 
     exclude_from_commit = [
         'tools',
@@ -192,10 +193,18 @@ def commit_deploy(pr_title):
     # https://stackoverflow.com/a/51914162
     extra_commit_params = [f':!{path}/*' for path in exclude_from_commit]
 
+    commit_directly = pr_title.endswith('files from VirusTotal')
+    if commit_directly:
+        branch_name = f'deploy-{time.time()}'
+        checkout_params = ['-b', branch_name]
+    else:
+        branch_name = 'gh-pages'
+        checkout_params = [branch_name]
+
     commands = [
-        ['git', 'config', '--global', 'user.email', '69083578+winbindex-deploy-bot@users.noreply.github.com'],
-        ['git', 'config', '--global', 'user.name', 'winbindex-deploy-bot'],
-        ['git', 'checkout', '-b', branch_name],
+        ['git', 'config', '--global', 'user.email', git_email],
+        ['git', 'config', '--global', 'user.name', git_name],
+        ['git', 'checkout'] + checkout_params,
         ['git', 'add', '-A', '--'] + extra_commit_params,
         ['git', 'commit', '-m', pr_title],
         ['git', 'remote', 'add', 'push-origin', f'https://{os.environ["GITHUB_TOKEN"]}@github.com/m417z/winbindex.git'],
@@ -205,18 +214,19 @@ def commit_deploy(pr_title):
     for args in commands:
         subprocess.run(args, check=True)
 
-    data = {
-        'title': pr_title,
-        'head': branch_name,
-        'base': 'gh-pages'
-    }
-    headers = {
-        'Accept': 'application/vnd.github.v3+json',
-        'Authorization': f'token {os.environ["GITHUB_TOKEN"]}'
-    }
-    response = requests.post('https://api.github.com/repos/m417z/winbindex/pulls', data=json.dumps(data), headers=headers)
-    #print(response.text)
-    response.raise_for_status()
+    if not commit_directly:
+        data = {
+            'title': pr_title,
+            'head': branch_name,
+            'base': 'gh-pages'
+        }
+        headers = {
+            'Accept': 'application/vnd.github.v3+json',
+            'Authorization': f'token {os.environ["GITHUB_TOKEN"]}'
+        }
+        response = requests.post('https://api.github.com/repos/m417z/winbindex/pulls', data=json.dumps(data), headers=headers)
+        #print(response.text)
+        response.raise_for_status()
 
 def main():
     if not can_deploy():
