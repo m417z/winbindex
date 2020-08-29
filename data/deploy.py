@@ -195,11 +195,11 @@ def commit_deploy(pr_title):
 
     commit_directly = pr_title.endswith('files from VirusTotal')
     if commit_directly:
-        branch_name = f'deploy-{time.time()}'
-        checkout_params = ['-b', branch_name]
-    else:
         branch_name = 'gh-pages'
         checkout_params = [branch_name]
+    else:
+        branch_name = f'deploy-{time.time()}'
+        checkout_params = ['-b', branch_name]
 
     commands = [
         ['git', 'config', '--global', 'user.email', git_email],
