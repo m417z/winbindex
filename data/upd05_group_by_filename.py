@@ -154,17 +154,17 @@ def get_virustotal_info(file_hash):
     # Handle special cases.
     if not is_power_of_two(section_alignment):
         if section_alignment == 0x3000:
-            assert attr['signature_info']['description'] == 'TCB Launcher'
+            assert attr['signature_info']['description'] == 'TCB Launcher', file_hash
             section_alignment = 0x1000
         elif section_alignment == 0x380:
-            assert file_hash == 'ede86c8d8c6b9256b926701f4762bd6f71e487f366dfc7db8d74b8af57e79bbb'  # ftdibus.sys
+            assert file_hash == 'ede86c8d8c6b9256b926701f4762bd6f71e487f366dfc7db8d74b8af57e79bbb', file_hash  # ftdibus.sys
             section_alignment = 0x80
         else:
-            assert False
+            assert False, file_hash
 
     virtual_size = first_section['virtual_address']
     for section in attr['pe_info']['sections']:
-        assert virtual_size == section['virtual_address']
+        assert virtual_size == section['virtual_address'], file_hash
         virtual_size += align_by(section['virtual_size'], section_alignment)
 
     info = {
@@ -186,7 +186,7 @@ def get_virustotal_info(file_hash):
                 '11efef27aea856060bdeb6d2f0d62c68088eb891997d4e99de708a6b51743148',  # brlapi-0.6.dll
                 '3eaa62334520b41355c5103dcd663744ba26caae3496bd9015bc399fbaf42fce',  # brltty.exe
                 'b4cc93cf4d7c2906c1929c079cd98ef00c7a33832e132ac57adde71857082e36',  # libgcc_s_dw2-1.dll
-            ]
+            ], file_hash
         else:
             unsigned_with_overlay = [
                 'cf54a8504f2dbdd7bea3acdcd065608d21f5c06924baf647955cc28b8637ae68',  # libiconv-2.dll
@@ -227,7 +227,7 @@ def get_virustotal_info(file_hash):
                 # 13:18 21/02/2020
                 date_format = '%H:%M %d/%m/%Y'
             else:
-                assert spaces == 2
+                assert spaces == 2, file_hash
                 # Examples:
                 # 8:30 AM 2/7/2020
                 # 5:47 PM 9/19/2019
@@ -236,7 +236,7 @@ def get_virustotal_info(file_hash):
             datetime_object = datetime.strptime(signature_info['signing date'], date_format)
             info['signingDate'] = [datetime_object.isoformat()]
 
-    assert not has_signature_overlay or file_signed
+    assert not has_signature_overlay or file_signed, file_hash
 
     if config.high_mem_usage_for_performance:
         virustotal_info_cache[file_hash] = info
