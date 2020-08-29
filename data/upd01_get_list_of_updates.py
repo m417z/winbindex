@@ -1,3 +1,4 @@
+import calendar
 import requests
 import json
 import re
@@ -17,6 +18,35 @@ windows_versions = {
     '1507': '4000823',
 }
 
+def parse_windows_version_updates_new_format(html):
+    p = r'<div class="supLeftNavCategory supLeftNavActiveCategory">[\s\S]*?<ul class="supLeftNavArticles">([\s\S]*?)</ul>\s*</div>'
+    nav_active = re.findall(p, html)
+    assert len(nav_active) == 1
+    nav_active = nav_active[0]
+    assert '<div' not in nav_active
+
+    p = r'<a class="supLeftNavLink" data-bi-slot="\d+" href="(/en-us/topic/(\w+)-(\d+)-(\d+)-kb(\d+)-os-build-(\d+)-(\d+)-[^"]*)">(.*?)</a>'
+    items = re.findall(p, nav_active)
+    assert len(items) + 1 == len(re.findall('<a ', nav_active))
+
+    result = []
+    for item in items:
+        url, month, date, year, kb_number, os1, os2, heading = item
+        month_num = list(calendar.month_name).index(month.capitalize())
+        full_date = f'{year}-{month_num:02}-{int(date):02}'
+        update_kb = 'KB' + kb_number
+        release_version = f'OS Build {os1}.{os2}'
+        assert heading == f'{update_kb} ({release_version})'
+        result.append({
+            'heading': heading,
+            'updateKb': update_kb,
+            'updateUrl': 'https://support.microsoft.com' + url,
+            'releaseDate': full_date,
+            'releaseVersion': release_version
+        })
+
+    return result
+
 def get_windows_version_updates(page_id):
     url = 'https://support.microsoft.com/en-us/help/' + page_id
     html = requests.get(url).text
@@ -29,6 +59,9 @@ def get_windows_version_updates(page_id):
         r'\}\)\(\);;'
     )
     match = re.search(p, html)
+    if not match:
+        return parse_windows_version_updates_new_format(html)
+
     data = json.loads(match.group(1))
 
     result = []
