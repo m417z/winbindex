@@ -4,7 +4,6 @@ import subprocess
 import requests
 import zipfile
 import socket
-import string
 import html
 import json
 import time
@@ -206,6 +205,16 @@ def build_html_index_of_hashes():
         )
 
         html_code_end = (
+            '\n'
+            '<!-- Global site tag (gtag.js) - Google Analytics -->\n'
+            '<script async src="https://www.googletagmanager.com/gtag/js?id=UA-143074342-2"></script>\n'
+            '<script>\n'
+            '    window.dataLayer = window.dataLayer || [];\n'
+            '    function gtag(){dataLayer.push(arguments);}\n'
+            '    gtag(\'js\', new Date());\n'
+            '\n'
+            '    gtag(\'config\', \'UA-143074342-2\');\n'
+            '</script>'
             '</body>'
             '</html>\n'
         )
