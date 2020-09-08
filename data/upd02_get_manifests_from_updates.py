@@ -40,12 +40,12 @@ def download_update(windows_version, update_kb):
     search_terms = update_kb
 
     # TODO: more archs?
-    if False:  # update_kb in ['KB4478877', 'KB4471324', 'KB4507469']:
-        search_terms += ' x64 server'  # for buggy downloads, the update package should be the same anyway
-    else:
-        search_terms += ' x64 -server'
+    search_terms += ' x64 -server'
 
-    if windows_version == '1903':
+    if update_kb == 'KB4574727':  # buggy listing
+        assert windows_version == '1903'
+        search_terms += ' 1909'
+    elif windows_version == '1903':
         search_terms += ' -1909'  # the updates are the same and appear twice
 
     download_url = get_update_download_url(search_terms + ' -delta')
