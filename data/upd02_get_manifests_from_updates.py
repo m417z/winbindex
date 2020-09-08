@@ -9,22 +9,22 @@ import re
 
 import config
 
-def get_update_download_url(search_terms):
+def search_for_updates(search_terms):
     url = 'https://www.catalog.update.microsoft.com/Search.aspx'
     html = requests.get(url, {'q': search_terms}).text
 
-    p = r'<input id="([a-f0-9\-]+)" class="flatLightBlueButton" type="button" value=\'Download\' />'
+    p = r'<a [^>]*?onclick=\'goToDetails\("([a-f0-9\-]+)"\);\'>\s*(.*?)\s*</a>'
     matches = re.findall(p, html)
-    if len(matches) == 0:
-        return None
 
-    if len(matches) != 1:
-        raise Exception(f'Expected one download button, found {len(matches)}')
+    p2 = r'<input id="([a-f0-9\-]+)" class="flatLightBlueButton" type="button" value=\'Download\' />'
+    assert [uid for uid, title in matches] == re.findall(p2, html)
 
-    uid = matches[0]
+    return matches
+
+def get_update_download_url(update_uid):
     input_json = [{
-        'uidInfo': uid,
-        'updateID': uid
+        'uidInfo': update_uid,
+        'updateID': update_uid
     }]
     url = 'https://www.catalog.update.microsoft.com/DownloadDialog.aspx'
     html = requests.post(url, {'updateIDs': json.dumps(input_json)}).text
@@ -37,21 +37,20 @@ def get_update_download_url(search_terms):
     return matches[0]
 
 def download_update(windows_version, update_kb):
-    search_terms = update_kb
-
     # TODO: more archs?
-    search_terms += ' x64 -server'
+    found_updates = search_for_updates(f'{update_kb} x64')
 
-    if update_kb == 'KB4574727':  # buggy listing
-        assert windows_version == '1903'
-        search_terms += ' 1909'
-    elif windows_version == '1903':
-        search_terms += ' -1909'  # the updates are the same and appear twice
+    filter_regex = r'\bserver\b'
 
-    download_url = get_update_download_url(search_terms + ' -delta')
-    if not download_url:
-        download_url = get_update_download_url(search_terms)
+    if windows_version == '1903':  # the updates are the same and appear twice
+        filter_regex += r'|\b1909\b'
 
+    found_updates = [update for update in found_updates if not re.search(filter_regex, update[1], re.IGNORECASE)]
+
+    if len(found_updates) != 1:
+        raise Exception(f'Expected one update item, found {len(found_updates)}')
+
+    download_url = get_update_download_url(found_updates[0][0])
     if not download_url:
         raise Exception('Update not found in catalog')
 
