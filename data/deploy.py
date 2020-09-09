@@ -107,9 +107,6 @@ def run_virustotal_updates(start_time):
     upd04_get_virustotal_data(time_to_stop)
 
     files_count_after = sum(1 for x in virustotal_path.glob('*.json') if not x.name.startswith('_'))
-    if files_count_before == files_count_after:
-        print('No new files')
-        return None
 
     # Empty updates file - don't handle updates, only VT.
     temp_updates_path = config.out_path.joinpath('updates.json')
