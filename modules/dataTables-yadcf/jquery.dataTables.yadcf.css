@@ -18,7 +18,7 @@
 	display: inline-block;
 }
 
-.yadcf-filter-reset-button.range-number-slider-reset-button{
+.yadcf-filter-reset-button.range-number-slider-reset-button {
 	position: relative;
 	top: -6px;
 }
@@ -30,17 +30,18 @@
 	padding-top: 3px;
 }
 
-.yadcf-filter > option{
-    background: white;
+.yadcf-filter > option {
+	background: white;
 }
 
 .ui-autocomplete .ui-menu-item {
-	font-size:13px;
+	font-size: 13px;
 }
 
 #ui-datepicker-div {
-	font-size:13px;
+	font-size: 13px;
 }
+
 .yadcf-filter-wrapper {
 	display: inline-block;
 	white-space: nowrap;
@@ -94,7 +95,7 @@
 }
 
 .yadcf-filter-range-number-slider {
-    overflow: visible;
+	overflow: visible;
 }
 
 .yadcf-number-slider-filter-wrapper-inner .yadcf-filter-range-number-slider-min-tip {
@@ -107,17 +108,17 @@
 .yadcf-number-slider-filter-wrapper-inner .yadcf-filter-range-number-slider-max-tip {
 	font-size: 13px;
 	font-weight: normal;
-	position:absolute;
+	position: absolute;
 	outline-style: none;
 }
 
 .yadcf-number-slider-filter-wrapper-inner .yadcf-filter-range-number-slider-min-tip-inner {
-	position:absolute;
+	position: absolute;
 	top: 11px;
 }
 
 .yadcf-number-slider-filter-wrapper-inner .yadcf-filter-range-number-slider-max-tip-inner {
-	position:absolute;
+	position: absolute;
 	top: 11px;
 }
 
@@ -128,15 +129,21 @@
 }
 
 .yadcf-regex-wrapper {
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 5px;
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 5px;
+}
+
+.yadcf-null-wrapper {
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 5px;
 }
 
 .yadcf-label.small {
 	font-size: 10px;
 }
 
-.after{
-    margin-left: 10px;
+.after {
+	margin-left: 10px;
 }
