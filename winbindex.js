@@ -273,7 +273,7 @@ var globalFunctions = {};
                     targets: 'target-array-of-values',
                     render: function (data, type) {
                         if (type !== 'display') {
-                            return escapeHtmlAsUnicodeLookalike(data.sort || data.title);
+                            return escapeHtml(data.sort || data.title);
                         }
 
                         if (data.items.length === 1 && data.items[0] === data.title) {
@@ -305,10 +305,6 @@ var globalFunctions = {};
 
                         var text = humanFileArch(data);
 
-                        if (type !== 'display') {
-                            return escapeHtmlAsUnicodeLookalike(text);
-                        }
-
                         return escapeHtml(text);
                     }
                 }, {
@@ -319,10 +315,6 @@ var globalFunctions = {};
                         }
 
                         var text = data.split(' ', 2)[0];
-
-                        if (type !== 'display') {
-                            return escapeHtmlAsUnicodeLookalike(text);
-                        }
 
                         return escapeHtml(text);
                     }
@@ -348,10 +340,6 @@ var globalFunctions = {};
                         }
 
                         var text = data[0].slice(0, '2000-01-01'.length);
-
-                        if (type !== 'display') {
-                            return escapeHtmlAsUnicodeLookalike(text);
-                        }
 
                         return escapeHtml(text);
                     }
@@ -407,10 +395,6 @@ var globalFunctions = {};
                             return '???';
                         }
 
-                        if (type !== 'display') {
-                            return escapeHtmlAsUnicodeLookalike(data);
-                        }
-
                         return escapeHtml(data);
                     }
                 }
@@ -429,7 +413,6 @@ var globalFunctions = {};
             select_type: 'select2',
             select_type_options: {
                 theme: 'bootstrap4',
-                language: 'he',
                 dropdownAutoWidth: true
             }
         };
@@ -445,7 +428,6 @@ var globalFunctions = {};
 
             if (columnHeader.hasClass('winbindex-yadcf-multiple')) {
                 options.text_data_delimiter = ',';
-                delete options.filter_match_mode; // otherwise it won't match
             }
 
             yadcfColumns.push(options);
@@ -821,17 +803,6 @@ var globalFunctions = {};
             .replace(/>/g, '&gt;')
             .replace(/"/g, '&quot;')
             .replace(/'/g, '&#039;');
-    }
-
-    // https://github.com/vedmack/yadcf/issues/629
-    function escapeHtmlAsUnicodeLookalike(unsafe) {
-        return unsafe
-            .replace(/&/g, 'ꝸ') // LATIN SMALL LETTER UM
-            .replace(/</g, '˂') // MODIFIER LETTER LEFT ARROWHEAD
-            .replace(/>/g, '˃') // MODIFIER LETTER RIGHT ARROWHEAD
-            .replace(/"/g, 'ʺ') // MODIFIER LETTER DOUBLE PRIME
-            //.replace(/'/g, 'ʹ') // MODIFIER LETTER PRIME
-            ;
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
