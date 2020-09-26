@@ -572,7 +572,25 @@ var globalFunctions = {};
     }
 
     function getWin10Versions(data) {
-        var items = Object.keys(data.windowsVersions).map(function (item) {
+        var items = Object.keys(data.windowsVersions);
+
+        // Windows 10 versions 1903 and 1909 share updates.
+        // Each update not older than the first 1909 update is shared between both versions.
+        if (items.indexOf('1903') !== -1 && items.indexOf('1909') === -1) {
+            var add1909 = Object.keys(data.windowsVersions['1903']).some(function (update) {
+                if (update === 'BASE') {
+                    return false;
+                }
+
+                var date = data.windowsVersions['1903'][update].updateInfo.releaseDate.slice(0, '2000-01-01'.length);
+                return date >= '2019-11-12';
+            });
+            if (add1909) {
+                items.push('1909');
+            }
+        }
+
+        items = items.map(function (item) {
             return 'Windows 10 ' + item;
         });
 
