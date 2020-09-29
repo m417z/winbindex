@@ -85,7 +85,7 @@ def run_virustotal_updates(start_time):
     # Install pymultitor.
     commands = [
         ['pip', 'install', 'mitmproxy'],
-        ['sudo', 'apt', 'install', '-y', 'tor'],
+        ['sudo', 'apt-get', 'install', '-y', 'tor'],
         ['pip', 'install', 'pymultitor'],
     ]
 
