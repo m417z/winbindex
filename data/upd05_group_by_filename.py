@@ -331,13 +331,16 @@ def process_updates(progress_state=None, time_to_stop=None):
         updates = json.load(f)
 
     for windows_version in updates:
-        if windows_version == '1909':
-            continue  # same updates as 1903
+        if windows_version in config.windows_versions_to_skip:
+            continue
 
         print(f'Processing Windows version {windows_version}:', end='', flush=True)
 
         for update in updates[windows_version]:
             update_kb = update['updateKb']
+            update_url = update['updateUrl']
+            if update_url in config.windows_update_urls_to_skip:
+                continue
 
             parsed_dir = config.out_path.joinpath('parsed', windows_version, update_kb)
             if parsed_dir.is_dir():
