@@ -25,18 +25,25 @@ def parse_windows_version_updates_new_format(html):
     nav_active = nav_active[0]
     assert '<div' not in nav_active
 
-    p = r'<a class="supLeftNavLink" data-bi-slot="\d+" href="(/en-us/topic/(\w+)-(\d+)-(\d+)-kb(\d+)-os-build-(\d+)-(\d+)-[^"]*)">(.*?)</a>'
+    p = r'<a class="supLeftNavLink" data-bi-slot="\d+" href="(/en-us/help/\d+)">((\w+) (\d+), (\d+) ?&#x2014; ?KB(\d{7}) \(OS Build (\d+)\.(\d+)\))</a>'
     items = re.findall(p, nav_active)
     assert len(items) + 1 == len(re.findall('<a ', nav_active))
 
     result = []
+    result_urls = set()
     for item in items:
-        url, month, date, year, kb_number, os1, os2, heading = item
+        url, heading, month, date, year, kb_number, os1, os2 = item
+
+        # Due to a bug in the 1511 update history at the time of writing this comment,
+        # there are duplicate items. Insert each item only once.
+        if url in result_urls:
+            continue
+        result_urls.add(url)
+
         month_num = list(calendar.month_name).index(month.capitalize())
         full_date = f'{year}-{month_num:02}-{int(date):02}'
         update_kb = 'KB' + kb_number
         release_version = f'OS Build {os1}.{os2}'
-        assert heading == f'{update_kb} ({release_version})'
         result.append({
             'heading': heading,
             'updateKb': update_kb,
