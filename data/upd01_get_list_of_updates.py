@@ -86,10 +86,41 @@ def get_windows_version_updates(page_id):
 
     return result
 
+def windows_version_updates_sanity_check(updates):
+    update_kbs = {}
+    update_urls = {}
+    skipped_kbs = set()
+
+    for windows_version in updates:
+        if windows_version in config.windows_versions_to_skip:
+            skipped_kbs.update(update['updateKb'] for update in updates[windows_version])
+            continue
+
+        for update in updates[windows_version]:
+            update_kb = update['updateKb']
+            update_url = update['updateUrl']
+            if update_url in config.windows_update_urls_to_skip:
+                skipped_kbs.add(update_kb)
+                continue
+
+            update_kbs[update_kb] = update_kbs.get(update_kb, 0) + 1
+            update_urls[update_url] = update_urls.get(update_url, 0) + 1
+
+    # Assert no two entries with the same URL.
+    assert not any(x != 1 for x in update_urls.values())
+
+    # Assert no two entries with the same KB.
+    assert not any(x != 1 for x in update_kbs.values())
+
+    # Make sure we don't skip extra items.
+    assert all(skipped_kb in update_kbs for skipped_kb in skipped_kbs)
+
 def main():
     result = {}
     for ver in windows_versions:
         result[ver] = get_windows_version_updates(windows_versions[ver])
+
+    windows_version_updates_sanity_check(result)
 
     with open(config.out_path.joinpath('updates.json'), 'w') as f:
         json.dump(result, f, indent=4)
