@@ -42,8 +42,9 @@ def download_update(windows_version, update_kb):
 
     filter_regex = r'\bserver\b'
 
-    if windows_version == '1903':  # the updates are the same and appear twice
-        filter_regex += r'|\b1909\b'
+    for skip_version, containing_version in config.windows_versions_to_skip.items():
+        if windows_version == containing_version:
+            filter_regex += rf'|\b{re.escape(skip_version)}\b'
 
     found_updates = [update for update in found_updates if not re.search(filter_regex, update[1], re.IGNORECASE)]
 
@@ -139,13 +140,16 @@ def main():
         updates = json.load(f)
 
     for windows_version in updates:
-        if windows_version == '1909':
-            continue  # same updates as 1903
+        if windows_version in config.windows_versions_to_skip:
+            continue
 
         print(f'Processing Windows version {windows_version}')
 
         for update in updates[windows_version]:
             update_kb = update['updateKb']
+            update_url = update['updateUrl']
+            if update_url in config.windows_update_urls_to_skip:
+                continue
 
             try:
                 get_manifests_from_update(windows_version, update_kb)
