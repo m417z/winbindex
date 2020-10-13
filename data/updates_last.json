@@ -66,6 +66,13 @@
     ],
     "1909": [
         {
+            "heading": "October 20, 2020\u2014KB4580386 (OS Builds 18362.1171 and 18363.1171) Preview",
+            "updateKb": "KB4580386",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4580386",
+            "releaseDate": "2020-10-20T00:00:00",
+            "releaseVersion": "1903-OS Build 18362.1171 and 1909-OS Build 18363.18363.1171"
+        },
+        {
             "heading": "October 13, 2020\u2014KB4577671 (OS Builds 18362.1139 and 18363.1139)",
             "updateKb": "KB4577671",
             "updateUrl": "https://support.microsoft.com/en-us/help/4577671",
@@ -221,6 +228,13 @@
         }
     ],
     "1903": [
+        {
+            "heading": "October 20, 2020\u2014KB4580386 (OS Builds 18362.1171 and 18363.1171) Preview",
+            "updateKb": "KB4580386",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4580386",
+            "releaseDate": "2020-10-20T00:00:00",
+            "releaseVersion": "1903-OS Build 18362.1171 and 1909-OS Build 18363.18363.1171"
+        },
         {
             "heading": "October 13, 2020\u2014KB4577671 (OS Builds 18362.1139 and 18363.1139)",
             "updateKb": "KB4577671",
@@ -468,6 +482,13 @@
         }
     ],
     "1809": [
+        {
+            "heading": "October 20, 2020\u2014KB4580390 (OS Build 17763.1554) Preview",
+            "updateKb": "KB4580390",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4580390",
+            "releaseDate": "2020-10-20T00:00:00",
+            "releaseVersion": "OS Build 17763.1554"
+        },
         {
             "heading": "October 13, 2020\u2014KB4577668 (OS Build 17763.1518)",
             "updateKb": "KB4577668",
@@ -827,6 +848,13 @@
         }
     ],
     "1803": [
+        {
+            "heading": "October 13, 2020\u2014KB4580330 (OS Build 17134.1792)",
+            "updateKb": "KB4580330",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4580330",
+            "releaseDate": "2020-10-13T00:00:00",
+            "releaseVersion": "OS Build 17134.1792"
+        },
         {
             "heading": "September 8, 2020\u2014KB4577032 (OS Build 17134.1726)",
             "updateKb": "KB4577032",
@@ -1249,6 +1277,13 @@
         }
     ],
     "1709": [
+        {
+            "heading": "October 13, 2020\u2014KB4580328 (OS Build 16299.2166)",
+            "updateKb": "KB4580328",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4580328",
+            "releaseDate": "2020-10-13T00:00:00",
+            "releaseVersion": "OS Build 16299.2166"
+        },
         {
             "heading": "September 8, 2020\u2014KB4577041 (OS Build 16299.2107)",
             "updateKb": "KB4577041",
@@ -1938,6 +1973,13 @@
     ],
     "1703": [
         {
+            "heading": "October 13, 2020\u2014KB4580370 (OS Build 15063.2525)",
+            "updateKb": "KB4580370",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4580370",
+            "releaseDate": "2020-10-13T00:00:00",
+            "releaseVersion": "OS Build 15063.2525"
+        },
+        {
             "heading": "September 8, 2020\u2014KB4577021 (OS Build 15063.2500)",
             "updateKb": "KB4577021",
             "updateUrl": "https://support.microsoft.com/en-us/help/4577021",
@@ -2492,6 +2534,13 @@
         }
     ],
     "1607": [
+        {
+            "heading": "October 13, 2020\u2014KB4580346 (OS Build 14393.3986)",
+            "updateKb": "KB4580346",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4580346",
+            "releaseDate": "2020-10-13T00:00:00",
+            "releaseVersion": "OS Build 14393.3986"
+        },
         {
             "heading": "September 8, 2020\u2014KB4577015 (OS Build 14393.3930)",
             "updateKb": "KB4577015",
