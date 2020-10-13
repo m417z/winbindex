@@ -448,6 +448,13 @@
     ],
     "1809": [
         {
+            "heading": "October 13, 2020\u2014KB4577668 (OS Build 17763.1518)",
+            "updateKb": "KB4577668",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4577668",
+            "releaseDate": "2020-10-13T00:00:00",
+            "releaseVersion": "OS Build 17763.1518"
+        },
+        {
             "heading": "September 16, 2020\u2014KB4577069 (OS Build 17763.1490) Preview",
             "updateKb": "KB4577069",
             "updateUrl": "https://support.microsoft.com/en-us/help/4577069",
