@@ -260,7 +260,7 @@ def commit_deploy(pr_title):
     # https://stackoverflow.com/a/51914162
     extra_commit_params = [f':!{path}/*' for path in exclude_from_commit]
 
-    commit_directly = pr_title.endswith('files from VirusTotal')
+    commit_directly = True  # pr_title.endswith('files from VirusTotal')
     if commit_directly:
         branch_name = 'gh-pages'
         checkout_params = [branch_name]
