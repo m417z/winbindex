@@ -327,8 +327,12 @@ def group_update_by_filename(windows_version, update_kb, update, parsed_dir, pro
         progress_state['files_processed'] = count
 
 def process_updates(progress_state=None, time_to_stop=None):
-    with open(config.out_path.joinpath('updates.json')) as f:
-        updates = json.load(f)
+    updates_path = config.out_path.joinpath('updates.json')
+    if updates_path.is_file():
+        with open(updates_path) as f:
+            updates = json.load(f)
+    else:
+        updates = {}
 
     for windows_version in updates:
         if windows_version in config.windows_versions_to_skip:
