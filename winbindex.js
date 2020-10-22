@@ -314,7 +314,7 @@ var globalFunctions = {};
                             return '???';
                         }
 
-                        var text = data.split(' ', 2)[0];
+                        var text = data.replace(/\s*(\(.*\)|built by:.*|@BuiltBy:.*)$/, '');
 
                         return escapeHtml(text);
                     }
