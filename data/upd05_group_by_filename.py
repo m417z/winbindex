@@ -490,6 +490,7 @@ def group_iso_data_by_filename(windows_version, windows_release_date, iso_data_f
 
 def process_iso_files():
     windows_versions_from_iso = {
+        '20H2': '2020-10-20',
         '2004': '2020-05-27',
         '1909': '2019-11-12',
         '1903': '2019-05-21',
