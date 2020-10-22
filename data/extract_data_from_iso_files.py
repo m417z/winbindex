@@ -111,7 +111,11 @@ def prase_sigcheck(sigcheck_data, folder):
         else:
             assert len(signing_dates) == 0
 
-        assert 'MachineType' not in item or item['MachineType'] in ['16-bit', '32-bit', '64-bit']
+        if 'MachineType' in item:
+            if item['MachineType'] == '43620':
+                item['MachineType'] = 'ARM64'
+            else:
+                assert item['MachineType'] in ['16-bit', '32-bit', '64-bit']
 
         result.append(item)
 
@@ -170,10 +174,17 @@ def main(folder, windows_version, iso_sha256):
     if not REUSE_OUTPUT_FILES or not pe_files_extra_data.is_file():
         pe_extra_data = {}
         for item in sigcheck_data:
-            if 'MachineType' in item and item['MachineType'] in ['32-bit', '64-bit']:
+            if 'MachineType' in item and item['MachineType'] in ['32-bit', '64-bit', 'ARM64']:
                 filename = item['FileName']
                 pe_extra_data[filename] = get_pe_extra_data(filename)
-                assert pe_extra_data[filename]['machine'] == (332 if item['MachineType'] == '32-bit' else 34404)
+                machine = pe_extra_data[filename]['machine']
+                if item['MachineType'] == '32-bit':
+                    assert machine == 332
+                elif item['MachineType'] == '64-bit':
+                    assert machine == 34404
+                else:
+                    assert item['MachineType'] == 'ARM64'
+                    assert machine == 43620
 
         with open(pe_files_extra_data, 'w') as f:
             json.dump(pe_extra_data, f, indent=4)
@@ -196,7 +207,7 @@ def main(folder, windows_version, iso_sha256):
             'size': file_size,
         }
 
-        if 'MachineType' in item and item['MachineType'] in ['32-bit', '64-bit']:
+        if 'MachineType' in item and item['MachineType'] in ['32-bit', '64-bit', 'ARM64']:
             file_pe_extra_data = pe_extra_data[filename]
             result_item.update({
                 'machineType': file_pe_extra_data['machine'],
