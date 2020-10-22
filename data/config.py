@@ -11,6 +11,7 @@ compression_level = 9
 # Key: version to skip, value: version containing the same updates.
 windows_versions_to_skip = {
     '1909': '1903',
+    '20H2': '2004',
 }
 
 windows_update_urls_to_skip = [

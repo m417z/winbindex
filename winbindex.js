@@ -574,21 +574,41 @@ var globalFunctions = {};
     function getWin10Versions(data) {
         var items = Object.keys(data.windowsVersions);
 
+        // Handle shared updates. Example:
         // Windows 10 versions 1903 and 1909 share updates.
         // Each update not older than the first 1909 update is shared between both versions.
-        if (items.indexOf('1903') !== -1 && items.indexOf('1909') === -1) {
-            var add1909 = Object.keys(data.windowsVersions['1903']).some(function (update) {
-                if (update === 'BASE') {
-                    return false;
-                }
-
-                var date = data.windowsVersions['1903'][update].updateInfo.releaseDate.slice(0, '2000-01-01'.length);
-                return date >= '2019-11-12';
-            });
-            if (add1909) {
-                items.push('1909');
+        var sharedUpdateData = [
+            {
+                baseVersion: '1903',
+                newVersion: '1909',
+                firstSharedUpdateDate: '2019-11-12'
+            }, {
+                baseVersion: '2004',
+                newVersion: '20H2',
+                firstSharedUpdateDate: '9999-01-01' // TODO
             }
-        }
+        ];
+
+        sharedUpdateData.forEach(function (sharedUpdateDataItem) {
+            var baseVersion = sharedUpdateDataItem.baseVersion;
+            var newVersion = sharedUpdateDataItem.newVersion;
+            var firstSharedUpdateDate = sharedUpdateDataItem.firstSharedUpdateDate;
+
+            if (items.indexOf(baseVersion) !== -1 && items.indexOf(newVersion) === -1) {
+                var addNewVersion = Object.keys(data.windowsVersions[baseVersion]).some(function (update) {
+                    if (update === 'BASE') {
+                        return false;
+                    }
+
+                    var date = data.windowsVersions[baseVersion][update].updateInfo.releaseDate.slice(0, '2000-01-01'.length);
+                    return date >= firstSharedUpdateDate;
+                });
+
+                if (addNewVersion) {
+                    items.push(newVersion);
+                }
+            }
+        });
 
         items = items.map(function (item) {
             return 'Windows 10 ' + item;
