@@ -48,7 +48,15 @@ def assert_fileinfo_close_enough(file_info_1, file_info_2):
                 datetime2 = datetime.fromisoformat(date)
                 difference = datetime1 - datetime2
                 minutes = abs(difference.total_seconds()) / 60
-                assert minutes <= 10
+                assert minutes <= 10 or file_info['sha256'] in [
+                    # Hashes below are of files distributed with Edge, which are for some reason signed twice.
+                    '21863f7ee198049212b9e78494e3e8ab146c07e53fd46c5f0ae4e9bbde5cee87',  # d3dcompiler_47.dll
+                    '15126a4f8ab0764f26c42a0ab27c16d75633a66993974496028d2b83e060112e',  # msvcp140.dll
+                    '24144644e2df01b24f45a9f24a7a07b66e271bd3434c203547cc0e3b6f88afd6',  # widevinecdm.dll
+                    'ba86c00002cd48eb1879dc2604f05968fad09892fe6e4ccfe6a48ed491d8e95b',  # mip_core.dll
+                    'e1a3bc8fba0cbc8497e3a64d6bfdca70d19e6257229885a370f0ebfd051f64a8',  # mip_protection_sdk.dll
+                    'b4c4e910141530f32794350979399f56a3465ac279737846112d91442e264067',  # vccorlib140.dll
+                ]
             file_info['signingDate'] = dates[0]
             return file_info
 
