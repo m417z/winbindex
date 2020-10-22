@@ -6,6 +6,7 @@ import re
 import config
 
 windows_versions = {
+    #'20H2': '9999999', # TODO
     '2004': '4555932',
     '1909': '4529964',
     '1903': '4498140',
