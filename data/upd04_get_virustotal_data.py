@@ -2,6 +2,7 @@ from datetime import datetime
 from pathlib import Path
 import requests
 import urllib3
+import base64
 import random
 import json
 import time
@@ -46,7 +47,11 @@ def get_virustotal_data_for_file(session, file_hash, output_dir):
         return 'not_found'
 
     url = 'https://www.virustotal.com/ui/files/' + file_hash
-    r = session.get(url, verify=False)
+    headers = {
+        # Sorry...
+        'X-VT-Anti-Abuse-Header': base64.b64encode(f'{random.randint(10000000000, 20000000000)}-ZG9udCBiZSBldmls-{round(time.time(), 3)}'.encode()).decode(),
+    }
+    r = session.get(url, verify=False, headers=headers)
     if r.status_code == 429:
         return 'retry'
 
@@ -77,7 +82,13 @@ def get_virustotal_data(time_to_stop=None):
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
     session = requests.Session()
-    session.headers.update({'User-Agent': 'Mozilla/5.0'})
+    # The headers are necesarry for getting info from VirusTotal.
+    session.headers.update({
+        'User-Agent': 'Mozilla/5.0',
+        'Referer': 'https://www.virustotal.com/',
+        'Accept-Ianguage': 'en-US,en;q=0.9,es;q=0.8',  # That's a deliberate typo, seems like an anti-automation protection
+        'X-Tool': 'vt-ui-main',
+    })
     session.proxies.update({'https': 'http://127.0.0.1:8080'})  # for pymultitor
 
     output_dir = config.out_path.joinpath('virustotal')
