@@ -82,7 +82,7 @@ def get_virustotal_data(time_to_stop=None):
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
     session = requests.Session()
-    # The headers are necesarry for getting info from VirusTotal.
+    # The headers are necessary for getting info from VirusTotal.
     session.headers.update({
         'User-Agent': 'Mozilla/5.0',
         'Referer': 'https://www.virustotal.com/',

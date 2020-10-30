@@ -572,7 +572,7 @@ var globalFunctions = {};
             }, {
                 baseVersion: '2004',
                 newVersion: '20H2',
-                firstSharedUpdateDate: '9999-01-01' // TODO
+                firstSharedUpdateDate: '2020-10-29'
             }
         ];
 
