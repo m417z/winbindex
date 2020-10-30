@@ -1,5 +1,35 @@
 {
+    "20H2": [
+        {
+            "heading": "November 10, 2020\u2014KB4586781 (OS Builds 19041.630 and 19042.630)",
+            "updateKb": "KB4586781",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4586781",
+            "releaseDate": "2020-11-10T00:00:00",
+            "releaseVersion": "2004-OS Build 19041.630 and 20H2-OS Build 19042.630"
+        },
+        {
+            "heading": "October 29, 2020\u2014KB4580364 (OS Builds 19041.610 and 19042.610) Preview",
+            "updateKb": "KB4580364",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4580364",
+            "releaseDate": "2020-10-29T00:00:00",
+            "releaseVersion": "2004-OS Build 19041.610 and 20H2-OS Build 19042.610"
+        }
+    ],
     "2004": [
+        {
+            "heading": "November 10, 2020\u2014KB4586781 (OS Builds 19041.630 and 19042.630)",
+            "updateKb": "KB4586781",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4586781",
+            "releaseDate": "2020-11-10T00:00:00",
+            "releaseVersion": "2004-OS Build 19041.630 and 20H2-OS Build 19042.630"
+        },
+        {
+            "heading": "October 29, 2020\u2014KB4580364 (OS Builds 19041.610 and 19042.610) Preview",
+            "updateKb": "KB4580364",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4580364",
+            "releaseDate": "2020-10-29T00:00:00",
+            "releaseVersion": "2004-OS Build 19041.610 and 20H2-OS Build 19042.610"
+        },
         {
             "heading": "October 13, 2020\u2014KB4579311 (OS Build 19041.572)",
             "updateKb": "KB4579311",
@@ -65,6 +95,20 @@
         }
     ],
     "1909": [
+        {
+            "heading": "November 19, 2020\u2014KB4586819 (OS Builds 18362.1237 and 18363.1237) Preview",
+            "updateKb": "KB4586819",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4586819",
+            "releaseDate": "2020-11-19T00:00:00",
+            "releaseVersion": "1903-OS Build 18362.1237 and 1909-OS Build 18363.18363.1237"
+        },
+        {
+            "heading": "November 10, 2020\u2014KB4586786 (OS Builds 18362.1198 and 18363.1198)",
+            "updateKb": "KB4586786",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4586786",
+            "releaseDate": "2020-11-10T00:00:00",
+            "releaseVersion": "1903-OS Build 18362.1198 and 1909-OS Build 18363.1198"
+        },
         {
             "heading": "October 20, 2020\u2014KB4580386 (OS Builds 18362.1171 and 18363.1171) Preview",
             "updateKb": "KB4580386",
@@ -228,6 +272,20 @@
         }
     ],
     "1903": [
+        {
+            "heading": "November 19, 2020\u2014KB4586819 (OS Builds 18362.1237 and 18363.1237) Preview",
+            "updateKb": "KB4586819",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4586819",
+            "releaseDate": "2020-11-19T00:00:00",
+            "releaseVersion": "1903-OS Build 18362.1237 and 1909-OS Build 18363.18363.1237"
+        },
+        {
+            "heading": "November 10, 2020\u2014KB4586786 (OS Builds 18362.1198 and 18363.1198)",
+            "updateKb": "KB4586786",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4586786",
+            "releaseDate": "2020-11-10T00:00:00",
+            "releaseVersion": "1903-OS Build 18362.1198 and 1909-OS Build 18363.1198"
+        },
         {
             "heading": "October 20, 2020\u2014KB4580386 (OS Builds 18362.1171 and 18363.1171) Preview",
             "updateKb": "KB4580386",
@@ -482,6 +540,27 @@
         }
     ],
     "1809": [
+        {
+            "heading": "November 19, 2020\u2014KB4586839 (OS Build 17763.1613) Preview",
+            "updateKb": "KB4586839",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4586839",
+            "releaseDate": "2020-11-19T00:00:00",
+            "releaseVersion": "OS Build 17763.1613"
+        },
+        {
+            "heading": "November 17, 2020\u2014KB4594442 (OS Build 17763.1579) Out-of-band",
+            "updateKb": "KB4594442",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4594442",
+            "releaseDate": "2020-11-17T00:00:00",
+            "releaseVersion": "OS Build 17763.1579"
+        },
+        {
+            "heading": "November 10, 2020\u2014KB4586793 (OS Build 17763.1577)",
+            "updateKb": "KB4586793",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4586793",
+            "releaseDate": "2020-11-10T00:00:00",
+            "releaseVersion": "OS Build 17763.1577"
+        },
         {
             "heading": "October 20, 2020\u2014KB4580390 (OS Build 17763.1554) Preview",
             "updateKb": "KB4580390",
@@ -848,6 +927,13 @@
         }
     ],
     "1803": [
+        {
+            "heading": "November 10, 2020\u2014KB4586785 (OS Build 17134.1845)",
+            "updateKb": "KB4586785",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4586785",
+            "releaseDate": "2020-11-10T00:00:00",
+            "releaseVersion": "OS Build 17134.1845"
+        },
         {
             "heading": "October 13, 2020\u2014KB4580330 (OS Build 17134.1792)",
             "updateKb": "KB4580330",
@@ -1973,6 +2059,13 @@
     ],
     "1703": [
         {
+            "heading": "November 10, 2020\u2014KB4586782 (OS Build 15063.2554)",
+            "updateKb": "KB4586782",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4586782",
+            "releaseDate": "2020-11-10T00:00:00",
+            "releaseVersion": "OS Build 15063.2554"
+        },
+        {
             "heading": "October 13, 2020\u2014KB4580370 (OS Build 15063.2525)",
             "updateKb": "KB4580370",
             "updateUrl": "https://support.microsoft.com/en-us/help/4580370",
@@ -2534,6 +2627,13 @@
         }
     ],
     "1607": [
+        {
+            "heading": "November 10, 2020\u2014KB4586830 (OS Build 14393.4046)",
+            "updateKb": "KB4586830",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4586830",
+            "releaseDate": "2020-11-10T00:00:00",
+            "releaseVersion": "OS Build 14393.4046"
+        },
         {
             "heading": "October 13, 2020\u2014KB4580346 (OS Build 14393.3986)",
             "updateKb": "KB4580346",
@@ -3288,229 +3388,236 @@
         {
             "heading": "April 10, 2018&#x2014;KB4093109 (OS Build 10586.1540)",
             "updateKb": "KB4093109",
-            "updateUrl": "https://support.microsoft.com/en-us/help/4093109",
+            "updateUrl": "https://support.microsoft.com/en-us/topic/april-10-2018-kb4093109-os-build-10586-1540-a8ebe9db-7bf8-6876-4f9d-7abd7e9e91b3",
             "releaseDate": "2018-04-10",
             "releaseVersion": "OS Build 10586.1540"
         },
         {
             "heading": "March 13, 2018&#x2014;KB4088779 (OS Build 10586.1478)",
             "updateKb": "KB4088779",
-            "updateUrl": "https://support.microsoft.com/en-us/help/4088779",
+            "updateUrl": "https://support.microsoft.com/en-us/topic/march-13-2018-kb4088779-os-build-10586-1478-da7a0208-6858-6884-e940-fea80d6e58e9",
             "releaseDate": "2018-03-13",
             "releaseVersion": "OS Build 10586.1478"
         },
         {
             "heading": "February 13, 2018&#x2014;KB4074591 (OS Build 10586.1417)",
             "updateKb": "KB4074591",
-            "updateUrl": "https://support.microsoft.com/en-us/help/4074591",
+            "updateUrl": "https://support.microsoft.com/en-us/topic/february-13-2018-kb4074591-os-build-10586-1417-acc76763-ce2f-3f52-81ae-6c68cf3faaf3",
             "releaseDate": "2018-02-13",
             "releaseVersion": "OS Build 10586.1417"
         },
         {
             "heading": "January 18, 2018&#x2014;KB4075200 (OS Build 10586.1358)",
             "updateKb": "KB4075200",
-            "updateUrl": "https://support.microsoft.com/en-us/help/4075200",
+            "updateUrl": "https://support.microsoft.com/en-us/topic/january-18-2018-kb4075200-os-build-10586-1358-00bc2e53-72c8-071d-66ed-60bccbda4ae9",
             "releaseDate": "2018-01-18",
             "releaseVersion": "OS Build 10586.1358"
         },
         {
             "heading": "January 3, 2018&#x2014;KB4056888 (OS Build 10586.1356)",
             "updateKb": "KB4056888",
-            "updateUrl": "https://support.microsoft.com/en-us/help/4056888",
+            "updateUrl": "https://support.microsoft.com/en-us/topic/january-3-2018-kb4056888-os-build-10586-1356-95085eaa-5315-9622-763a-5bddc397d049",
             "releaseDate": "2018-01-03",
             "releaseVersion": "OS Build 10586.1356"
         },
         {
             "heading": "December 12, 2017&#x2014;KB4053578 (OS Build 10586.1295)",
             "updateKb": "KB4053578",
-            "updateUrl": "https://support.microsoft.com/en-us/help/4053578",
+            "updateUrl": "https://support.microsoft.com/en-us/topic/december-12-2017-kb4053578-os-build-10586-1295-6285a434-2fa1-14d7-fc16-3082f97ad32c",
             "releaseDate": "2017-12-12",
             "releaseVersion": "OS Build 10586.1295"
         },
         {
             "heading": "November 14, 2017&#x2014;KB4048952 (OS Build 10586.1232)",
             "updateKb": "KB4048952",
-            "updateUrl": "https://support.microsoft.com/en-us/help/4048952",
+            "updateUrl": "https://support.microsoft.com/en-us/topic/november-14-2017-kb4048952-os-build-10586-1232-8d3fe358-3e72-e7e1-f41c-9033e3a981c6",
             "releaseDate": "2017-11-14",
             "releaseVersion": "OS Build 10586.1232"
         },
         {
             "heading": "November 2, 2017&#x2014;KB4052232 (OS Build 10586.1177)",
             "updateKb": "KB4052232",
-            "updateUrl": "https://support.microsoft.com/en-us/help/4052232",
+            "updateUrl": "https://support.microsoft.com/en-us/topic/november-2-2017-kb4052232-os-build-10586-1177-ac895629-ed09-bf19-c884-bcf596883fa1",
             "releaseDate": "2017-11-02",
             "releaseVersion": "OS Build 10586.1177"
         },
         {
             "heading": "October 10, 2017&#x2014;KB4041689 (OS Build 10586.1176)",
             "updateKb": "KB4041689",
-            "updateUrl": "https://support.microsoft.com/en-us/help/4041689",
+            "updateUrl": "https://support.microsoft.com/en-us/topic/october-10-2017-kb4041689-os-build-10586-1176-b57942bd-a962-b924-9342-4a8128757e96",
             "releaseDate": "2017-10-10",
             "releaseVersion": "OS Build 10586.1176"
         },
         {
             "heading": "September 12, 2017&#x2014;KB4038783 (OS Build 10586.1106)",
             "updateKb": "KB4038783",
-            "updateUrl": "https://support.microsoft.com/en-us/help/4038783",
+            "updateUrl": "https://support.microsoft.com/en-us/topic/september-12-2017-kb4038783-os-build-10586-1106-26339283-9b8c-48b2-bad7-79e413a1d50c",
             "releaseDate": "2017-09-12",
             "releaseVersion": "OS Build 10586.1106"
         },
         {
             "heading": "August 8, 2017&#x2014;KB4034660 (OS Build 10586.1045)",
             "updateKb": "KB4034660",
-            "updateUrl": "https://support.microsoft.com/en-us/help/4034660",
+            "updateUrl": "https://support.microsoft.com/en-us/topic/august-8-2017-kb4034660-os-build-10586-1045-b0314504-441f-501e-6925-2636d4b5cb9a",
             "releaseDate": "2017-08-08",
             "releaseVersion": "OS Build 10586.1045"
         },
         {
             "heading": "July 11, 2017&#x2014;KB4025344 (OS Build 10586.1007)",
             "updateKb": "KB4025344",
-            "updateUrl": "https://support.microsoft.com/en-us/help/4025344",
+            "updateUrl": "https://support.microsoft.com/en-us/topic/july-11-2017-kb4025344-os-build-10586-1007-df4b5360-f733-4ea0-4a8b-0cdf62fb9344",
             "releaseDate": "2017-07-11",
             "releaseVersion": "OS Build 10586.1007"
         },
         {
             "heading": "June 27, 2017&#x2014;KB4032693 (OS Build 10586.965)",
             "updateKb": "KB4032693",
-            "updateUrl": "https://support.microsoft.com/en-us/help/4032693",
+            "updateUrl": "https://support.microsoft.com/en-us/topic/june-27-2017-kb4032693-os-build-10586-965-b055611b-3298-7edd-783c-45efefd69af4",
             "releaseDate": "2017-06-27",
             "releaseVersion": "OS Build 10586.965"
         },
         {
             "heading": "June 13, 2017&#x2014;KB4022714 (OS Build 10586.962)",
             "updateKb": "KB4022714",
-            "updateUrl": "https://support.microsoft.com/en-us/help/4022714",
+            "updateUrl": "https://support.microsoft.com/en-us/topic/june-13-2017-kb4022714-os-build-10586-962-41c22949-dc3b-4f15-f970-41adc51ef964",
             "releaseDate": "2017-06-13",
             "releaseVersion": "OS Build 10586.962"
         },
         {
             "heading": "May 9, 2017&#x2014;KB4019473 (OS Build 10586.916)",
             "updateKb": "KB4019473",
-            "updateUrl": "https://support.microsoft.com/en-us/help/4019473",
+            "updateUrl": "https://support.microsoft.com/en-us/topic/may-9-2017-kb4019473-os-build-10586-916-30075421-04b2-4921-b52c-8617365376d8",
             "releaseDate": "2017-05-09",
             "releaseVersion": "OS Build 10586.916"
         },
         {
             "heading": "April 11, 2017&#x2014;KB4015219 (OS Build 10586.873)",
             "updateKb": "KB4015219",
-            "updateUrl": "https://support.microsoft.com/en-us/help/4015219",
+            "updateUrl": "https://support.microsoft.com/en-us/topic/april-11-2017-kb4015219-os-build-10586-873-68b8e379-aafa-ea6c-6b29-56d19785e657",
             "releaseDate": "2017-04-11",
             "releaseVersion": "OS Build 10586.873"
         },
         {
             "heading": "March 22, 2017&#x2014;KB4016636 (OS Build 10586.842)",
             "updateKb": "KB4016636",
-            "updateUrl": "https://support.microsoft.com/en-us/help/4016636",
+            "updateUrl": "https://support.microsoft.com/en-us/topic/march-22-2017-kb4016636-os-build-10586-842-339dbf85-cf98-0c04-437c-23ee444e8fea",
             "releaseDate": "2017-03-22",
             "releaseVersion": "OS Build 10586.842"
         },
         {
             "heading": "March 14, 2017&#x2014;KB4013198 (OS Build 10586.839)",
             "updateKb": "KB4013198",
-            "updateUrl": "https://support.microsoft.com/en-us/help/4013198",
+            "updateUrl": "https://support.microsoft.com/en-us/topic/march-14-2017-kb4013198-os-build-10586-839-b30e879e-52b2-7746-f690-719984e1b9f4",
             "releaseDate": "2017-03-14",
             "releaseVersion": "OS Build 10586.839"
         },
         {
             "heading": "January 10, 2017&#x2014;KB3210721 (OS Build 10586.753)",
             "updateKb": "KB3210721",
-            "updateUrl": "https://support.microsoft.com/en-us/help/4009939",
+            "updateUrl": "https://support.microsoft.com/en-us/topic/january-10-2017-kb3210721-os-build-10586-753-1ab480fa-fa11-ee59-bc88-b7a9128258b8",
             "releaseDate": "2017-01-10",
             "releaseVersion": "OS Build 10586.753"
         },
         {
             "heading": "December 13, 2016 &#x2014; KB3205386 (OS Build 10586.713)",
             "updateKb": "KB3205386",
-            "updateUrl": "https://support.microsoft.com/en-us/help/4004229",
+            "updateUrl": "https://support.microsoft.com/en-us/topic/december-13-2016-kb3205386-os-build-10586-713-4da4c0e4-49cd-b75b-9c7a-92c40791db0a",
             "releaseDate": "2016-12-13",
             "releaseVersion": "OS Build 10586.713"
         },
         {
             "heading": "November 14, 2016 &#x2014; KB3198586 (OS Build 10586.682)",
             "updateKb": "KB3198586",
-            "updateUrl": "https://support.microsoft.com/en-us/help/4001884",
+            "updateUrl": "https://support.microsoft.com/en-us/topic/november-14-2016-kb3198586-os-build-10586-682-030d9a7a-9ecd-bf55-dad8-fe06f9e0f24c",
             "releaseDate": "2016-11-14",
             "releaseVersion": "OS Build 10586.682"
         },
         {
             "heading": "November 8, 2016 &#x2014; KB3198586 (OS Build 10586.679)",
             "updateKb": "KB3198586",
-            "updateUrl": "https://support.microsoft.com/en-us/help/4001883",
+            "updateUrl": "https://support.microsoft.com/en-us/topic/november-8-2016-kb3198586-os-build-10586-679-36734488-c893-d05f-7c19-43f1fcdc82b1",
             "releaseDate": "2016-11-08",
             "releaseVersion": "OS Build 10586.679"
         },
         {
             "heading": "October 11, 2016 &#x2014; KB3192441 (OS Build 10586.633)",
             "updateKb": "KB3192441",
-            "updateUrl": "https://support.microsoft.com/en-us/help/4001762",
+            "updateUrl": "https://support.microsoft.com/en-us/topic/october-11-2016-kb3192441-os-build-10586-633-bdfabcc3-2e7d-7dd5-0398-34483b3d14a4",
             "releaseDate": "2016-10-11",
             "releaseVersion": "OS Build 10586.633"
         },
         {
             "heading": "September 13, 2016 &#x2014; KB3185614 (OS Build 10586.589)",
             "updateKb": "KB3185614",
-            "updateUrl": "https://support.microsoft.com/en-us/help/4001763",
+            "updateUrl": "https://support.microsoft.com/en-us/topic/september-13-2016-kb3185614-os-build-10586-589-c94e339e-c4c3-38c5-b85b-9d1e0860cccb",
             "releaseDate": "2016-09-13",
             "releaseVersion": "OS Build 10586.589"
         },
         {
             "heading": "August 9, 2016 &#x2014; KB3176493 (OS Build 10586.545)",
             "updateKb": "KB3176493",
-            "updateUrl": "https://support.microsoft.com/en-us/help/4001764",
+            "updateUrl": "https://support.microsoft.com/en-us/topic/august-9-2016-kb3176493-os-build-10586-545-e2938748-2ccf-8d38-7d5b-8244822246fe",
             "releaseDate": "2016-08-09",
             "releaseVersion": "OS Build 10586.545"
         },
         {
             "heading": "July 12, 2016 &#x2014; KB3172985 (OS Build 10586.494)",
             "updateKb": "KB3172985",
-            "updateUrl": "https://support.microsoft.com/en-us/help/4001765",
+            "updateUrl": "https://support.microsoft.com/en-us/topic/july-12-2016-kb3172985-os-build-10586-494-483ecb3b-a849-b72d-9980-7de8748f3928",
             "releaseDate": "2016-07-12",
             "releaseVersion": "OS Build 10586.494"
         },
         {
             "heading": "June 14, 2016 &#x2014; KB3163018 (OS Build 10586.420)",
             "updateKb": "KB3163018",
-            "updateUrl": "https://support.microsoft.com/en-us/help/4001766",
+            "updateUrl": "https://support.microsoft.com/en-us/topic/june-14-2016-kb3163018-os-build-10586-420-3c3ad82d-34b6-df12-5ef2-308a6119908c",
             "releaseDate": "2016-06-14",
             "releaseVersion": "OS Build 10586.420"
         },
         {
             "heading": "May 10, 2016 &#x2014; KB3156421 (OS Build 10586.318)",
             "updateKb": "KB3156421",
-            "updateUrl": "https://support.microsoft.com/en-us/help/4001767",
+            "updateUrl": "https://support.microsoft.com/en-us/topic/may-10-2016-kb3156421-os-build-10586-318-05ac13b4-756c-28fe-ccc6-c44237ae6429",
             "releaseDate": "2016-05-10",
             "releaseVersion": "OS Build 10586.318"
         },
         {
             "heading": "April 12, 2016 &#x2014; KB3147458 (OS Build 10586.218)",
             "updateKb": "KB3147458",
-            "updateUrl": "https://support.microsoft.com/en-us/help/4001768",
+            "updateUrl": "https://support.microsoft.com/en-us/topic/april-12-2016-kb3147458-os-build-10586-218-0f14104d-f1f9-6265-73b7-662ccffe8df7",
             "releaseDate": "2016-04-12",
             "releaseVersion": "OS Build 10586.218"
         },
         {
             "heading": "March 8, 2016 &#x2014; KB3140768 (OS Build 10586.164)",
             "updateKb": "KB3140768",
-            "updateUrl": "https://support.microsoft.com/en-us/help/4001769",
+            "updateUrl": "https://support.microsoft.com/en-us/topic/march-8-2016-kb3140768-os-build-10586-164-420cbd68-19c9-5e22-2ff5-819e0809a0d4",
             "releaseDate": "2016-03-08",
             "releaseVersion": "OS Build 10586.164"
         },
         {
             "heading": "March 1, 2016 &#x2014; KB3140743 (OS Build 10586.122)",
             "updateKb": "KB3140743",
-            "updateUrl": "https://support.microsoft.com/en-us/help/4001770",
+            "updateUrl": "https://support.microsoft.com/en-us/topic/march-1-2016-kb3140743-os-build-10586-122-adf0f8c6-ff97-6700-96d2-30032368a9ca",
             "releaseDate": "2016-03-01",
             "releaseVersion": "OS Build 10586.122"
         },
         {
             "heading": "February 9, 2016 &#x2014; KB3135173 (OS Build 10586.104)",
             "updateKb": "KB3135173",
-            "updateUrl": "https://support.microsoft.com/en-us/help/4001771",
+            "updateUrl": "https://support.microsoft.com/en-us/topic/february-9-2016-kb3135173-os-build-10586-104-98f7fffa-3d9b-9b69-4104-2a542c0de25a",
             "releaseDate": "2016-02-09",
             "releaseVersion": "OS Build 10586.104"
         }
     ],
     "1507": [
+        {
+            "heading": "November 10, 2020\u2014KB4586787 (OS Build 10240.18756)",
+            "updateKb": "KB4586787",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4586787",
+            "releaseDate": "2020-11-10T00:00:00",
+            "releaseVersion": "OS Build 10240.18756"
+        },
         {
             "heading": "October 13, 2020\u2014KB4580327 (OS Build 10240.18725)",
             "updateKb": "KB4580327",
