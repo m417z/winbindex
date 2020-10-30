@@ -26,20 +26,25 @@ def parse_windows_version_updates_new_format(html):
     nav_active = nav_active[0]
     assert '<div' not in nav_active
 
-    p = r'<a class="supLeftNavLink" data-bi-slot="\d+" href="(/en-us/help/\d+)">((\w+) (\d+), (\d+) ?&#x2014; ?KB(\d{7}) \(OS Build (\d+)\.(\d+)\))</a>'
+    #p = r'<a class="supLeftNavLink" data-bi-slot="\d+" href="(/en-us/topic/(\w+)-(\d+)-(\d+)-kb(\d+)-os-build-(\d+)-(\d+)-[^"]*)">(.*?)</a>'
+    #p = r'<a class="supLeftNavLink" data-bi-slot="\d+" href="(/en-us/help/\d+)">((\w+) (\d+), (\d+) ?&#x2014; ?KB(\d{7}) \(OS Build (\d+)\.(\d+)\))</a>'
+    # There are two types of formats, at this time both are used, combine the above two regexes.
+    p = r'<a class="supLeftNavLink" data-bi-slot="\d+" href="(/en-us/help/\d+|/en-us/topic/\w+-\d+-\d+-kb\d+-os-build-\d+-\d+-[^"]*)">((\w+) (\d+), (\d+) ?&#x2014; ?KB(\d{7}) \(OS Build (\d+)\.(\d+)\))</a>'
     items = re.findall(p, nav_active)
     assert len(items) + 1 == len(re.findall('<a ', nav_active))
 
+    last_year = None
+
     result = []
-    result_urls = set()
     for item in items:
         url, heading, month, date, year, kb_number, os1, os2 = item
 
         # Due to a bug in the 1511 update history at the time of writing this comment,
-        # there are duplicate items. Insert each item only once.
-        if url in result_urls:
-            continue
-        result_urls.add(url)
+        # there are also items from 1507. Skip them when the year suddenly increaces.
+        year_num = int(year)
+        if last_year and year_num > last_year:
+            break
+        last_year = year_num
 
         month_num = list(calendar.month_name).index(month.capitalize())
         full_date = f'{year}-{month_num:02}-{int(date):02}'
