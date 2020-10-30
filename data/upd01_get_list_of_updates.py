@@ -96,6 +96,7 @@ def windows_version_updates_sanity_check(updates):
     update_kbs = {}
     update_urls = {}
     skipped_kbs = set()
+    must_exist_urls = []
 
     for windows_version in updates:
         if windows_version in config.windows_versions_to_skip:
@@ -107,10 +108,14 @@ def windows_version_updates_sanity_check(updates):
             update_url = update['updateUrl']
             if update_url in config.windows_update_urls_to_skip:
                 skipped_kbs.add(update_kb)
+                must_exist_urls.append(config.windows_update_urls_to_skip[update_url])
                 continue
 
             update_kbs[update_kb] = update_kbs.get(update_kb, 0) + 1
             update_urls[update_url] = update_urls.get(update_url, 0) + 1
+
+    # Assert the URLs we skipped have the expected duplicates.
+    assert all(url in update_urls.keys() for url in must_exist_urls)
 
     # Assert no two entries with the same URL.
     assert not any(x != 1 for x in update_urls.values())
