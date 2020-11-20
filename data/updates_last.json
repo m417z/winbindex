@@ -1,6 +1,13 @@
 {
     "20H2": [
         {
+            "heading": "November 19, 2020\u2014KB4594440 (OS Builds 19041.631 and 19042.631) Out-of-band",
+            "updateKb": "KB4594440",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4594440",
+            "releaseDate": "2020-11-19T00:00:00",
+            "releaseVersion": "2004-OS Build 19041.631 and 20H2-OS Build 19042.631"
+        },
+        {
             "heading": "November 10, 2020\u2014KB4586781 (OS Builds 19041.630 and 19042.630)",
             "updateKb": "KB4586781",
             "updateUrl": "https://support.microsoft.com/en-us/help/4586781",
@@ -16,6 +23,13 @@
         }
     ],
     "2004": [
+        {
+            "heading": "November 19, 2020\u2014KB4594440 (OS Builds 19041.631 and 19042.631) Out-of-band",
+            "updateKb": "KB4594440",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4594440",
+            "releaseDate": "2020-11-19T00:00:00",
+            "releaseVersion": "2004-OS Build 19041.631 and 20H2-OS Build 19042.631"
+        },
         {
             "heading": "November 10, 2020\u2014KB4586781 (OS Builds 19041.630 and 19042.630)",
             "updateKb": "KB4586781",
@@ -101,6 +115,13 @@
             "updateUrl": "https://support.microsoft.com/en-us/help/4586819",
             "releaseDate": "2020-11-19T00:00:00",
             "releaseVersion": "1903-OS Build 18362.1237 and 1909-OS Build 18363.18363.1237"
+        },
+        {
+            "heading": "November 19, 2020\u2014KB4594443 (OS Builds 18362.1199 and 18363.1199) Out-of-band",
+            "updateKb": "KB4594443",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4594443",
+            "releaseDate": "2020-11-19T00:00:00",
+            "releaseVersion": "1903-OS Build 18362.1199 and 1909-OS Build 18363.18363.1199"
         },
         {
             "heading": "November 10, 2020\u2014KB4586786 (OS Builds 18362.1198 and 18363.1198)",
@@ -278,6 +299,13 @@
             "updateUrl": "https://support.microsoft.com/en-us/help/4586819",
             "releaseDate": "2020-11-19T00:00:00",
             "releaseVersion": "1903-OS Build 18362.1237 and 1909-OS Build 18363.18363.1237"
+        },
+        {
+            "heading": "November 19, 2020\u2014KB4594443 (OS Builds 18362.1199 and 18363.1199) Out-of-band",
+            "updateKb": "KB4594443",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4594443",
+            "releaseDate": "2020-11-19T00:00:00",
+            "releaseVersion": "1903-OS Build 18362.1199 and 1909-OS Build 18363.18363.1199"
         },
         {
             "heading": "November 10, 2020\u2014KB4586786 (OS Builds 18362.1198 and 18363.1198)",
@@ -2627,6 +2655,13 @@
         }
     ],
     "1607": [
+        {
+            "heading": "November 19, 2020\u2014KB4594441 (OS Build 14393.4048) Out-of-band",
+            "updateKb": "KB4594441",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4594441",
+            "releaseDate": "2020-11-19T00:00:00",
+            "releaseVersion": "OS Build 14393.4048"
+        },
         {
             "heading": "November 10, 2020\u2014KB4586830 (OS Build 14393.4046)",
             "updateKb": "KB4586830",
