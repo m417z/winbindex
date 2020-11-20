@@ -13,6 +13,8 @@ def search_for_updates(search_terms):
     url = 'https://www.catalog.update.microsoft.com/Search.aspx'
     html = requests.get(url, {'q': search_terms}).text
 
+    assert '(page 1 of 1)' in html  # we expect only one page of results
+
     p = r'<a [^>]*?onclick=\'goToDetails\("([a-f0-9\-]+)"\);\'>\s*(.*?)\s*</a>'
     matches = re.findall(p, html)
 
@@ -51,7 +53,10 @@ def download_update(windows_version, update_kb):
     if len(found_updates) != 1:
         raise Exception(f'Expected one update item, found {len(found_updates)}')
 
-    download_url = get_update_download_url(found_updates[0][0])
+    found_update = found_updates[0]
+    assert re.fullmatch(rf'\d{4}-\d{2} Cumulative Update for Windows 10 Version {windows_version} for x64-based Systems \({update_kb}\)', found_update[1]), found_update[1]
+
+    download_url = get_update_download_url(found_update[0])
     if not download_url:
         raise Exception('Update not found in catalog')
 
