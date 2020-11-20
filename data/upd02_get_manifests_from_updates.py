@@ -40,7 +40,7 @@ def download_update(windows_version, update_kb):
     # TODO: more archs?
     found_updates = search_for_updates(f'{update_kb} x64')
 
-    filter_regex = r'\bserver\b'
+    filter_regex = r'\bserver\b|\bDynamic Cumulative Update\b'
 
     for skip_version, containing_version in config.windows_versions_to_skip.items():
         if windows_version == containing_version:
