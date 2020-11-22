@@ -150,7 +150,8 @@ def run_deploy():
     print('Running upd03_parse_manifests')
     upd03_parse_manifests()
 
-    time_to_stop = start_time + timedelta(minutes=46)
+    #time_to_stop = start_time + timedelta(minutes=46)  # For Travis
+    time_to_stop = None
 
     print('Running upd05_group_by_filename')
     upd05_group_by_filename(progress_state, time_to_stop)
@@ -298,15 +299,21 @@ def main():
         print('can_deploy() returned False, exiting')
         return
 
-    pr_title = run_deploy()
-    if not pr_title:
-        print('run_deploy() returned False, exiting')
-        return
+    while True:
+        pr_title = run_deploy()
+        if not pr_title:
+            print('run_deploy() returned False, exiting')
+            return
 
-    build_html_index_of_hashes()
+        build_html_index_of_hashes()
 
-    commit_deploy(pr_title)
-    print('Done')
+        commit_deploy(pr_title)
+
+        # Stop once we got files from VirusTotal.
+        # Otherwise, continue as long as there are new updates.
+        if pr_title.endswith('files from VirusTotal'):
+            print('Done')
+            return
 
 if __name__ == '__main__':
     main()
