@@ -86,14 +86,12 @@ def run_virustotal_updates(start_time):
     commands = [
         ['pip', 'install', 'mitmproxy'],
         ['sudo', 'apt-get', 'install', '-y', 'tor'],
-        ['pip', 'install', 'pymultitor'],
+        #['pip', 'install', 'pymultitor'],
+        ['pip', 'install', 'git+git://github.com/m417z/pymultitor.git'],  # use a fork until PRs are merged
     ]
 
     for args in commands:
         subprocess.run(args, check=True)
-
-    # Temporary
-    shutil.copy('_pymultitor.py', '/home/travis/virtualenv/python3.8.0/lib/python3.8/site-packages/pymultitor.py')
 
     subprocess.Popen(['pymultitor', '--tor-timeout', '0', '--on-error-code', '429'])
 
