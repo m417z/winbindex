@@ -1,6 +1,9 @@
 name: Winbindex Periodic Update
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 7 * * *'
 
 jobs:
   update:
