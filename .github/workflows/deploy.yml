@@ -1,0 +1,23 @@
+name: Winbindex Periodic Update
+
+on: workflow_dispatch
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+    - name: Install dependencies
+      run: |
+        sudo apt-get install aria2
+        sudo apt-get install cabextract
+        python -m pip install --upgrade pip
+        pip install orjson requests
+    - name: Run Periodic Update
+      run: |
+        cd data
+        python deploy.py
