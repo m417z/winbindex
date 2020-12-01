@@ -2090,13 +2090,6 @@
             "updateUrl": "https://support.microsoft.com/en-us/help/4052314",
             "releaseDate": "2017-11-14T00:00:00",
             "releaseVersion": "OS Build 15254.12"
-        },
-        {
-            "heading": "October 17, 2017\u2014KB4043961 (OS Build 16299.19)",
-            "updateKb": "KB4043961",
-            "updateUrl": "https://support.microsoft.com/en-us/help/4043961",
-            "releaseDate": "2017-10-17T00:00:00",
-            "releaseVersion": "OS Build 16299.19"
         }
     ],
     "1703": [
