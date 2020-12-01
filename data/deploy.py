@@ -184,24 +184,23 @@ def build_html_index_of_hashes():
         prefix_str = f'{prefix:02x}'
 
         html_code_start = (
-            '<!DOCTYPE html>'
-            '<html>'
-            '<head>'
-            '<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">'
-            f'<title>{prefix_str} - Winbindex hashes</title>'
-            '<style>'
-            '/* stolen from thebestmotherfucking.website */'
-            'body{font-family:Open Sans,Arial;color:#454545;font-size:16px;margin:2em auto;max-width:800px;padding:1em;line-height:1.4;text-align:justify}html.contrast body{color:#050505}html.contrast blockquote{color:#11151a}html.contrast blockquote:before{color:#262626}html.contrast a{color:#0051c9}html.contrast a:visited{color:#7d013e}html.contrast span.wr{color:#800}html.contrast span.mfw{color:#4d0000}@media screen and (prefers-color-scheme:light){html.inverted{background-color:#000}html.inverted body{color:#d9d9d9}html.inverted div#contrast,html.inverted div#invmode{color:#fff;background-color:#000}html.inverted blockquote{color:#d3c9be}html.inverted blockquote:before{color:#b8b8b8}html.inverted a{color:#00a2e7}html.inverted a:visited{color:#ca1a70}html.inverted span.wr{color:#d24637}html.inverted span.mfw{color:#b00000}html.inverted.contrast{background-color:#000}html.inverted.contrast body{color:#fff}html.inverted.contrast div#contrast,html.inverted.contrast div#invmode{color:#fff;background-color:#000}html.inverted.contrast blockquote{color:#f8f6f5}html.inverted.contrast blockquote:before{color:#e5e5e5}html.inverted.contrast a{color:#44c7ff}html.inverted.contrast a:visited{color:#e9579e}html.inverted.contrast span.wr{color:#db695d}html.inverted.contrast span.mfw{color:#ff0d0d}}@media (prefers-color-scheme:dark){html:not(.inverted){background-color:#000}html:not(.inverted) body{color:#d9d9d9}html:not(.inverted) div#contrast,html:not(.inverted) div#invmode{color:#fff;background-color:#000}html:not(.inverted) blockquote{color:#d3c9be}html:not(.inverted) blockquote:before{color:#b8b8b8}html:not(.inverted) a{color:#00a2e7}html:not(.inverted) a:visited{color:#ca1a70}html:not(.inverted) span.wr{color:#d24637}html:not(.inverted) span.mfw{color:#b00000}html:not(.inverted).contrast{background-color:#000}html:not(.inverted).contrast body{color:#fff}html:not(.inverted).contrast div#contrast,html:not(.inverted).contrast div#invmode{color:#fff;background-color:#000}html:not(.inverted).contrast blockquote{color:#f8f6f5}html:not(.inverted).contrast blockquote:before{color:#e5e5e5}html:not(.inverted).contrast a{color:#44c7ff}html:not(.inverted).contrast a:visited{color:#e9579e}html:not(.inverted).contrast span.wr{color:#db695d}html:not(.inverted).contrast span.mfw{color:#ff0d0d}html.inverted html{background-color:#fefefe}}a{color:#07a}a:visited{color:#941352}.noselect{-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}span.citneed{vertical-align:top;font-size:.7em;padding-left:.3em}small{font-size:.4em}p.st{margin-top:-1em}div.fancyPositioning div.picture-left{float:left;width:40%;overflow:hidden;margin-right:1em}div.fancyPositioning div.picture-left img{width:100%}div.fancyPositioning div.picture-left figure{margin:10px}div.fancyPositioning div.picture-left figure figcaption{font-size:.7em}div.fancyPositioning div.tleft{float:left;width:55%}div.fancyPositioning div.tleft p:first-child{margin-top:0}div.fancyPositioning:after{display:block;content:"";clear:both}ul li img{height:1em}blockquote{color:#456;margin-left:0;margin-top:2em;margin-bottom:2em}blockquote span{float:left;margin-left:1rem;padding-top:1rem}blockquote author{display:block;clear:both;font-size:.6em;margin-left:2.4rem;font-style:oblique}blockquote author:before{content:"- ";margin-right:1em}blockquote:before{font-family:Times New Roman,Times,Arial;color:#666;content:open-quote;font-size:2.2em;font-weight:600;float:left;margin-top:0;margin-right:.2rem;width:1.2rem}blockquote:after{content:"";display:block;clear:both}@media screen and (max-width:500px){body{text-align:left}div.fancyPositioning div.picture-left,div.fancyPositioning div.tleft{float:none;width:inherit}blockquote span{width:80%}blockquote author{padding-top:1em;width:80%;margin-left:15%}blockquote author:before{content:"";margin-right:inherit}}span.visited{color:#941352}span.visited-maroon{color:#85144b}span.wr{color:#c0392b;font-weight:600;text-decoration:underline}div#contrast{color:#000;top:10px}div#contrast,div#invmode{cursor:pointer;position:fixed;right:10px;font-size:.8em;text-decoration:underline;-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}div#invmode{color:#fff;background-color:#000;top:34px;padding:2px 5px}@media screen and (max-width:1080px){div#contrast,div#invmode{position:absolute}}span.sb{color:#00e}span.sb,span.sv{cursor:not-allowed}span.sv{color:#551a8b}span.foufoufou{color:#444;font-weight:700}span.foufoufou:before{content:"";display:inline-block;width:1em;height:1em;margin-left:.2em;margin-right:.2em;background-color:#444}span.foufivfoufivfoufiv{color:#454545;font-weight:700}span.foufivfoufivfoufiv:before{content:"";display:inline-block;width:1em;height:1em;margin-left:.2em;margin-right:.2em;background-color:#454545}span.mfw{color:#730000}a.kopimi,a.kopimi img.kopimi{display:block;margin-left:auto;margin-right:auto}a.kopimi img.kopimi{height:2em}p.fakepre{font-family:monospace;font-size:.9em}'
-            '/* More styles */'
-            'p{font-family:monospace}'
-            '</style>'
-            '</head>'
-            '<body>'
-            f'<h1>{prefix_str} - Winbindex hashes</h1>'
+            '<!DOCTYPE html>\n'
+            '<html>\n'
+            '<head>\n'
+            '<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">\n'
+            f'<title>{prefix_str} - Winbindex hashes</title>\n'
+            '<style>\n'
+            '/* stolen from thebestmotherfucking.website */\n'
+            'body{font-family:Open Sans,Arial;color:#454545;font-size:16px;margin:2em auto;max-width:800px;padding:1em;line-height:1.4;text-align:justify}html.contrast body{color:#050505}html.contrast blockquote{color:#11151a}html.contrast blockquote:before{color:#262626}html.contrast a{color:#0051c9}html.contrast a:visited{color:#7d013e}html.contrast span.wr{color:#800}html.contrast span.mfw{color:#4d0000}@media screen and (prefers-color-scheme:light){html.inverted{background-color:#000}html.inverted body{color:#d9d9d9}html.inverted div#contrast,html.inverted div#invmode{color:#fff;background-color:#000}html.inverted blockquote{color:#d3c9be}html.inverted blockquote:before{color:#b8b8b8}html.inverted a{color:#00a2e7}html.inverted a:visited{color:#ca1a70}html.inverted span.wr{color:#d24637}html.inverted span.mfw{color:#b00000}html.inverted.contrast{background-color:#000}html.inverted.contrast body{color:#fff}html.inverted.contrast div#contrast,html.inverted.contrast div#invmode{color:#fff;background-color:#000}html.inverted.contrast blockquote{color:#f8f6f5}html.inverted.contrast blockquote:before{color:#e5e5e5}html.inverted.contrast a{color:#44c7ff}html.inverted.contrast a:visited{color:#e9579e}html.inverted.contrast span.wr{color:#db695d}html.inverted.contrast span.mfw{color:#ff0d0d}}@media (prefers-color-scheme:dark){html:not(.inverted){background-color:#000}html:not(.inverted) body{color:#d9d9d9}html:not(.inverted) div#contrast,html:not(.inverted) div#invmode{color:#fff;background-color:#000}html:not(.inverted) blockquote{color:#d3c9be}html:not(.inverted) blockquote:before{color:#b8b8b8}html:not(.inverted) a{color:#00a2e7}html:not(.inverted) a:visited{color:#ca1a70}html:not(.inverted) span.wr{color:#d24637}html:not(.inverted) span.mfw{color:#b00000}html:not(.inverted).contrast{background-color:#000}html:not(.inverted).contrast body{color:#fff}html:not(.inverted).contrast div#contrast,html:not(.inverted).contrast div#invmode{color:#fff;background-color:#000}html:not(.inverted).contrast blockquote{color:#f8f6f5}html:not(.inverted).contrast blockquote:before{color:#e5e5e5}html:not(.inverted).contrast a{color:#44c7ff}html:not(.inverted).contrast a:visited{color:#e9579e}html:not(.inverted).contrast span.wr{color:#db695d}html:not(.inverted).contrast span.mfw{color:#ff0d0d}html.inverted html{background-color:#fefefe}}a{color:#07a}a:visited{color:#941352}.noselect{-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}span.citneed{vertical-align:top;font-size:.7em;padding-left:.3em}small{font-size:.4em}p.st{margin-top:-1em}div.fancyPositioning div.picture-left{float:left;width:40%;overflow:hidden;margin-right:1em}div.fancyPositioning div.picture-left img{width:100%}div.fancyPositioning div.picture-left figure{margin:10px}div.fancyPositioning div.picture-left figure figcaption{font-size:.7em}div.fancyPositioning div.tleft{float:left;width:55%}div.fancyPositioning div.tleft p:first-child{margin-top:0}div.fancyPositioning:after{display:block;content:"";clear:both}ul li img{height:1em}blockquote{color:#456;margin-left:0;margin-top:2em;margin-bottom:2em}blockquote span{float:left;margin-left:1rem;padding-top:1rem}blockquote author{display:block;clear:both;font-size:.6em;margin-left:2.4rem;font-style:oblique}blockquote author:before{content:"- ";margin-right:1em}blockquote:before{font-family:Times New Roman,Times,Arial;color:#666;content:open-quote;font-size:2.2em;font-weight:600;float:left;margin-top:0;margin-right:.2rem;width:1.2rem}blockquote:after{content:"";display:block;clear:both}@media screen and (max-width:500px){body{text-align:left}div.fancyPositioning div.picture-left,div.fancyPositioning div.tleft{float:none;width:inherit}blockquote span{width:80%}blockquote author{padding-top:1em;width:80%;margin-left:15%}blockquote author:before{content:"";margin-right:inherit}}span.visited{color:#941352}span.visited-maroon{color:#85144b}span.wr{color:#c0392b;font-weight:600;text-decoration:underline}div#contrast{color:#000;top:10px}div#contrast,div#invmode{cursor:pointer;position:fixed;right:10px;font-size:.8em;text-decoration:underline;-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}div#invmode{color:#fff;background-color:#000;top:34px;padding:2px 5px}@media screen and (max-width:1080px){div#contrast,div#invmode{position:absolute}}span.sb{color:#00e}span.sb,span.sv{cursor:not-allowed}span.sv{color:#551a8b}span.foufoufou{color:#444;font-weight:700}span.foufoufou:before{content:"";display:inline-block;width:1em;height:1em;margin-left:.2em;margin-right:.2em;background-color:#444}span.foufivfoufivfoufiv{color:#454545;font-weight:700}span.foufivfoufivfoufiv:before{content:"";display:inline-block;width:1em;height:1em;margin-left:.2em;margin-right:.2em;background-color:#454545}span.mfw{color:#730000}a.kopimi,a.kopimi img.kopimi{display:block;margin-left:auto;margin-right:auto}a.kopimi img.kopimi{height:2em}p.fakepre{font-family:monospace;font-size:.9em}\n'
+            '/* More styles */\n'
+            'p{font-family:monospace}\n'
+            '</style>\n'
+            '</head>\n'
+            '<body>\n'
+            f'<h1>{prefix_str} - Winbindex hashes</h1>\n'
         )
 
         html_code_end = (
-            '\n'
             '<!-- Global site tag (gtag.js) - Google Analytics -->\n'
             '<script async src="https://www.googletagmanager.com/gtag/js?id=UA-143074342-2"></script>\n'
             '<script>\n'
@@ -210,12 +209,12 @@ def build_html_index_of_hashes():
             '    gtag(\'js\', new Date());\n'
             '\n'
             '    gtag(\'config\', \'UA-143074342-2\');\n'
-            '</script>'
-            '</body>'
+            '</script>\n'
+            '</body>\n'
             '</html>\n'
         )
 
-        html_code_index = '<p>'
+        html_code_index = '<p>\n'
         for index_num in range(0x100):
             if index_num != prefix:
                 html_code_index += f'<a href="{index_num:02x}.html">{index_num:02x}</a>'
@@ -223,23 +222,23 @@ def build_html_index_of_hashes():
                 html_code_index += f'<b>{index_num:02x}</b>'
 
             if index_num & 0x0F == 0x0F:
-                html_code_index += '<br>'
+                html_code_index += '<br>\n'
             else:
-                html_code_index += ' '
-        html_code_index += '</p>'
+                html_code_index += '\n'
+        html_code_index += '</p>\n'
 
-        html_code_main = '<div>'
+        html_code_main = '<div>\n'
         for name in sorted(info_sources):
             html_code_hashes = ''
             for file_hash in sorted(info_sources[name]):
                 if file_hash.startswith(prefix_str):
-                    html_code_hashes += '<p>' + file_hash
+                    html_code_hashes += '<p>' + file_hash + '\n'
 
             if html_code_hashes:
-                html_code_main += f'<h3><a href="..?file={html.escape(name)}">{html.escape(name)}</a></h3>'
+                html_code_main += f'<h3><a href="..?file={html.escape(name)}">{html.escape(name)}</a></h3>\n'
                 html_code_main += html_code_hashes
-                html_code_main += '</p>'
-        html_code_main += '</div>'
+                html_code_main += '</p>\n'
+        html_code_main += '</div>\n'
 
         html_code = html_code_start + html_code_index + html_code_main + html_code_end
         with open(f'../hashes/{prefix_str}.html', 'w') as f:
