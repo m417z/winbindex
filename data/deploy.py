@@ -245,6 +245,10 @@ def build_html_index_of_hashes():
         with open(f'../hashes/{prefix_str}.html', 'w') as f:
             f.write(html_code)
 
+def init_deploy():
+    args = ['git', 'remote', 'add', 'push-origin', f'https://{os.environ["GITHUB_TOKEN"]}@github.com/m417z/winbindex.git']
+    subprocess.run(args, check=True)
+
 def commit_deploy(pr_title):
     git_email = '69083578+winbindex-deploy-bot@users.noreply.github.com'
     git_name = 'winbindex-deploy-bot'
@@ -273,7 +277,6 @@ def commit_deploy(pr_title):
         ['git', 'checkout'] + checkout_params,
         ['git', 'add', '-A', '--'] + extra_commit_params,
         ['git', 'commit', '-m', pr_title],
-        ['git', 'remote', 'add', 'push-origin', f'https://{os.environ["GITHUB_TOKEN"]}@github.com/m417z/winbindex.git'],
         ['git', 'push', 'push-origin', branch_name],
     ]
 
@@ -298,6 +301,8 @@ def main():
     if not can_deploy():
         print('can_deploy() returned False, exiting')
         return
+
+    init_deploy()
 
     while True:
         pr_title = run_deploy()
