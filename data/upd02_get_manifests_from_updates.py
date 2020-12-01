@@ -54,7 +54,7 @@ def download_update(windows_version, update_kb):
         raise Exception(f'Expected one update item, found {len(found_updates)}')
 
     found_update = found_updates[0]
-    assert re.fullmatch(rf'\d{{4}}-\d{{2}} Cumulative Update (Preview )?for Windows 10 Version {windows_version} for x64-based Systems \({update_kb}\)', found_update[1]), found_update[1]
+    assert re.fullmatch(rf'(\d{{4}}-\d{{2}} )?Cumulative Update (Preview )?for Windows 10 Version {windows_version} for x64-based Systems \({update_kb}\)', found_update[1]), found_update[1]
 
     download_url = get_update_download_url(found_update[0])
     if not download_url:
