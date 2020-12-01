@@ -1,6 +1,13 @@
 {
     "20H2": [
         {
+            "heading": "November 30, 2020\u2014KB4586853 (OS Builds 19041.662 and 19042.662) Preview",
+            "updateKb": "KB4586853",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4586853",
+            "releaseDate": "2020-11-30T00:00:00",
+            "releaseVersion": "2004-OS Build 19041.662 and 20H2-OS Build 19042.662"
+        },
+        {
             "heading": "November 19, 2020\u2014KB4594440 (OS Builds 19041.631 and 19042.631) Out-of-band",
             "updateKb": "KB4594440",
             "updateUrl": "https://support.microsoft.com/en-us/help/4594440",
@@ -23,6 +30,13 @@
         }
     ],
     "2004": [
+        {
+            "heading": "November 30, 2020\u2014KB4586853 (OS Builds 19041.662 and 19042.662) Preview",
+            "updateKb": "KB4586853",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4586853",
+            "releaseDate": "2020-11-30T00:00:00",
+            "releaseVersion": "2004-OS Build 19041.662 and 20H2-OS Build 19042.662"
+        },
         {
             "heading": "November 19, 2020\u2014KB4594440 (OS Builds 19041.631 and 19042.631) Out-of-band",
             "updateKb": "KB4594440",

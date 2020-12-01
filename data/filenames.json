@@ -10642,6 +10642,8 @@
 "debuggingpage.xbf",
 "debugoverlay.xaml",
 "debugoverlay.xbf",
+"debugregsvc.dll",
+"debugregsvcapi.dll",
 "decoderappservice.dll",
 "decoderappservice.winmd",
 "decompose-hangul.nlt",
