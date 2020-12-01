@@ -3328,6 +3328,13 @@
             "releaseVersion": "OS Build 14393.729"
         },
         {
+            "heading": "January 26, 2017\u2014KB 3216755 (OS Build 14393.726)",
+            "updateKb": "KB3216755",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4011347",
+            "releaseDate": "2017-01-26T00:00:00",
+            "releaseVersion": "OS Build 14393.726"
+        },
+        {
             "heading": "January 10, 2017\u2014KB3213986 (OS Build 14393.693)",
             "updateKb": "KB3213986",
             "updateUrl": "https://support.microsoft.com/en-us/help/4009938",
