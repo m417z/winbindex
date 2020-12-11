@@ -19,6 +19,8 @@ from upd04_get_virustotal_data import main as upd04_get_virustotal_data
 from upd05_group_by_filename import main as upd05_group_by_filename
 import config
 
+deploy_start_time = datetime.now()
+
 def filter_updates(updates, update_kbs):
     filtered = {}
     for windows_version in updates:
@@ -79,8 +81,9 @@ def check_pymultitor(address='127.0.0.1', port=8080):
     except socket.error:
         return False
 
-def run_virustotal_updates(start_time):
-    time_to_stop = start_time + timedelta(minutes=46)
+def run_virustotal_updates():
+    #time_to_stop = deploy_start_time + timedelta(minutes=46)  # For Travis
+    time_to_stop = min(datetime.now() + timedelta(minutes=46), deploy_start_time + timedelta(hours=6, minutes=-4))  # For GitHub Actions
 
     # Install pymultitor.
     commands = [
@@ -119,8 +122,6 @@ def run_virustotal_updates(start_time):
     return f'Updated info of {files_count_after - files_count_before} files from VirusTotal'
 
 def run_deploy():
-    start_time = datetime.now()
-
     tools_extracted = Path('tools.zip').is_file()
     if tools_extracted:
         with zipfile.ZipFile('tools.zip', 'r') as zip_ref:
@@ -136,7 +137,7 @@ def run_deploy():
         new_single_update = prepare_updates()
         if not new_single_update:
             # No updates, try to fetch stuff from VT instead.
-            return run_virustotal_updates(start_time)
+            return run_virustotal_updates()
 
         progress_state = {
             'update_kb': new_single_update,
@@ -150,8 +151,8 @@ def run_deploy():
     print('Running upd03_parse_manifests')
     upd03_parse_manifests()
 
-    #time_to_stop = start_time + timedelta(minutes=46)  # For Travis
-    time_to_stop = None
+    #time_to_stop = deploy_start_time + timedelta(minutes=46)  # For Travis
+    time_to_stop = deploy_start_time + timedelta(hours=6, minutes=-4)  # For GitHub Actions
 
     print('Running upd05_group_by_filename')
     upd05_group_by_filename(progress_state, time_to_stop)
