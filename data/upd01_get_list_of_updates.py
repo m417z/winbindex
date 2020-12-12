@@ -33,18 +33,19 @@ def parse_windows_version_updates_new_format(html):
     items = re.findall(p, nav_active)
     assert len(items) + 1 == len(re.findall('<a ', nav_active))
 
-    last_year = None
+    last_os1 = None
 
     result = []
     for item in items:
         url, heading, month, date, year, kb_number, os1, os2 = item
 
         # Due to a bug in the 1511 update history at the time of writing this comment,
-        # there are also items from 1507. Skip them when the year suddenly increaces.
-        year_num = int(year)
-        if last_year and year_num > last_year:
+        # there are also items from 1507. Skip them when os1 suddenly changes.
+        os1_num = int(os1)
+        if last_os1 and os1_num != last_os1:
+            assert os1_num == 10240 and last_os1 == 10586
             break
-        last_year = year_num
+        last_os1 = os1_num
 
         month_num = list(calendar.month_name).index(month.capitalize())
         full_date = f'{year}-{month_num:02}-{int(date):02}'
