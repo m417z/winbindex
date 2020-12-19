@@ -9,9 +9,6 @@ import json
 import time
 import os
 
-# Temporary
-import shutil
-
 from upd01_get_list_of_updates import main as upd01_get_list_of_updates
 from upd02_get_manifests_from_updates import main as upd02_get_manifests_from_updates
 from upd03_parse_manifests import main as upd03_parse_manifests
