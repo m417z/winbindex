@@ -484,6 +484,8 @@ var globalFunctions = {};
                 $('#page-loader').hide();
 
                 $('#main-description').text(mainDescription);
+
+                onFileInfoLoaded(fileToLoad);
             };
             fileReader.readAsArrayBuffer(compressed);
         }).fail(function (jqXHR, textStatus) {
@@ -493,6 +495,85 @@ var globalFunctions = {};
             }
             alert(msg);
         });
+    }
+
+    function onFileInfoLoaded(loadedFile) {
+        var match = loadedFile.match(/^(?:vcruntime|msvcp|msvcr)(140|120|110|100|90|80)(?:_.*?)?\.dll$/);
+        if (match) {
+            var showMsvcRedistInfo = function () {
+                var redistVersion;
+                var downloadLinks;
+
+                switch (match[1]) {
+                case '140':
+                    redistVersion = 'Visual Studio 2015, 2017 and 2019';
+                    downloadLinks = '<ul><li>' +
+                            'x86: <a href="https://aka.ms/vs/16/release/vc_redist.x86.exe">vc_redist.x86.exe</a>' +
+                        '</li><li>' +
+                            'x64: <a href="https://aka.ms/vs/16/release/vc_redist.x64.exe">vc_redist.x64.exe</a>' +
+                        '</li></ul>';
+                    break;
+
+                case '120':
+                    redistVersion = 'Visual Studio 2013';
+                    downloadLinks = '<ul><li>' +
+                            'x86: <a href="https://aka.ms/highdpimfc2013x86enu">vcredist_x86.exe</a>' +
+                        '</li><li>' +
+                            'x64: <a href="https://aka.ms/highdpimfc2013x64enu">vcredist_x64.exe</a>' +
+                        '</li></ul>';
+                    break;
+
+                case '110':
+                    redistVersion = 'Visual Studio 2012';
+                    downloadLinks = '<a href="https://www.microsoft.com/en-us/download/details.aspx?id=30679" target="_blank" rel="noopener">Click here</a>, download and install both <strong>vcredist_x86.exe</strong> and <strong>vcredist_x64.exe</strong>.<br><br>';
+                    break;
+
+                case '100':
+                    redistVersion = 'Visual Studio 2010';
+                    downloadLinks = '<a href="https://www.microsoft.com/en-us/download/details.aspx?id=26999" target="_blank" rel="noopener">Click here</a>, download and install both <strong>vcredist_x86.exe</strong> and <strong>vcredist_x64.exe</strong>.<br><br>';
+                    break;
+
+                case '90':
+                    redistVersion = 'Visual Studio 2008';
+                    downloadLinks = '<a href="https://www.microsoft.com/en-us/download/details.aspx?id=26368" target="_blank" rel="noopener">Click here</a>, download and install both <strong>vcredist_x86.exe</strong> and <strong>vcredist_x64.exe</strong>.<br><br>';
+                    break;
+
+                case '80':
+                    redistVersion = 'Visual Studio 2005';
+                    downloadLinks = '<a href="https://www.microsoft.com/en-us/download/details.aspx?id=26347" target="_blank" rel="noopener">Click here</a>, download and install both <strong>vcredist_x86.EXE</strong> and <strong>vcredist_x64.EXE</strong>.<br><br>';
+                    break;
+                }
+
+                var message = 'You\'re probably here because you got an error message similar to the following:<br><br>' +
+                    '<img src="assets/vc_redist_error.png" alt="The program can\'t start because VCRUNTIME140.dll is missing from your computer. Try reinstalling the program to fix this problem." class="mw-100 mx-auto d-block"><br>' +
+                    'The <strong>' + escapeHtml(loadedFile) + '</strong> file is a part of the <strong>Microsoft Visual C++ Redistributable for ' + escapeHtml(redistVersion) + '</strong>. ' +
+                        'The best way to fix the error is to install the Visual C++ redistributable package.<br><br>' +
+                    'Download and install both the x86 and x64 versions of the Visual C++ redistributable package:<br>' +
+                    downloadLinks +
+                    'As a last resort, you can try downloading the missing files from Winbindex, but note that since the files are not an integral part of Windows, they are usually not uploaded to the symbol server, and even when they do, they might not be up-to-date with the latest version.';
+
+                BootstrapDialog.show({
+                    title: 'Download Microsoft Visual C++ Redistributable',
+                    message: message,
+                    buttons: [ {
+                        label: 'Close',
+                        action: function (dialog) {
+                            dialog.close();
+                        }
+                    }]
+                });
+            };
+
+            var infoButtonHtml = '<div class="text-center mt-2">' +
+                    '<button type="button" class="btn btn-primary">Download Microsoft Visual C++ Redistributable</button>' +
+                '</div>';
+
+            var infoButton = $(infoButtonHtml).click(showMsvcRedistInfo);
+
+            $('#main-description').after(infoButton);
+
+            showMsvcRedistInfo();
+        }
     }
 
     function initHiddenColumns(table) {
@@ -672,14 +753,14 @@ var globalFunctions = {};
 
     function humanFileArch(arch) {
         switch (arch) {
-            case 332:
-                return 'x86';
+        case 332:
+            return 'x86';
 
-            case 34404:
-                return 'x64';
+        case 34404:
+            return 'x64';
 
-            case 43620:
-                return 'ARM64';
+        case 43620:
+            return 'ARM64';
         }
 
         return arch;
