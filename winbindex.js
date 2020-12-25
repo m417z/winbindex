@@ -555,7 +555,7 @@ var globalFunctions = {};
                 BootstrapDialog.show({
                     title: 'Download Microsoft Visual C++ Redistributable',
                     message: message,
-                    buttons: [ {
+                    buttons: [{
                         label: 'Close',
                         action: function (dialog) {
                             dialog.close();
@@ -564,13 +564,9 @@ var globalFunctions = {};
                 });
             };
 
-            var infoButtonHtml = '<div class="text-center mt-2">' +
-                    '<button type="button" class="btn btn-primary">Download Microsoft Visual C++ Redistributable</button>' +
-                '</div>';
-
+            var infoButtonHtml = '<button type="button" class="btn btn-primary">Download Microsoft Visual C++ Redistributable</button>';
             var infoButton = $(infoButtonHtml).click(showMsvcRedistInfo);
-
-            $('#main-description').after(infoButton);
+            $('#main-description').after($('<div class="text-center mt-2"></div>').append(infoButton));
 
             showMsvcRedistInfo();
         }
