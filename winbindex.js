@@ -442,17 +442,28 @@ var globalFunctions = {};
                 Object.keys(data).forEach(function (hash) {
                     var d = data[hash];
 
-                    var fileInfo = d.fileInfo || {};
-                    var sha1 = fileInfo.sha1 || null;
-                    var md5 = fileInfo.md5 || null;
-                    var description = fileInfo.description || null;
-                    var machineType = fileInfo.machineType || null;
-                    var signingDate = fileInfo.signingDate || null;
-                    var size = fileInfo.size || null;
-                    var version = fileInfo.version || null;
+                    var fileInfo = {};
+                    var sha1 = null;
+                    var md5 = null;
+                    var description = null;
+                    var machineType = null;
+                    var signingDate = null;
+                    var size = null;
+                    var version = null;
 
-                    var assemblyArchitecture = getAssemblyParam(d, 'processorArchitecture');
-                    var assemblyVersion = getAssemblyParam(d, 'version');
+                    if (d.fileInfo) {
+                        fileInfo = d.fileInfo;
+                        sha1 = fileInfo.sha1 || null;
+                        md5 = fileInfo.md5 || null;
+                        description = fileInfo.description || null;
+                        machineType = fileInfo.machineType || null;
+                        signingDate = fileInfo.signingDate || '-';
+                        size = fileInfo.size || null;
+                        version = fileInfo.version || '-';
+                    }
+
+                    var assemblyArchitecture = getAssemblyParam(d, 'processorArchitecture') || '-';
+                    var assemblyVersion = getAssemblyParam(d, 'version') || '-';
 
                     var win10Versions = getWin10Versions(d);
                     var updateKbs = getUpdateKbs(d);
