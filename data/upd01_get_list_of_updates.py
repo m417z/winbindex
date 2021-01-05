@@ -34,6 +34,7 @@ def parse_windows_version_updates_new_format(html):
     assert len(items) + 1 == len(re.findall('<a ', nav_active))
 
     last_os1 = None
+    last_year = None
 
     result = []
     for item in items:
@@ -46,6 +47,14 @@ def parse_windows_version_updates_new_format(html):
             assert os1_num == 10240 and last_os1 == 10586
             break
         last_os1 = os1_num
+
+        # Due to a bug in the 1511 update history at the time of writing this comment,
+        # the list might appear twice. Stop when the year increaces.
+        year_num = int(year)
+        if last_year and year_num > last_year:
+            assert int(os1) == 10586 and last_year == 2016
+            break
+        last_year = year_num
 
         month_num = list(calendar.month_name).index(month.capitalize())
         full_date = f'{year}-{month_num:02}-{int(date):02}'
@@ -119,7 +128,7 @@ def windows_version_updates_sanity_check(updates):
     assert all(url in update_urls.keys() for url in must_exist_urls)
 
     # Assert no two entries with the same URL.
-    assert not any(x != 1 for x in update_urls.values())
+    assert not any(x != 1 for x in update_urls.values()), [x for x in update_urls.items() if x[1] != 1]
 
     # Assert no two entries with the same KB.
     assert not any(x != 1 for x in update_kbs.values())
