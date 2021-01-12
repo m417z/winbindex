@@ -90,13 +90,16 @@ def windows_version_updates_sanity_check(updates):
     must_exist_urls = []
 
     for windows_version in updates:
-        if windows_version in config.windows_versions_to_skip:
-            skipped_kbs.update(update['updateKb'] for update in updates[windows_version])
-            continue
+        older_windows_version = config.windows_with_overlapping_updates.get(windows_version)
 
         for update in updates[windows_version]:
             update_kb = update['updateKb']
             update_url = update['updateUrl']
+
+            if older_windows_version and update in updates[older_windows_version]:
+                skipped_kbs.add(update_kb)
+                continue
+
             if update_url in config.windows_update_urls_to_skip:
                 skipped_kbs.add(update_kb)
                 must_exist_urls.append(config.windows_update_urls_to_skip[update_url])
@@ -112,10 +115,10 @@ def windows_version_updates_sanity_check(updates):
     assert not any(x != 1 for x in update_urls.values()), [x for x in update_urls.items() if x[1] != 1]
 
     # Assert no two entries with the same KB.
-    assert not any(x != 1 for x in update_kbs.values())
+    assert not any(x != 1 for x in update_kbs.values()), [x for x in update_kbs.items() if x[1] != 1]
 
     # Make sure we don't skip extra items.
-    assert all(skipped_kb in update_kbs for skipped_kb in skipped_kbs)
+    assert all(skipped_kb in update_kbs for skipped_kb in skipped_kbs), [x for x in skipped_kbs if x not in update_kbs]
 
 def main():
     result = {}
