@@ -1,6 +1,13 @@
 {
     "20H2": [
         {
+            "heading": "January 12, 2021\u2014KB4598242 (OS Builds 19041.746 and 19042.746)",
+            "updateKb": "KB4598242",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4598242",
+            "releaseDate": "2021-01-12T00:00:00",
+            "releaseVersion": "2004-OS Build 19041.746 and 20H2-OS Build 19042.746"
+        },
+        {
             "heading": "December 8, 2020\u2014KB4592438 (OS Builds 19041.685 and 19042.685)",
             "updateKb": "KB4592438",
             "updateUrl": "https://support.microsoft.com/en-us/help/4592438",
@@ -37,6 +44,13 @@
         }
     ],
     "2004": [
+        {
+            "heading": "January 12, 2021\u2014KB4598242 (OS Builds 19041.746 and 19042.746)",
+            "updateKb": "KB4598242",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4598242",
+            "releaseDate": "2021-01-12T00:00:00",
+            "releaseVersion": "2004-OS Build 19041.746 and 20H2-OS Build 19042.746"
+        },
         {
             "heading": "December 8, 2020\u2014KB4592438 (OS Builds 19041.685 and 19042.685)",
             "updateKb": "KB4592438",
@@ -137,6 +151,13 @@
         }
     ],
     "1909": [
+        {
+            "heading": "January 12, 2021\u2014KB4598229 (OS Build 18363.1316)",
+            "updateKb": "KB4598229",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4598229",
+            "releaseDate": "2021-01-12T00:00:00",
+            "releaseVersion": "OS Build 18363.1316"
+        },
         {
             "heading": "December 8, 2020\u2014KB4592449 (OS Builds 18362.1256 and 18363.1256)",
             "updateKb": "KB4592449",
@@ -611,6 +632,13 @@
     ],
     "1809": [
         {
+            "heading": "January 12, 2021\u2014KB4598230 (OS Build 17763.1697)",
+            "updateKb": "KB4598230",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4598230",
+            "releaseDate": "2021-01-12T00:00:00",
+            "releaseVersion": "OS Build 17763.1697"
+        },
+        {
             "heading": "December 8, 2020\u2014KB4592440 (OS Build 17763.1637)",
             "updateKb": "KB4592440",
             "updateUrl": "https://support.microsoft.com/en-us/help/4592440",
@@ -1004,6 +1032,13 @@
         }
     ],
     "1803": [
+        {
+            "heading": "January 12, 2021\u2014KB4598245 (OS Build 17134.1967)",
+            "updateKb": "KB4598245",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4598245",
+            "releaseDate": "2021-01-12T00:00:00",
+            "releaseVersion": "OS Build 17134.1967"
+        },
         {
             "heading": "December 8, 2020\u2014KB4592446 (OS Build 17134.1902)",
             "updateKb": "KB4592446",
@@ -2143,6 +2178,13 @@
     ],
     "1703": [
         {
+            "heading": "January 12, 2021\u2014KB4599208 (OS Build 15063.2614)",
+            "updateKb": "KB4599208",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4599208",
+            "releaseDate": "2021-01-12T00:00:00",
+            "releaseVersion": "OS Build 15063.2614"
+        },
+        {
             "heading": "December 8, 2020\u2014KB4592473 (OS Build 15063.2584)",
             "updateKb": "KB4592473",
             "updateUrl": "https://support.microsoft.com/en-us/help/4592473",
@@ -2718,6 +2760,13 @@
         }
     ],
     "1607": [
+        {
+            "heading": "January 12, 2021\u2014KB4598243 (OS Build 14393.4169)",
+            "updateKb": "KB4598243",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4598243",
+            "releaseDate": "2021-01-12T00:00:00",
+            "releaseVersion": "OS Build 14393.4169"
+        },
         {
             "heading": "December 8, 2020\u2014KB4593226 (OS Build 14393.4104)",
             "updateKb": "KB4593226",
@@ -3716,6 +3765,13 @@
         }
     ],
     "1507": [
+        {
+            "heading": "January 12, 2021\u2014KB4598231 (OS Build 10240.18818)",
+            "updateKb": "KB4598231",
+            "updateUrl": "https://support.microsoft.com/en-us/help/4598231",
+            "releaseDate": "2021-01-12T00:00:00",
+            "releaseVersion": "OS Build 10240.18818"
+        },
         {
             "heading": "December 8, 2020\u2014KB4592464 (OS Build 10240.18782)",
             "updateKb": "KB4592464",
