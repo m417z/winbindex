@@ -33,28 +33,9 @@ def parse_windows_version_updates_new_format(html):
     items = re.findall(p, nav_active)
     assert len(items) + 1 == len(re.findall('<a ', nav_active))
 
-    last_os1 = None
-    last_year = None
-
     result = []
     for item in items:
         url, heading, month, date, year, kb_number, os1, os2 = item
-
-        # Due to a bug in the 1511 update history at the time of writing this comment,
-        # there are also items from 1507. Skip them when os1 suddenly changes.
-        os1_num = int(os1)
-        if last_os1 and os1_num != last_os1:
-            assert os1_num == 10240 and last_os1 == 10586
-            break
-        last_os1 = os1_num
-
-        # Due to a bug in the 1511 update history at the time of writing this comment,
-        # the list might appear twice. Stop when the year increaces.
-        year_num = int(year)
-        if last_year and year_num > last_year:
-            assert int(os1) == 10586 and last_year == 2016
-            break
-        last_year = year_num
 
         month_num = list(calendar.month_name).index(month.capitalize())
         full_date = f'{year}-{month_num:02}-{int(date):02}'
@@ -82,8 +63,8 @@ def get_windows_version_updates(page_id):
         r'\}\)\(\);;'
     )
     match = re.search(p, html)
-    if not match:
-        return parse_windows_version_updates_new_format(html)
+    #if not match:
+    #    return parse_windows_version_updates_new_format(html)
 
     data = json.loads(match.group(1))
 
@@ -139,7 +120,13 @@ def windows_version_updates_sanity_check(updates):
 def main():
     result = {}
     for ver in windows_versions:
-        result[ver] = get_windows_version_updates(windows_versions[ver])
+        if ver == '1511':
+            # The 1511 page is broken, and it doesn't get new updates anyway.
+            # Get from existing file.
+            with open(config.out_path.joinpath('updates_last.json'), 'r') as f:
+                result[ver] = json.load(f)[ver]
+        else:
+            result[ver] = get_windows_version_updates(windows_versions[ver])
 
     windows_version_updates_sanity_check(result)
 
