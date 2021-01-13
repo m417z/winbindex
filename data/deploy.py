@@ -81,6 +81,8 @@ def check_pymultitor(address='127.0.0.1', port=8080):
 def run_virustotal_updates():
     #time_to_stop = deploy_start_time + timedelta(minutes=46)  # For Travis
     time_to_stop = min(datetime.now() + timedelta(minutes=46), deploy_start_time + timedelta(hours=6, minutes=-4))  # For GitHub Actions
+    if datetime.now() >= time_to_stop:
+        return None
 
     # Install pymultitor.
     commands = [
@@ -119,6 +121,11 @@ def run_virustotal_updates():
     return f'Updated info of {files_count_after - files_count_before} files from VirusTotal'
 
 def run_deploy():
+    #time_to_stop = deploy_start_time + timedelta(minutes=46)  # For Travis
+    time_to_stop = deploy_start_time + timedelta(hours=6, minutes=-4)  # For GitHub Actions
+    if datetime.now() >= time_to_stop:
+        return None
+
     tools_extracted = Path('tools.zip').is_file()
     if tools_extracted:
         with zipfile.ZipFile('tools.zip', 'r') as zip_ref:
@@ -147,9 +154,6 @@ def run_deploy():
 
     print('Running upd03_parse_manifests')
     upd03_parse_manifests()
-
-    #time_to_stop = deploy_start_time + timedelta(minutes=46)  # For Travis
-    time_to_stop = deploy_start_time + timedelta(hours=6, minutes=-4)  # For GitHub Actions
 
     print('Running upd05_group_by_filename')
     upd05_group_by_filename(progress_state, time_to_stop)
@@ -304,7 +308,7 @@ def main():
     while True:
         pr_title = run_deploy()
         if not pr_title:
-            print('run_deploy() returned False, exiting')
+            print('run_deploy() returned None, exiting')
             return
 
         build_html_index_of_hashes()
