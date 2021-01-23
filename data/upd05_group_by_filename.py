@@ -346,14 +346,11 @@ def process_updates(progress_state=None, time_to_stop=None):
         print(f'Processing Windows version {windows_version}:', end='', flush=True)
 
         older_windows_version = config.windows_with_overlapping_updates.get(windows_version)
+        older_windows_version_kbs = [x['updateKb'] for x in updates.get(older_windows_version, [])]
 
         for update in updates[windows_version]:
-            if older_windows_version in updates and update in updates[older_windows_version]:
-                continue
-
             update_kb = update['updateKb']
-            update_url = update['updateUrl']
-            if update_url in config.windows_update_urls_to_skip:
+            if update_kb in older_windows_version_kbs:
                 continue
 
             parsed_dir = config.out_path.joinpath('parsed', windows_version, update_kb)
