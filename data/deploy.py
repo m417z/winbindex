@@ -149,14 +149,39 @@ def run_deploy():
             'files_total': None
         }
 
-    print('Running upd02_get_manifests_from_updates')
-    upd02_get_manifests_from_updates()
+    if progress_state['update_kb'] not in [
+        'KB3074683',
+        'KB3081424',
+        'KB3081436',
+        'KB3081438',
+        'KB3081444',
+        'KB3081448',
+        'KB3081455',
+        'KB3093266',
+        'KB3097617',
+        'KB3105210',
+        'KB3105211',
+        'KB3105213',
+        'KB3116869',
+        'KB3116900',
+        'KB3116908',
+        'KB3118754',
+        'KB3120677',
+        'KB3124200',
+        'KB3124262',
+        'KB3124263',
+        'KB3124266'
+    ]:
+        print('Running upd02_get_manifests_from_updates')
+        upd02_get_manifests_from_updates()
 
-    print('Running upd03_parse_manifests')
-    upd03_parse_manifests()
+        print('Running upd03_parse_manifests')
+        upd03_parse_manifests()
 
-    print('Running upd05_group_by_filename')
-    upd05_group_by_filename(progress_state, time_to_stop)
+        print('Running upd05_group_by_filename')
+        upd05_group_by_filename(progress_state, time_to_stop)
+    else:
+        progress_state['files_total'] = 0
 
     if progress_state['files_processed'] < progress_state['files_total']:
         with open(progress_file, 'w') as f:
