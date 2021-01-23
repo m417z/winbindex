@@ -138,7 +138,7 @@ def run_deploy():
 
         progress_file.unlink()
     else:
-        new_single_update = None #prepare_updates()
+        new_single_update = prepare_updates()
         if not new_single_update:
             # No updates, try to fetch stuff from VT instead.
             return run_virustotal_updates()
