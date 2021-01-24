@@ -37,6 +37,9 @@ def get_updates_from_microsoft_support():
         updates_section = re.sub(r'<a [^>]*>Windows.*? update history</a>', '', updates_section, flags=re.IGNORECASE)
 
         # Specific title fixes.
+        if windows_version == '1809':
+            updates_section = updates_section.replace('(OS Build OS 17763.529)', '(OS Build 17763.529)')
+
         if windows_version == '1709':
             updates_section = updates_section.replace('KB4509104 Update for Windows 10 Mobile  (', 'KB4509104 Update for Windows 10 Mobile (')
 
@@ -63,10 +66,14 @@ def get_updates_from_microsoft_support():
             full_date = f'{year}-{month_num:02}-{int(date):02}'
             update_kb = 'KB' + kb_number
 
+            match = re.search(r'\(OS Builds? ([\d\.]+)', heading)
+            os_build = match[1]
+
             update_to_append = {
                 'updateKb': update_kb,
                 'updateUrl': 'https://support.microsoft.com' + url,
                 'releaseDate': full_date,
+                'releaseVersion': os_build,
                 'heading': heading
             }
 
