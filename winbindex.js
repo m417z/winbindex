@@ -649,9 +649,30 @@ var globalFunctions = {};
     function getWin10Versions(data) {
         var items = Object.keys(data.windowsVersions);
 
+        var windowsVersions = data.windowsVersions;
+        Object.keys(windowsVersions).forEach(function (windowsVersion) {
+            Object.keys(windowsVersions[windowsVersion]).forEach(function (update) {
+                if (update === 'BASE') {
+                    return;
+                }
+
+                var updateInfo = windowsVersions[windowsVersion][update].updateInfo;
+                if (!updateInfo.otherWindowsVersions) {
+                    return;
+                }
+
+                updateInfo.otherWindowsVersions.forEach(function (otherWindowsVersion) {
+                    if (items.indexOf(otherWindowsVersion) === -1) {
+                        items.push(otherWindowsVersion);
+                    }
+                });
+            });
+        });
+
         // Handle shared updates. Example:
         // Windows 10 versions 1903 and 1909 share updates.
         // Each update not older than the first 1909 update is shared between both versions.
+        // After versions 2004/20H2, this information is part of updateInfo, no need to hardcode it below.
         var sharedUpdateData = [
             {
                 baseVersion: '1903',
@@ -714,7 +735,7 @@ var globalFunctions = {};
                 } else {
                     var updateInfo = windowsVersions[windowsVersion][update].updateInfo;
                     var date = updateInfo.releaseDate.slice(0, '2000-01-01'.length);
-                    var itemText = date + ' - ' + updateInfo.updateKb;
+                    var itemText = date + ' - ' + update;
                     items.push(itemText);
                 }
             });

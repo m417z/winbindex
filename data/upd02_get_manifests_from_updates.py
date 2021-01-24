@@ -40,23 +40,19 @@ def get_update_download_url(update_uid):
 
 def download_update(windows_version, update_kb):
     # TODO: more archs?
-    found_updates = search_for_updates(f'{update_kb} x64')
+    found_updates = search_for_updates(f'{update_kb} {windows_version} x64')
 
     filter_regex = r'\bserver\b|\bDynamic Cumulative Update\b'
-
-    for newer_windows_version, older_windows_version in config.windows_with_overlapping_updates.items():
-        if windows_version == older_windows_version:
-            filter_regex += rf'|\b{re.escape(newer_windows_version)}\b'
 
     found_updates = [update for update in found_updates if not re.search(filter_regex, update[1], re.IGNORECASE)]
 
     if len(found_updates) != 1:
         raise Exception(f'Expected one update item, found {len(found_updates)}')
 
-    found_update = found_updates[0]
-    assert re.fullmatch(rf'(\d{{4}}-\d{{2}} )?Cumulative Update (Preview )?for Windows 10 Version {windows_version} for x64-based Systems \({update_kb}\)', found_update[1]), found_update[1]
+    update_uid, update_title = found_updates[0]
+    assert re.fullmatch(rf'(\d{{4}}-\d{{2}} )?Cumulative Update (Preview )?for Windows 10 Version {windows_version} for x64-based Systems \({update_kb}\)', update_title), update_title
 
-    download_url = get_update_download_url(found_update[0])
+    download_url = get_update_download_url(update_uid)
     if not download_url:
         raise Exception('Update not found in catalog')
 
@@ -147,14 +143,7 @@ def main():
     for windows_version in updates:
         print(f'Processing Windows version {windows_version}')
 
-        older_windows_version = config.windows_with_overlapping_updates.get(windows_version)
-        older_windows_version_kbs = [x['updateKb'] for x in updates.get(older_windows_version, [])]
-
-        for update in updates[windows_version]:
-            update_kb = update['updateKb']
-            if update_kb in older_windows_version_kbs:
-                continue
-
+        for update_kb in updates[windows_version]:
             try:
                 get_manifests_from_update(windows_version, update_kb)
             except Exception as e:

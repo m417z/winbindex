@@ -5,6 +5,36 @@ import re
 
 import config
 
+def consolidate_overlapping_updates(updates):
+    seen_kbs = {}
+    for windows_version in sorted(updates.keys()):
+        for update_kb in list(updates[windows_version]):
+            update = updates[windows_version][update_kb]
+
+            if update_kb in seen_kbs:
+                seen_windows_version, seen_update = seen_kbs[update_kb]
+
+                assert seen_windows_version, windows_version in [
+                    ('1903', '1909'),
+                    ('2004', '20H2'),
+                ]
+
+                assert update['updateUrl'] == seen_update['updateUrl']
+                assert update['releaseDate'] == seen_update['releaseDate']
+                p = r'^\d+\.'
+                assert re.sub(p, '', update['releaseVersion']) == re.sub(p, '', seen_update['releaseVersion'])
+
+                if 'otherWindowsVersions' not in seen_update:
+                    seen_update['otherWindowsVersions'] = []
+
+                assert seen_update['otherWindowsVersions'] == []  # only one item is expected, if that changes in the future: sort array, make sure no duplicates
+                seen_update['otherWindowsVersions'].append(windows_version)
+
+                del updates[windows_version][update_kb]
+                continue
+
+            seen_kbs[update_kb] = windows_version, update
+
 def get_updates_from_microsoft_support():
     url = 'https://support.microsoft.com/en-us/help/4000823'
     html = requests.get(url).text
@@ -52,7 +82,7 @@ def get_updates_from_microsoft_support():
         items = re.findall(p, updates_section)
         assert len(items) == len(re.findall('<a ', updates_section))
 
-        windows_version_updates = []
+        windows_version_updates = {}
         windows_version_update_urls = []
         for item in items:
             url, heading, month, date, year, kb_number = item
@@ -70,18 +100,18 @@ def get_updates_from_microsoft_support():
             os_build = match[1]
 
             update_to_append = {
-                'updateKb': update_kb,
                 'updateUrl': 'https://support.microsoft.com' + url,
                 'releaseDate': full_date,
                 'releaseVersion': os_build,
                 'heading': heading
             }
 
-            if update_to_append in windows_version_updates:
+            if update_kb in windows_version_updates:
                 assert windows_version in ['1709', '1703']
+                assert windows_version_updates[update_kb] == update_to_append
                 continue
 
-            windows_version_updates.append(update_to_append)
+            windows_version_updates[update_kb] = update_to_append
 
         assert all(x in windows_version_update_urls for x in windows_update_urls_to_skip.get(windows_version, {}).values())
 
@@ -115,7 +145,7 @@ def get_updates_from_winreleaseinfoprod():
         )
         update_row_match = re.findall(p, updates_table)
 
-        windows_version_updates = []
+        windows_version_updates = {}
         for os_build, availability_date, servicing_option, kb_article in update_row_match:
             if kb_article == '':
                 continue
@@ -124,12 +154,11 @@ def get_updates_from_winreleaseinfoprod():
             update_kb = 'KB' + match[2]
             update_url = match[1]
 
-            windows_version_updates.append({
-                'updateKb': update_kb,
+            windows_version_updates[update_kb] = {
                 'updateUrl': update_url,
                 'releaseDate': availability_date,
                 'releaseVersion': os_build
-            })
+            }
 
         all_updates[windows_version] = windows_version_updates
 
@@ -138,18 +167,10 @@ def get_updates_from_winreleaseinfoprod():
 def windows_version_updates_sanity_check(updates):
     update_kbs = {}
     update_urls = {}
-    skipped_kbs = set()
 
     for windows_version in updates:
-        older_windows_version = config.windows_with_overlapping_updates.get(windows_version)
-        older_windows_version_kbs = [x['updateKb'] for x in updates.get(older_windows_version, [])]
-
-        for update in updates[windows_version]:
-            update_kb = update['updateKb']
-            if update_kb in older_windows_version_kbs:
-                skipped_kbs.add(update_kb)
-                continue
-
+        for update_kb in updates[windows_version]:
+            update = updates[windows_version][update_kb]
             update_url = update['updateUrl']
 
             update_kbs[update_kb] = update_kbs.get(update_kb, 0) + 1
@@ -161,24 +182,19 @@ def windows_version_updates_sanity_check(updates):
     # Assert no two entries with the same KB.
     assert not any(x != 1 for x in update_kbs.values()), [x for x in update_kbs.items() if x[1] != 1]
 
-    # Make sure we don't skip extra items.
-    assert all(skipped_kb in update_kbs for skipped_kb in skipped_kbs), [x for x in skipped_kbs if x not in update_kbs]
-
 def merge_updates(updates_a, updates_b):
     for windows_version in updates_b:
-        updates_a_kbs = [x['updateKb'] for x in updates_a[windows_version]]
-        for update in updates_b[windows_version]:
-            update_kb = update['updateKb']
-            if update_kb in updates_a_kbs:
-                continue
-
-            updates_a[windows_version].append(update)
+        for update_kb in updates_b[windows_version]:
+            if update_kb not in updates_a[windows_version]:
+                updates_a[windows_version][update_kb] = updates_b[windows_version][update_kb]
 
 def main():
     updates_from_microsoft_support = get_updates_from_microsoft_support()
+    consolidate_overlapping_updates(updates_from_microsoft_support)
     windows_version_updates_sanity_check(updates_from_microsoft_support)
 
     updates_from_winreleaseinfoprod = get_updates_from_winreleaseinfoprod()
+    consolidate_overlapping_updates(updates_from_winreleaseinfoprod)
     windows_version_updates_sanity_check(updates_from_winreleaseinfoprod)
 
     assert updates_from_microsoft_support.keys() == updates_from_winreleaseinfoprod.keys()

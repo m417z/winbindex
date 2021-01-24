@@ -131,14 +131,7 @@ def main():
     for windows_version in updates:
         print(f'Processing Windows version {windows_version}:', end='', flush=True)
 
-        older_windows_version = config.windows_with_overlapping_updates.get(windows_version)
-        older_windows_version_kbs = [x['updateKb'] for x in updates.get(older_windows_version, [])]
-
-        for update in updates[windows_version]:
-            update_kb = update['updateKb']
-            if update_kb in older_windows_version_kbs:
-                continue
-
+        for update_kb in updates[windows_version]:
             manifests_dir = config.out_path.joinpath('manifests', windows_version, update_kb)
             if manifests_dir.is_dir():
                 output_dir = config.out_path.joinpath('parsed', windows_version, update_kb)

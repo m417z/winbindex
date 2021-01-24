@@ -21,10 +21,10 @@ deploy_start_time = datetime.now()
 def filter_updates(updates, update_kbs):
     filtered = {}
     for windows_version in updates:
-        for update_info in updates[windows_version]:
-            if update_info['updateKb'] in update_kbs:
-                updates_array = filtered.setdefault(windows_version, [])
-                updates_array.append(update_info)
+        for update_kb in updates[windows_version]:
+            if update_kb in update_kbs:
+                updates_dict = filtered.setdefault(windows_version, {})
+                updates_dict[update_kb] = updates[windows_version][update_kb]
 
     return filtered
 
@@ -33,7 +33,7 @@ def prepare_updates():
     with open(last_time_updates_path, 'r') as f:
         last_time_updates = json.load(f)
 
-    last_time_update_kbs = {item['updateKb'] for items in last_time_updates.values() for item in items}
+    last_time_update_kbs = {update_kb for updates in last_time_updates.values() for update_kb in updates}
 
     upd01_get_list_of_updates()
 
@@ -41,7 +41,7 @@ def prepare_updates():
     with open(temp_updates_path, 'r') as f:
         uptodate_updates = json.load(f)
 
-    uptodate_update_kbs = {item['updateKb'] for items in uptodate_updates.values() for item in items}
+    uptodate_update_kbs = {update_kb for updates in uptodate_updates.values() for update_kb in updates}
 
     if last_time_update_kbs == uptodate_update_kbs:
         temp_updates_path.unlink()
