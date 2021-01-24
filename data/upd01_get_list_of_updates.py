@@ -171,14 +171,8 @@ def main():
     updates_from_microsoft_support = get_updates_from_microsoft_support()
     windows_version_updates_sanity_check(updates_from_microsoft_support)
 
-    with open(config.out_path.joinpath('updates_from_microsoft_support.json'), 'w') as f:
-        json.dump(updates_from_microsoft_support, f, indent=4)
-
     updates_from_winreleaseinfoprod = get_updates_from_winreleaseinfoprod()
     windows_version_updates_sanity_check(updates_from_winreleaseinfoprod)
-
-    with open(config.out_path.joinpath('updates_from_winreleaseinfoprod.json'), 'w') as f:
-        json.dump(updates_from_winreleaseinfoprod, f, indent=4)
 
     assert updates_from_microsoft_support.keys() == updates_from_winreleaseinfoprod.keys()
 
