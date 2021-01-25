@@ -1,6 +1,14 @@
 {
-    "20H2": {},
     "2004": {
+        "KB4598291": {
+            "updateUrl": "https://support.microsoft.com/help/4598291",
+            "releaseDate": "2021-02-02",
+            "releaseVersion": "19041.789",
+            "heading": "February 2, 2021&#x2014;KB4598291 (OS Builds 19041.789 and 19042.789) Preview",
+            "otherWindowsVersions": [
+                "20H2"
+            ]
+        },
         "KB4598242": {
             "updateUrl": "https://support.microsoft.com/help/4598242",
             "releaseDate": "2021-01-12",
