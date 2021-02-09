@@ -115,6 +115,15 @@ def get_updates_from_microsoft_support():
 
         assert all(x in windows_version_update_urls for x in windows_update_urls_to_skip.get(windows_version, {}).values())
 
+        # A temporary fix for a missing entry in the Microsoft website's sidebar
+        if windows_version == '1709' and 'KB4341235' not in windows_version_updates:
+            windows_version_updates['KB4341235'] = {
+                "heading": "July 10, 2018&#x2014;KB4341235 Update for Windows 10 Mobile (OS Build 15254.490)",
+                "releaseDate": "2018-07-10",
+                "releaseVersion": "15254.490",
+                "updateUrl": "https://support.microsoft.com/help/4341235"
+            }
+
         all_updates[windows_version] = windows_version_updates
 
     return all_updates
@@ -204,7 +213,7 @@ def main():
     windows_version_updates_sanity_check(result)
 
     with open(config.out_path.joinpath('updates.json'), 'w') as f:
-        json.dump(result, f, indent=4)
+        json.dump(result, f, indent=4, sort_keys=True)
 
 if __name__ == '__main__':
     main()
