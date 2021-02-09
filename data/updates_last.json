@@ -130,6 +130,11 @@
             "releaseDate": "2021-01-12",
             "releaseVersion": "18363.1316",
             "heading": "January 12, 2021&#x2014;KB4598229 (OS Build 18363.1316)"
+        },
+        "KB4601315": {
+            "updateUrl": "https://support.microsoft.com/help/4601315",
+            "releaseDate": "2021-02-09",
+            "releaseVersion": "18363.1377"
         }
     },
     "1903": {
