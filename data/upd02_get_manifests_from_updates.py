@@ -18,7 +18,7 @@ def search_for_updates(search_terms):
     p = r'<a [^>]*?onclick=\'goToDetails\("([a-f0-9\-]+)"\);\'>\s*(.*?)\s*</a>'
     matches = re.findall(p, html)
 
-    p2 = r'<input id="([a-f0-9\-]+)" class="flatLightBlueButton" type="button" value=\'Download\' />'
+    p2 = r'<input id="([a-f0-9\-]+)" class="flatBlueButtonDownload" type="button" value=\'Download\' />'
     assert [uid for uid, title in matches] == re.findall(p2, html)
 
     return matches
