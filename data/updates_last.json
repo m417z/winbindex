@@ -502,6 +502,12 @@
             "releaseDate": "2021-01-12",
             "releaseVersion": "10240.18818",
             "updateUrl": "https://support.microsoft.com/help/4598231"
+        },
+        "KB4601331": {
+            "heading": "February 9, 2021-KB4601331 (OS Build 10240.18842)",
+            "releaseDate": "2021-02-09",
+            "releaseVersion": "10240.18842",
+            "updateUrl": "https://support.microsoft.com/help/4601331"
         }
     },
     "1511": {
@@ -1396,6 +1402,12 @@
             "releaseDate": "2021-01-12",
             "releaseVersion": "14393.4169",
             "updateUrl": "https://support.microsoft.com/help/4598243"
+        },
+        "KB4601318": {
+            "heading": "February 9, 2021&#x2014;KB4601318 (OS Build 14393.4225)",
+            "releaseDate": "2021-02-09",
+            "releaseVersion": "14393.4225",
+            "updateUrl": "https://support.microsoft.com/help/4601318"
         }
     },
     "1703": {
@@ -1896,6 +1908,12 @@
             "releaseDate": "2021-01-12",
             "releaseVersion": "15063.2614",
             "updateUrl": "https://support.microsoft.com/help/4599208"
+        },
+        "KB4601330": {
+            "heading": "February 9, 2021&#x2014;KB4601330 (OS Build 15063.2642)",
+            "releaseDate": "2021-02-09",
+            "releaseVersion": "15063.2642",
+            "updateUrl": "https://support.microsoft.com/help/4601330"
         }
     },
     "1709": {
@@ -2883,6 +2901,12 @@
             "releaseDate": "2021-01-12",
             "releaseVersion": "17134.1967",
             "updateUrl": "https://support.microsoft.com/help/4598245"
+        },
+        "KB4601354": {
+            "heading": "February 9, 2021&#x2014;KB4601354 (OS Build 17134.2026)",
+            "releaseDate": "2021-02-09",
+            "releaseVersion": "17134.2026",
+            "updateUrl": "https://support.microsoft.com/help/4601354"
         }
     },
     "1809": {
@@ -3238,6 +3262,12 @@
             "releaseDate": "2021-01-21",
             "releaseVersion": "17763.1728",
             "updateUrl": "https://support.microsoft.com/help/4598296"
+        },
+        "KB4601345": {
+            "heading": "February 9, 2021&#x2014;KB4601345 (OS Build 17763.1757)",
+            "releaseDate": "2021-02-09",
+            "releaseVersion": "17763.1757",
+            "updateUrl": "https://support.microsoft.com/help/4601345"
         }
     },
     "1903": {
@@ -3576,15 +3606,22 @@
             "updateUrl": "https://support.microsoft.com/help/4598229"
         },
         "KB4598298": {
-            "heading": "January 21, 2021&#x2014;KB4598298 (OS Build 18363.1350)",
+            "heading": "January 21, 2021&#x2014;KB4598298 (OS Build 18363.1350) Preview",
             "releaseDate": "2021-01-21",
             "releaseVersion": "18363.1350",
             "updateUrl": "https://support.microsoft.com/help/4598298"
         },
         "KB4601315": {
+            "heading": "February 9, 2021&#x2014;KB4601315 (OS Build 18363.1377)",
             "releaseDate": "2021-02-09",
             "releaseVersion": "18363.1377",
             "updateUrl": "https://support.microsoft.com/help/4601315"
+        },
+        "KB5001028": {
+            "heading": "February 11, 2021&#x2014;KB5001028 (OS Build 18363.1379) Out-of-band",
+            "releaseDate": "2021-02-11",
+            "releaseVersion": "18363.1379",
+            "updateUrl": "https://support.microsoft.com/help/5001028"
         }
     },
     "2004": {
@@ -3704,6 +3741,15 @@
             "releaseDate": "2021-02-02",
             "releaseVersion": "19041.789",
             "updateUrl": "https://support.microsoft.com/help/4598291"
+        },
+        "KB4601319": {
+            "heading": "February 9, 2021&#x2014;KB4601319 (OS Builds 19041.804 and 19042.804)",
+            "otherWindowsVersions": [
+                "20H2"
+            ],
+            "releaseDate": "2021-02-09",
+            "releaseVersion": "19041.804",
+            "updateUrl": "https://support.microsoft.com/help/4601319"
         }
     }
 }
