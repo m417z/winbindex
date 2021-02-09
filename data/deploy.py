@@ -66,7 +66,7 @@ def prepare_updates():
 
     with open(last_time_updates_path, 'w') as f:
         last_time_updates = filter_updates(uptodate_updates, last_time_update_kbs | {update_kb})
-        json.dump(last_time_updates, f, indent=4)
+        json.dump(last_time_updates, f, indent=4, sort_keys=True)
 
     return update_kb
 
