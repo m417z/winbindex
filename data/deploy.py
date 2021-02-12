@@ -8,6 +8,7 @@ import html
 import json
 import time
 import os
+import re
 
 from upd01_get_list_of_updates import main as upd01_get_list_of_updates
 from upd02_get_manifests_from_updates import main as upd02_get_manifests_from_updates
@@ -315,9 +316,10 @@ def main():
 
         commit_deploy(pr_title)
 
-        # Stop once we got files from VirusTotal.
+        # Stop once we got less than 100 files from VirusTotal.
         # Otherwise, continue as long as there are new updates.
-        if pr_title.endswith('files from VirusTotal'):
+        match = re.match(r'Updated info of (\d+) files from VirusTotal$', pr_title)
+        if match and int(match.group(1)) < 100:
             print('Done')
             return
 
