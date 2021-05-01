@@ -9,6 +9,11 @@ import config
 
 file_info_data = {}
 
+def write_to_gzip_file(file, data):
+    with open(file, 'wb') as fd:
+        with gzip.GzipFile(fileobj=fd, mode='w', compresslevel=config.compression_level, filename='', mtime=0) as gz:
+            gz.write(data)
+
 def write_all_file_info():
     output_dir = config.out_path.joinpath('by_filename_compressed')
 
@@ -16,8 +21,7 @@ def write_all_file_info():
         data = file_info_data[filename]
 
         output_path = output_dir.joinpath(filename + '.json.gz')
-        with gzip.open(output_path, 'w', compresslevel=config.compression_level) as f:
-            f.write(orjson.dumps(data))
+        write_to_gzip_file(output_path, orjson.dumps(data))
 
     file_info_data.clear()
 
@@ -129,8 +133,7 @@ def add_file_info_from_update(filename, output_dir, *, file_hash, file_info, win
         file_info_data[filename] = data
     else:
         output_path = output_dir.joinpath(filename + '.json.gz')
-        with gzip.open(output_path, 'w', compresslevel=config.compression_level) as f:
-            f.write(orjson.dumps(data))
+        write_to_gzip_file(output_path, orjson.dumps(data))
 
 virustotal_info_cache = {}
 
@@ -379,8 +382,7 @@ def add_file_info_from_virustotal_data(filename, output_dir, *, file_hash, file_
         file_info_data[filename] = data
     else:
         output_path = output_dir.joinpath(filename + '.json.gz')
-        with gzip.open(output_path, 'w', compresslevel=config.compression_level) as f:
-            f.write(orjson.dumps(data))
+        write_to_gzip_file(output_path, orjson.dumps(data))
 
 def process_virustotal_data():
     output_dir = config.out_path.joinpath('by_filename_compressed')
