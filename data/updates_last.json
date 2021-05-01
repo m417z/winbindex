@@ -3902,60 +3902,6 @@
             "releaseDate": "2021-02-09",
             "releaseVersion": "19041.804",
             "updateUrl": "https://support.microsoft.com/help/4601319"
-        },
-        "KB4601382": {
-            "heading": "February 24, 2021&#x2014;KB4601382 (OS Builds 19041.844 and 19042.844) Preview",
-            "otherWindowsVersions": [
-                "20H2"
-            ],
-            "releaseDate": "2021-02-24",
-            "releaseVersion": "19041.844",
-            "updateUrl": "https://support.microsoft.com/help/4601382"
-        },
-        "KB5000802": {
-            "heading": "March 9, 2021&#x2014;KB5000802 (OS Builds 19041.867 and 19042.867)",
-            "otherWindowsVersions": [
-                "20H2"
-            ],
-            "releaseDate": "2021-03-09",
-            "releaseVersion": "19041.867",
-            "updateUrl": "https://support.microsoft.com/help/5000802"
-        },
-        "KB5000842": {
-            "heading": "March 29, 2021&#x2014;KB5000842 (OS Builds 19041.906 and 19042.906) Preview",
-            "otherWindowsVersions": [
-                "20H2"
-            ],
-            "releaseDate": "2021-03-29",
-            "releaseVersion": "19041.906",
-            "updateUrl": "https://support.microsoft.com/help/5000842"
-        },
-        "KB5001330": {
-            "heading": "April 13, 2021&#x2014;KB5001330 (OS Builds 19041.928 and 19042.928)",
-            "otherWindowsVersions": [
-                "20H2"
-            ],
-            "releaseDate": "2021-04-13",
-            "releaseVersion": "19041.928",
-            "updateUrl": "https://support.microsoft.com/help/5001330"
-        },
-        "KB5001567": {
-            "heading": "March 15, 2021&#x2014;KB5001567 (OS Builds 19041.868 and 19042.868) Out-of-band",
-            "otherWindowsVersions": [
-                "20H2"
-            ],
-            "releaseDate": "2021-03-15",
-            "releaseVersion": "19041.868",
-            "updateUrl": "https://support.microsoft.com/help/5001567"
-        },
-        "KB5001649": {
-            "heading": "March 18, 2021&#x2014;KB5001649 (OS Builds 19041.870 and 19042.870) Out-of-band",
-            "otherWindowsVersions": [
-                "20H2"
-            ],
-            "releaseDate": "2021-03-18",
-            "releaseVersion": "19041.870",
-            "updateUrl": "https://support.microsoft.com/help/5001649"
         }
     }
 }
