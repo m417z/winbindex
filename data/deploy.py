@@ -248,6 +248,35 @@ def build_html_index_of_hashes():
         with open(f'../hashes/{prefix_str}.html', 'w') as f:
             f.write(html_code)
 
+def update_readme_stats():
+    with open('info_sources.json', 'r') as f:
+        info_sources = json.load(f)
+
+    files_total = 0
+    files_by_status = {}
+    for name in info_sources:
+        file_hashes = info_sources[name]
+        for file_hash in file_hashes:
+            file_status = file_hashes[file_hash]
+            files_total += 1
+            files_by_status[file_status] = files_by_status.get(file_status, 0) + 1
+
+    files_with_link = files_by_status["file"] + files_by_status["vt"]
+    files_without_link = files_by_status["novt"] + files_by_status["none"]
+
+    stats = f'Total amount of exe, dll and sys files: {files_total:,}  \n'
+    stats += f'Files with a download link: {files_with_link:,} ({files_by_status["file"]:,} from the actual files, {files_by_status["vt"]:,} from VirusTotal)  \n'
+    stats += f'Files without a download link: {files_without_link:,} ({files_by_status["novt"]:,} weren\'t uploaded to VirusTotal, {files_by_status["none"]:,} weren\'t checked yet)  \n'
+    stats += f'% of files with a download link: {100 * files_with_link / (files_with_link + files_without_link):.1f}  \n'
+
+    with open('README.md', 'r') as f:
+        readme = f.read()
+
+    readme = re.sub(r'(\n<!--FileStats-->\n)[\s\S]*?\n(<!--/FileStats-->\n)', rf'\1{stats}\2', readme)
+
+    with open('README.md', 'w') as f:
+        f.write(readme)
+
 def init_deploy():
     pass
     #args = ['git', 'remote', 'add', 'push-origin', f'https://{os.environ["GITHUB_TOKEN"]}@github.com/m417z/winbindex.git']
@@ -322,6 +351,8 @@ def main():
             return
 
         build_html_index_of_hashes()
+
+        update_readme_stats()
 
         commit_deploy(pr_title)
 
