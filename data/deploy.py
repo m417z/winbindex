@@ -81,9 +81,10 @@ def check_pymultitor(address='127.0.0.1', port=8080):
 
 def run_virustotal_updates():
     #time_to_stop = deploy_start_time + timedelta(minutes=46)  # For Travis
-    time_to_stop = min(datetime.now() + timedelta(minutes=46), deploy_start_time + timedelta(hours=6, minutes=-4))  # For GitHub Actions
-    if datetime.now() >= time_to_stop:
-        return None
+    #time_to_stop = min(datetime.now() + timedelta(minutes=46), deploy_start_time + timedelta(hours=6, minutes=-4))  # For GitHub Actions
+    time_to_stop = None
+    #if datetime.now() >= time_to_stop:
+    #    return None
 
     # Install pymultitor.
     commands = [
@@ -93,10 +94,11 @@ def run_virustotal_updates():
         ['pip', 'install', 'git+git://github.com/m417z/pymultitor.git'],  # use a fork until PRs are merged
     ]
 
-    for args in commands:
-        subprocess.run(args, check=True)
+    #for args in commands:
+    #    subprocess.run(args, check=True)
 
-    subprocess.Popen(['pymultitor', '--tor-timeout', '0', '--on-error-code', '429'])
+    #subprocess.Popen(['pymultitor', '--tor-timeout', '0', '--on-error-code', '429'])
+    subprocess.Popen(['pymultitor', '--tor-timeout', '0', '--on-error-code', '429', '--tor-cmd', r'C:\tor-win32-0.4.3.5\Tor\tor.exe'])
 
     while not check_pymultitor():
         time.sleep(1)
@@ -123,9 +125,10 @@ def run_virustotal_updates():
 
 def run_deploy():
     #time_to_stop = deploy_start_time + timedelta(minutes=46)  # For Travis
-    time_to_stop = deploy_start_time + timedelta(hours=6, minutes=-4)  # For GitHub Actions
-    if datetime.now() >= time_to_stop:
-        return None
+    #time_to_stop = deploy_start_time + timedelta(hours=6, minutes=-4)  # For GitHub Actions
+    time_to_stop = None
+    #if datetime.now() >= time_to_stop:
+    #    return None
 
     tools_extracted = Path('tools.zip').is_file()
     if tools_extracted:
@@ -277,8 +280,9 @@ def update_readme_stats():
         f.write(readme)
 
 def init_deploy():
-    args = ['git', 'remote', 'add', 'push-origin', f'https://{os.environ["GITHUB_TOKEN"]}@github.com/m417z/winbindex.git']
-    subprocess.run(args, check=True)
+    pass
+    #args = ['git', 'remote', 'add', 'push-origin', f'https://{os.environ["GITHUB_TOKEN"]}@github.com/m417z/winbindex.git']
+    #subprocess.run(args, check=True)
 
 def commit_deploy(pr_title):
     git_email = '69083578+winbindex-deploy-bot@users.noreply.github.com'
@@ -294,6 +298,8 @@ def commit_deploy(pr_title):
     # https://stackoverflow.com/a/51914162
     extra_commit_params = [f':!{path}/*' for path in exclude_from_commit]
 
+    extra_commit_params.extend([':!../.gitignore'])
+
     commit_directly = True  # pr_title.endswith('files from VirusTotal')
     if commit_directly:
         branch_name = 'gh-pages'
@@ -303,12 +309,12 @@ def commit_deploy(pr_title):
         checkout_params = ['-b', branch_name]
 
     commands = [
-        ['git', 'config', '--global', 'user.email', git_email],
-        ['git', 'config', '--global', 'user.name', git_name],
-        ['git', 'checkout'] + checkout_params,
+        #['git', 'config', '--global', 'user.email', git_email],
+        #['git', 'config', '--global', 'user.name', git_name],
+        #['git', 'checkout'] + checkout_params,
         ['git', 'add', '-A', '--'] + extra_commit_params,
         ['git', 'commit', '-m', pr_title],
-        ['git', 'push', 'push-origin', branch_name],
+        #['git', 'push', 'push-origin', branch_name],
     ]
 
     for args in commands:
