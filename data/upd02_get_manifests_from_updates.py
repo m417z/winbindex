@@ -84,32 +84,42 @@ def extract_manifest_files(local_dir, local_path):
             args = ['cabextract', '-F', pattern, '-d', to_dir, from_file]
         subprocess.run(args, check=True, stdout=None if config.verbose_run else subprocess.DEVNULL)
 
-    extract1_dir = local_dir.joinpath('extract1')
-    extract1_dir.mkdir(parents=True, exist_ok=True)
+    extract_dirs = []
+    for i in range(1, 5):
+        extract_dir = local_dir.joinpath(f'extract{i}')
+        extract_dir.mkdir(parents=True, exist_ok=True)
+        extract_dirs.append(extract_dir)
 
-    cab_exctract('*.cab', local_path, extract1_dir)
+    cab_exctract('*.cab', local_path, extract_dirs[0])
 
-    extract2_dir = local_dir.joinpath('extract2')
-    extract2_dir.mkdir(parents=True, exist_ok=True)
-
-    for cab in extract1_dir.glob('*.cab'):
+    for cab in extract_dirs[0].glob('*.cab'):
         if cab.name.lower() == 'WSUSSCAN.cab'.lower():
             continue
 
-        cab_exctract('*.cab', cab, extract2_dir)
+        cab_exctract('*.cab', cab, extract_dirs[1])
 
-    if any(extract2_dir.glob('*.cab')):
-        for cab in extract2_dir.glob('*.cab'):
-            cab_exctract('*.manifest', cab, local_dir)
-    else:
-        for cab in extract1_dir.glob('*.cab'):
+    if not any(extract_dirs[1].glob('*.cab')):
+        # No more cabs, just extract manifests.
+        for cab in extract_dirs[0].glob('*.cab'):
             if cab.name.lower() == 'WSUSSCAN.cab'.lower():
                 continue
 
             cab_exctract('*.manifest', cab, local_dir)
+    else:
+        for cab in extract_dirs[1].glob('*.cab'):
+            cab_exctract('*.manifest', cab, local_dir)
+            cab_exctract('*.cab', cab, extract_dirs[2])
 
-    shutil.rmtree(extract1_dir)
-    shutil.rmtree(extract2_dir)
+        for cab in extract_dirs[2].glob('*.cab'):
+            cab_exctract('*.manifest', cab, local_dir)
+            cab_exctract('*.cab', cab, extract_dirs[3])
+
+        # Assert that we're done.
+        assert not any(extract_dirs[3].glob('*.cab'))
+
+    for extract_dir in extract_dirs:
+        shutil.rmtree(extract_dir)
+
     local_path.unlink()
 
 def get_manifests_from_update(windows_version, update_kb):
@@ -118,7 +128,7 @@ def get_manifests_from_update(windows_version, update_kb):
     download_url, local_dir, local_path = download_update(windows_version, update_kb)
     print(f'[{update_kb}] Downloaded {local_path.stat().st_size} bytes from {download_url}')
 
-    def extract_manifset_files():
+    def extract_manifest_files_start():
         print(f'[{update_kb}] Extracting manifest files')
         try:
             extract_manifest_files(local_dir, local_path)
@@ -131,10 +141,10 @@ def get_manifests_from_update(windows_version, update_kb):
         print(f'[{update_kb}] Extracted manifest files')
 
     if config.extract_in_a_new_thread:
-        thread = Thread(target=extract_manifset_files)
+        thread = Thread(target=extract_manifest_files_start)
         thread.start()
     else:
-        extract_manifset_files()
+        extract_manifest_files_start()
 
 def main():
     with open(config.out_path.joinpath('updates.json')) as f:
