@@ -255,16 +255,22 @@ def update_readme_stats():
         info_sources = json.load(f)
 
     files_total = 0
-    files_by_status = {}
+    files_by_status = {
+        'none': 0,
+        'novt': 0,
+        'vt': 0,
+        'file': 0,
+    }
+
     for name in info_sources:
         file_hashes = info_sources[name]
         for file_hash in file_hashes:
             file_status = file_hashes[file_hash]
             files_total += 1
-            files_by_status[file_status] = files_by_status.get(file_status, 0) + 1
+            files_by_status[file_status] += 1
 
-    files_with_link = files_by_status["file"] + files_by_status["vt"]
-    files_without_link = files_by_status["novt"] + files_by_status["none"]
+    files_with_link = files_by_status['file'] + files_by_status['vt']
+    files_without_link = files_by_status['novt'] + files_by_status['none']
 
     stats = f'Total amount of exe, dll and sys files: {files_total:,}  \n'
     stats += f'Files with a download link: {files_with_link:,} ({files_by_status["file"]:,} from the actual files, {files_by_status["vt"]:,} from VirusTotal)  \n'
