@@ -339,8 +339,12 @@ var globalFunctions = {};
                     render: function (data) {
                         // Sort keys - https://stackoverflow.com/a/53593328
                         var allKeys = [];
+                        var seen = {};
                         JSON.stringify(data.data, function (key, value) {
-                            allKeys.push(key);
+                            if (!(key in seen)) {
+                                allKeys.push(key);
+                                seen[key] = null;
+                            }
                             return value;
                         });
                         allKeys.sort();
