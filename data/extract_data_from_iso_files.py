@@ -97,7 +97,7 @@ def prase_sigcheck(sigcheck_data, folder):
             assert len(signing_dates) >= 2 and signing_dates[0] == signing_dates[1], str(filename)
             signing_dates = signing_dates[1:]
             assert len(catalogs) == len(signing_dates)
-            assert len(signing_dates) <= 3  # haven't seen more than that
+            assert len(signing_dates) <= 4, key_value  # haven't seen more than that
 
             embedded_signing_dates = []
             for catalog, signing_date in zip(catalogs, signing_dates):
@@ -109,6 +109,7 @@ def prase_sigcheck(sigcheck_data, folder):
             if len(embedded_signing_dates) > 0:
                 item['Signing date'] = embedded_signing_dates
         else:
+            assert item['Verified'] != 'An error occurred while reading or writing to a file.'
             assert len(signing_dates) == 0
 
         if 'MachineType' in item:
@@ -161,7 +162,7 @@ class hashabledict(dict):
     def __hash__(self):
         return hash(tuple(sorted(self.items())))
 
-def main(folder, windows_version, iso_sha256):
+def main(folder, windows_version, iso_sha256, release_date):
     sigcheck_file = folder.joinpath('sigcheck64.txt')
     pe_files_extra_data = folder.joinpath('pe_files_extra_data.txt')
 
@@ -237,7 +238,8 @@ def main(folder, windows_version, iso_sha256):
 
     result = {
         'windowsVersion': windows_version,
-        'windowsIsoSha256': iso_sha256,
+        'windowsIsoSha256': iso_sha256.lower(),
+        'windowsReleaseDate': release_date,
         'files': list(result_files),
     }
 
@@ -263,8 +265,8 @@ def main(folder, windows_version, iso_sha256):
         json.dump(info_sources, f)
 
 if __name__ == '__main__':
-    if len(sys.argv) != 4:
-        exit(f'Usage: {sys.argv[0]} folder windows_version iso_sha256')
+    if len(sys.argv) != 5:
+        exit(f'Usage: {sys.argv[0]} folder windows_version iso_sha256 release_date_yyyy_mm_dd')
 
-    folder, windows_version, iso_sha256 = sys.argv[1:4]
-    main(Path(folder), windows_version, iso_sha256)
+    folder, windows_version, iso_sha256, release_date = sys.argv[1:5]
+    main(Path(folder), windows_version, iso_sha256, release_date)
