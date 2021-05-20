@@ -456,16 +456,16 @@ def add_file_info_from_iso_data(filename, output_dir, *, file_hash, file_info, s
 
     file_info_data[filename] = data
 
-def group_iso_data_by_filename(windows_version, windows_release_date, iso_data_file):
+def group_iso_data_by_filename(iso_data_file):
     output_dir = config.out_path.joinpath('by_filename_compressed')
     output_dir.mkdir(parents=True, exist_ok=True)
 
     with open(iso_data_file) as f:
         iso_data = json.load(f)
 
-    assert windows_version == iso_data['windowsVersion']
-
+    windows_version = iso_data['windowsVersion']
     iso_hash = iso_data['windowsIsoSha256']
+    windows_release_date = iso_data['windowsReleaseDate']
 
     windows_version_info = {
         'releaseDate': windows_release_date,
@@ -497,25 +497,12 @@ def group_iso_data_by_filename(windows_version, windows_release_date, iso_data_f
             windows_version_info=windows_version_info)
 
 def process_iso_files():
-    windows_versions_from_iso = {
-        '20H2': '2020-10-20',
-        '2004': '2020-05-27',
-        '1909': '2019-11-12',
-        '1903': '2019-05-21',
-        '1809': '2018-11-13',
-        '1803': '2018-04-30',
-        '1709': '2017-10-17',
-        '1703': '2017-04-05',
-        '1607': '2016-08-02',
-        '1511': '2015-11-10',
-        '1507': '2015-07-29',
-    }
+    from_iso_dir = config.out_path.joinpath('from_iso')
 
-    for windows_version in windows_versions_from_iso:
-        iso_data_file = config.out_path.joinpath('from_iso', windows_version + '.json')
+    for iso_data_file in from_iso_dir.glob('*.json'):
         if iso_data_file.is_file():
-            print(' ' + windows_version, end='', flush=True)
-            group_iso_data_by_filename(windows_version, windows_versions_from_iso[windows_version], iso_data_file)
+            print(' ' + iso_data_file.stem, end='', flush=True)
+            group_iso_data_by_filename(iso_data_file)
 
     print()
 
