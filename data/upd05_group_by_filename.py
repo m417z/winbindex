@@ -114,7 +114,13 @@ def add_file_info_from_update(filename, output_dir, *, file_hash, file_info, win
     if 'updateInfo' not in x:
         x['updateInfo'] = update_info
     else:
-        assert x['updateInfo'] == update_info
+        if x['updateInfo'] != update_info:
+            assert x['updateInfo']['heading'] == 'May 11, 2021&#x2014;KB5003173 (OS Builds 19041.985 and 19042.985)'
+            assert update_info['heading'] == 'May 11, 2021&#x2014;KB5003173 (OS Builds 19041.985, 19042.985, and 19043.985)'
+            assert x['updateInfo']['otherWindowsVersions'] == ['20H2']
+            assert update_info['otherWindowsVersions'] == ['20H2', '21H1']
+            assert {**x['updateInfo'], 'heading': '', 'otherWindowsVersions': ''} == {**update_info, 'heading': '', 'otherWindowsVersions': ''}
+            x['updateInfo'] = update_info
 
     x = x.setdefault('assemblies', {})
     x = x.setdefault(manifest_name, {})
