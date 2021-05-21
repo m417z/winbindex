@@ -20,14 +20,15 @@ def consolidate_overlapping_updates(updates):
                 ]
 
                 assert update['updateUrl'] == seen_update['updateUrl']
-                assert update['releaseDate'] == seen_update['releaseDate']
+                if update_kb not in ['KB5003173']:  # KB5003173 was released later for 21H1
+                    assert update['releaseDate'] == seen_update['releaseDate']
                 p = r'^\d+\.'
                 assert re.sub(p, '', update['releaseVersion']) == re.sub(p, '', seen_update['releaseVersion'])
 
                 if 'otherWindowsVersions' not in seen_update:
                     seen_update['otherWindowsVersions'] = []
 
-                assert seen_update['otherWindowsVersions'] == []  # only one item is expected, if that changes in the future: sort array, make sure no duplicates
+                assert windows_version not in seen_update['otherWindowsVersions']
                 seen_update['otherWindowsVersions'].append(windows_version)
 
                 del updates[windows_version][update_kb]
