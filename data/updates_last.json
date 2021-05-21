@@ -3402,6 +3402,12 @@
             "releaseDate": "2021-05-11",
             "releaseVersion": "17763.1935",
             "updateUrl": "https://support.microsoft.com/help/5003171"
+        },
+        "KB5003217": {
+            "heading": "May 20, 2021&#x2014;KB5003217 (OS Build 17763.1971) Preview",
+            "releaseDate": "2021-05-20",
+            "releaseVersion": "17763.1971",
+            "updateUrl": "https://support.microsoft.com/help/5003217"
         }
     },
     "1903": {
@@ -3804,6 +3810,12 @@
             "releaseDate": "2021-05-11",
             "releaseVersion": "18363.1556",
             "updateUrl": "https://support.microsoft.com/help/5003169"
+        },
+        "KB5003212": {
+            "heading": "May 20, 2021&#x2014;KB5003212 (OS Build 18363.1593) Preview",
+            "releaseDate": "2021-05-20",
+            "releaseVersion": "18363.1593",
+            "updateUrl": "https://support.microsoft.com/help/5003212"
         }
     },
     "2004": {
@@ -3997,9 +4009,10 @@
             "updateUrl": "https://support.microsoft.com/help/5001649"
         },
         "KB5003173": {
-            "heading": "May 11, 2021&#x2014;KB5003173 (OS Builds 19041.985 and 19042.985)",
+            "heading": "May 11, 2021&#x2014;KB5003173 (OS Builds 19041.985, 19042.985, and 19043.985)",
             "otherWindowsVersions": [
-                "20H2"
+                "20H2",
+                "21H1"
             ],
             "releaseDate": "2021-05-11",
             "releaseVersion": "19041.985",

@@ -5,8 +5,8 @@
 ## Indexed Files
 
 <!--FileStats-->
-Total amount of exe, dll and sys files: 278,032  
-Files with a download link: 232,019 (91,695 from the actual files, 140,324 from VirusTotal)  
-Files without a download link: 46,013 (46,013 weren't uploaded to VirusTotal, 0 weren't checked yet)  
-% of files with a download link: 83.5  
+Total amount of exe, dll and sys files: 288,669  
+Files with a download link: 241,689 (105,772 from the actual files, 135,917 from VirusTotal)  
+Files without a download link: 46,980 (46,980 weren't uploaded to VirusTotal, 0 weren't checked yet)  
+% of files with a download link: 83.7  
 <!--/FileStats-->
