@@ -14,9 +14,10 @@ def consolidate_overlapping_updates(updates):
             if update_kb in seen_kbs:
                 seen_windows_version, seen_update = seen_kbs[update_kb]
 
-                assert seen_windows_version, windows_version in [
+                assert (seen_windows_version, windows_version) in [
                     ('1903', '1909'),
                     ('2004', '20H2'),
+                    ('2004', '21H1'),
                 ]
 
                 assert update['updateUrl'] == seen_update['updateUrl']
