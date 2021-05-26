@@ -4017,6 +4017,16 @@
             "releaseDate": "2021-05-11",
             "releaseVersion": "19041.985",
             "updateUrl": "https://support.microsoft.com/help/5003173"
+        },
+        "KB5003214": {
+            "heading": "May 25, 2021&#x2014;KB5003214 (OS Builds 19041.1023, 19042.1023, and 19043.1023) Preview",
+            "otherWindowsVersions": [
+                "20H2",
+                "21H1"
+            ],
+            "releaseDate": "2021-05-25",
+            "releaseVersion": "19041.1023",
+            "updateUrl": "https://support.microsoft.com/help/5003214"
         }
     }
 }
