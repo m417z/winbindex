@@ -71,6 +71,7 @@ def get_updates_from_microsoft_support():
         # Specific title fixes.
         if windows_version == '1809':
             updates_section = updates_section.replace('(OS Build OS 17763.529)', '(OS Build 17763.529)')
+            updates_section = updates_section.replace('K5003646', 'KB5003646')
 
         if windows_version == '1709':
             updates_section = updates_section.replace('KB4509104 Update for Windows 10 Mobile  (', 'KB4509104 Update for Windows 10 Mobile (')
