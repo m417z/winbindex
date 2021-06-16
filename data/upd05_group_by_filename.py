@@ -30,7 +30,7 @@ def write_all_file_info():
     with open(config.out_path.joinpath('filenames.json'), 'w') as f:
         json.dump(all_filenames, f, indent=0, sort_keys=True)
 
-def assert_fileinfo_close_enough(file_info_1, file_info_2):
+def assert_fileinfo_close_enough(file_info_1, file_info_2, multiple_sign_times=False):
     def canonical_fileinfo(file_info):
         if 'signingStatus' not in file_info or file_info['signingStatus'] == 'Unsigned':
             return file_info
@@ -47,20 +47,17 @@ def assert_fileinfo_close_enough(file_info_1, file_info_2):
         # There might be several dates, choose one.
         if 'signingDate' in file_info:
             dates = file_info['signingDate']
-            datetime1 = datetime.fromisoformat(dates[0])
-            for date in dates[1:]:
-                datetime2 = datetime.fromisoformat(date)
-                difference = datetime1 - datetime2
-                minutes = abs(difference.total_seconds()) / 60
-                assert minutes <= 10 or file_info['sha256'] in [
-                    # Hashes below are of files distributed with Edge, which are for some reason signed twice.
-                    '21863f7ee198049212b9e78494e3e8ab146c07e53fd46c5f0ae4e9bbde5cee87',  # d3dcompiler_47.dll
-                    '15126a4f8ab0764f26c42a0ab27c16d75633a66993974496028d2b83e060112e',  # msvcp140.dll
-                    '24144644e2df01b24f45a9f24a7a07b66e271bd3434c203547cc0e3b6f88afd6',  # widevinecdm.dll
-                    'ba86c00002cd48eb1879dc2604f05968fad09892fe6e4ccfe6a48ed491d8e95b',  # mip_core.dll
-                    'e1a3bc8fba0cbc8497e3a64d6bfdca70d19e6257229885a370f0ebfd051f64a8',  # mip_protection_sdk.dll
-                    'b4c4e910141530f32794350979399f56a3465ac279737846112d91442e264067',  # vccorlib140.dll
-                ]
+
+            # Assert that all signatures represent the same time,
+            # unless the file is known to be signed several times at different times.
+            if not multiple_sign_times:
+                datetime1 = datetime.fromisoformat(dates[0])
+                for date in dates[1:]:
+                    datetime2 = datetime.fromisoformat(date)
+                    difference = datetime1 - datetime2
+                    minutes = abs(difference.total_seconds()) / 60
+                    assert minutes <= 10
+
             file_info['signingDate'] = dates[0]
             return file_info
 
@@ -437,7 +434,9 @@ def add_file_info_from_iso_data(filename, output_dir, *, file_hash, file_info, s
         if 'fileInfo' not in x:
             x['fileInfo'] = file_info
         else:
-            assert_fileinfo_close_enough(x['fileInfo'], file_info)
+            # Many files distributed with Edge are for some reason signed twice.
+            multiple_sign_times = source_path.startswith('Program Files (x86)\\Microsoft\\Edge\\Application\\')
+            assert_fileinfo_close_enough(x['fileInfo'], file_info, multiple_sign_times)
             x['fileInfo'] = file_info  # this one is more accurate
 
     x = x.setdefault('windowsVersions', {})
