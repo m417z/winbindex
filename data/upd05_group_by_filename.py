@@ -471,20 +471,8 @@ def group_iso_data_by_filename(iso_data_file):
         'isoSha256': iso_hash,
     }
 
-    excluded_paths = [
-        r'Windows\WinSxS',
-        r'Windows\System32\CatRoot',
-        r'Windows\SysWOW64\CatRoot',
-        r'Windows\servicing\Packages',
-    ]
-    excluded_paths = [x.lower() + '\\' for x in excluded_paths]
-
     for file_item in iso_data['files']:
-        path_lowercase = file_item['path'].lower()
-        if any(path_lowercase.startswith(excluded_path) for excluded_path in excluded_paths):
-            continue
-
-        filename = path_lowercase.split('\\')[-1]
+        filename = file_item['path'].split('\\')[-1].lower()
 
         source_path = file_item.pop('path')
 

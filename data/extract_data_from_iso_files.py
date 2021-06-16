@@ -41,6 +41,14 @@ def prase_sigcheck(sigcheck_data, folder):
     assert sigcheck_data[0].startswith(folder_in_correct_case + '\\')
     sigcheck_data[0] = sigcheck_data[len(folder_in_correct_case + '\\'):]
 
+    excluded_paths = [
+        r'Windows\WinSxS',
+        r'Windows\System32\CatRoot',
+        r'Windows\SysWOW64\CatRoot',
+        r'Windows\servicing\Packages',
+    ]
+    excluded_paths = [x.lower() + '\\' for x in excluded_paths]
+
     result = []
     for file_info in sigcheck_data[1:]:
         filename, rest_info = file_info.split('\n', 1)
@@ -58,8 +66,13 @@ def prase_sigcheck(sigcheck_data, folder):
         filename_absolute = folder.joinpath(filename)
         assert filename_absolute.is_file()
 
+        filename_relative = filename.relative_to(filename.parts[0])
+        filename_relative_lower = str(filename_relative).lower()
+        if any(filename_relative_lower.startswith(excluded_path) for excluded_path in excluded_paths):
+            continue
+
         item = {
-            'FileNameRelative': str(filename.relative_to(filename.parts[0])),
+            'FileNameRelative': str(filename_relative),
             'FileName': str(filename_absolute),
         }
         signing_dates = []
