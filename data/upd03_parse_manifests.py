@@ -50,16 +50,17 @@ def parse_manifest_file(file_el):
         raise Exception('Expected to have a single DigestValue tag')
 
     digest_value_el = digest_values[0]
-    sha256 = base64.b64decode(digest_value_el.text).hex()
+    hash = base64.b64decode(digest_value_el.text).hex()
 
-    filename = file_el.attrib['name'].split('\\')[-1].lower()
-    if (filename.endswith('.exe') or
-        filename.endswith('.dll') or
-        filename.endswith('.sys')):
-        file_hashes.setdefault(filename, set()).add(sha256)
+    if algorithm == 'sha256':
+        filename = file_el.attrib['name'].split('\\')[-1].lower()
+        if (filename.endswith('.exe') or
+            filename.endswith('.dll') or
+            filename.endswith('.sys')):
+            file_hashes.setdefault(filename, set()).add(hash)
 
     result = {
-        algorithm: sha256,
+        algorithm: hash,
         'attributes': dict(file_el.attrib.items()),
     }
 
