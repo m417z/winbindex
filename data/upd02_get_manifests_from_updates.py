@@ -11,7 +11,11 @@ import config
 
 def search_for_updates(search_terms):
     url = 'https://www.catalog.update.microsoft.com/Search.aspx'
-    html = requests.get(url, {'q': search_terms}).text
+    while True:
+        html = requests.get(url, {'q': search_terms}).text
+        if 'The website has encountered a problem' not in html:
+            break
+        # Retry...
 
     assert '(page 1 of 1)' in html  # we expect only one page of results
 
