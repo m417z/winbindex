@@ -4074,6 +4074,16 @@
             "releaseVersion": "19041.1052",
             "updateUrl": "https://support.microsoft.com/help/5003637"
         },
+        "KB5003690": {
+            "heading": "June 21, 2021&#x2014;KB5003690 (OS Builds 19041.1081, 19042.1081, and 19043.1081) Preview",
+            "otherWindowsVersions": [
+                "20H2",
+                "21H1"
+            ],
+            "releaseDate": "2021-06-21",
+            "releaseVersion": "19041.1081",
+            "updateUrl": "https://support.microsoft.com/help/5003690"
+        },
         "KB5004476": {
             "heading": "June 11, 2021&#x2014;KB5004476 (OS Builds 19041.1055, 19042.1055, and 19043.1055) Out-of-band",
             "otherWindowsVersions": [
@@ -4083,6 +4093,16 @@
             "releaseDate": "2021-06-11",
             "releaseVersion": "19041.1055",
             "updateUrl": "https://support.microsoft.com/help/5004476"
+        },
+        "KB5004760": {
+            "heading": "June 29, 2021&#x2014;KB5004760 (OS Builds 19041.1082, 19042.1082, and 19043.1082) Out-of-band",
+            "otherWindowsVersions": [
+                "20H2",
+                "21H1"
+            ],
+            "releaseDate": "2021-06-29",
+            "releaseVersion": "19041.1082",
+            "updateUrl": "https://support.microsoft.com/help/5004760"
         }
     }
 }
