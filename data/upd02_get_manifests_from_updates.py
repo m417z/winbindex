@@ -1,6 +1,7 @@
 from threading import Thread
 from pathlib import Path
 import subprocess
+import datetime
 import platform
 import requests
 import shutil
@@ -9,6 +10,9 @@ import re
 
 import config
 
+class UpdateNotFound(Exception):
+    pass
+
 def search_for_updates(search_terms):
     url = 'https://www.catalog.update.microsoft.com/Search.aspx'
     while True:
@@ -16,6 +20,9 @@ def search_for_updates(search_terms):
         if 'The website has encountered a problem' not in html:
             break
         # Retry...
+
+    if 'We did not find any results' in html:
+        raise UpdateNotFound
 
     assert '(page 1 of 1)' in html  # we expect only one page of results
 
@@ -160,6 +167,17 @@ def main():
         for update_kb in updates[windows_version]:
             try:
                 get_manifests_from_update(windows_version, update_kb)
+            except UpdateNotFound:
+                # Only treat as an error if the update is recent. If the update is old,
+                # only show a warning, since old updates are removed from the update catalog
+                # with time.
+                a_while_ago = (datetime.date.today() - datetime.timedelta(days=90)).isoformat()
+                if updates[windows_version][update_kb]['releaseDate'] > a_while_ago:
+                    print(f'[{update_kb}] ERROR: Update wasn\'t found')
+                    if config.exit_on_first_error:
+                        raise
+                else:
+                    print(f'[{update_kb}] WARNING: Update wasn\'t found, it was probably removed from the update catalog')
             except Exception as e:
                 print(f'[{update_kb}] ERROR: Failed to process update')
                 print(f'[{update_kb}]        ' + str(e))
