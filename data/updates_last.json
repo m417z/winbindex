@@ -538,6 +538,12 @@
             "releaseDate": "2021-06-08",
             "releaseVersion": "10240.18967",
             "updateUrl": "https://support.microsoft.com/help/5003687"
+        },
+        "KB5004950": {
+            "heading": "July 6, 2021&#x2014;KB5004950 (OS Build 10240.18969) Out-of-band",
+            "releaseDate": "2021-07-06",
+            "releaseVersion": "10240.18969",
+            "updateUrl": "https://support.microsoft.com/help/5004950"
         }
     },
     "1511": {
@@ -1469,6 +1475,12 @@
             "releaseDate": "2021-06-08",
             "releaseVersion": "14393.4467",
             "updateUrl": "https://support.microsoft.com/help/5003638"
+        },
+        "KB5004948": {
+            "heading": "July 7, 2021&#x2014;KB5004948 (OS Build 14393.4470) Out-of-band",
+            "releaseDate": "2021-07-07",
+            "releaseVersion": "14393.4470",
+            "updateUrl": "https://support.microsoft.com/help/5004948"
         }
     },
     "1703": {
@@ -3432,6 +3444,12 @@
             "releaseDate": "2021-06-15",
             "releaseVersion": "17763.2028",
             "updateUrl": "https://support.microsoft.com/help/5003703"
+        },
+        "KB5004947": {
+            "heading": "July 6, 2021&#x2014;KB5004947 (OS Build 17763.2029) Out-of-band",
+            "releaseDate": "2021-07-06",
+            "releaseVersion": "17763.2029",
+            "updateUrl": "https://support.microsoft.com/help/5004947"
         }
     },
     "1903": {
@@ -3852,6 +3870,12 @@
             "releaseDate": "2021-06-15",
             "releaseVersion": "18363.1645",
             "updateUrl": "https://support.microsoft.com/help/5003698"
+        },
+        "KB5004946": {
+            "heading": "July 6, 2021&#x2014;KB5004946 (OS Build 18363.1646) Out-of-band",
+            "releaseDate": "2021-07-06",
+            "releaseVersion": "18363.1646",
+            "updateUrl": "https://support.microsoft.com/help/5004946"
         }
     },
     "2004": {
@@ -4103,6 +4127,16 @@
             "releaseDate": "2021-06-29",
             "releaseVersion": "19041.1082",
             "updateUrl": "https://support.microsoft.com/help/5004760"
+        },
+        "KB5004945": {
+            "heading": "July 6, 2021&#x2014;KB5004945 (OS Builds 19041.1083, 19042.1083, and 19043.1083) Out-of-band",
+            "otherWindowsVersions": [
+                "20H2",
+                "21H1"
+            ],
+            "releaseDate": "2021-07-06",
+            "releaseVersion": "19041.1083",
+            "updateUrl": "https://support.microsoft.com/help/5004945"
         }
     }
 }
