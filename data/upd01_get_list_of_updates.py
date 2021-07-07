@@ -102,6 +102,10 @@ def get_updates_from_microsoft_support():
             match = re.search(r'\(OS Builds? ([\d\.]+)', heading)
             os_build = match[1]
 
+            # A temporary fix.
+            if update_kb == 'KB5004945' and url == '/help/55004945':
+                url = '/help/5004945'
+
             update_to_append = {
                 'updateUrl': 'https://support.microsoft.com' + url,
                 'releaseDate': full_date,
@@ -118,7 +122,7 @@ def get_updates_from_microsoft_support():
 
         assert all(x in windows_version_update_urls for x in windows_update_urls_to_skip.get(windows_version, {}).values())
 
-        # A temporary fix for a missing entry in the Microsoft website's sidebar
+        # A temporary fix for a missing entry in the Microsoft website's sidebar.
         if windows_version == '1709' and 'KB4341235' not in windows_version_updates:
             windows_version_updates['KB4341235'] = {
                 "heading": "July 10, 2018&#x2014;KB4341235 Update for Windows 10 Mobile (OS Build 15254.490)",
