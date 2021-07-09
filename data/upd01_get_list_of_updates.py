@@ -67,6 +67,7 @@ def get_updates_from_microsoft_support():
             windows_version = match[1]
 
         updates_section = re.sub(r'<a [^>]*>Windows.*? update history</a>', '', updates_section, flags=re.IGNORECASE)
+        updates_section = re.sub(r'<a [^>]*>End of service statement</a>', '', updates_section, flags=re.IGNORECASE)
 
         # Specific title fixes.
         if windows_version == '1809':
