@@ -87,7 +87,7 @@ def run_virustotal_updates():
 
     # Install pymultitor.
     commands = [
-        ['pip', 'install', 'mitmproxy'],
+        ['pip', 'install', 'mitmproxy==6.*'],
         ['sudo', 'apt-get', 'install', '-y', 'tor'],
         #['pip', 'install', 'pymultitor'],
         ['pip', 'install', 'git+git://github.com/m417z/pymultitor.git'],  # use a fork until PRs are merged
