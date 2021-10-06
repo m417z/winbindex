@@ -435,7 +435,11 @@ def add_file_info_from_iso_data(filename, output_dir, *, file_hash, file_info, s
             x['fileInfo'] = file_info
         else:
             # Many files distributed with Edge are for some reason signed twice.
-            multiple_sign_times = source_path.startswith('Program Files (x86)\\Microsoft\\Edge\\Application\\')
+            multiple_sign_times = (
+                source_path.startswith('Program Files (x86)\\Microsoft\\Edge\\Application\\') or
+                source_path.startswith('Program Files (x86)\\Microsoft\\EdgeCore\\') or
+                source_path.startswith('Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\')
+            )
             assert_fileinfo_close_enough(x['fileInfo'], file_info, multiple_sign_times)
             x['fileInfo'] = file_info  # this one is more accurate
 
