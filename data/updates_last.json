@@ -562,6 +562,12 @@
             "releaseDate": "2021-09-14",
             "releaseVersion": "10240.19060",
             "updateUrl": "https://support.microsoft.com/help/5005569"
+        },
+        "KB5006675": {
+            "heading": "October 12, 2021-KB5006675 (OS Build 10240.19086)",
+            "releaseDate": "2021-10-12",
+            "releaseVersion": "10240.19086",
+            "updateUrl": "https://support.microsoft.com/help/5006675"
         }
     },
     "1511": {
@@ -1523,6 +1529,12 @@
             "releaseDate": "2021-09-14",
             "releaseVersion": "14393.4651",
             "updateUrl": "https://support.microsoft.com/help/5005573"
+        },
+        "KB5006669": {
+            "heading": "October 12, 2021&#x2014;KB5006669 (OS Build 14393.4704)",
+            "releaseDate": "2021-10-12",
+            "releaseVersion": "14393.4704",
+            "updateUrl": "https://support.microsoft.com/help/5006669"
         }
     },
     "1703": {
@@ -3534,6 +3546,12 @@
             "releaseDate": "2021-09-21",
             "releaseVersion": "17763.2210",
             "updateUrl": "https://support.microsoft.com/help/5005625"
+        },
+        "KB5006672": {
+            "heading": "October 12, 2021&#x2014;KB5006672 (OS Build 17763.2237)",
+            "releaseDate": "2021-10-12",
+            "releaseVersion": "17763.2237",
+            "updateUrl": "https://support.microsoft.com/help/5006672"
         }
     },
     "1903": {
@@ -3996,6 +4014,12 @@
             "releaseDate": "2021-09-21",
             "releaseVersion": "18363.1830",
             "updateUrl": "https://support.microsoft.com/help/5005624"
+        },
+        "KB5006667": {
+            "heading": "October 12, 2021&#x2014;KB5006667 (OS Build 18363.1854)",
+            "releaseDate": "2021-10-12",
+            "releaseVersion": "18363.1854",
+            "updateUrl": "https://support.microsoft.com/help/5006667"
         }
     },
     "2004": {
@@ -4317,6 +4341,16 @@
             "releaseDate": "2021-09-30",
             "releaseVersion": "19041.1266",
             "updateUrl": "https://support.microsoft.com/help/5005611"
+        },
+        "KB5006670": {
+            "heading": "October 12, 2021&#x2014;KB5006670 (OS Builds 19041.1288, 19042.1288, and 19043.1288)",
+            "otherWindowsVersions": [
+                "20H2",
+                "21H1"
+            ],
+            "releaseDate": "2021-10-12",
+            "releaseVersion": "19041.1288",
+            "updateUrl": "https://support.microsoft.com/help/5006670"
         }
     }
 }

@@ -21835,6 +21835,7 @@
 "lpc.uwp.bundle",
 "lpc.windows.bundle",
 "lpcstrings.json",
+"lpdsvc.dll",
 "lpdsvc.dll.mui",
 "lperson.cur",
 "lpeula.rtf",
