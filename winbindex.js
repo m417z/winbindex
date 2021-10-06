@@ -711,7 +711,12 @@ var globalFunctions = {};
         });
 
         items = items.map(function (item) {
-            return 'Windows 10 ' + item;
+            var split = item.split('-', 2);
+            if (split.length === 1) {
+                return 'Windows 10 ' + split[0];
+            }
+
+            return 'Windows ' + split[0] + ' ' + split[1];
         });
 
         items.sort();
