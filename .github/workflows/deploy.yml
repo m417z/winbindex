@@ -21,6 +21,7 @@ jobs:
           choco install -y aria2
           choco install -y tor
           7z x data\tools.zip -odata\tools
+          curl -L -o data\tools\sxsexp64.exe https://github.com/hfiref0x/SXSEXP/raw/f67aa93a7d5acfdd4341d4b4822c351ce2206f62/Binary/sxsexp64.exe
       - name: Install Linux dependencies
         if: runner.os == 'Linux'
         run: |
