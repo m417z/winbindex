@@ -60,8 +60,16 @@ def download_update(windows_version, update_kb):
     if len(found_updates) != 1:
         raise Exception(f'Expected one update item, found {len(found_updates)}')
 
+    if windows_version == '11-21H2':
+        package_windows_version = fr'Windows 11'  # first Windows 11 version, no suffix
+    elif '-' in windows_version:
+        windows_version_split = windows_version.split('-')
+        package_windows_version = fr'Windows {windows_version_split[0]} Version {windows_version_split[1]}'
+    else:
+        package_windows_version = fr'Windows 10 Version {windows_version}'
+
     update_uid, update_title = found_updates[0]
-    assert re.fullmatch(rf'(\d{{4}}-\d{{2}} )?Cumulative Update (Preview )?for Windows 10 Version {windows_version} for x64-based Systems \({update_kb}\)', update_title), update_title
+    assert re.fullmatch(rf'(\d{{4}}-\d{{2}} )?Cumulative Update (Preview )?for {package_windows_version} for x64-based Systems \({update_kb}\)', update_title), update_title
 
     download_url = get_update_download_url(update_uid)
     if not download_url:
@@ -85,48 +93,45 @@ def download_update(windows_version, update_kb):
 def extract_manifest_files(local_dir, local_path):
     def cab_exctract(pattern, from_file, to_dir):
         if platform.system() == 'Windows':
-            args = ['expand', f'-f:{pattern}', from_file, to_dir]
+            args = ['expand', '-r', f'-f:{pattern}', from_file, to_dir]
         else:
             args = ['cabextract', '-F', pattern, '-d', to_dir, from_file]
         subprocess.run(args, check=True, stdout=None if config.verbose_run else subprocess.DEVNULL)
 
     extract_dirs = []
-    for i in range(1, 5):
-        extract_dir = local_dir.joinpath(f'extract{i}')
+    for i in range(4):
+        extract_dir = local_dir.joinpath(f'extract{i + 1}')
         extract_dir.mkdir(parents=True, exist_ok=True)
         extract_dirs.append(extract_dir)
 
     cab_exctract('*.cab', local_path, extract_dirs[0])
 
-    for cab in extract_dirs[0].glob('*.cab'):
-        if cab.name.lower() == 'WSUSSCAN.cab'.lower():
-            continue
-
-        cab_exctract('*.cab', cab, extract_dirs[1])
-
-    if not any(extract_dirs[1].glob('*.cab')):
-        # No more cabs, just extract manifests.
-        for cab in extract_dirs[0].glob('*.cab'):
-            if cab.name.lower() == 'WSUSSCAN.cab'.lower():
+    for i in range(4):
+        for cab in extract_dirs[i].glob('*.cab'):
+            if cab.name.lower() in (x.lower() for x in [
+                'DesktopDeployment.cab',
+                'DesktopDeployment_x86.cab',
+                'onepackage.AggregatedMetadata.cab',
+                'WSUSSCAN.cab'
+            ]):
                 continue
 
             cab_exctract('*.manifest', cab, local_dir)
-    else:
-        for cab in extract_dirs[1].glob('*.cab'):
-            cab_exctract('*.manifest', cab, local_dir)
-            cab_exctract('*.cab', cab, extract_dirs[2])
+            cab_exctract('*.cab', cab, extract_dirs[i + 1])
 
-        for cab in extract_dirs[2].glob('*.cab'):
-            cab_exctract('*.manifest', cab, local_dir)
-            cab_exctract('*.cab', cab, extract_dirs[3])
-
-        # Assert that we're done.
-        assert not any(extract_dirs[3].glob('*.cab'))
+    # Assert that we're done.
+    assert not any(extract_dirs[3].glob('*.cab'))
 
     for extract_dir in extract_dirs:
         shutil.rmtree(extract_dir)
 
     local_path.unlink()
+
+    # Starting with Windows 11, manifest files are compressed with the DCM v1 format.
+    # Use SYSEXP to de-compress them: https://github.com/hfiref0x/SXSEXP
+    if platform.system() == 'Windows':
+        args = ['tools/sxsexp64.exe', local_dir, local_dir]
+        subprocess.run(args, stdout=None if config.verbose_run else subprocess.DEVNULL)
 
 def get_manifests_from_update(windows_version, update_kb):
     print(f'[{update_kb}] Downloading update')
