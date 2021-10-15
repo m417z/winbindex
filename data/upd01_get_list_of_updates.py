@@ -37,15 +37,24 @@ def consolidate_overlapping_updates(updates):
 
             seen_kbs[update_kb] = windows_version, update
 
-def get_updates_from_microsoft_support():
-    url = 'https://support.microsoft.com/en-us/help/4000823'
+def get_updates_from_microsoft_support_for_version(windows_major_version, url):
     html = requests.get(url).text
+
+    p = (
+        r'<div [^>]*\bid="supLeftNav"[^>]*>'
+        r'([\s\S]*?)'
+        r'</div>\s*'
+        r'<div [^>]*\bid="supArticleContent"[^>]*>'
+    )
+    updates_navigation_links = re.findall(p, html)
+    assert len(updates_navigation_links) == 1
+    updates_navigation_links = updates_navigation_links[0]
 
     p = (
         r'<div class="supLeftNavCategoryTitle">\s*<a [^>]*>(.*?)</a>\s*</div>\s*'
         r'<ul class="supLeftNavArticles">([\s\S]*?)</ul>'
     )
-    updates_section_match = re.findall(p, html)
+    updates_section_match = re.findall(p, updates_navigation_links)
     assert len(updates_section_match) > 0
 
     # Key: URL to skip, value: URL containing the same update.
@@ -60,14 +69,25 @@ def get_updates_from_microsoft_support():
 
     all_updates = {}
     for windows_version_title, updates_section in updates_section_match:
-        if windows_version_title == 'Windows&#xA0;10&#xA0;(initial version released July 2015) update history':
-            windows_version = '1507'
+        if windows_major_version == 10:
+            if windows_version_title == 'Windows&#xA0;10&#xA0;(initial version released July 2015) update history':
+                windows_version = '1507'
+            else:
+                match = re.match(r'Windows 10, version (\w+)(?:(?:, Windows Server| and Windows Server).*)? update history$', windows_version_title, re.IGNORECASE)
+                windows_version = match[1]
         else:
-            match = re.match(r'Windows 10, version (\w+)(?:(?:, Windows Server| and Windows Server).*)? update history$', windows_version_title, re.IGNORECASE)
-            windows_version = match[1]
+            assert windows_major_version == 11
+            if windows_version_title == 'Windows 11 (original release)':
+                windows_version = '11-21H2'
+            else:
+                match = re.match(r'Windows 11, version (\w+)(?:(?:, Windows Server| and Windows Server).*)? update history$', windows_version_title, re.IGNORECASE)
+                windows_version = '11-' + match[1]
+
+        assert windows_version not in all_updates
 
         updates_section = re.sub(r'<a [^>]*>Windows.*? update history</a>', '', updates_section, flags=re.IGNORECASE)
         updates_section = re.sub(r'<a [^>]*>End of service statement</a>', '', updates_section, flags=re.IGNORECASE)
+        updates_section = re.sub(r'<a [^>]*>Windows 11 \(original release\)</a>', '', updates_section, flags=re.IGNORECASE)
 
         # Specific title fixes.
         if windows_version == '1809':
@@ -132,6 +152,11 @@ def get_updates_from_microsoft_support():
 
     return all_updates
 
+def get_updates_from_microsoft_support():
+    win10_updates = get_updates_from_microsoft_support_for_version(10, 'https://support.microsoft.com/en-us/help/4000823')
+    win11_updates = get_updates_from_microsoft_support_for_version(11, 'https://support.microsoft.com/en-us/help/5006099')
+    return {**win10_updates, **win11_updates}
+
 def get_updates_from_winreleaseinfoprod():
     url = 'https://winreleaseinfoprod.blob.core.windows.net/winreleaseinfoprod/en-US.html'
     html = requests.get(url).text
@@ -148,6 +173,8 @@ def get_updates_from_winreleaseinfoprod():
 
     all_updates = {}
     for windows_version, updates_table in updates_table_match:
+        assert windows_version not in all_updates
+
         p = (
             r'<tr>\s*'
             r'<td>(.*?)</td>\s*'
@@ -177,6 +204,60 @@ def get_updates_from_winreleaseinfoprod():
 
     return all_updates
 
+def get_updates_from_release_health_for_version(windows_major_version, url):
+    html = requests.get(url).text
+
+    p = (
+        r'<strong>Version (\w+)(?: \(RTM\)| \(original release\))? \(OS build \d+\)</strong>'
+        r'[\s\S]*?'
+        r'(<table[\s\S]*?</table>)'
+    )
+    updates_table_match = re.findall(p, html)
+    assert len(updates_table_match) > 0
+
+    all_updates = {}
+    for windows_version_title, updates_table in updates_table_match:
+        if windows_major_version == 10:
+            windows_version = windows_version_title
+        else:
+            windows_version = f'{windows_major_version}-{windows_version_title}'
+
+        assert windows_version not in all_updates
+
+        p = (
+            r'<tr>\s*'
+            r'<td>(.*?)</td>\s*'
+            r'<td>(.*?)</td>\s*'
+            r'<td>(.*?)</td>\s*'
+            r'<td>(.*?)</td>\s*'
+            r'</tr>'
+        )
+        update_row_match = re.findall(p, updates_table)
+
+        windows_version_updates = {}
+        for servicing_option, availability_date, os_build, kb_article in update_row_match:
+            if kb_article == '':
+                continue
+
+            match = re.match(r'<a href="([^"]*)"[^>]*>KB(\d+)</a>$', kb_article)
+            update_kb = 'KB' + match[2]
+            update_url = match[1]
+
+            windows_version_updates[update_kb] = {
+                'updateUrl': update_url,
+                'releaseDate': availability_date,
+                'releaseVersion': os_build
+            }
+
+        all_updates[windows_version] = windows_version_updates
+
+    return all_updates
+
+def get_updates_from_release_health():
+    win10_updates = get_updates_from_release_health_for_version(10, 'https://docs.microsoft.com/en-us/windows/release-health/release-information')
+    win11_updates = get_updates_from_release_health_for_version(11, 'https://docs.microsoft.com/en-us/windows/release-health/windows11-release-information')
+    return {**win10_updates, **win11_updates}
+
 def windows_version_updates_sanity_check(updates):
     update_kbs = {}
     update_urls = {}
@@ -195,6 +276,11 @@ def windows_version_updates_sanity_check(updates):
     # Assert no two entries with the same KB.
     assert not any(x != 1 for x in update_kbs.values()), [x for x in update_kbs.items() if x[1] != 1]
 
+def assert_contains_updates(updates, updates_contained):
+    for windows_version in updates_contained:
+        for update_kb in updates_contained[windows_version]:
+            assert updates_contained[windows_version][update_kb] == updates[windows_version][update_kb]
+
 def merge_updates(updates_a, updates_b):
     for windows_version in updates_b:
         for update_kb in updates_b[windows_version]:
@@ -206,14 +292,22 @@ def main():
     consolidate_overlapping_updates(updates_from_microsoft_support)
     windows_version_updates_sanity_check(updates_from_microsoft_support)
 
+    updates_from_release_health = get_updates_from_release_health()
+    consolidate_overlapping_updates(updates_from_release_health)
+    windows_version_updates_sanity_check(updates_from_release_health)
+
+    assert updates_from_microsoft_support.keys() == updates_from_release_health.keys()
+
+    # Was linked from https://docs.microsoft.com/en-us/windows/release-health/release-information,
+    # no longer linked, but still updated. Seems to be contained in updates_from_release_health,
+    # but not equal. Verify this.
     updates_from_winreleaseinfoprod = get_updates_from_winreleaseinfoprod()
     consolidate_overlapping_updates(updates_from_winreleaseinfoprod)
     windows_version_updates_sanity_check(updates_from_winreleaseinfoprod)
-
-    assert updates_from_microsoft_support.keys() == updates_from_winreleaseinfoprod.keys()
+    assert_contains_updates(updates_from_release_health, updates_from_winreleaseinfoprod)
 
     result = updates_from_microsoft_support
-    merge_updates(result, updates_from_winreleaseinfoprod)
+    merge_updates(result, updates_from_release_health)
     windows_version_updates_sanity_check(result)
 
     with open(config.out_path.joinpath('updates.json'), 'w') as f:
