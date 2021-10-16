@@ -28,6 +28,11 @@ jobs:
           sudo apt-get install -y aria2
           sudo apt-get install -y cabextract
           sudo apt-get install -y tor
+      - name: Cache Python dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.pythonLocation }}
+          key: ${{ runner.os }}-${{ env.pythonLocation }}-${{ hashFiles('.github/workflows/deploy.yml') }}
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
