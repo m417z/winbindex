@@ -1,9 +1,7 @@
 from datetime import datetime, timedelta
 from pathlib import Path
 import subprocess
-import platform
 import requests
-import zipfile
 import socket
 import html
 import json

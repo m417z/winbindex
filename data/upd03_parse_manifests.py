@@ -130,16 +130,14 @@ def main():
         updates = json.load(f)
 
     for windows_version in updates:
-        print(f'Processing Windows version {windows_version}:', end='', flush=True)
+        print(f'Processing Windows version {windows_version}:')
 
         for update_kb in updates[windows_version]:
             manifests_dir = config.out_path.joinpath('manifests', windows_version, update_kb)
             if manifests_dir.is_dir():
                 output_dir = config.out_path.joinpath('parsed', windows_version, update_kb)
                 parse_manifests(manifests_dir, output_dir)
-                print(' ' + update_kb, end='', flush=True)
-
-        print()
+                print('  ' + update_kb)
 
     update_file_hashes()
 

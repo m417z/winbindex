@@ -119,7 +119,7 @@ def get_virustotal_data(time_to_stop=None):
 
             count += 1
             if count % 200 == 0 and config.verbose_progress:
-                print(f' ...{count}', end='', flush=True)
+                print(f'Processed {count} of {total_count}')
 
             while True:
                 if time_to_stop and datetime.now() >= time_to_stop:
@@ -136,7 +136,7 @@ def get_virustotal_data(time_to_stop=None):
                 if result != 'retry':
                     break
 
-                #print('Waiting to retry... ', end='', flush=True)
+                #print('Waiting to retry...')
                 #time.sleep(30)
                 print('Retrying')
 
