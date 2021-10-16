@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 from pathlib import Path
 import subprocess
+import platform
 import requests
 import zipfile
 import socket
@@ -88,7 +89,6 @@ def run_virustotal_updates():
     # Install pymultitor.
     commands = [
         ['pip', 'install', 'mitmproxy==6.*'],
-        ['sudo', 'apt-get', 'install', '-y', 'tor'],
         #['pip', 'install', 'pymultitor'],
         ['pip', 'install', 'git+git://github.com/m417z/pymultitor.git'],  # use a fork until PRs are merged
     ]
@@ -96,7 +96,14 @@ def run_virustotal_updates():
     for args in commands:
         subprocess.run(args, check=True)
 
-    subprocess.Popen(['pymultitor', '--tor-timeout', '0', '--on-error-code', '429'])
+    # Install and set up Tor.
+    tor_params_for_pymultitor = ['--tor-timeout', '0']
+    if platform.system() == 'Windows':
+        tor_params_for_pymultitor += ['--tor-cmd', r'tools\tor-win32-0.4.5.10\Tor\tor.exe']
+    else:
+        subprocess.run(['sudo', 'apt-get', 'install', '-y', 'tor'], check=True)
+
+    subprocess.Popen(['pymultitor', '--on-error-code', '429'] + tor_params_for_pymultitor)
 
     while not check_pymultitor():
         time.sleep(1)
@@ -127,8 +134,7 @@ def run_deploy():
     if datetime.now() >= time_to_stop:
         return None
 
-    tools_extracted = Path('tools.zip').is_file()
-    if tools_extracted:
+    if not Path('tools').exists():
         with zipfile.ZipFile('tools.zip', 'r') as zip_ref:
             zip_ref.extractall('tools')
 
