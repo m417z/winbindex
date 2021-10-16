@@ -86,27 +86,11 @@ def run_virustotal_updates():
     if datetime.now() >= time_to_stop:
         return None
 
-    # Install pymultitor.
-    commands = [
-        ['pip', 'install', 'mitmproxy==6.*'],
-        #['pip', 'install', 'pymultitor'],
-        ['pip', 'install', 'git+git://github.com/m417z/pymultitor.git'],  # use a fork until PRs are merged
-    ]
+    if not check_pymultitor():
+        subprocess.Popen(['pymultitor', '--on-error-code', '429', '--tor-timeout', '0'])
 
-    for args in commands:
-        subprocess.run(args, check=True)
-
-    # Install and set up Tor.
-    tor_params_for_pymultitor = ['--tor-timeout', '0']
-    if platform.system() == 'Windows':
-        tor_params_for_pymultitor += ['--tor-cmd', r'tools\tor-win32-0.4.5.10\Tor\tor.exe']
-    else:
-        subprocess.run(['sudo', 'apt-get', 'install', '-y', 'tor'], check=True)
-
-    subprocess.Popen(['pymultitor', '--on-error-code', '429'] + tor_params_for_pymultitor)
-
-    while not check_pymultitor():
-        time.sleep(1)
+        while not check_pymultitor():
+            time.sleep(1)
 
     virustotal_path = config.out_path.joinpath('virustotal')
     files_count_before = sum(1 for x in virustotal_path.glob('*.json') if not x.name.startswith('_'))
@@ -133,10 +117,6 @@ def run_deploy():
     time_to_stop = deploy_start_time + timedelta(hours=6, minutes=-4)  # For GitHub Actions
     if datetime.now() >= time_to_stop:
         return None
-
-    if not Path('tools').exists():
-        with zipfile.ZipFile('tools.zip', 'r') as zip_ref:
-            zip_ref.extractall('tools')
 
     progress_file = config.out_path.joinpath('_progress.json')
     if progress_file.is_file():
