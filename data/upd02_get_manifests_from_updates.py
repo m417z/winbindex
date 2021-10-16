@@ -77,12 +77,7 @@ def download_update(windows_version, update_kb):
     #    with open(local_path, 'wb') as f:
     #        shutil.copyfileobj(r.raw, f)
 
-    if platform.system() == 'Windows':
-        aria2c_app = 'tools/aria2c.exe'
-    else:
-        aria2c_app = 'aria2c'
-
-    args = [aria2c_app, '-x4', '-o', local_path, '--allow-overwrite=true', download_url]
+    args = ['aria2c', '-x4', '-o', local_path, '--allow-overwrite=true', download_url]
     subprocess.run(args, check=True, stdout=None if config.verbose_run else subprocess.DEVNULL)
 
     return download_url, local_dir, local_path
