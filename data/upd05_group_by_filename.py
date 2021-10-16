@@ -157,18 +157,17 @@ def get_virustotal_info(file_hash):
     attr = data['data']['attributes']
 
     first_section = attr['pe_info']['sections'][0]
-    section_alignment = first_section['virtual_address']
 
     # Handle special cases.
-    if not is_power_of_two(section_alignment):
-        if section_alignment == 0x3000:
-            assert attr['signature_info']['description'] == 'TCB Launcher', file_hash
-            section_alignment = 0x1000
-        elif section_alignment == 0x380:
-            assert file_hash == 'ede86c8d8c6b9256b926701f4762bd6f71e487f366dfc7db8d74b8af57e79bbb', file_hash  # ftdibus.sys
-            section_alignment = 0x80
-        else:
-            assert False, file_hash
+    if attr.get('signature_info', {}).get('description') == 'TCB Launcher':
+        assert first_section['virtual_address'] in [0x3000, 0x4000]
+        section_alignment = 0x1000
+    elif file_hash == 'ede86c8d8c6b9256b926701f4762bd6f71e487f366dfc7db8d74b8af57e79bbb':  # ftdibus.sys
+        assert first_section['virtual_address'] == 0x380
+        section_alignment = 0x80
+    else:
+        section_alignment = first_section['virtual_address']
+        assert is_power_of_two(section_alignment), file_hash
 
     virtual_size = first_section['virtual_address']
     for section in attr['pe_info']['sections']:
