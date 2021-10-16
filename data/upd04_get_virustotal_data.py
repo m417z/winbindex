@@ -124,7 +124,7 @@ def get_virustotal_data(time_to_stop=None):
                 continue
 
             count += 1
-            if count % 200 == 0 and config.verbose_progress:
+            if count % 10 == 0 and config.verbose_progress:
                 print(f'Processed {count} of {total_count}')
 
             while True:
