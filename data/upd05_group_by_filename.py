@@ -292,6 +292,7 @@ def group_update_by_filename(windows_version, update_kb, update, parsed_dir, pro
     output_dir.mkdir(parents=True, exist_ok=True)
 
     paths = parsed_dir.glob('*.json')
+    count_total = len(paths)
 
     if progress_state:
         assert progress_state['update_kb'] == update_kb
@@ -314,7 +315,7 @@ def group_update_by_filename(windows_version, update_kb, update, parsed_dir, pro
 
         count += 1
         if count % 200 == 0 and config.verbose_progress:
-            print(f' ...{count}', end='', flush=True)
+            print(f'Processed {count} of {count_total}')
 
         if time_to_stop and datetime.now() >= time_to_stop:
             break
@@ -343,7 +344,7 @@ def process_updates(progress_state=None, time_to_stop=None):
         updates = {}
 
     for windows_version in updates:
-        print(f'Processing Windows version {windows_version}:', end='', flush=True)
+        print(f'Processing Windows version {windows_version}:')
 
         for update_kb in updates[windows_version]:
             update = updates[windows_version][update_kb]
@@ -351,9 +352,7 @@ def process_updates(progress_state=None, time_to_stop=None):
             parsed_dir = config.out_path.joinpath('parsed', windows_version, update_kb)
             if parsed_dir.is_dir():
                 group_update_by_filename(windows_version, update_kb, update, parsed_dir, progress_state, time_to_stop)
-                print(' ' + update_kb, end='', flush=True)
-
-        print()
+                print('  ' + update_kb)
 
 def add_file_info_from_virustotal_data(filename, output_dir, *, file_hash, file_info):
     if filename in file_info_data:
@@ -492,10 +491,8 @@ def process_iso_files():
 
     for iso_data_file in from_iso_dir.glob('*.json'):
         if iso_data_file.is_file():
-            print(' ' + iso_data_file.stem, end='', flush=True)
+            print('  ' + iso_data_file.stem)
             group_iso_data_by_filename(iso_data_file)
-
-    print()
 
 def main(progress_state=None, time_to_stop=None):
     print('Processing data from updates')
