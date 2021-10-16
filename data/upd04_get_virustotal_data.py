@@ -51,7 +51,13 @@ def get_virustotal_data_for_file(session, file_hash, output_dir):
         # Sorry...
         'X-VT-Anti-Abuse-Header': base64.b64encode(f'{random.randint(10000000000, 20000000000)}-ZG9udCBiZSBldmls-{round(time.time(), 3)}'.encode()).decode(),
     }
-    r = session.get(url, verify=False, headers=headers)
+
+    r = None
+    try:
+        r = session.get(url, verify=False, headers=headers, timeout=60*10)
+    except:
+        return 'retry'
+
     if r.status_code == 429:
         return 'retry'
 
