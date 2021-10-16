@@ -54,7 +54,7 @@ def get_virustotal_data_for_file(session, file_hash, output_dir):
 
     r = None
     try:
-        r = session.get(url, verify=False, headers=headers, timeout=60*10)
+        r = session.get(url, verify=False, headers=headers, timeout=30)
     except:
         return 'retry'
 

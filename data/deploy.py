@@ -2,7 +2,6 @@ from datetime import datetime, timedelta
 from pathlib import Path
 import subprocess
 import requests
-import socket
 import html
 import json
 import time
@@ -70,12 +69,12 @@ def prepare_updates():
 
     return update_kb
 
-def check_pymultitor(address='127.0.0.1', port=8080):
-    s = socket.socket()
+def check_pymultitor(proxy='http://127.0.0.1:8080'):
     try:
-        s.connect((address, port))
+        url = 'http://0.0.0.0/'
+        requests.get(url, proxies={'http': proxy}, timeout=30)
         return True
-    except socket.error:
+    except requests.exceptions.RequestException:
         return False
 
 def run_virustotal_updates():
