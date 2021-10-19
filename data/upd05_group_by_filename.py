@@ -290,19 +290,18 @@ def group_update_by_filename(windows_version, update_kb, update, parsed_dir, pro
     output_dir = config.out_path.joinpath('by_filename_compressed')
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    paths = parsed_dir.glob('*.json')
+    paths = sorted(parsed_dir.glob('*.json'))  # for reproducible order
     count_total = len(paths)
 
     if progress_state:
         assert progress_state['update_kb'] == update_kb
 
         count = progress_state['files_processed']
-        paths = sorted(paths)  # for reproducible order
 
         if progress_state['files_total'] is None:
-            progress_state['files_total'] = len(paths)
+            progress_state['files_total'] = count_total
         else:
-            assert progress_state['files_total'] == len(paths)
+            assert progress_state['files_total'] == count_total
 
         paths = paths[count:]
     else:
