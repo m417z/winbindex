@@ -101,6 +101,8 @@ def get_updates_from_microsoft_support_for_version(windows_major_version, url):
             updates_section = updates_section.replace(' - KB4346877', '&#x2014;KB4346877')
             updates_section = updates_section.replace('KB4025334  (', 'KB4025334 (')
             updates_section = updates_section.replace('KB 3216755', 'KB3216755')
+            # The following looks like a mistake, KB5007206 seems to be only for Windows 10 version 1809.
+            updates_section = updates_section.replace('<a class="supLeftNavLink" data-bi-slot="12" href="/en-us/help/5007206">November 9, 2021&#x2014;KB5007206 (OS Build 14393.4770)</a>', '')
 
         p = r'<a class="supLeftNavLink" data-bi-slot="\d+" href="/en-us(/help/\d+)">((\w+) (\d+), (\d+) ?(?:&#x2014;|-) ?KB(\d{7})(?: Update for Windows 10 Mobile)? \(OS Builds? .+?\).*?)</a>'
         items = re.findall(p, updates_section)
