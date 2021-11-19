@@ -202,7 +202,8 @@ def get_updates_from_winreleaseinfoprod():
                 'releaseVersion': os_build
             }
 
-        all_updates[windows_version] = windows_version_updates
+        if len(windows_version_updates) > 0:
+            all_updates[windows_version] = windows_version_updates
 
     return all_updates
 
