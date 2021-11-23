@@ -18,6 +18,7 @@ def consolidate_overlapping_updates(updates):
                     ('1903', '1909'),
                     ('2004', '20H2'),
                     ('2004', '21H1'),
+                    ('2004', '21H2'),
                 ]
 
                 assert update['updateUrl'] == seen_update['updateUrl']
