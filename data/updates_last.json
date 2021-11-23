@@ -17,6 +17,12 @@
             "releaseDate": "2021-11-09",
             "releaseVersion": "22000.318",
             "updateUrl": "https://support.microsoft.com/help/5007215"
+        },
+        "KB5007262": {
+            "heading": "November 22, 2021&#x2014;KB5007262 (OS Build 22000.348) Preview",
+            "releaseDate": "2021-11-22",
+            "releaseVersion": "22000.348",
+            "updateUrl": "https://support.microsoft.com/help/5007262"
         }
     },
     "1507": {
@@ -3586,7 +3592,7 @@
             "updateUrl": "https://support.microsoft.com/help/5005625"
         },
         "KB5006672": {
-            "heading": "October 12, 2021&#x2014;KB5006672 (OS Build 17763.2237)",
+            "heading": "October 12, 2021&#x2014;KB5006672 (OS Build 17763.2237) ",
             "releaseDate": "2021-10-12",
             "releaseVersion": "17763.2237",
             "updateUrl": "https://support.microsoft.com/help/5006672"
@@ -3602,6 +3608,12 @@
             "releaseDate": "2021-11-09",
             "releaseVersion": "17763.2300",
             "updateUrl": "https://support.microsoft.com/help/5007206"
+        },
+        "KB5007266": {
+            "heading": "November 22, 2021&#x2014;KB5007266 (OS Build 17763.2330) Preview",
+            "releaseDate": "2021-11-22",
+            "releaseVersion": "17763.2330",
+            "updateUrl": "https://support.microsoft.com/help/5007266"
         },
         "KB5008602": {
             "heading": "November 14, 2021&#x2014;KB5008602 (OS Build 17763.2305) Out-of-band",
@@ -4433,6 +4445,17 @@
             "releaseDate": "2021-11-09",
             "releaseVersion": "19041.1348",
             "updateUrl": "https://support.microsoft.com/help/5007186"
+        },
+        "KB5007253": {
+            "heading": "November 22, 2021&#x2014;KB5007253 (OS Builds 19041.1382, 19042.1382, 19043.1382, and 19044.1382) Preview",
+            "otherWindowsVersions": [
+                "20H2",
+                "21H1",
+                "21H2"
+            ],
+            "releaseDate": "2021-11-22",
+            "releaseVersion": "19041.1382",
+            "updateUrl": "https://support.microsoft.com/help/5007253"
         }
     }
 }
