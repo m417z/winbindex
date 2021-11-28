@@ -176,6 +176,13 @@ class hashabledict(dict):
         return hash(tuple(sorted(self.items())))
 
 def main(folder, windows_version, iso_sha256, release_date):
+    assert (
+        re.match(r'^(1[5-9]|20)0[0-9]$', windows_version) or
+        re.match(r'^(11-)?2[0-9]H[12]$', windows_version)
+    )
+    assert re.match(r'^[A-Fa-f0-9]{64}$', iso_sha256)
+    assert re.match(r'^\d{4}-\d{2}-\d{2}$', release_date)
+
     sigcheck_file = folder.joinpath('sigcheck64.txt')
     pe_files_extra_data = folder.joinpath('pe_files_extra_data.txt')
 
