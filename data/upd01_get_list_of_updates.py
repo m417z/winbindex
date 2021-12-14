@@ -19,6 +19,9 @@ def consolidate_overlapping_updates(updates):
                     ('2004', '20H2'),
                     ('2004', '21H1'),
                     ('2004', '21H2'),
+                    ('20H2', '21H1'),
+                    ('20H2', '21H2'),
+                    # ('21H1', '21H2'),  # TODO: uncomment after 20H2 end-of-service
                 ]
 
                 assert update['updateUrl'] == seen_update['updateUrl']
@@ -140,7 +143,7 @@ def get_updates_from_microsoft_support_for_version(windows_major_version, url):
 
         assert all(x in windows_version_update_urls for x in windows_update_urls_to_skip.get(windows_version, {}).values())
 
-        # A temporary fix for a missing entry in the Microsoft website's sidebar
+        # A temporary fix for a missing entry in the Microsoft website's sidebar.
         if windows_version == '1709' and 'KB4341235' not in windows_version_updates:
             windows_version_updates['KB4341235'] = {
                 "heading": "July 10, 2018&#x2014;KB4341235 Update for Windows 10 Mobile (OS Build 15254.490)",
@@ -157,54 +160,6 @@ def get_updates_from_microsoft_support():
     win10_updates = get_updates_from_microsoft_support_for_version(10, 'https://support.microsoft.com/en-us/help/4000823')
     win11_updates = get_updates_from_microsoft_support_for_version(11, 'https://support.microsoft.com/en-us/help/5006099')
     return {**win10_updates, **win11_updates}
-
-def get_updates_from_winreleaseinfoprod():
-    url = 'https://winreleaseinfoprod.blob.core.windows.net/winreleaseinfoprod/en-US.html'
-    html = requests.get(url).text
-
-    p = (
-        r'<button\b[^>]*\bonclick\s*=\s*"javascript:toggleHistoryTable\(\d+\);"'
-        r'[\s\S]*?'
-        r'<strong>Version (\w+)(?: \(RTM\))? \(OS build \d+\)</strong>'
-        r'[\s\S]*?'
-        r'(<table[\s\S]*?</table>)'
-    )
-    updates_table_match = re.findall(p, html)
-    assert len(updates_table_match) > 0
-
-    all_updates = {}
-    for windows_version, updates_table in updates_table_match:
-        assert windows_version not in all_updates
-
-        p = (
-            r'<tr>\s*'
-            r'<td>(.*?)</td>\s*'
-            r'<td>(.*?)</td>\s*'
-            r'<td>(.*?)</td>\s*'
-            r'<td>(.*?)</td>\s*'
-            r'</tr>'
-        )
-        update_row_match = re.findall(p, updates_table)
-
-        windows_version_updates = {}
-        for os_build, availability_date, servicing_option, kb_article in update_row_match:
-            if kb_article == '':
-                continue
-
-            match = re.match(r'<a href="([^"]*)"[^>]*>KB (\d+)</a>$', kb_article)
-            update_kb = 'KB' + match[2]
-            update_url = match[1]
-
-            windows_version_updates[update_kb] = {
-                'updateUrl': update_url,
-                'releaseDate': availability_date,
-                'releaseVersion': os_build
-            }
-
-        if len(windows_version_updates) > 0:
-            all_updates[windows_version] = windows_version_updates
-
-    return all_updates
 
 def get_updates_from_release_health_for_version(windows_major_version, url):
     html = requests.get(url).text
@@ -251,6 +206,14 @@ def get_updates_from_release_health_for_version(windows_major_version, url):
                 'releaseVersion': os_build
             }
 
+        # A temporary fix for a missing entry.
+        if windows_version == '2004' and 'KB5008212' not in windows_version_updates:
+            windows_version_updates['KB5008212'] = {
+                'updateUrl': 'https://support.microsoft.com/help/5008212',
+                'releaseDate': '2021-12-14',
+                'releaseVersion': '19041.1415'
+            }
+
         if len(windows_version_updates) > 0:
             all_updates[windows_version] = windows_version_updates
 
@@ -279,11 +242,6 @@ def windows_version_updates_sanity_check(updates):
     # Assert no two entries with the same KB.
     assert not any(x != 1 for x in update_kbs.values()), [x for x in update_kbs.items() if x[1] != 1]
 
-def assert_contains_updates(updates, updates_contained):
-    for windows_version in updates_contained:
-        for update_kb in updates_contained[windows_version]:
-            assert updates_contained[windows_version][update_kb] == updates[windows_version][update_kb]
-
 def merge_updates(updates_a, updates_b):
     for windows_version in updates_b:
         for update_kb in updates_b[windows_version]:
@@ -300,14 +258,6 @@ def main():
     windows_version_updates_sanity_check(updates_from_release_health)
 
     assert updates_from_microsoft_support.keys() == updates_from_release_health.keys()
-
-    # Was linked from https://docs.microsoft.com/en-us/windows/release-health/release-information,
-    # no longer linked, but still updated. Seems to be contained in updates_from_release_health,
-    # but not equal. Verify this.
-    updates_from_winreleaseinfoprod = get_updates_from_winreleaseinfoprod()
-    consolidate_overlapping_updates(updates_from_winreleaseinfoprod)
-    windows_version_updates_sanity_check(updates_from_winreleaseinfoprod)
-    assert_contains_updates(updates_from_release_health, updates_from_winreleaseinfoprod)
 
     result = updates_from_microsoft_support
     merge_updates(result, updates_from_release_health)
