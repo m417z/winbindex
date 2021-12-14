@@ -23,6 +23,12 @@
             "releaseDate": "2021-11-22",
             "releaseVersion": "22000.348",
             "updateUrl": "https://support.microsoft.com/help/5007262"
+        },
+        "KB5008215": {
+            "heading": "December 14, 2021&#x2014;KB5008215 (OS Build 22000.376)",
+            "releaseDate": "2021-12-14",
+            "releaseVersion": "22000.376",
+            "updateUrl": "https://support.microsoft.com/help/5008215"
         }
     },
     "1507": {
@@ -600,6 +606,12 @@
             "releaseDate": "2021-11-09",
             "releaseVersion": "10240.19119",
             "updateUrl": "https://support.microsoft.com/help/5007207"
+        },
+        "KB5008230": {
+            "heading": "December 14, 2021-KB5008230 (OS Build 10240.19145)",
+            "releaseDate": "2021-12-14",
+            "releaseVersion": "10240.19145",
+            "updateUrl": "https://support.microsoft.com/help/5008230"
         }
     },
     "1511": {
@@ -1573,6 +1585,12 @@
             "releaseDate": "2021-11-09",
             "releaseVersion": "14393.4770",
             "updateUrl": "https://support.microsoft.com/help/5007192"
+        },
+        "KB5008207": {
+            "heading": "December 14, 2021&#x2014;KB5008207 (OS Build 14393.4825)",
+            "releaseDate": "2021-12-14",
+            "releaseVersion": "14393.4825",
+            "updateUrl": "https://support.microsoft.com/help/5008207"
         },
         "KB5008601": {
             "heading": "November 14, 2021&#x2014;KB5008601 (OS Build 14393.4771) Out-of-band",
@@ -3615,6 +3633,12 @@
             "releaseVersion": "17763.2330",
             "updateUrl": "https://support.microsoft.com/help/5007266"
         },
+        "KB5008218": {
+            "heading": "December 14, 2021&#x2014;KB5008218 (OS Build 17763.2366)",
+            "releaseDate": "2021-12-14",
+            "releaseVersion": "17763.2366",
+            "updateUrl": "https://support.microsoft.com/help/5008218"
+        },
         "KB5008602": {
             "heading": "November 14, 2021&#x2014;KB5008602 (OS Build 17763.2305) Out-of-band",
             "releaseDate": "2021-11-14",
@@ -4094,6 +4118,12 @@
             "releaseDate": "2021-11-09",
             "releaseVersion": "18362.1916",
             "updateUrl": "https://support.microsoft.com/help/5007189"
+        },
+        "KB5008206": {
+            "heading": "December 14, 2021&#x2014;KB5008206 (OS Build 18362.1977)",
+            "releaseDate": "2021-12-14",
+            "releaseVersion": "18362.1977",
+            "updateUrl": "https://support.microsoft.com/help/5008206"
         }
     },
     "2004": {
@@ -4447,15 +4477,26 @@
             "updateUrl": "https://support.microsoft.com/help/5007186"
         },
         "KB5007253": {
-            "heading": "November 22, 2021&#x2014;KB5007253 (OS Builds 19041.1382, 19042.1382, 19043.1382, and 19044.1382) Preview",
+            "heading": "November 22, 2021&#x2014;KB5007253 (OS Builds 19041.1387, 19042.1387, 19043.1387, and 19044.1387) Preview",
             "otherWindowsVersions": [
                 "20H2",
                 "21H1",
                 "21H2"
             ],
             "releaseDate": "2021-11-22",
-            "releaseVersion": "19041.1382",
+            "releaseVersion": "19041.1387",
             "updateUrl": "https://support.microsoft.com/help/5007253"
+        },
+        "KB5008212": {
+            "heading": "December 14, 2021&#x2014;KB5008212 (OS Builds 19041.1415, 19042.1415, 19043.1415, and 19044.1415)",
+            "otherWindowsVersions": [
+                "20H2",
+                "21H1",
+                "21H2"
+            ],
+            "releaseDate": "2021-12-14",
+            "releaseVersion": "19041.1415",
+            "updateUrl": "https://support.microsoft.com/help/5008212"
         }
     }
 }
