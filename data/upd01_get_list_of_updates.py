@@ -206,14 +206,6 @@ def get_updates_from_release_health_for_version(windows_major_version, url):
                 'releaseVersion': os_build
             }
 
-        # A temporary fix for a missing entry.
-        if windows_version == '2004' and 'KB5008212' not in windows_version_updates:
-            windows_version_updates['KB5008212'] = {
-                'updateUrl': 'https://support.microsoft.com/help/5008212',
-                'releaseDate': '2021-12-14',
-                'releaseVersion': '19041.1415'
-            }
-
         if len(windows_version_updates) > 0:
             all_updates[windows_version] = windows_version_updates
 
