@@ -26,10 +26,10 @@ def search_for_updates(search_terms):
 
     assert '(page 1 of 1)' in html  # we expect only one page of results
 
-    p = r'<a [^>]*?onclick=\'goToDetails\("([a-f0-9\-]+)"\);\'>\s*(.*?)\s*</a>'
+    p = r'<a [^>]*?onclick=\'goToDetails\("([a-f0-9\-]+)"\);\'[^>]*?>\s*(.*?)\s*</a>'
     matches = re.findall(p, html)
 
-    p2 = r'<input id="([a-f0-9\-]+)" class="flatBlueButtonDownload" type="button" value=\'Download\' />'
+    p2 = r'<input id="([a-f0-9\-]+)" class="flatBlueButtonDownload\b[^"]*?" type="button" value=\'Download\' />'
     assert [uid for uid, title in matches] == re.findall(p2, html)
 
     return matches
