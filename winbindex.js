@@ -268,7 +268,7 @@ var globalFunctions = {};
                         }
 
                         var itemsToShow = data.items;
-                        if (itemsToShow.length > 10) {
+                        if (itemsToShow.length > 11) {
                             itemsToShow = itemsToShow.slice(0, 5).concat(['(' + (itemsToShow.length - 10)  + ' more items)']).concat(itemsToShow.slice(-5));
                         }
 
