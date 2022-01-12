@@ -618,6 +618,12 @@
             "releaseDate": "2021-12-14",
             "releaseVersion": "10240.19145",
             "updateUrl": "https://support.microsoft.com/help/5008230"
+        },
+        "KB5009585": {
+            "heading": "January 11, 2022-KB5009585 (OS Build 10240.19177)",
+            "releaseDate": "2022-01-11",
+            "releaseVersion": "10240.19177",
+            "updateUrl": "https://support.microsoft.com/help/5009585"
         }
     },
     "1511": {
