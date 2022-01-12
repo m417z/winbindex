@@ -363,7 +363,7 @@ var globalFunctions = {};
                     sortable: false,
                     render: function (data) {
                         if (!data.timestamp || !data.virtualSize) {
-                            if (/\.(exe|dll|sys)$/.test(fileToLoad)) {
+                            if (/\.(exe|dll|sys|winmd|cpl|ax|node|ocx|efi|acm|scr|com|tsp|drv)$/.test(fileToLoad)) {
                                 var msg = 'Download is not available since the file isn\'t available on VirusTotal';
                             } else {
                                 var msg = 'Download is only available for executables such as exe, dll, and sys files';
