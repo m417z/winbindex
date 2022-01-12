@@ -251,9 +251,7 @@ def main(folder, windows_version, iso_sha256, release_date):
         result_files.add(hashabledict(result_item))
 
         name = filename.split('\\')[-1].lower()
-        if (name.endswith('.exe') or
-            name.endswith('.dll') or
-            name.endswith('.sys')):
+        if (re.search(r'\.(exe|dll|sys|winmd|cpl|ax|node|ocx|efi|acm|scr|com|tsp|drv)$', name)):
             file_hashes.setdefault(name, set()).add(item['SHA256'].lower())
 
     result = {
