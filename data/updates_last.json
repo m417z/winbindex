@@ -4510,5 +4510,17 @@
             "releaseVersion": "19041.1415",
             "updateUrl": "https://support.microsoft.com/help/5008212"
         }
+    },
+    "20H2": {
+        "KB5009543": {
+            "heading": "January 11, 2022&#x2014;KB5009543 (OS Builds 19042.1466, 19043.1466, and 19044.1466)",
+            "otherWindowsVersions": [
+                "21H1",
+                "21H2"
+            ],
+            "releaseDate": "2022-01-11",
+            "releaseVersion": "19042.1466",
+            "updateUrl": "https://support.microsoft.com/help/5009543"
+        }
     }
 }
