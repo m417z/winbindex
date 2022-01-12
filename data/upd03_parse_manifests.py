@@ -55,7 +55,7 @@ def parse_manifest_file(file_el):
 
     if algorithm == 'sha256':
         filename = file_el.attrib['name'].split('\\')[-1].lower()
-        if (re.search(r'\.(exe|dll|sys|winmd|cpl|ax|node|ocx|efi|acm|scr|com|tsp|drv)$', filename)):
+        if (re.search(r'\.(exe|dll|sys|winmd|cpl|ax|node|ocx|efi|acm|scr|tsp|drv)$', filename)):
             file_hashes.setdefault(filename, set()).add(hash)
 
     result = {
