@@ -79,7 +79,7 @@ def check_pymultitor(proxy='http://127.0.0.1:8080'):
 
 def run_virustotal_updates():
     #time_to_stop = deploy_start_time + timedelta(minutes=46)  # For Travis
-    time_to_stop = min(datetime.now() + timedelta(minutes=46), deploy_start_time + timedelta(hours=6, minutes=-4))  # For GitHub Actions
+    time_to_stop = min(datetime.now() + timedelta(minutes=46), deploy_start_time + timedelta(hours=6, minutes=10))  # For GitHub Actions
     if datetime.now() >= time_to_stop:
         return None
 
@@ -111,7 +111,7 @@ def run_virustotal_updates():
 
 def run_deploy():
     #time_to_stop = deploy_start_time + timedelta(minutes=46)  # For Travis
-    time_to_stop = deploy_start_time + timedelta(hours=6, minutes=-4)  # For GitHub Actions
+    time_to_stop = deploy_start_time + timedelta(hours=6, minutes=-10)  # For GitHub Actions
     if datetime.now() >= time_to_stop:
         return None
 
