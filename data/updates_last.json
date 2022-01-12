@@ -29,6 +29,12 @@
             "releaseDate": "2021-12-14",
             "releaseVersion": "22000.376",
             "updateUrl": "https://support.microsoft.com/help/5008215"
+        },
+        "KB5009566": {
+            "heading": "January 11, 2022&#x2014;KB5009566 (OS Build 22000.434)",
+            "releaseDate": "2022-01-11",
+            "releaseVersion": "22000.434",
+            "updateUrl": "https://support.microsoft.com/help/5009566"
         }
     },
     "1507": {
