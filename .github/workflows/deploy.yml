@@ -6,6 +6,8 @@ on:
     - cron: '0 7 * * *'
     - cron: '15 18 * * TUE'
 
+concurrency: winbindex-periodic-update
+
 jobs:
   update:
     runs-on: windows-latest
