@@ -35,6 +35,12 @@
             "releaseDate": "2022-01-11",
             "releaseVersion": "22000.434",
             "updateUrl": "https://support.microsoft.com/help/5009566"
+        },
+        "KB5010795": {
+            "heading": "January 17, 2022&#x2014;KB5010795 (OS Build 22000.438) Out-of-band",
+            "releaseDate": "2022-01-17",
+            "releaseVersion": "22000.438",
+            "updateUrl": "https://support.microsoft.com/help/5010795"
         }
     },
     "1507": {
