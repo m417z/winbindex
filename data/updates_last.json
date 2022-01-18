@@ -4178,6 +4178,12 @@
             "releaseDate": "2022-01-11",
             "releaseVersion": "18363.2037",
             "updateUrl": "https://support.microsoft.com/help/5009545"
+        },
+        "KB5010792": {
+            "heading": "January 17, 2022&#x2014;KB5010792 (OS Build 18363.2039) Out-of-band",
+            "releaseDate": "2022-01-17",
+            "releaseVersion": "18363.2039",
+            "updateUrl": "https://support.microsoft.com/help/5010792"
         }
     },
     "2004": {
