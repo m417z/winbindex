@@ -1,0 +1,14 @@
+{
+    "20H2": {
+        "KB5010793": {
+            "heading": "January 17, 2022&#x2014;KB5010793 (OS Builds 19042.1469, 19043.1469, and 19044.1469) Out-of-band",
+            "otherWindowsVersions": [
+                "21H1",
+                "21H2"
+            ],
+            "releaseDate": "2022-01-17",
+            "releaseVersion": "19042.1469",
+            "updateUrl": "https://support.microsoft.com/help/5010793"
+        }
+    }
+}
