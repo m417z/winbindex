@@ -3698,6 +3698,12 @@
             "releaseDate": "2022-01-04",
             "releaseVersion": "17763.2369",
             "updateUrl": "https://support.microsoft.com/help/5010196"
+        },
+        "KB5010791": {
+            "heading": "January 18, 2022&#x2014;KB5010791 (OS Build 17763.2458) Out-of-band ",
+            "releaseDate": "2022-01-18",
+            "releaseVersion": "17763.2458",
+            "updateUrl": "https://support.microsoft.com/help/5010791"
         }
     },
     "1903": {
