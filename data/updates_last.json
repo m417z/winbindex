@@ -3699,6 +3699,12 @@
             "releaseVersion": "17763.2452",
             "updateUrl": "https://support.microsoft.com/help/5009557"
         },
+        "KB5009616": {
+            "heading": "January 25, 2022&#x2014;KB5009616 (OS Build 17763.2510) Preview",
+            "releaseDate": "2022-01-25",
+            "releaseVersion": "17763.2510",
+            "updateUrl": "https://support.microsoft.com/help/5009616"
+        },
         "KB5010196": {
             "heading": "January 4, 2022&#x2014;KB5010196 (OS Build 17763.2369) Out-of-band",
             "releaseDate": "2022-01-04",
