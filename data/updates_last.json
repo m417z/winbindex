@@ -4588,6 +4588,16 @@
             "releaseVersion": "19042.1466",
             "updateUrl": "https://support.microsoft.com/help/5009543"
         },
+        "KB5009596": {
+            "heading": "January 25, 2022&#x2014;KB5009596 (OS Builds 19042.1503, 19043.1503, and 19044.1503) Preview",
+            "otherWindowsVersions": [
+                "21H1",
+                "21H2"
+            ],
+            "releaseDate": "2022-01-25",
+            "releaseVersion": "19042.1503",
+            "updateUrl": "https://support.microsoft.com/help/5009596"
+        },
         "KB5010793": {
             "heading": "January 17, 2022&#x2014;KB5010793 (OS Builds 19042.1469, 19043.1469, and 19044.1469) Out-of-band",
             "otherWindowsVersions": [
