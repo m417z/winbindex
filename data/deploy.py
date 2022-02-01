@@ -84,7 +84,7 @@ def run_virustotal_updates():
         return None
 
     if not check_pymultitor():
-        subprocess.Popen(['pymultitor', '--on-error-code', '429', '--tor-timeout', '0'])
+        subprocess.Popen(['pymultitor', '--on-error-code', '403,429', '--tor-timeout', '0'])
 
         while not check_pymultitor():
             time.sleep(1)
