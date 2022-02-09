@@ -637,6 +637,12 @@
             "releaseVersion": "10240.19177",
             "updateUrl": "https://support.microsoft.com/help/5009585"
         },
+        "KB5010358": {
+            "heading": "February 8, 2022-KB5010358 (OS Build 10240.19204)",
+            "releaseDate": "2022-02-08",
+            "releaseVersion": "10240.19204",
+            "updateUrl": "https://support.microsoft.com/help/5010358"
+        },
         "KB5010789": {
             "heading": "January 17, 2022-KB5010789 (OS Build 10240.19179) Out-of-band",
             "releaseDate": "2022-01-17",
