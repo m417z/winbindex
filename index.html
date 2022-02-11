@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="winbindex.css">
 </head>
 <body class="bg-light">
-<div class="container">
+<div class="container d-flex flex-column min-vh-100">
     <header class="py-5 text-center">
         <!--img class="d-block mx-auto mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"-->
         <!-- Source: https://upload.wikimedia.org/wikipedia/commons/e/ee/Windows_logo_%E2%80%93_2012_%28dark_blue%29.svg -->
@@ -35,10 +35,10 @@
         <div id="main-description" class="text-muted text-center text-small">The Windows Binaries Index</div>
     </header>
 
-    <div id="winbindex-container">
+    <div id="winbindex-container" class="flex-fill d-flex flex-column">
         <div class="loading" id="page-loader">Loading&#8230;</div>
 
-        <div id="winbindex-file-select-container" class="d-none">
+        <div id="winbindex-file-select-container" class="d-none flex-fill flex-column justify-content-center">
             <form>
                 <div class="row">
                     <div class="col-12 col-lg-6 offset-lg-3">

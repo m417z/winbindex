@@ -165,7 +165,7 @@ var globalFunctions = {};
 
                     // Prevent flickering with setTimeout.
                     setTimeout(function () {
-                        $('#winbindex-file-select-container').removeClass('d-none');
+                        $('#winbindex-file-select-container').removeClass('d-none').addClass('d-flex');
                         $('#page-loader').hide();
                     }, 0);
 
