@@ -234,7 +234,6 @@ var globalFunctions = {};
         });
 
         var filesTable = $('#winbindex-table').DataTable({
-            responsive: true,
             deferRender: true,
             stateSave: true,
             fnStateLoadParams: function (oSettings, oData) {
@@ -638,6 +637,18 @@ var globalFunctions = {};
                 toggleHiddenColumn(this, table, columnIndex);
                 return false;
             });
+        });
+
+        settingsButton.find('.dropdown-menu .dropdown-item-full-width').click(function () {
+            var checkbox = $(this).find('input[type="checkbox"]');
+            var checked = checkbox.prop('checked');
+            if (checked) {
+                $('body div.container-fluid').removeClass('container-fluid').addClass('container');
+            } else {
+                $('body div.container').removeClass('container').addClass('container-fluid');
+            }
+            checkbox.prop('checked', !checked);
+            return false;
         });
     }
 
