@@ -278,7 +278,7 @@ var globalFunctions = {};
 
                         var itemsToShow = data.items;
                         if (itemsToShow.length > 11) {
-                            itemsToShow = itemsToShow.slice(0, 5).concat(['(' + (itemsToShow.length - 10)  + ' more items)']).concat(itemsToShow.slice(-5));
+                            itemsToShow = itemsToShow.slice(0, 5).concat(['(' + (itemsToShow.length - 10) + ' more items)']).concat(itemsToShow.slice(-5));
                         }
 
                         var titleSuffix = '';
@@ -416,7 +416,7 @@ var globalFunctions = {};
                 this.find('[data-toggle="tooltip"]').tooltip('dispose');
             }
         });
-        $('#winbindex-table').tooltip({selector: '[data-toggle=tooltip]'});
+        $('#winbindex-table').tooltip({ selector: '[data-toggle=tooltip]' });
 
         var yadcfColumnOptions = {
             filter_reset_button_text: false,
@@ -590,7 +590,7 @@ var globalFunctions = {};
                 var message = 'You\'re probably here because you got an error message similar to the following:<br><br>' +
                     '<img src="assets/vc_redist_error.png" alt="The program can\'t start because VCRUNTIME140.dll is missing from your computer. Try reinstalling the program to fix this problem." class="mw-100 mx-auto d-block"><br>' +
                     'The <strong>' + escapeHtml(loadedFile) + '</strong> file is a part of the <strong>Microsoft Visual C++ Redistributable for ' + escapeHtml(redistVersion) + '</strong>. ' +
-                        'The best way to fix the error is to install the Visual C++ redistributable package.<br><br>' +
+                    'The best way to fix the error is to install the Visual C++ redistributable package.<br><br>' +
                     'Download and install both the x86 and x64 versions of the Visual C++ redistributable package:<br>' +
                     downloadLinks +
                     'As a last resort, you can try downloading the missing files from Winbindex, but note that since the files are not an integral part of Windows, they are usually not uploaded to the symbol server, and even when they do, they might not be up-to-date with the latest version.';
@@ -753,8 +753,8 @@ var globalFunctions = {};
 
     // https://stackoverflow.com/a/20732091
     function humanFileSize(size) {
-        var i = size === 0 ? 0 : Math.floor( Math.log(size) / Math.log(1024) );
-        return ( size / Math.pow(1024, i) ).toFixed(2) * 1 + ' ' + ['B', 'KB', 'MB', 'GB', 'TB'][i];
+        var i = size === 0 ? 0 : Math.floor(Math.log(size) / Math.log(1024));
+        return (size / Math.pow(1024, i)).toFixed(2) * 1 + ' ' + ['B', 'KB', 'MB', 'GB', 'TB'][i];
     }
 
     function humanFileArch(arch) {
