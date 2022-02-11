@@ -1,0 +1,17 @@
+{
+  "root": true,
+  "extends": [
+    "eslint:recommended",
+    "plugin:compat/recommended"
+  ],
+  "env": {
+    "browser": true,
+    "jquery": true
+  },
+  "rules": {
+    "compat/compat": "error",
+    "strict": ["error", "global"],
+    "indent": ["error", 4, { "SwitchCase": 1}],
+    "no-unused-vars": ["error", { "args": "none" }]
+  }
+}
