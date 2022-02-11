@@ -38,6 +38,11 @@ button:disabled {
     padding-left: 14px;
 }
 
+/* Unset nowrap style that causes scrolling on mobile */
+div.dataTables_wrapper div.dataTables_info {
+    white-space: normal;
+}
+
 /* large select2 on front page: https://stackoverflow.com/a/41830955 */
 /*#winbindex-file-select-container {
     font-size: 1.6rem;
@@ -82,6 +87,9 @@ button:disabled {
 
 /* Add a horizontal scrollbar when needed */
 #winbindex-table_wrapper > .row:nth-child(2) > .col-sm-12 {
+    overflow-x: auto;
+}
+#winbindex-table_wrapper > .row:nth-child(3) > .col-sm-12:nth-child(2) {
     overflow-x: auto;
 }
 
