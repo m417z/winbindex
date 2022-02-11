@@ -224,6 +224,15 @@ var globalFunctions = {};
     }
 
     function loadFileInfoToTable(fileToLoad, searchQuery) {
+        $.extend($.fn.dataTableExt.oSort, {
+            'natural-asc': function (a, b) {
+                return a.localeCompare(b, undefined, { numeric: true });
+            },
+            'natural-desc': function (a, b) {
+                return b.localeCompare(a, undefined, { numeric: true });
+            }
+        });
+
         var filesTable = $('#winbindex-table').DataTable({
             responsive: true,
             deferRender: true,
@@ -296,6 +305,7 @@ var globalFunctions = {};
                     }
                 }, {
                     targets: 'target-file-version',
+                    type: 'natural',
                     render: function (data, type) {
                         if (!data) {
                             return '???';
@@ -389,6 +399,16 @@ var globalFunctions = {};
 
                         return escapeHtml(data);
                     }
+                }, {
+                    targets: 'target-plain-text-natural',
+                    type: 'natural',
+                    render: function (data, type) {
+                        if (!data) {
+                            return '???';
+                        }
+
+                        return escapeHtml(data);
+                    }
                 }
             ],
             order: [[$('#winbindex-table thead th.order-default-sort').index(), 'desc']],
@@ -420,6 +440,13 @@ var globalFunctions = {};
 
             if (columnHeader.hasClass('winbindex-yadcf-multiple')) {
                 options.text_data_delimiter = ',';
+            }
+
+            if (columnHeader.hasClass('winbindex-yadcf-natural-sort')) {
+                options.sort_as = 'custom';
+                options.sort_as_custom_func = function (a, b) {
+                    return a.localeCompare(b, undefined, { numeric: true });
+                };
             }
 
             yadcfColumns.push(options);
