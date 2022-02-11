@@ -1,10 +1,10 @@
+'use strict';
+
 /* global BootstrapDialog, yadcf, Q, pako */
 
 var globalFunctions = {};
 
 (function () {
-    'use strict';
-
     run();
 
     function run() {
@@ -20,7 +20,7 @@ var globalFunctions = {};
                 return;
             }
 
-            displayFile = displayFile.replace(/[<>:"/\|?*]/g, '');
+            displayFile = displayFile.replace(/[<>:"/|?*]/g, '');
         }
 
         if (displayFile) {
@@ -47,7 +47,7 @@ var globalFunctions = {};
         var fontSize = 8;
         var ch = canvas.getBoundingClientRect().height;
         var cw = canvas.getBoundingClientRect().width;
-        var maxColums = cw / fontSize;
+        var maxColumns = cw / fontSize;
 
         canvas.width = cw;
         canvas.height = ch;
@@ -80,7 +80,7 @@ var globalFunctions = {};
             }
         };
 
-        for (var i = 0; i < maxColums; i++) {
+        for (var i = 0; i < maxColumns; i++) {
             fallingCharArr.push(new Point(i * fontSize, randomFloat(-500, 0)));
         }
 
@@ -163,7 +163,7 @@ var globalFunctions = {};
                     });
                     self.items = self.availableItems;
 
-                    // Prevent filckering with setTimeout.
+                    // Prevent flickering with setTimeout.
                     setTimeout(function () {
                         $('#winbindex-file-select-container').removeClass('d-none');
                         $('#page-loader').hide();
@@ -363,10 +363,11 @@ var globalFunctions = {};
                     sortable: false,
                     render: function (data) {
                         if (!data.timestamp || !data.virtualSize) {
+                            var msg;
                             if (/\.(exe|dll|sys|winmd|cpl|ax|node|ocx|efi|acm|scr|tsp|drv)$/.test(fileToLoad)) {
-                                var msg = 'Download is not available since the file isn\'t available on VirusTotal';
+                                msg = 'Download is not available since the file isn\'t available on VirusTotal';
                             } else {
-                                var msg = 'Download is only available for executables such as exe, dll, and sys files';
+                                msg = 'Download is only available for executables such as exe, dll, and sys files';
                             }
                             return '<span class="disabled-cursor" data-toggle="tooltip" title="' + msg + '">' +
                                 '<a href="#" class="btn btn-secondary btn-sm disabled">Download</a></span>';
@@ -520,43 +521,43 @@ var globalFunctions = {};
                 var downloadLinks;
 
                 switch (match[1]) {
-                case '140':
-                    redistVersion = 'Visual Studio 2015, 2017 and 2019';
-                    downloadLinks = '<ul><li>' +
+                    case '140':
+                        redistVersion = 'Visual Studio 2015, 2017 and 2019';
+                        downloadLinks = '<ul><li>' +
                             'x86: <a href="https://aka.ms/vs/16/release/vc_redist.x86.exe">vc_redist.x86.exe</a>' +
-                        '</li><li>' +
+                            '</li><li>' +
                             'x64: <a href="https://aka.ms/vs/16/release/vc_redist.x64.exe">vc_redist.x64.exe</a>' +
-                        '</li></ul>';
-                    break;
+                            '</li></ul>';
+                        break;
 
-                case '120':
-                    redistVersion = 'Visual Studio 2013';
-                    downloadLinks = '<ul><li>' +
+                    case '120':
+                        redistVersion = 'Visual Studio 2013';
+                        downloadLinks = '<ul><li>' +
                             'x86: <a href="https://aka.ms/highdpimfc2013x86enu">vcredist_x86.exe</a>' +
-                        '</li><li>' +
+                            '</li><li>' +
                             'x64: <a href="https://aka.ms/highdpimfc2013x64enu">vcredist_x64.exe</a>' +
-                        '</li></ul>';
-                    break;
+                            '</li></ul>';
+                        break;
 
-                case '110':
-                    redistVersion = 'Visual Studio 2012';
-                    downloadLinks = '<a href="https://www.microsoft.com/en-us/download/details.aspx?id=30679" target="_blank" rel="noopener">Click here</a>, download and install both <strong>vcredist_x86.exe</strong> and <strong>vcredist_x64.exe</strong>.<br><br>';
-                    break;
+                    case '110':
+                        redistVersion = 'Visual Studio 2012';
+                        downloadLinks = '<a href="https://www.microsoft.com/en-us/download/details.aspx?id=30679" target="_blank" rel="noopener">Click here</a>, download and install both <strong>vcredist_x86.exe</strong> and <strong>vcredist_x64.exe</strong>.<br><br>';
+                        break;
 
-                case '100':
-                    redistVersion = 'Visual Studio 2010';
-                    downloadLinks = '<a href="https://www.microsoft.com/en-us/download/details.aspx?id=26999" target="_blank" rel="noopener">Click here</a>, download and install both <strong>vcredist_x86.exe</strong> and <strong>vcredist_x64.exe</strong>.<br><br>';
-                    break;
+                    case '100':
+                        redistVersion = 'Visual Studio 2010';
+                        downloadLinks = '<a href="https://www.microsoft.com/en-us/download/details.aspx?id=26999" target="_blank" rel="noopener">Click here</a>, download and install both <strong>vcredist_x86.exe</strong> and <strong>vcredist_x64.exe</strong>.<br><br>';
+                        break;
 
-                case '90':
-                    redistVersion = 'Visual Studio 2008';
-                    downloadLinks = '<a href="https://www.microsoft.com/en-us/download/details.aspx?id=26368" target="_blank" rel="noopener">Click here</a>, download and install both <strong>vcredist_x86.exe</strong> and <strong>vcredist_x64.exe</strong>.<br><br>';
-                    break;
+                    case '90':
+                        redistVersion = 'Visual Studio 2008';
+                        downloadLinks = '<a href="https://www.microsoft.com/en-us/download/details.aspx?id=26368" target="_blank" rel="noopener">Click here</a>, download and install both <strong>vcredist_x86.exe</strong> and <strong>vcredist_x64.exe</strong>.<br><br>';
+                        break;
 
-                case '80':
-                    redistVersion = 'Visual Studio 2005';
-                    downloadLinks = '<a href="https://www.microsoft.com/en-us/download/details.aspx?id=26347" target="_blank" rel="noopener">Click here</a>, download and install both <strong>vcredist_x86.EXE</strong> and <strong>vcredist_x64.EXE</strong>.<br><br>';
-                    break;
+                    case '80':
+                        redistVersion = 'Visual Studio 2005';
+                        downloadLinks = '<a href="https://www.microsoft.com/en-us/download/details.aspx?id=26347" target="_blank" rel="noopener">Click here</a>, download and install both <strong>vcredist_x86.EXE</strong> and <strong>vcredist_x64.EXE</strong>.<br><br>';
+                        break;
                 }
 
                 var message = 'You\'re probably here because you got an error message similar to the following:<br><br>' +
@@ -588,11 +589,7 @@ var globalFunctions = {};
     }
 
     function initHiddenColumns(table) {
-        var hiddenColumns = null;
-        try {
-            hiddenColumns = localStorage.getItem('winbindex-hidden-columns');
-        } catch (e) { }
-
+        var hiddenColumns = localStorage.getItem('winbindex-hidden-columns');
         if (!hiddenColumns) {
             hiddenColumns = [];
             $('#winbindex-table thead th.hidden-by-default').each(function () {
@@ -699,17 +696,17 @@ var globalFunctions = {};
         var windowsVersions = data.windowsVersions;
         Object.keys(windowsVersions).forEach(function (windowsVersion) {
             Object.keys(windowsVersions[windowsVersion]).forEach(function (update) {
+                var itemText;
                 if (update === 'BASE') {
                     var windowsVersionInfo = windowsVersions[windowsVersion][update].windowsVersionInfo;
-                    var date = windowsVersionInfo.releaseDate;
-                    var itemText = date + ' - Base ' + windowsVersion;
-                    items.push(itemText);
+                    var baseDate = windowsVersionInfo.releaseDate;
+                    itemText = baseDate + ' - Base ' + windowsVersion;
                 } else {
                     var updateInfo = windowsVersions[windowsVersion][update].updateInfo;
-                    var date = updateInfo.releaseDate.slice(0, '2000-01-01'.length);
-                    var itemText = date + ' - ' + update;
-                    items.push(itemText);
+                    var updateDate = updateInfo.releaseDate.slice(0, '2000-01-01'.length);
+                    itemText = updateDate + ' - ' + update;
                 }
+                items.push(itemText);
             });
         });
 
@@ -727,24 +724,6 @@ var globalFunctions = {};
         };
     }
 
-    function getAssemblyNames(data) {
-        var items = {};
-
-        var windowsVersions = data.windowsVersions;
-        Object.keys(windowsVersions).forEach(function (windowsVersion) {
-            Object.keys(windowsVersions[windowsVersion]).forEach(function (update) {
-                if (update !== 'BASE') {
-                    var assemblies = windowsVersions[windowsVersion][update].assemblies;
-                    Object.keys(assemblies).forEach(function (assembly) {
-                        items[assembly] = true;
-                    });
-                }
-            });
-        });
-
-        return Object.keys(items).sort();
-    }
-
     // https://stackoverflow.com/a/20732091
     function humanFileSize(size) {
         var i = size === 0 ? 0 : Math.floor( Math.log(size) / Math.log(1024) );
@@ -753,14 +732,14 @@ var globalFunctions = {};
 
     function humanFileArch(arch) {
         switch (arch) {
-        case 332:
-            return 'x86';
+            case 332:
+                return 'x86';
 
-        case 34404:
-            return 'x64';
+            case 34404:
+                return 'x64';
 
-        case 43620:
-            return 'ARM64';
+            case 43620:
+                return 'ARM64';
         }
 
         return arch;
@@ -859,7 +838,7 @@ var globalFunctions = {};
     // https://stackoverflow.com/a/901144
     function getParameterByName(name, url) {
         if (!url) url = window.location.href;
-        name = name.replace(/[\[\]]/g, '\\$&');
+        name = name.replace(/[[\]]/g, '\\$&');
         var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
             results = regex.exec(url);
         if (!results) return null;
@@ -873,6 +852,7 @@ var globalFunctions = {};
             fallbackCopyTextToClipboard(text);
             return;
         }
+        // eslint-disable-next-line compat/compat
         navigator.clipboard.writeText(text).then(function () {
             onSuccess();
         }, function (err) {
@@ -889,7 +869,9 @@ var globalFunctions = {};
             var successful = false;
             try {
                 successful = document.execCommand('copy');
-            } catch (err) { }
+            } catch (err) {
+                // We tried...
+            }
 
             document.body.removeChild(textArea);
 
