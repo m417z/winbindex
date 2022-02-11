@@ -87,6 +87,11 @@ button:disabled {
     right: 25px;
 }*/
 
+/* Add a horizontal scrollbar when needed */
+#winbindex-table_wrapper > .row:nth-child(2) > .col-sm-12 {
+    overflow-x: auto;
+}
+
 /* select2 bootstrap4 - reduce height */
 #winbindex-table .select2-container--bootstrap4 .select2-selection--single {
     height: 28px !important;
