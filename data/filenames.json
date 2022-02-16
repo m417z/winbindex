@@ -3384,6 +3384,7 @@
 "adamwizard.dll",
 "adaptivecardconfig.json",
 "adaptivecards.dll",
+"adaptivecards.objectmodel.uwp.dll",
 "adaptivecards.rendering.uwp.dll",
 "adaptivecards.rendering.uwp.lib",
 "adaptivecards.rendering.uwp.winmd",

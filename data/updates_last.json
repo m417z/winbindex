@@ -48,6 +48,12 @@
             "releaseVersion": "22000.493",
             "updateUrl": "https://support.microsoft.com/help/5010386"
         },
+        "KB5010414": {
+            "heading": "February 15, 2022&#x2014;KB5010414 (OS Build 22000.527) Preview",
+            "releaseDate": "2022-02-15",
+            "releaseVersion": "22000.527",
+            "updateUrl": "https://support.microsoft.com/help/5010414"
+        },
         "KB5010795": {
             "heading": "January 17, 2022&#x2014;KB5010795 (OS Build 22000.438) Out-of-band",
             "releaseDate": "2022-01-17",
