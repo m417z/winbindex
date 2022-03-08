@@ -4681,6 +4681,16 @@
             "releaseDate": "2022-01-17",
             "releaseVersion": "19042.1469",
             "updateUrl": "https://support.microsoft.com/help/5010793"
+        },
+        "KB5011487": {
+            "heading": "March 8, 2022&#x2014;KB5011487 (OS Builds 19042.1586, 19043.1586, and 19044.1586)",
+            "otherWindowsVersions": [
+                "21H1",
+                "21H2"
+            ],
+            "releaseDate": "2022-03-08",
+            "releaseVersion": "19042.1586",
+            "updateUrl": "https://support.microsoft.com/help/5011487"
         }
     }
 }
