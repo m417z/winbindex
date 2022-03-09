@@ -3770,6 +3770,12 @@
             "releaseDate": "2022-01-18",
             "releaseVersion": "17763.2458",
             "updateUrl": "https://support.microsoft.com/help/5010791"
+        },
+        "KB5011503": {
+            "heading": "March 8, 2022&#x2014;KB5011503 (OS Build 17763.2686)",
+            "releaseDate": "2022-03-08",
+            "releaseVersion": "17763.2686",
+            "updateUrl": "https://support.microsoft.com/help/5011503"
         }
     },
     "1903": {
