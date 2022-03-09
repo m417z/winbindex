@@ -1681,6 +1681,12 @@
             "releaseDate": "2022-01-17",
             "releaseVersion": "14393.4889",
             "updateUrl": "https://support.microsoft.com/help/5010790"
+        },
+        "KB5011495": {
+            "heading": "March 8, 2022&#x2014;KB5011495 (OS Build 14393.5006)",
+            "releaseDate": "2022-03-08",
+            "releaseVersion": "14393.5006",
+            "updateUrl": "https://support.microsoft.com/help/5011495"
         }
     },
     "1703": {
