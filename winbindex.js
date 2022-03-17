@@ -415,7 +415,7 @@ var globalFunctions = {};
                 this.find('[data-toggle="tooltip"]').tooltip('dispose');
             }
         });
-        $('#winbindex-table').tooltip({ selector: '[data-toggle=tooltip]' });
+        $('#winbindex-table').tooltip({ selector: '[data-toggle=tooltip]', boundary: 'window' });
 
         var yadcfColumnOptions = {
             filter_reset_button_text: false,
