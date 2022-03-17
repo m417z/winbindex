@@ -6,7 +6,7 @@
 
 <!--FileStats-->
 Total amount of supported PE files: 320,502  
-Files with a download link: 263,194 (104,269 from the actual files, 158,925 from VirusTotal)  
-Files without a download link: 57,308 (57,308 weren't uploaded to VirusTotal, 0 weren't checked yet)  
+Files with a download link: 263,259 (104,269 from the actual files, 158,990 from VirusTotal)  
+Files without a download link: 57,243 (57,243 weren't uploaded to VirusTotal, 0 weren't checked yet)  
 % of files with a download link: 82.1  
 <!--/FileStats-->
