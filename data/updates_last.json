@@ -4715,6 +4715,16 @@
             "releaseDate": "2022-03-08",
             "releaseVersion": "19042.1586",
             "updateUrl": "https://support.microsoft.com/help/5011487"
+        },
+        "KB5011543": {
+            "heading": "March 22, 2022&#x2014;KB5011543 (OS Builds 19042.1620, 19043.1620, and 19044.1620) Preview",
+            "otherWindowsVersions": [
+                "21H1",
+                "21H2"
+            ],
+            "releaseDate": "2022-03-22",
+            "releaseVersion": "19042.1620",
+            "updateUrl": "https://support.microsoft.com/help/5011543"
         }
     }
 }
