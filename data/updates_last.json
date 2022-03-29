@@ -65,6 +65,12 @@
             "releaseDate": "2022-03-08",
             "releaseVersion": "22000.556",
             "updateUrl": "https://support.microsoft.com/help/5011493"
+        },
+        "KB5011563": {
+            "heading": "March 28, 2022&#x2014;KB5011563 (OS Build 22000.593) Preview",
+            "releaseDate": "2022-03-28",
+            "releaseVersion": "22000.593",
+            "updateUrl": "https://support.microsoft.com/help/5011563"
         }
     },
     "1507": {
