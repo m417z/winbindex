@@ -94,9 +94,12 @@ def get_updates_from_microsoft_support_for_version(windows_major_version, url):
         updates_section = re.sub(r'<a [^>]*>Windows 11 \(original release\)</a>', '', updates_section, flags=re.IGNORECASE)
 
         # Specific title fixes.
+        if windows_version in ['21H2', '21H1', '20H2']:
+            updates_section = updates_section.replace('KB5012599(OS Builds', 'KB5012599 (OS Builds')
+
         if windows_version == '1809':
             updates_section = updates_section.replace('(OS Build OS 17763.529)', '(OS Build 17763.529)')
-            updates_section = updates_section.replace('K5003646', 'KB5003646')
+            updates_section = updates_section.replace('KB5012647(OS Build', 'KB5012647 (OS Build')
 
         if windows_version == '1709':
             updates_section = updates_section.replace('KB4509104 Update for Windows 10 Mobile  (', 'KB4509104 Update for Windows 10 Mobile (')
