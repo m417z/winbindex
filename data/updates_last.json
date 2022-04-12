@@ -4292,6 +4292,12 @@
             "releaseDate": "2022-03-08",
             "releaseVersion": "18363.2158",
             "updateUrl": "https://support.microsoft.com/help/5011485"
+        },
+        "KB5012591": {
+            "heading": "April 12, 2022&#x2014;KB5012591 (OS Build 18363.2212)",
+            "releaseDate": "2022-04-12",
+            "releaseVersion": "18363.2212",
+            "updateUrl": "https://support.microsoft.com/help/5012591"
         }
     },
     "2004": {
