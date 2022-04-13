@@ -684,6 +684,12 @@
             "releaseDate": "2022-03-08",
             "releaseVersion": "10240.19235",
             "updateUrl": "https://support.microsoft.com/help/5011491"
+        },
+        "KB5012653": {
+            "heading": "April 12, 2022-KB5012653 (OS Build 10240.19265)",
+            "releaseDate": "2022-04-12",
+            "releaseVersion": "10240.19265",
+            "updateUrl": "https://support.microsoft.com/help/5012653"
         }
     },
     "1511": {
