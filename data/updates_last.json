@@ -3807,6 +3807,12 @@
             "releaseVersion": "17763.2746",
             "updateUrl": "https://support.microsoft.com/help/5011551"
         },
+        "KB5012636": {
+            "heading": "April 21, 2022&#x2014;KB5012636 (OS Build 17763.2867) Preview",
+            "releaseDate": "2022-04-21",
+            "releaseVersion": "17763.2867",
+            "updateUrl": "https://support.microsoft.com/help/5012636"
+        },
         "KB5012647": {
             "heading": "April 12, 2022&#x2014;KB5012647 (OS Build 17763.2803)",
             "releaseDate": "2022-04-12",
