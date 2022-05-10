@@ -4805,6 +4805,16 @@
             "releaseDate": "2022-04-12",
             "releaseVersion": "19042.1645",
             "updateUrl": "https://support.microsoft.com/help/5012599"
+        },
+        "KB5013942": {
+            "heading": "May 10, 2022&#x2014;KB5013942 (OS Builds 19042.1706, 19043.1706, and 19044.1706)",
+            "otherWindowsVersions": [
+                "21H1",
+                "21H2"
+            ],
+            "releaseDate": "2022-05-10",
+            "releaseVersion": "19042.1706",
+            "updateUrl": "https://support.microsoft.com/help/5013942"
         }
     }
 }
