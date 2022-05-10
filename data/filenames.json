@@ -9011,6 +9011,8 @@
 "clusbflt.inf",
 "clusbflt.sys",
 "clusbfltwmi.mof",
+"clusdisk.inf",
+"clusdisk.sys",
 "clushealth.dll",
 "clushealth.dll.mui",
 "clusmetrics.dll",

@@ -3824,6 +3824,12 @@
             "releaseDate": "2022-04-12",
             "releaseVersion": "17763.2803",
             "updateUrl": "https://support.microsoft.com/help/5012647"
+        },
+        "KB5013941": {
+            "heading": "May 10, 2022&#x2014;KB5013941 (OS Build 17763.2928)",
+            "releaseDate": "2022-05-10",
+            "releaseVersion": "17763.2928",
+            "updateUrl": "https://support.microsoft.com/help/5013941"
         }
     },
     "1903": {
