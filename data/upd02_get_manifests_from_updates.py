@@ -50,8 +50,22 @@ def get_update_download_url(update_uid):
     return matches[0]
 
 def download_update(windows_version, update_kb):
+    search_query = update_kb
+
+    if windows_version == '11-21H2':
+        package_windows_version = fr'Windows 11'  # first Windows 11 version, no suffix
+    elif '-' in windows_version:
+        windows_version_split = windows_version.split('-')
+        search_query += f' {windows_version_split[1]}'
+        package_windows_version = fr'Windows {windows_version_split[0]} Version {windows_version_split[1]}'
+    else:
+        search_query += f' {windows_version}'
+        package_windows_version = fr'Windows 10 Version {windows_version}'
+
     # TODO: more archs?
-    found_updates = search_for_updates(f'{update_kb} {windows_version} x64')
+    search_query += f' x64'
+
+    found_updates = search_for_updates(search_query)
 
     filter_regex = r'\bserver\b|\bDynamic Cumulative Update\b'
 
@@ -59,14 +73,6 @@ def download_update(windows_version, update_kb):
 
     if len(found_updates) != 1:
         raise Exception(f'Expected one update item, found {len(found_updates)}')
-
-    if windows_version == '11-21H2':
-        package_windows_version = fr'Windows 11'  # first Windows 11 version, no suffix
-    elif '-' in windows_version:
-        windows_version_split = windows_version.split('-')
-        package_windows_version = fr'Windows {windows_version_split[0]} Version {windows_version_split[1]}'
-    else:
-        package_windows_version = fr'Windows 10 Version {windows_version}'
 
     update_uid, update_title = found_updates[0]
     assert re.fullmatch(rf'(\d{{4}}-\d{{2}} )?Cumulative Update (Preview )?for {package_windows_version} for x64-based Systems \({update_kb}\)', update_title), update_title
