@@ -83,6 +83,12 @@
             "releaseDate": "2022-04-25",
             "releaseVersion": "22000.652",
             "updateUrl": "https://support.microsoft.com/help/5012643"
+        },
+        "KB5013943": {
+            "heading": "May 10, 2022&#x2014;KB5013943 (OS Build 22000.675)",
+            "releaseDate": "2022-05-10",
+            "releaseVersion": "22000.675",
+            "updateUrl": "https://support.microsoft.com/help/5013943"
         }
     },
     "1507": {
