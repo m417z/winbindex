@@ -4851,6 +4851,16 @@
             "releaseDate": "2022-05-10",
             "releaseVersion": "19042.1706",
             "updateUrl": "https://support.microsoft.com/help/5013942"
+        },
+        "KB5015020": {
+            "heading": "May 19, 2022&#x2014;KB5015020 (OS Builds 19042.1708, 19043.1708, and 19044.1708) Out-of-band",
+            "otherWindowsVersions": [
+                "21H1",
+                "21H2"
+            ],
+            "releaseDate": "2022-05-19",
+            "releaseVersion": "19042.1708",
+            "updateUrl": "https://support.microsoft.com/help/5015020"
         }
     }
 }
