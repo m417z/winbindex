@@ -10202,6 +10202,7 @@
 "container.dll",
 "container_xml.dll",
 "containerdevicemanagement.dll",
+"containerosshellhost.exe",
 "containerupdater.exe",
 "containexactly.ps1",
 "containexactly.tests.ps1",

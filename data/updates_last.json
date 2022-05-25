@@ -3861,6 +3861,12 @@
             "releaseVersion": "17763.2928",
             "updateUrl": "https://support.microsoft.com/help/5013941"
         },
+        "KB5014022": {
+            "heading": "May 24, 2022&#x2014;KB5014022 (OS Build 17763.2989) Preview",
+            "releaseDate": "2022-05-24",
+            "releaseVersion": "17763.2989",
+            "updateUrl": "https://support.microsoft.com/help/5014022"
+        },
         "KB5015018": {
             "heading": "May 19, 2022&#x2014;KB5015018 (OS Build 17763.2931) Out-of-band",
             "releaseDate": "2022-05-19",
