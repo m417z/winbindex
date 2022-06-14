@@ -95,6 +95,12 @@
             "releaseDate": "2022-05-24",
             "releaseVersion": "22000.708",
             "updateUrl": "https://support.microsoft.com/help/5014019"
+        },
+        "KB5014697": {
+            "heading": "June 14, 2022&#x2014;KB5014697 (OS Build 22000.739)",
+            "releaseDate": "2022-06-14",
+            "releaseVersion": "22000.739",
+            "updateUrl": "https://support.microsoft.com/help/5014697"
         }
     },
     "1507": {
