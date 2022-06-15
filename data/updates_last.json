@@ -720,6 +720,12 @@
             "releaseDate": "2022-05-10",
             "releaseVersion": "10240.19297",
             "updateUrl": "https://support.microsoft.com/help/5013963"
+        },
+        "KB5014710": {
+            "heading": "June 14, 2022-KB5014710 (OS Build 10240.19325)",
+            "releaseDate": "2022-06-14",
+            "releaseVersion": "10240.19325",
+            "updateUrl": "https://support.microsoft.com/help/5014710"
         }
     },
     "1511": {
