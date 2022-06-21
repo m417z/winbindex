@@ -101,6 +101,12 @@
             "releaseDate": "2022-06-14",
             "releaseVersion": "22000.739",
             "updateUrl": "https://support.microsoft.com/help/5014697"
+        },
+        "KB5016138": {
+            "heading": "June 20, 2022&#x2014;KB5016138 (OS Build 22000.740) Out-of-band",
+            "releaseDate": "2022-06-20",
+            "releaseVersion": "22000.740",
+            "updateUrl": "https://support.microsoft.com/help/5016138"
         }
     },
     "1507": {
