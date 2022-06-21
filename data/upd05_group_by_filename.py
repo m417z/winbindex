@@ -352,6 +352,9 @@ def process_updates(progress_state=None, time_to_stop=None):
                 group_update_by_filename(windows_version, update_kb, update, parsed_dir, progress_state, time_to_stop)
                 print('  ' + update_kb)
 
+    if progress_state and progress_state['files_total'] is None:
+        progress_state['files_total'] = 0
+
 def add_file_info_from_virustotal_data(filename, output_dir, *, file_hash, file_info):
     if filename in file_info_data:
         data = file_info_data[filename]

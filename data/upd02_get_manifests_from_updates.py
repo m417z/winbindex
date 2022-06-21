@@ -13,6 +13,9 @@ import config
 class UpdateNotFound(Exception):
     pass
 
+class UpdateNotSupported(Exception):
+    pass
+
 def search_for_updates(search_terms):
     url = 'https://www.catalog.update.microsoft.com/Search.aspx'
     while True:
@@ -50,6 +53,10 @@ def get_update_download_url(update_uid):
     return matches[0]
 
 def download_update(windows_version, update_kb):
+    # ARM only.
+    if update_kb in ['KB5016138', 'KB5016139']:
+        raise UpdateNotSupported
+
     search_query = update_kb
 
     if windows_version == '11-21H2':
@@ -97,7 +104,7 @@ def download_update(windows_version, update_kb):
     return download_url, local_dir, local_path
 
 def extract_manifest_files(local_dir, local_path):
-    def cab_exctract(pattern, from_file, to_dir):
+    def cab_extract(pattern, from_file, to_dir):
         if platform.system() == 'Windows':
             args = ['expand', '-r', f'-f:{pattern}', from_file, to_dir]
         else:
@@ -110,7 +117,7 @@ def extract_manifest_files(local_dir, local_path):
         extract_dir.mkdir(parents=True, exist_ok=True)
         extract_dirs.append(extract_dir)
 
-    cab_exctract('*.cab', local_path, extract_dirs[0])
+    cab_extract('*.cab', local_path, extract_dirs[0])
 
     for i in range(4):
         for cab in extract_dirs[i].glob('*.cab'):
@@ -122,8 +129,8 @@ def extract_manifest_files(local_dir, local_path):
             ]):
                 continue
 
-            cab_exctract('*.manifest', cab, local_dir)
-            cab_exctract('*.cab', cab, extract_dirs[i + 1])
+            cab_extract('*.manifest', cab, local_dir)
+            cab_extract('*.cab', cab, extract_dirs[i + 1])
 
     # Assert that we're done.
     assert not any(extract_dirs[3].glob('*.cab'))
@@ -173,6 +180,8 @@ def main():
         for update_kb in updates[windows_version]:
             try:
                 get_manifests_from_update(windows_version, update_kb)
+            except UpdateNotSupported:
+                print(f'[{update_kb}] WARNING: Skipping unsupported update')
             except UpdateNotFound:
                 # Only treat as an error if the update is recent. If the update is old,
                 # only show a warning, since old updates are removed from the update catalog
