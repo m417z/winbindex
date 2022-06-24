@@ -24547,6 +24547,7 @@
 "microsoft.management.ui.powwa.host.dll",
 "microsoft.management.ui.powwa.management.dll",
 "microsoft.management.ui.powwa.web.dll",
+"microsoft.management.ui.resources.dll",
 "microsoft.managementconsole.dll",
 "microsoft.managementconsole.ni.dll",
 "microsoft.managementconsole.ni.dll.aux",

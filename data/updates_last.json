@@ -3897,6 +3897,12 @@
             "releaseVersion": "17763.2989",
             "updateUrl": "https://support.microsoft.com/help/5014022"
         },
+        "KB5014669": {
+            "heading": "June 23, 2022&#x2014;KB5014669 (OS Build 17763.3113) Preview",
+            "releaseDate": "2022-06-23",
+            "releaseVersion": "17763.3113",
+            "updateUrl": "https://support.microsoft.com/help/5014669"
+        },
         "KB5014692": {
             "heading": "June 14, 2022&#x2014;KB5014692 (OS Build 17763.3046)",
             "releaseDate": "2022-06-14",
