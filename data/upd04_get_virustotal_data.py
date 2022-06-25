@@ -80,39 +80,19 @@ def get_virustotal_data_for_file(session, file_hash, output_dir):
 
     return result
 
-def get_virustotal_data(time_to_stop=None):
-    with open(config.out_path.joinpath('info_sources.json')) as f:
-        info_sources = json.load(f)
-
-    # https://stackoverflow.com/a/28002687
-    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-
-    session = requests.Session()
-    # The headers are necessary for getting info from VirusTotal.
-    session.headers.update({
-        'User-Agent': 'Mozilla/5.0',
-        'Referer': 'https://www.virustotal.com/',
-        'Accept-Ianguage': 'en-US,en;q=0.9,es;q=0.8',  # That's a deliberate typo, seems like an anti-automation protection
-        'X-Tool': 'vt-ui-main',
-    })
-    session.proxies.update({'https': 'http://127.0.0.1:8080'})  # for pymultitor
-
-    output_dir = config.out_path.joinpath('virustotal')
-    output_dir.mkdir(parents=True, exist_ok=True)
-
-    # If at least one file wasn't even checked against VT, check all such files.
-    # Otherwise, check again the file that were checked before, perhaps they're on VT now.
-    if any(info_sources[name][file_hash] == 'none' for name in info_sources for file_hash in info_sources[name]):
-        target_source = 'none'
-    else:
-        target_source = 'novt'
-
-    count = 0
+def get_virustotal_data_for_target_source(info_sources, session, output_dir, target_source, time_to_stop=None):
     total_count = sum(1 for name in info_sources for file_hash in info_sources[name] if info_sources[name][file_hash] == target_source)
+    if total_count == 0:
+        return
+
     print(f'{total_count} items of type {target_source}')
 
+    count = 0
     names = info_sources.keys()
     if time_to_stop:
+        if datetime.now() >= time_to_stop:
+            return
+
         # Time is limited, shuffle keys to try different ones at different runs.
         names = list(names)
         random.shuffle(names)
@@ -152,6 +132,32 @@ def get_virustotal_data(time_to_stop=None):
                 file_hashes['not_found'].setdefault(name, set()).add(file_hash)
             else:
                 print(f'WARNING: got result {result} for {file_hash} ({name})')
+
+def get_virustotal_data(time_to_stop=None):
+    with open(config.out_path.joinpath('info_sources.json')) as f:
+        info_sources = json.load(f)
+
+    # https://stackoverflow.com/a/28002687
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+    session = requests.Session()
+    # The headers are necessary for getting info from VirusTotal.
+    session.headers.update({
+        'User-Agent': 'Mozilla/5.0',
+        'Referer': 'https://www.virustotal.com/',
+        'Accept-Ianguage': 'en-US,en;q=0.9,es;q=0.8',  # That's a deliberate typo, seems like an anti-automation protection
+        'X-Tool': 'vt-ui-main',
+    })
+    session.proxies.update({'https': 'http://127.0.0.1:8080'})  # for pymultitor
+
+    output_dir = config.out_path.joinpath('virustotal')
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    # Check files that weren't ever checked against VT.
+    get_virustotal_data_for_target_source(info_sources, session, output_dir, 'none', time_to_stop)
+
+    # Check again the files that were checked before, perhaps they're on VT now.
+    get_virustotal_data_for_target_source(info_sources, session, output_dir, 'novt', time_to_stop)
 
 def main(time_to_stop=None):
     get_virustotal_data(time_to_stop)
