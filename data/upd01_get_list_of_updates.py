@@ -5,6 +5,7 @@ import re
 
 import config
 
+
 def consolidate_overlapping_updates(updates):
     seen_kbs = {}
     for windows_version in sorted(updates.keys()):
@@ -40,6 +41,7 @@ def consolidate_overlapping_updates(updates):
                 continue
 
             seen_kbs[update_kb] = windows_version, update
+
 
 def get_updates_from_microsoft_support_for_version(windows_major_version, url):
     html = requests.get(url).text
@@ -159,10 +161,12 @@ def get_updates_from_microsoft_support_for_version(windows_major_version, url):
 
     return all_updates
 
+
 def get_updates_from_microsoft_support():
     win10_updates = get_updates_from_microsoft_support_for_version(10, 'https://support.microsoft.com/en-us/help/4000823')
     win11_updates = get_updates_from_microsoft_support_for_version(11, 'https://support.microsoft.com/en-us/help/5006099')
     return {**win10_updates, **win11_updates}
+
 
 def get_updates_from_release_health_for_version(windows_major_version, url):
     html = requests.get(url).text
@@ -214,10 +218,12 @@ def get_updates_from_release_health_for_version(windows_major_version, url):
 
     return all_updates
 
+
 def get_updates_from_release_health():
     win10_updates = get_updates_from_release_health_for_version(10, 'https://docs.microsoft.com/en-us/windows/release-health/release-information')
     win11_updates = get_updates_from_release_health_for_version(11, 'https://docs.microsoft.com/en-us/windows/release-health/windows11-release-information')
     return {**win10_updates, **win11_updates}
+
 
 def windows_version_updates_sanity_check(updates):
     update_kbs = {}
@@ -237,11 +243,13 @@ def windows_version_updates_sanity_check(updates):
     # Assert no two entries with the same KB.
     assert not any(x != 1 for x in update_kbs.values()), [x for x in update_kbs.items() if x[1] != 1]
 
+
 def merge_updates(updates_a, updates_b):
     for windows_version in updates_b:
         for update_kb in updates_b[windows_version]:
             if update_kb not in updates_a[windows_version]:
                 updates_a[windows_version][update_kb] = updates_b[windows_version][update_kb]
+
 
 def main():
     updates_from_microsoft_support = get_updates_from_microsoft_support()
@@ -260,6 +268,7 @@ def main():
 
     with open(config.out_path.joinpath('updates.json'), 'w') as f:
         json.dump(result, f, indent=4, sort_keys=True)
+
 
 if __name__ == '__main__':
     main()

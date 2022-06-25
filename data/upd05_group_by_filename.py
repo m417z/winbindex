@@ -9,10 +9,12 @@ import config
 
 file_info_data = {}
 
+
 def write_to_gzip_file(file, data):
     with open(file, 'wb') as fd:
         with gzip.GzipFile(fileobj=fd, mode='w', compresslevel=config.compression_level, filename='', mtime=0) as gz:
             gz.write(data)
+
 
 def write_all_file_info():
     output_dir = config.out_path.joinpath('by_filename_compressed')
@@ -29,6 +31,7 @@ def write_all_file_info():
 
     with open(config.out_path.joinpath('filenames.json'), 'w') as f:
         json.dump(all_filenames, f, indent=0, sort_keys=True)
+
 
 def assert_fileinfo_close_enough(file_info_1, file_info_2, multiple_sign_times=False):
     def canonical_fileinfo(file_info):
@@ -85,6 +88,7 @@ def assert_fileinfo_close_enough(file_info_1, file_info_2, multiple_sign_times=F
         # "the maximum difference could be over 30 hours", https://stackoverflow.com/a/8131056
         assert hours <= 32, f'{hours} {file_info_1["sha256"]}'
 
+
 def add_file_info_from_update(filename, output_dir, *, file_hash, file_info, windows_version, update_kb, update_info, manifest_name, assembly_identity, attributes):
     if filename in file_info_data:
         data = file_info_data[filename]
@@ -132,7 +136,9 @@ def add_file_info_from_update(filename, output_dir, *, file_hash, file_info, win
         output_path = output_dir.joinpath(filename + '.json.gz')
         write_to_gzip_file(output_path, orjson.dumps(data))
 
+
 virustotal_info_cache = {}
+
 
 def get_virustotal_info(file_hash):
     # https://stackoverflow.com/a/57027610
@@ -252,6 +258,7 @@ def get_virustotal_info(file_hash):
 
     return info
 
+
 def group_update_assembly_by_filename(input_filename, output_dir, *, windows_version, update_kb, update_info, manifest_name):
     with open(input_filename) as f:
         data = json.load(f)
@@ -285,6 +292,7 @@ def group_update_assembly_by_filename(input_filename, output_dir, *, windows_ver
             manifest_name=manifest_name,
             assembly_identity=assembly_identity,
             attributes=file_item['attributes'])
+
 
 def group_update_by_filename(windows_version, update_kb, update, parsed_dir, progress_state=None, time_to_stop=None):
     output_dir = config.out_path.joinpath('by_filename_compressed')
@@ -333,6 +341,7 @@ def group_update_by_filename(windows_version, update_kb, update, parsed_dir, pro
     if progress_state:
         progress_state['files_processed'] = count
 
+
 def process_updates(progress_state=None, time_to_stop=None):
     updates_path = config.out_path.joinpath('updates.json')
     if updates_path.is_file():
@@ -354,6 +363,7 @@ def process_updates(progress_state=None, time_to_stop=None):
 
     if progress_state and progress_state['files_total'] is None:
         progress_state['files_total'] = 0
+
 
 def add_file_info_from_virustotal_data(filename, output_dir, *, file_hash, file_info):
     if filename in file_info_data:
@@ -380,6 +390,7 @@ def add_file_info_from_virustotal_data(filename, output_dir, *, file_hash, file_
     else:
         output_path = output_dir.joinpath(filename + '.json.gz')
         write_to_gzip_file(output_path, orjson.dumps(data))
+
 
 def process_virustotal_data():
     output_dir = config.out_path.joinpath('by_filename_compressed')
@@ -416,6 +427,7 @@ def process_virustotal_data():
         json.dump(info_sources, f)
 
     virustotal_info_cache.clear()
+
 
 def add_file_info_from_iso_data(filename, output_dir, *, file_hash, file_info, source_path, windows_version, windows_version_info):
     if filename in file_info_data:
@@ -459,6 +471,7 @@ def add_file_info_from_iso_data(filename, output_dir, *, file_hash, file_info, s
 
     file_info_data[filename] = data
 
+
 def group_iso_data_by_filename(iso_data_file):
     output_dir = config.out_path.joinpath('by_filename_compressed')
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -487,6 +500,7 @@ def group_iso_data_by_filename(iso_data_file):
             windows_version=windows_version,
             windows_version_info=windows_version_info)
 
+
 def process_iso_files():
     from_iso_dir = config.out_path.joinpath('from_iso')
 
@@ -494,6 +508,7 @@ def process_iso_files():
         if iso_data_file.is_file():
             print('  ' + iso_data_file.stem)
             group_iso_data_by_filename(iso_data_file)
+
 
 def main(progress_state=None, time_to_stop=None):
     print('Processing data from updates')
@@ -506,6 +521,7 @@ def main(progress_state=None, time_to_stop=None):
     process_iso_files()
 
     write_all_file_info()
+
 
 if __name__ == '__main__':
     main()

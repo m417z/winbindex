@@ -5,8 +5,10 @@
         "pymultitor",
         "redist",
         "redistributable",
+        "sigcheck",
         "vcredist",
         "virtualselect",
+        "virustotal",
         "winbindex",
         "yadcf"
     ]
