@@ -14,6 +14,7 @@ file_hashes = {
     'not_found': {}
 }
 
+
 def update_file_hashes():
     info_sources_path = config.out_path.joinpath('info_sources.json')
     if info_sources_path.is_file():
@@ -38,6 +39,7 @@ def update_file_hashes():
 
     with open(info_sources_path, 'w') as f:
         json.dump(info_sources, f)
+
 
 def get_virustotal_data_for_file(session, file_hash, output_dir):
     if output_dir.joinpath(file_hash + '.json').is_file():
@@ -79,6 +81,7 @@ def get_virustotal_data_for_file(session, file_hash, output_dir):
         f.write(virustotal_data)
 
     return result
+
 
 def get_virustotal_data_for_target_source(info_sources, session, output_dir, target_source, time_to_stop=None):
     total_count = sum(1 for name in info_sources for file_hash in info_sources[name] if info_sources[name][file_hash] == target_source)
@@ -133,6 +136,7 @@ def get_virustotal_data_for_target_source(info_sources, session, output_dir, tar
             else:
                 print(f'WARNING: got result {result} for {file_hash} ({name})')
 
+
 def get_virustotal_data(time_to_stop=None):
     with open(config.out_path.joinpath('info_sources.json')) as f:
         info_sources = json.load(f)
@@ -159,9 +163,11 @@ def get_virustotal_data(time_to_stop=None):
     # Check again the files that were checked before, perhaps they're on VT now.
     get_virustotal_data_for_target_source(info_sources, session, output_dir, 'novt', time_to_stop)
 
+
 def main(time_to_stop=None):
     get_virustotal_data(time_to_stop)
     update_file_hashes()
+
 
 if __name__ == '__main__':
     main()

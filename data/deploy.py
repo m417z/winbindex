@@ -17,6 +17,7 @@ import config
 
 deploy_start_time = datetime.now()
 
+
 def filter_updates(updates, update_kbs):
     filtered = {}
     for windows_version in updates:
@@ -26,6 +27,7 @@ def filter_updates(updates, update_kbs):
                 updates_dict[update_kb] = updates[windows_version][update_kb]
 
     return filtered
+
 
 def prepare_updates():
     last_time_updates_path = config.out_path.joinpath('updates_last.json')
@@ -69,6 +71,7 @@ def prepare_updates():
 
     return update_kb
 
+
 def check_pymultitor(proxy='http://127.0.0.1:8080'):
     try:
         url = 'http://0.0.0.0/'
@@ -76,6 +79,7 @@ def check_pymultitor(proxy='http://127.0.0.1:8080'):
         return True
     except requests.exceptions.RequestException:
         return False
+
 
 def run_virustotal_updates():
     #time_to_stop = deploy_start_time + timedelta(minutes=46)  # For Travis
@@ -108,6 +112,7 @@ def run_virustotal_updates():
     temp_updates_path.unlink()
 
     return f'Updated info of {files_count_after - files_count_before} files from VirusTotal'
+
 
 def run_deploy():
     #time_to_stop = deploy_start_time + timedelta(minutes=46)  # For Travis
@@ -154,6 +159,7 @@ def run_deploy():
 
     return f'Updated with files from {progress_state["update_kb"]}'
 
+
 def can_deploy():
     # Unsupported in this flow.
     assert not config.extract_in_a_new_thread
@@ -161,6 +167,7 @@ def can_deploy():
     # Can deploy only if there's no pending PR yet.
     url = 'https://api.github.com/search/issues?q=is:pr+is:open+repo:m417z/winbindex+author:winbindex-deploy-bot'
     return requests.get(url).json()['total_count'] == 0
+
 
 def build_html_index_of_hashes():
     with open('info_sources.json', 'r') as f:
@@ -230,6 +237,7 @@ def build_html_index_of_hashes():
         with open(f'../hashes/{prefix_str}.html', 'w') as f:
             f.write(html_code)
 
+
 def update_readme_stats():
     with open('info_sources.json', 'r') as f:
         info_sources = json.load(f)
@@ -265,9 +273,11 @@ def update_readme_stats():
     with open('README.md', 'w') as f:
         f.write(readme)
 
+
 def init_deploy():
     args = ['git', 'remote', 'add', 'push-origin', f'https://{os.environ["GITHUB_TOKEN"]}@github.com/m417z/winbindex.git']
     subprocess.run(args, check=True)
+
 
 def commit_deploy(pr_title):
     git_email = '69083578+winbindex-deploy-bot@users.noreply.github.com'
@@ -317,6 +327,7 @@ def commit_deploy(pr_title):
         #print(response.text)
         response.raise_for_status()
 
+
 def main():
     if not can_deploy():
         print('can_deploy() returned False, exiting')
@@ -342,6 +353,7 @@ def main():
         if match and int(match.group(1)) < 100:
             print('Done')
             return
+
 
 if __name__ == '__main__':
     main()

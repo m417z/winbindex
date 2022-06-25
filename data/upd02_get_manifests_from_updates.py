@@ -10,11 +10,14 @@ import re
 
 import config
 
+
 class UpdateNotFound(Exception):
     pass
 
+
 class UpdateNotSupported(Exception):
     pass
+
 
 def search_for_updates(search_terms):
     url = 'https://www.catalog.update.microsoft.com/Search.aspx'
@@ -37,6 +40,7 @@ def search_for_updates(search_terms):
 
     return matches
 
+
 def get_update_download_url(update_uid):
     input_json = [{
         'uidInfo': update_uid,
@@ -51,6 +55,7 @@ def get_update_download_url(update_uid):
         raise Exception(f'Expected one downloadInformation item, found {len(matches)}')
 
     return matches[0]
+
 
 def download_update(windows_version, update_kb):
     # ARM only.
@@ -103,6 +108,7 @@ def download_update(windows_version, update_kb):
 
     return download_url, local_dir, local_path
 
+
 def extract_manifest_files(local_dir, local_path):
     def cab_extract(pattern, from_file, to_dir):
         if platform.system() == 'Windows':
@@ -146,6 +152,7 @@ def extract_manifest_files(local_dir, local_path):
         args = ['tools/sxsexp64.exe', local_dir, local_dir]
         subprocess.run(args, stdout=None if config.verbose_run else subprocess.DEVNULL)
 
+
 def get_manifests_from_update(windows_version, update_kb):
     print(f'[{update_kb}] Downloading update')
 
@@ -169,6 +176,7 @@ def get_manifests_from_update(windows_version, update_kb):
         thread.start()
     else:
         extract_manifest_files_start()
+
 
 def main():
     with open(config.out_path.joinpath('updates.json')) as f:
@@ -200,6 +208,7 @@ def main():
                     raise
 
         print()
+
 
 if __name__ == '__main__':
     main()

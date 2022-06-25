@@ -8,6 +8,7 @@ import config
 
 file_hashes = {}
 
+
 def update_file_hashes():
     info_sources_path = config.out_path.joinpath('info_sources.json')
     if info_sources_path.is_file():
@@ -24,6 +25,7 @@ def update_file_hashes():
         json.dump(info_sources, f)
 
     file_hashes.clear()
+
 
 def parse_manifest_file(file_el):
     hashes = list(file_el.findall('hash'))
@@ -65,6 +67,7 @@ def parse_manifest_file(file_el):
 
     return result
 
+
 def parse_manifest(filename):
     #root = ET.parse(filename).getroot()
     # Strip namespaces.
@@ -101,6 +104,7 @@ def parse_manifest(filename):
 
     return result
 
+
 def parse_manifests(manifests_dir, output_dir):
     output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -124,6 +128,7 @@ def parse_manifests(manifests_dir, output_dir):
         with open(output_filename, 'w') as f:
             json.dump(parsed, f, indent=4)
 
+
 def main():
     with open(config.out_path.joinpath('updates.json')) as f:
         updates = json.load(f)
@@ -139,6 +144,7 @@ def main():
                 print('  ' + update_kb)
 
     update_file_hashes()
+
 
 if __name__ == '__main__':
     main()

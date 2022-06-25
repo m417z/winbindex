@@ -24,6 +24,7 @@ import config
 # Convenient for testing, but beware of files containing only partial data.
 REUSE_OUTPUT_FILES = False
 
+
 def sigcheck_folder(folder, output_file):
     if not REUSE_OUTPUT_FILES or not output_file.is_file():
         with open(output_file, 'w') as f:
@@ -32,6 +33,7 @@ def sigcheck_folder(folder, output_file):
 
     with open(output_file, encoding='utf-16') as f:
         return f.read()
+
 
 def prase_sigcheck(sigcheck_data, folder):
     folder_in_correct_case = sigcheck_data[:len(str(folder))]
@@ -135,6 +137,7 @@ def prase_sigcheck(sigcheck_data, folder):
 
     return result
 
+
 # https://gist.github.com/geudrik/03152ba1a148d9475e81
 def get_pe_extra_data(filename):
     with open(filename, 'rb') as handle:
@@ -161,6 +164,7 @@ def get_pe_extra_data(filename):
         'image_size': image_size,
     }
 
+
 # https://gist.github.com/Mostafa-Hamdy-Elgiar/9714475f1b3bc224ea063af81566d873
 def filetime_to_date(filetime):
     # http://support.microsoft.com/kb/167296
@@ -170,10 +174,12 @@ def filetime_to_date(filetime):
     datetime_object = datetime.utcfromtimestamp((filetime - EPOCH_AS_FILETIME) / HUNDREDS_OF_NANOSECONDS)
     return datetime_object.isoformat()
 
+
 # https://stackoverflow.com/a/1151705
 class hashabledict(dict):
     def __hash__(self):
         return hash(tuple(sorted(self.items())))
+
 
 def main(folder, windows_version, iso_sha256, release_date):
     assert (
@@ -281,6 +287,7 @@ def main(folder, windows_version, iso_sha256, release_date):
 
     with open(info_sources_path, 'w') as f:
         json.dump(info_sources, f)
+
 
 if __name__ == '__main__':
     if len(sys.argv) != 5:
