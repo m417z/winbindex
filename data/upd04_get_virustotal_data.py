@@ -69,11 +69,18 @@ def get_virustotal_data_for_file(session, file_hash, output_dir):
     if r.status_code != 200:
         prefix = f'_{r.status_code}_'
         result = 'not_found' if r.status_code == 404 else str(r.status_code)
-    elif '"pe_info": {' not in virustotal_data:
-        prefix = '_no_pe_info_'  # no PE info, need to rescan it on VirusTotal
-        result = 'no_pe_info'
     else:
-        result = 'ok'
+        try:
+            virustotal_json = json.loads(virustotal_data)
+            try:
+                _ = virustotal_json['data']['attributes']['pe_info']['sections'][0]
+                result = 'ok'
+            except:
+                prefix = '_no_pe_info_'  # no PE info, need to rescan it on VirusTotal
+                result = 'no_pe_info'
+        except:
+            prefix = '_not_json_'
+            result = 'not_json'
 
     output_filename = output_dir.joinpath(prefix + file_hash + '.json')
 
