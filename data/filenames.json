@@ -34513,6 +34513,8 @@
 "printmanagementprovider.dll.mui",
 "printmanagementprovider.mfl",
 "printmanagementprovider.mof",
+"printmanagementprovider_uninstall.mfl",
+"printmanagementprovider_uninstall.mof",
 "printmig.dll",
 "printplatformconfig.dll",
 "printqueue.inf",

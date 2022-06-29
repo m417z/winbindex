@@ -4916,6 +4916,16 @@
             "releaseVersion": "19042.1741",
             "updateUrl": "https://support.microsoft.com/help/5014023"
         },
+        "KB5014666": {
+            "heading": "June 28, 2022&#x2014;KB5014666 (OS Builds 19042.1806, 19043.1806, and 19044.1806) Preview",
+            "otherWindowsVersions": [
+                "21H1",
+                "21H2"
+            ],
+            "releaseDate": "2022-06-28",
+            "releaseVersion": "19042.1806",
+            "updateUrl": "https://support.microsoft.com/help/5014666"
+        },
         "KB5014699": {
             "heading": "June 14, 2022&#x2014;KB5014699 (OS Builds 19042.1766, 19043.1766, and 19044.1766)",
             "otherWindowsVersions": [
