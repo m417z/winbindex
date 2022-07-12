@@ -4946,6 +4946,16 @@
             "releaseVersion": "19042.1708",
             "updateUrl": "https://support.microsoft.com/help/5015020"
         },
+        "KB5015807": {
+            "heading": "July 12, 2022&#x2014;KB5015807 (OS Builds 19042.1826, 19043.1826, and 19044.1826)",
+            "otherWindowsVersions": [
+                "21H1",
+                "21H2"
+            ],
+            "releaseDate": "2022-07-12",
+            "releaseVersion": "19042.1826",
+            "updateUrl": "https://support.microsoft.com/help/5015807"
+        },
         "KB5016139": {
             "heading": "June 20, 2022&#x2014;KB5016139 (OS Builds 19042.1767, 19043.1767, and 19044.1767) Out-of-band",
             "otherWindowsVersions": [
