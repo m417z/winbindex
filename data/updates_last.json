@@ -744,6 +744,12 @@
             "releaseDate": "2022-06-14",
             "releaseVersion": "10240.19325",
             "updateUrl": "https://support.microsoft.com/help/5014710"
+        },
+        "KB5015832": {
+            "heading": "July 12, 2022-KB5015832 (OS Build 10240.19360)",
+            "releaseDate": "2022-07-12",
+            "releaseVersion": "10240.19360",
+            "updateUrl": "https://support.microsoft.com/help/5015832"
         }
     },
     "1511": {
