@@ -3938,6 +3938,12 @@
             "releaseDate": "2022-07-12",
             "releaseVersion": "17763.3165",
             "updateUrl": "https://support.microsoft.com/help/5015811"
+        },
+        "KB5015880": {
+            "heading": "July 21, 2022&#x2014;KB5015880 (OS Build 17763.3232) Preview",
+            "releaseDate": "2022-07-21",
+            "releaseVersion": "17763.3232",
+            "updateUrl": "https://support.microsoft.com/help/5015880"
         }
     },
     "1903": {
