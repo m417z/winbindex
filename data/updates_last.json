@@ -5011,6 +5011,16 @@
             "releaseDate": "2022-06-20",
             "releaseVersion": "19042.1767",
             "updateUrl": "https://support.microsoft.com/help/5016139"
+        },
+        "KB5016616": {
+            "heading": "August 9, 2022&#x2014;KB5016616 (OS Builds 19042.1889, 19043.1889, and 19044.1889)",
+            "otherWindowsVersions": [
+                "21H1",
+                "21H2"
+            ],
+            "releaseDate": "2022-08-09",
+            "releaseVersion": "19042.1889",
+            "updateUrl": "https://support.microsoft.com/help/5016616"
         }
     }
 }
