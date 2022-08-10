@@ -762,6 +762,12 @@
             "releaseDate": "2022-07-12",
             "releaseVersion": "10240.19360",
             "updateUrl": "https://support.microsoft.com/help/5015832"
+        },
+        "KB5016639": {
+            "heading": "August 9, 2022-KB5016639 (OS Build 10240.19387)",
+            "releaseDate": "2022-08-09",
+            "releaseVersion": "10240.19387",
+            "updateUrl": "https://support.microsoft.com/help/5016639"
         }
     },
     "1511": {
