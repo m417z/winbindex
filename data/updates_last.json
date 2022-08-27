@@ -5057,6 +5057,16 @@
             "releaseDate": "2022-08-09",
             "releaseVersion": "19042.1889",
             "updateUrl": "https://support.microsoft.com/help/5016616"
+        },
+        "KB5016688": {
+            "heading": "August 26, 2022&#x2014;KB5016688 (OS Builds 19042.1949, 19043.1949, and 19044.1949) Preview",
+            "otherWindowsVersions": [
+                "21H1",
+                "21H2"
+            ],
+            "releaseDate": "2022-08-26",
+            "releaseVersion": "19042.1949",
+            "updateUrl": "https://support.microsoft.com/help/5016688"
         }
     }
 }
