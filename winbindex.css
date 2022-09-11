@@ -22,6 +22,11 @@ button:disabled {
     cursor: not-allowed;
 }
 
+/* Cursor for abbr inside links - inherit pointer */
+a abbr {
+    cursor: inherit !important;
+}
+
 /* bootstrap4-dialog - add spacing between buttons */
 .bootstrap-dialog .bootstrap-dialog-footer-buttons .btn {
     margin-right: .5rem;
@@ -109,9 +114,10 @@ div.dataTables_wrapper div.dataTables_info {
     pointer-events: none;
 }
 
-.winbindex-extra-info-json {
+.winbindex-scrollable-info-box-contents {
     /* https://stackoverflow.com/a/28852473 */
     max-height: calc(100vh - 225px);
     padding: 10px;
     margin-bottom: 0;
+    overflow: auto;
 }

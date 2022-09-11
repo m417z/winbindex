@@ -10,6 +10,7 @@ var globalFunctions = {};
     function run() {
         globalFunctions.onHashCopyClick = onHashCopyClick;
         globalFunctions.onShowExtraClick = onShowExtraClick;
+        globalFunctions.onMultiDownloadClick = onMultiDownloadClick;
 
         animateLogo();
 
@@ -371,23 +372,36 @@ var globalFunctions = {};
                     searchable: false,
                     sortable: false,
                     render: function (data) {
-                        if (!data.timestamp || !data.virtualSize) {
-                            var msg;
-                            if (/\.(exe|dll|sys|winmd|cpl|ax|node|ocx|efi|acm|scr|tsp|drv)$/.test(fileToLoad)) {
-                                msg = 'Download is not available since the file isn\'t available on VirusTotal';
-                            } else {
-                                msg = 'Download is only available for executables such as exe, dll, and sys files';
-                            }
-                            return '<span class="disabled-cursor" data-toggle="tooltip" title="' + msg + '">' +
-                                '<a href="#" class="btn btn-secondary btn-sm disabled">Download</a></span>';
+                        var hash = data.hash;
+                        var d = data.fileInfo;
+
+                        if (d.timestamp && d.virtualSize) {
+                            var url = makeSymbolServerUrl(fileToLoad, d.timestamp, d.virtualSize);
+
+                            var downloadLink = $('<a class="btn btn-secondary btn-sm">Download</a>')
+                                .prop('href', url).attr('onclick', 'arguments[0].stopPropagation();');
+
+                            return downloadLink[0].outerHTML;
                         }
 
-                        var url = makeSymbolServerUrl(fileToLoad, data.timestamp, data.virtualSize);
+                        // TODO: Remove when feature is ready.
+                        var alphaDeltaFeature = getParameterByName('dd') !== null;
 
-                        var element = $('<a class="btn btn-secondary btn-sm">Download</a>')
-                            .prop('href', url).attr('onclick', 'arguments[0].stopPropagation();');
+                        if (alphaDeltaFeature && d.timestamp && d.size && d.lastSectionPointerToRawData && d.lastSectionVirtualAddress) {
+                            var multiDownloadBtn = $('<a href="#" class="btn btn-secondary btn-sm"><abbr data-toggle="tooltip" title="Several download link candidates">Download</abbr></a>')
+                                .attr('onclick', 'arguments[0].stopPropagation(); return globalFunctions.onMultiDownloadClick(this, "' + hash + '", "' + encodeURIComponent(fileToLoad) + '", ' + d.timestamp + ', ' + d.size + ', ' + d.lastSectionPointerToRawData + ', ' + d.lastSectionVirtualAddress + ');');
 
-                        return element[0].outerHTML;
+                            return multiDownloadBtn[0].outerHTML;
+                        }
+
+                        var msg;
+                        if (/\.(exe|dll|sys|winmd|cpl|ax|node|ocx|efi|acm|scr|tsp|drv)$/.test(fileToLoad)) {
+                            msg = 'Download is not available since the file isn\'t available on VirusTotal';
+                        } else {
+                            msg = 'Download is only available for executables such as exe, dll, and sys files';
+                        }
+                        return '<span class="disabled-cursor" data-toggle="tooltip" title="' + msg + '">' +
+                            '<a href="#" class="btn btn-secondary btn-sm disabled">Download</a></span>';
                     }
                 }, {
                     targets: 'target-plain-text',
@@ -484,13 +498,23 @@ var globalFunctions = {};
 
                     if (d.fileInfo) {
                         fileInfo = d.fileInfo;
+
+                        // For PE files with partial delta info, if we don't
+                        // have some optional data (i.e. data that not all files
+                        // have), we can't know whether the real file has it.
+                        // For files with full data, we know that if we don't
+                        // have some optional data, it's missing in the file, so
+                        // we can mark it as such.
+                        var partialDeltaInfo = !!(fileInfo.lastSectionPointerToRawData && fileInfo.lastSectionVirtualAddress);
+                        var fallbackForOptionalData = partialDeltaInfo ? null : '-';
+
                         sha1 = fileInfo.sha1 || null;
                         md5 = fileInfo.md5 || null;
                         description = fileInfo.description || null;
                         machineType = fileInfo.machineType || '-';
-                        signingDate = fileInfo.signingDate || '-';
+                        signingDate = fileInfo.signingDate || fallbackForOptionalData;
                         size = fileInfo.size || null;
-                        version = fileInfo.version || '-';
+                        version = fileInfo.version || fallbackForOptionalData;
                     }
 
                     var assemblyArchitecture = getAssemblyParam(d, 'processorArchitecture') || '-';
@@ -512,7 +536,7 @@ var globalFunctions = {};
                         assemblyArchitecture,
                         assemblyVersion,
                         { hash: hash, data: d },
-                        fileInfo
+                        { hash: hash, fileInfo: fileInfo }
                     ]);
 
                     if (description && updateKbs.items[0] && updateKbs.items[0] > mainDescriptionUpdate) {
@@ -824,7 +848,7 @@ var globalFunctions = {};
 
         BootstrapDialog.show({
             title: 'Extra info',
-            message: $('<pre class="winbindex-extra-info-json"></pre>').text(text),
+            message: $('<pre class="winbindex-scrollable-info-box-contents"></pre>').text(text),
             size: BootstrapDialog.SIZE_WIDE,
             onshow: function (dialog) {
                 var modalBody = dialog.getModalBody();
@@ -840,6 +864,83 @@ var globalFunctions = {};
                 action: function (dialog) {
                     var button = $(this);
                     copyToClipboard(text, function () {
+                        button.prop('title', 'Copied').tooltip('show');
+                        setTimeout(function () {
+                            button.removeProp('title').tooltip('dispose');
+                        }, 500);
+                    }, function () {
+                        alert('Failed to copy to clipboard');
+                    });
+                }
+            }, {
+                label: 'Close',
+                action: function (dialog) {
+                    dialog.close();
+                }
+            }]
+        });
+
+        return false;
+    }
+
+    function onMultiDownloadClick(element, fileHash, peName, timeStamp, fileSize, lastSectionPointerToRawData, lastSectionVirtualAddress) {
+        // Algorithm inspired by DeltaDownloader:
+        // https://github.com/Wack0/DeltaDownloader/blob/ab71359fc5a1f2446b650b31450c74a701c40979/Program.cs#L68-L85
+
+        var PAGE_SIZE = 0x1000;
+
+        function getMappedSize(size) {
+            var PAGE_MASK = (PAGE_SIZE - 1);
+            var page = size & ~PAGE_MASK;
+            if (page == size) return page;
+            return page + PAGE_SIZE;
+        }
+
+        // We use the rift table (VirtualAddress,PointerToRawData pairs for each section) and the target file size to calculate the SizeOfImage.
+        var lastSectionAndSignatureSize = fileSize - lastSectionPointerToRawData;
+        var lastSectionAndSignatureMappedSize = getMappedSize(lastSectionVirtualAddress + lastSectionAndSignatureSize);
+
+        var sizeOfImage = lastSectionAndSignatureMappedSize;
+        var lowestSizeOfImage = lastSectionVirtualAddress + PAGE_SIZE;
+
+        var urlsStr = '';
+        var urls = $('<div>');
+        for (var size = sizeOfImage; size >= lowestSizeOfImage; size -= PAGE_SIZE) {
+            var url = makeSymbolServerUrl(peName, timeStamp, size);
+            urlsStr += url + '\n';
+            urls.append($('<a>', {
+                href: url
+            }).text(url)).append('<br>');
+        }
+
+        var messageHtml = 'This file is indexed with a limited amount of information. ' +
+            'It\'s not possible to generate the exact download link, but it\'s possible ' +
+            'to generate several download link candidates, one of which is likely to be ' +
+            'the correct link. You can just try these links one by one (usually one of the ' +
+            'first links is the correct one), or you can feed this list to a download tool ' +
+            'such as curl, wget or aria2. For more details, refer to ' +
+            '<a href="https://m417z.com/" target="_blank">the relevant blog post</a>.';
+        var message = $('<div class="winbindex-scrollable-info-box-contents">' + messageHtml + '</div>')
+            .append('<br><br>').append(urls);
+
+        BootstrapDialog.show({
+            title: 'Several download link candidates',
+            message: message,
+            size: BootstrapDialog.SIZE_WIDE,
+            onshow: function (dialog) {
+                var modalBody = dialog.getModalBody();
+                modalBody.css('padding', '0');
+            },
+            buttons: [{
+                label: 'Download list',
+                action: function (dialog) {
+                    downloadFile(fileHash + '_urls.txt', urlsStr);
+                }
+            }, {
+                label: 'Copy to clipboard',
+                action: function (dialog) {
+                    var button = $(this);
+                    copyToClipboard(urlsStr, function () {
                         button.prop('title', 'Copied').tooltip('show');
                         setTimeout(function () {
                             button.removeProp('title').tooltip('dispose');
