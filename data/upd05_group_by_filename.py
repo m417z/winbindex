@@ -1,5 +1,6 @@
 from datetime import datetime
 from pathlib import Path
+import itertools
 import bisect
 import orjson
 import gzip
@@ -33,8 +34,32 @@ def write_all_file_info():
         json.dump(all_filenames, f, indent=0, sort_keys=True)
 
 
-def assert_fileinfo_close_enough(file_info_1, file_info_2, multiple_sign_times=False):
-    def canonical_fileinfo(file_info):
+def is_delta_file_info(file_info):
+    # For non-PE files.
+    if file_info.keys() == {
+        'size',
+        'md5',
+    }:
+        return True
+
+    # For PE files.
+    if file_info.keys() == {
+        'size',
+        'md5',
+        'machineType',
+        'timestamp',
+        'lastSectionVirtualAddress',
+        'lastSectionPointerToRawData',
+    }:
+        return True
+
+    assert 'lastSectionVirtualAddress' not in file_info
+    assert 'lastSectionPointerToRawData' not in file_info
+    return False
+
+
+def assert_file_info_close_enough(file_info_1, file_info_2, multiple_sign_times=False):
+    def canonical_file_info(file_info):
         if 'signingStatus' not in file_info or file_info['signingStatus'] == 'Unsigned':
             return file_info
 
@@ -70,8 +95,21 @@ def assert_fileinfo_close_enough(file_info_1, file_info_2, multiple_sign_times=F
 
         return file_info
 
-    file_info_1 = canonical_fileinfo(file_info_1)
-    file_info_2 = canonical_fileinfo(file_info_2)
+    is_delta_file_info_1 = is_delta_file_info(file_info_1)
+    is_delta_file_info_2 = is_delta_file_info(file_info_2)
+    if is_delta_file_info_1 and is_delta_file_info_2:
+        assert file_info_1 == file_info_2
+        return
+
+    if is_delta_file_info_1 or is_delta_file_info_2:
+        assert file_info_1['md5'] == file_info_2['md5']
+        assert file_info_1['size'] == file_info_2['size']
+        assert file_info_1.get('machineType') == file_info_2.get('machineType')
+        assert file_info_1.get('timestamp') == file_info_2.get('timestamp')
+        return
+
+    file_info_1 = canonical_file_info(file_info_1)
+    file_info_2 = canonical_file_info(file_info_2)
 
     assert file_info_1.keys() == file_info_2.keys()
 
@@ -84,12 +122,40 @@ def assert_fileinfo_close_enough(file_info_1, file_info_2, multiple_sign_times=F
         difference = datetime1 - datetime2
         hours = abs(difference.total_seconds()) / 3600
 
-        # VirusTotal returns the time in a local, unknown timestamp.
+        # VirusTotal returns the time in a local, unknown timezone.
         # "the maximum difference could be over 30 hours", https://stackoverflow.com/a/8131056
         assert hours <= 32, f'{hours} {file_info_1["sha256"]}'
 
 
-def add_file_info_from_update(filename, output_dir, *, file_hash, file_info, windows_version, update_kb, update_info, manifest_name, assembly_identity, attributes):
+def update_file_info(existing_file_info, delta_file_info, virustotal_file_info, real_file_info, multiple_sign_times=False):
+    file_infos = [existing_file_info, delta_file_info, virustotal_file_info, real_file_info]
+    file_infos = [x for x in file_infos if x is not None]
+
+    for file_info_1, file_info_2 in itertools.combinations(file_infos, 2):
+        assert_file_info_close_enough(file_info_1, file_info_2, multiple_sign_times)
+
+    if real_file_info:
+        return real_file_info
+
+    if existing_file_info and not is_delta_file_info(existing_file_info):
+        return existing_file_info
+
+    if virustotal_file_info:
+        return virustotal_file_info
+
+    return delta_file_info
+
+
+def add_file_info_from_update(filename, output_dir, *,
+                              file_hash,
+                              virustotal_file_info,
+                              windows_version,
+                              update_kb,
+                              update_info,
+                              manifest_name,
+                              assembly_identity,
+                              attributes,
+                              delta_file_info):
     if filename in file_info_data:
         data = file_info_data[filename]
     else:
@@ -102,11 +168,9 @@ def add_file_info_from_update(filename, output_dir, *, file_hash, file_info, win
 
     x = data.setdefault(file_hash, {})
 
-    if file_info:
-        if 'fileInfo' not in x:
-            x['fileInfo'] = file_info
-        else:
-            assert_fileinfo_close_enough(x['fileInfo'], file_info)
+    updated_file_info = update_file_info(x.get('fileInfo'), delta_file_info, virustotal_file_info, None)
+    if updated_file_info:
+        x['fileInfo'] = updated_file_info
 
     x = x.setdefault('windowsVersions', {})
     x = x.setdefault(windows_version, {})
@@ -285,13 +349,14 @@ def group_update_assembly_by_filename(input_filename, output_dir, *, windows_ver
 
         add_file_info_from_update(filename, output_dir,
             file_hash=file_hash,
-            file_info=virustotal_info,
+            virustotal_file_info=virustotal_info,
             windows_version=windows_version,
             update_kb=update_kb,
             update_info=update_info,
             manifest_name=manifest_name,
             assembly_identity=assembly_identity,
-            attributes=file_item['attributes'])
+            attributes=file_item['attributes'],
+            delta_file_info=file_item.get('delta'))
 
 
 def group_update_by_filename(windows_version, update_kb, update, parsed_dir, progress_state=None, time_to_stop=None):
@@ -316,27 +381,25 @@ def group_update_by_filename(windows_version, update_kb, update, parsed_dir, pro
         count = 0
 
     for path in paths:
-        if not path.is_file():
-            continue
+        if time_to_stop and datetime.now() >= time_to_stop:
+            break
+
+        if path.is_file():
+            try:
+                group_update_assembly_by_filename(path, output_dir,
+                    windows_version=windows_version,
+                    update_kb=update_kb,
+                    update_info=update,
+                    manifest_name=path.stem)
+            except Exception as e:
+                print(f'ERROR: failed to process {path}')
+                print(f'       {e}')
+                if config.exit_on_first_error:
+                    raise
 
         count += 1
         if count % 200 == 0 and config.verbose_progress:
             print(f'Processed {count} of {count_total}')
-
-        if time_to_stop and datetime.now() >= time_to_stop:
-            break
-
-        try:
-            group_update_assembly_by_filename(str(path), output_dir,
-                windows_version=windows_version,
-                update_kb=update_kb,
-                update_info=update,
-                manifest_name=path.stem)
-        except Exception as e:
-            print(f'ERROR: failed to process {path}')
-            print('    ' + str(e))
-            if config.exit_on_first_error:
-                raise
 
     if progress_state:
         progress_state['files_processed'] = count
@@ -378,12 +441,9 @@ def add_file_info_from_virustotal_data(filename, output_dir, *, file_hash, file_
 
     x = data[file_hash]
 
-    if file_info:
-        if 'fileInfo' not in x:
-            x['fileInfo'] = file_info
-        else:
-            assert_fileinfo_close_enough(x['fileInfo'], file_info)
-            return
+    updated_file_info = update_file_info(x.get('fileInfo'), None, file_info, None)
+    assert updated_file_info
+    x['fileInfo'] = updated_file_info
 
     if config.high_mem_usage_for_performance:
         file_info_data[filename] = data
@@ -442,18 +502,15 @@ def add_file_info_from_iso_data(filename, output_dir, *, file_hash, file_info, s
 
     x = data.setdefault(file_hash, {})
 
-    if file_info:
-        if 'fileInfo' not in x:
-            x['fileInfo'] = file_info
-        else:
-            # Many files distributed with Edge are for some reason signed twice.
-            multiple_sign_times = (
-                source_path.startswith('Program Files (x86)\\Microsoft\\Edge\\Application\\') or
-                source_path.startswith('Program Files (x86)\\Microsoft\\EdgeCore\\') or
-                source_path.startswith('Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\')
-            )
-            assert_fileinfo_close_enough(x['fileInfo'], file_info, multiple_sign_times)
-            x['fileInfo'] = file_info  # this one is more accurate
+    # Many files distributed with Edge are for some reason signed twice.
+    multiple_sign_times = (
+        source_path.startswith('Program Files (x86)\\Microsoft\\Edge\\Application\\') or
+        source_path.startswith('Program Files (x86)\\Microsoft\\EdgeCore\\') or
+        source_path.startswith('Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\')
+    )
+    updated_file_info = update_file_info(x.get('fileInfo'), None, None, file_info, multiple_sign_times)
+    assert updated_file_info
+    x['fileInfo'] = updated_file_info
 
     x = x.setdefault('windowsVersions', {})
     x = x.setdefault(windows_version, {})

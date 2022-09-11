@@ -27,7 +27,45 @@ def update_file_hashes():
     file_hashes.clear()
 
 
-def parse_manifest_file(file_el):
+def get_delta_data_for_manifest_file(manifest_path: Path, filename: str):
+    delta_path = manifest_path.parent.joinpath(manifest_path.stem, 'f', filename + '.dd.txt')
+    if not delta_path.exists():
+        return None
+
+    delta_data_raw = delta_path.read_text()
+
+    delta_data = {}
+    key_value = re.findall(r'^(\w+):(.*)$', delta_data_raw, re.MULTILINE)
+    for key, value in key_value:
+        delta_data[key] = value.strip()
+
+    result = {}
+
+    result['size'] = int(delta_data['TargetSize'])
+
+    assert delta_data['HashAlgorithm'] == 'CALG_MD5'
+    result['md5'] = delta_data['Hash'].lower()
+
+    if delta_data['Code'] != 'Raw':
+        machine_type_values = {
+            'CLI4_I386': 332,
+            'CLI4_AMD64': 34404,
+            'CLI4_ARM64': 43620,
+        }
+        result['machineType'] = machine_type_values[delta_data['Code']]
+
+        result['timestamp'] = int(delta_data['TimeStamp'])
+
+        rift_table = delta_data['RiftTable']
+        rift_table_last = rift_table.split(';')[-1].split(',')
+
+        result['lastSectionVirtualAddress'] = int(rift_table_last[0])
+        result['lastSectionPointerToRawData'] = int(rift_table_last[1])
+
+    return result
+
+
+def parse_manifest_file(manifest_path, file_el):
     hashes = list(file_el.findall('hash'))
     if len(hashes) != 1:
         raise Exception('Expected to have a single hash tag')
@@ -55,8 +93,8 @@ def parse_manifest_file(file_el):
     digest_value_el = digest_values[0]
     hash = base64.b64decode(digest_value_el.text).hex()
 
+    filename = file_el.attrib['name'].split('\\')[-1].lower()
     if algorithm == 'sha256':
-        filename = file_el.attrib['name'].split('\\')[-1].lower()
         if (re.search(r'\.(exe|dll|sys|winmd|cpl|ax|node|ocx|efi|acm|scr|tsp|drv)$', filename)):
             file_hashes.setdefault(filename, set()).add(hash)
 
@@ -65,14 +103,18 @@ def parse_manifest_file(file_el):
         'attributes': dict(file_el.attrib.items()),
     }
 
+    delta_data = get_delta_data_for_manifest_file(manifest_path, filename)
+    if delta_data:
+        result['delta'] = delta_data
+
     return result
 
 
-def parse_manifest(filename):
-    #root = ET.parse(filename).getroot()
+def parse_manifest(manifest_path: Path):
+    #root = ET.parse(str(manifest_path)).getroot()
     # Strip namespaces.
     # https://stackoverflow.com/a/33997423
-    it = ET.iterparse(filename)
+    it = ET.iterparse(str(manifest_path))
     for _, el in it:
         if '}' in el.tag:
             el.tag = el.tag.split('}', 1)[1]  # strip all namespaces
@@ -94,7 +136,7 @@ def parse_manifest(filename):
 
     files = []
     for file_el in root.findall('file'):
-        parsed = parse_manifest_file(file_el)
+        parsed = parse_manifest_file(manifest_path, file_el)
         files.append(parsed)
 
     result = {
@@ -105,7 +147,7 @@ def parse_manifest(filename):
     return result
 
 
-def parse_manifests(manifests_dir, output_dir):
+def parse_manifests(manifests_dir: Path, output_dir: Path):
     output_dir.mkdir(parents=True, exist_ok=True)
 
     for path in manifests_dir.glob('*.manifest'):
@@ -113,10 +155,10 @@ def parse_manifests(manifests_dir, output_dir):
             continue
 
         try:
-            parsed = parse_manifest(str(path))
+            parsed = parse_manifest(path)
         except Exception as e:
             print(f'ERROR: failed to process {path}')
-            print('    ' + str(e))
+            print(f'       {e}')
             if config.exit_on_first_error:
                 raise
             continue

@@ -113,10 +113,6 @@ def get_virustotal_data_for_target_source(info_sources, session, output_dir, tar
             if info_source != target_source:
                 continue
 
-            count += 1
-            if count % 10 == 0 and config.verbose_progress:
-                print(f'Processed {count} of {total_count}')
-
             while True:
                 if time_to_stop and datetime.now() >= time_to_stop:
                     return
@@ -125,7 +121,7 @@ def get_virustotal_data_for_target_source(info_sources, session, output_dir, tar
                     result = get_virustotal_data_for_file(session, file_hash, output_dir)
                 except Exception as e:
                     print(f'ERROR: failed to process {file_hash}')
-                    print('    ' + str(e))
+                    print(f'       {e}')
                     if config.exit_on_first_error:
                         raise
 
@@ -142,6 +138,10 @@ def get_virustotal_data_for_target_source(info_sources, session, output_dir, tar
                 file_hashes['not_found'].setdefault(name, set()).add(file_hash)
             else:
                 print(f'WARNING: got result {result} for {file_hash} ({name})')
+
+            count += 1
+            if count % 10 == 0 and config.verbose_progress:
+                print(f'Processed {count} of {total_count}')
 
 
 def get_virustotal_data(time_to_stop=None):
