@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 import subprocess
 import requests
+import shutil
 import html
 import json
 import time
@@ -328,6 +329,12 @@ def commit_deploy(pr_title):
         response.raise_for_status()
 
 
+def clean_deploy_files():
+    # Remove files that take a lot of space and are no longer needed.
+    shutil.rmtree(config.out_path.joinpath('manifests'))
+    shutil.rmtree(config.out_path.joinpath('parsed'))
+
+
 def main():
     if not can_deploy():
         print('can_deploy() returned False, exiting')
@@ -353,6 +360,8 @@ def main():
         if match and int(match.group(1)) < 100:
             print('Done')
             return
+
+        clean_deploy_files()
 
 
 if __name__ == '__main__':
