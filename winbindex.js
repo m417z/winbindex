@@ -916,7 +916,7 @@ var globalFunctions = {};
             'the correct link. You can just try these links one by one (usually one of the ' +
             'first links is the correct one), or you can feed this list to a download tool ' +
             'such as curl, wget or aria2. For more details, refer to ' +
-            '<a href="https://m417z.com/" target="_blank">the relevant blog post</a>.';
+            '<a href="https://m417z.com/Winbindex-Download-Links-From-80-to-100-ish/" target="_blank">the relevant blog post</a>.';
         var message = $('<div class="winbindex-scrollable-info-box-contents">' + messageHtml + '</div>')
             .append('<br><br>').append(urls);
 
