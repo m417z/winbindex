@@ -166,6 +166,7 @@ def extract_update_files(local_dir: Path, local_path: Path):
     extract_dir = local_dir.joinpath(f'_extract_{next_extract_dir_num}')
     next_extract_dir_num += 1
     cab_extract('*', local_path, extract_dir)
+    local_path.unlink()
 
     while first_unhandled_extract_dir_num < next_extract_dir_num:
         next_unhandled_extract_dir_num = next_extract_dir_num
@@ -176,6 +177,7 @@ def extract_update_files(local_dir: Path, local_path: Path):
                 extract_dir = local_dir.joinpath(f'_extract_{next_extract_dir_num}')
                 next_extract_dir_num += 1
                 cab_extract('*', cab, extract_dir)
+                cab.unlink()
 
         first_unhandled_extract_dir_num = next_unhandled_extract_dir_num
 
@@ -224,6 +226,7 @@ def extract_update_files(local_dir: Path, local_path: Path):
             psf_file = psf_files[0]
             args = ['tools/PSFExtractor.exe', '-v2', psf_file, local_dir.joinpath('express.psf.cix.xml'), local_dir]
             subprocess.check_call(args, stdout=None if config.verbose_run else subprocess.DEVNULL)
+            psf_file.unlink()
 
     # Use DeltaDownloader to extract meaningful data from delta files:
     # https://github.com/m417z/DeltaDownloader
@@ -241,8 +244,6 @@ def extract_update_files(local_dir: Path, local_path: Path):
 
     for extract_dir in local_dir.glob('_extract_*'):
         shutil.rmtree(extract_dir)
-
-    local_path.unlink()
 
 
 def get_files_from_update(windows_version: str, update_kb: str):
