@@ -384,10 +384,7 @@ var globalFunctions = {};
                             return downloadLink[0].outerHTML;
                         }
 
-                        // TODO: Remove when feature is ready.
-                        var alphaDeltaFeature = getParameterByName('dd') !== null;
-
-                        if (alphaDeltaFeature && d.timestamp && d.size && d.lastSectionPointerToRawData && d.lastSectionVirtualAddress) {
+                        if (d.timestamp && d.size && d.lastSectionPointerToRawData && d.lastSectionVirtualAddress) {
                             var multiDownloadBtn = $('<a href="#" class="btn btn-secondary btn-sm"><abbr data-toggle="tooltip" title="Several download link candidates">Download</abbr></a>')
                                 .attr('onclick', 'arguments[0].stopPropagation(); return globalFunctions.onMultiDownloadClick(this, "' + hash + '", "' + encodeURIComponent(fileToLoad) + '", ' + d.timestamp + ', ' + d.size + ', ' + d.lastSectionPointerToRawData + ', ' + d.lastSectionVirtualAddress + ');');
 
