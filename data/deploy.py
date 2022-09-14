@@ -331,8 +331,13 @@ def commit_deploy(pr_title):
 
 def clean_deploy_files():
     # Remove files that take a lot of space and are no longer needed.
-    shutil.rmtree(config.out_path.joinpath('manifests'))
-    shutil.rmtree(config.out_path.joinpath('parsed'))
+    p = config.out_path.joinpath('manifests')
+    if p.exists():
+        shutil.rmtree(p)
+
+    p = config.out_path.joinpath('parsed')
+    if p.exists():
+        shutil.rmtree(p)
 
 
 def main():
