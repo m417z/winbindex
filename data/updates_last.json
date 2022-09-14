@@ -5073,6 +5073,16 @@
             "releaseDate": "2022-08-26",
             "releaseVersion": "19042.1949",
             "updateUrl": "https://support.microsoft.com/help/5016688"
+        },
+        "KB5017308": {
+            "heading": "September 13, 2022&#x2014;KB5017308 (OS Builds 19042.2006, 19043.2006, and 19044.2006)",
+            "otherWindowsVersions": [
+                "21H1",
+                "21H2"
+            ],
+            "releaseDate": "2022-09-13",
+            "releaseVersion": "19042.2006",
+            "updateUrl": "https://support.microsoft.com/help/5017308"
         }
     }
 }
