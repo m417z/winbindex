@@ -3992,6 +3992,12 @@
             "releaseDate": "2022-08-23",
             "releaseVersion": "17763.3346",
             "updateUrl": "https://support.microsoft.com/help/5016690"
+        },
+        "KB5017315": {
+            "heading": "September 13, 2022&#x2014;KB5017315 (OS Build 17763.3406)",
+            "releaseDate": "2022-09-13",
+            "releaseVersion": "17763.3406",
+            "updateUrl": "https://support.microsoft.com/help/5017315"
         }
     },
     "1903": {
