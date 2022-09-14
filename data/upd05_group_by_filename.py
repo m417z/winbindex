@@ -1,9 +1,9 @@
+from isal import igzip as gzip
 from datetime import datetime
 from pathlib import Path
 import itertools
 import bisect
 import orjson
-import gzip
 import json
 
 import config
