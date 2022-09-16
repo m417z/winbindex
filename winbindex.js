@@ -496,14 +496,18 @@ var globalFunctions = {};
                     if (d.fileInfo) {
                         fileInfo = d.fileInfo;
 
-                        // For PE files with partial delta info, if we don't
-                        // have some optional data (i.e. data that not all files
+                        // For PE files with partial file info, if we don't have
+                        // some optional data (i.e. data that not all files
                         // have), we can't know whether the real file has it.
                         // For files with full data, we know that if we don't
                         // have some optional data, it's missing in the file, so
                         // we can mark it as such.
-                        var partialDeltaInfo = !!(fileInfo.lastSectionPointerToRawData && fileInfo.lastSectionVirtualAddress);
-                        var fallbackForOptionalData = partialDeltaInfo ? null : '-';
+                        //
+                        // For now, we don't have a convenient indication for
+                        // partial data, but we can check the hashes below, and
+                        // for now that's a distinguishing factor.
+                        var partialFileInfo = !fileInfo.sha1 || !fileInfo.md5;
+                        var fallbackForOptionalData = partialFileInfo ? null : '-';
 
                         sha1 = fileInfo.sha1 || null;
                         md5 = fileInfo.md5 || null;
