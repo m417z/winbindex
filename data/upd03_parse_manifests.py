@@ -1,5 +1,7 @@
 import xml.etree.ElementTree as ET
+from struct import unpack
 from pathlib import Path
+import hashlib
 import base64
 import json
 import re
@@ -27,8 +29,19 @@ def update_file_hashes():
     file_hashes.clear()
 
 
-def get_delta_data_for_manifest_file(manifest_path: Path, filename: str):
-    delta_path = manifest_path.parent.joinpath(manifest_path.stem, 'f', filename + '.dd.txt')
+# https://stackoverflow.com/a/44873382
+def md5sum(filename):
+    h  = hashlib.md5()
+    b  = bytearray(128*1024)
+    mv = memoryview(b)
+    with open(filename, 'rb', buffering=0) as f:
+        while n := f.readinto(mv):
+            h.update(mv[:n])
+    return h.hexdigest()
+
+
+def get_delta_data_for_manifest_file(manifest_path: Path, name: str):
+    delta_path = manifest_path.parent.joinpath(manifest_path.stem, 'f', name + '.dd.txt')
     if not delta_path.exists():
         return None
 
@@ -65,6 +78,46 @@ def get_delta_data_for_manifest_file(manifest_path: Path, filename: str):
     return result
 
 
+def get_file_data_for_manifest_file(manifest_path: Path, name: str):
+    file_path = manifest_path.parent.joinpath(manifest_path.stem, 'n', name)
+    if not file_path.exists():
+        file_path = manifest_path.parent.joinpath(manifest_path.stem, name)
+        if not file_path.exists():
+            return None
+
+    size = file_path.stat().st_size
+
+    result = {
+        'size': size,
+        'md5': md5sum(file_path),
+    }
+
+    if size >= 0x40:
+        # https://gist.github.com/geudrik/03152ba1a148d9475e81
+        with open(file_path, 'rb') as handle:
+            # Get PE offset from DOS header.
+            handle.seek(0x3c)
+            offset = handle.read(4)
+            offset = unpack('<I', offset)[0]
+
+            if size >= offset + 0x54:
+                handle.seek(offset)
+                # Check if PE signature is valid.
+                if handle.read(4) == b'PE\0\0':
+                    word = handle.read(2)
+                    result['machineType'] = unpack('<H', word)[0]
+
+                    handle.seek(offset + 8)
+                    dword = handle.read(4)
+                    result['timestamp'] = unpack('<I', dword)[0]
+
+                    handle.seek(offset + 0x50)
+                    dword = handle.read(4)
+                    result['virtualSize'] = unpack('<I', dword)[0]
+
+    return result
+
+
 def parse_manifest_file(manifest_path, file_el):
     hashes = list(file_el.findall('hash'))
     if len(hashes) != 1:
@@ -93,8 +146,8 @@ def parse_manifest_file(manifest_path, file_el):
     digest_value_el = digest_values[0]
     hash = base64.b64decode(digest_value_el.text).hex()
 
-    filename = file_el.attrib['name'].split('\\')[-1].lower()
     if algorithm == 'sha256':
+        filename = file_el.attrib['name'].split('\\')[-1].lower()
         if (re.search(r'\.(exe|dll|sys|winmd|cpl|ax|node|ocx|efi|acm|scr|tsp|drv)$', filename)):
             file_hashes.setdefault(filename, set()).add(hash)
 
@@ -103,9 +156,12 @@ def parse_manifest_file(manifest_path, file_el):
         'attributes': dict(file_el.attrib.items()),
     }
 
-    delta_data = get_delta_data_for_manifest_file(manifest_path, filename)
-    if delta_data:
-        result['delta'] = delta_data
+    file_info = get_file_data_for_manifest_file(manifest_path, file_el.attrib['name'])
+    if not file_info:
+        file_info = get_delta_data_for_manifest_file(manifest_path, file_el.attrib['name'])
+
+    if file_info:
+        result['fileInfo'] = file_info
 
     return result
 

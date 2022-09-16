@@ -214,6 +214,7 @@ def extract_update_files(local_dir: Path, local_path: Path):
             return ignore
 
         shutil.copytree(extract_dir, local_dir, copy_function=shutil.move, dirs_exist_ok=True, ignore=ignore_files)
+        shutil.rmtree(extract_dir)
 
     # Extract delta files from the PSF file which can be found in Windows 11 updates.
     # References:
@@ -228,22 +229,27 @@ def extract_update_files(local_dir: Path, local_path: Path):
             subprocess.check_call(args, stdout=None if config.verbose_run else subprocess.DEVNULL)
             psf_file.unlink()
 
+    # Unpack null differential files.
+    if platform.system() == 'Windows':
+        from delta_patch import unpack_null_differential_file
+
+        for file in local_dir.glob('*/n/**/*'):
+            if file.is_file():
+                unpack_null_differential_file(file, file)
+
     # Use DeltaDownloader to extract meaningful data from delta files:
     # https://github.com/m417z/DeltaDownloader
     if platform.system() == 'Windows':
         # Avoid path limitations by using a UNC path.
         local_dir_unc = Rf'\\?\{local_dir.absolute()}'
-        args = ['tools/DeltaDownloader/DeltaDownloader.exe', "/g", local_dir_unc]
+        args = ['tools/DeltaDownloader/DeltaDownloader.exe', '/g', local_dir_unc]
         subprocess.check_call(args, stdout=None if config.verbose_run else subprocess.DEVNULL)
 
     # Starting with Windows 11, manifest files are compressed with the DCM v1 format.
     # Use SYSEXP to de-compress them: https://github.com/hfiref0x/SXSEXP
     if platform.system() == 'Windows':
         args = ['tools/sxsexp64.exe', local_dir, local_dir]
-        subprocess.check_call(args, stdout=None if config.verbose_run else subprocess.DEVNULL)
-
-    for extract_dir in local_dir.glob('_extract_*'):
-        shutil.rmtree(extract_dir)
+        subprocess.run(args, stdout=None if config.verbose_run else subprocess.DEVNULL)
 
 
 def get_files_from_update(windows_version: str, update_kb: str):

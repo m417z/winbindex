@@ -34,23 +34,38 @@ def write_all_file_info():
         json.dump(all_filenames, f, indent=0, sort_keys=True)
 
 
-def is_delta_file_info(file_info):
-    # For non-PE files.
-    if file_info.keys() == {
+def is_delta_raw_file_info(file_info):
+    return file_info.keys() == {
         'size',
         'md5',
-    }:
-        return True
+    }
 
-    # For PE files.
-    if file_info.keys() == {
+
+def is_delta_pe_file_info(file_info):
+    return file_info.keys() == {
         'size',
         'md5',
         'machineType',
         'timestamp',
         'lastSectionVirtualAddress',
         'lastSectionPointerToRawData',
-    }:
+    }
+
+
+def is_pe_file_info(file_info):
+    return file_info.keys() == {
+        'size',
+        'md5',
+        'machineType',
+        'timestamp',
+        'virtualSize',
+    }
+
+
+def is_delta_or_pe_file_info(file_info):
+    if (is_delta_raw_file_info(file_info) or
+        is_delta_pe_file_info(file_info) or
+        is_pe_file_info(file_info)):
         return True
 
     assert 'lastSectionVirtualAddress' not in file_info
@@ -95,17 +110,30 @@ def assert_file_info_close_enough(file_info_1, file_info_2, multiple_sign_times=
 
         return file_info
 
-    is_delta_file_info_1 = is_delta_file_info(file_info_1)
-    is_delta_file_info_2 = is_delta_file_info(file_info_2)
-    if is_delta_file_info_1 and is_delta_file_info_2:
-        assert file_info_1 == file_info_2
+    # Must be equal for all information sources.
+    assert file_info_1['size'] == file_info_2['size']
+
+    # Non-PE file.
+    if 'machineType' not in file_info_1:
+        non_pe_keys = {
+            'md5',
+            'sha1',
+            'sha256',
+            'size',
+        }
+        assert file_info_1.keys() <= non_pe_keys
+        assert file_info_2.keys() <= non_pe_keys
+        for key in file_info_1.keys() & file_info_2.keys():
+            assert file_info_1[key] == file_info_2[key]
         return
 
-    if is_delta_file_info_1 or is_delta_file_info_2:
-        assert file_info_1['md5'] == file_info_2['md5']
-        assert file_info_1['size'] == file_info_2['size']
-        assert file_info_1.get('machineType') == file_info_2.get('machineType')
-        assert file_info_1.get('timestamp') == file_info_2.get('timestamp')
+    # Must be equal for all information sources.
+    assert file_info_1['machineType'] == file_info_2['machineType']
+    assert file_info_1['timestamp'] == file_info_2['timestamp']
+
+    if is_delta_or_pe_file_info(file_info_1) or is_delta_or_pe_file_info(file_info_2):
+        for key in file_info_1.keys() & file_info_2.keys():
+            assert file_info_1[key] == file_info_2[key]
         return
 
     file_info_1 = canonical_file_info(file_info_1)
@@ -127,8 +155,8 @@ def assert_file_info_close_enough(file_info_1, file_info_2, multiple_sign_times=
         assert hours <= 32, f'{hours} {file_info_1["sha256"]}'
 
 
-def update_file_info(existing_file_info, delta_file_info, virustotal_file_info, real_file_info, multiple_sign_times=False):
-    file_infos = [existing_file_info, delta_file_info, virustotal_file_info, real_file_info]
+def update_file_info(existing_file_info, delta_or_pe_file_info, virustotal_file_info, real_file_info, multiple_sign_times=False):
+    file_infos = [existing_file_info, delta_or_pe_file_info, virustotal_file_info, real_file_info]
     file_infos = [x for x in file_infos if x is not None]
 
     for file_info_1, file_info_2 in itertools.combinations(file_infos, 2):
@@ -137,13 +165,19 @@ def update_file_info(existing_file_info, delta_file_info, virustotal_file_info, 
     if real_file_info:
         return real_file_info
 
-    if existing_file_info and not is_delta_file_info(existing_file_info):
+    if existing_file_info and not is_delta_or_pe_file_info(existing_file_info):
         return existing_file_info
 
     if virustotal_file_info:
         return virustotal_file_info
 
-    return delta_file_info
+    if existing_file_info and not is_delta_pe_file_info(existing_file_info):
+        return existing_file_info
+
+    if delta_or_pe_file_info:
+        return delta_or_pe_file_info
+
+    return existing_file_info
 
 
 def add_file_info_from_update(filename, output_dir, *,
@@ -155,7 +189,7 @@ def add_file_info_from_update(filename, output_dir, *,
                               manifest_name,
                               assembly_identity,
                               attributes,
-                              delta_file_info):
+                              delta_or_pe_file_info):
     if filename in file_info_data:
         data = file_info_data[filename]
     else:
@@ -168,7 +202,7 @@ def add_file_info_from_update(filename, output_dir, *,
 
     x = data.setdefault(file_hash, {})
 
-    updated_file_info = update_file_info(x.get('fileInfo'), delta_file_info, virustotal_file_info, None)
+    updated_file_info = update_file_info(x.get('fileInfo'), delta_or_pe_file_info, virustotal_file_info, None)
     if updated_file_info:
         x['fileInfo'] = updated_file_info
 
@@ -356,7 +390,7 @@ def group_update_assembly_by_filename(input_filename, output_dir, *, windows_ver
             manifest_name=manifest_name,
             assembly_identity=assembly_identity,
             attributes=file_item['attributes'],
-            delta_file_info=file_item.get('delta'))
+            delta_or_pe_file_info=file_item.get('fileInfo'))
 
 
 def group_update_by_filename(windows_version, update_kb, update, parsed_dir, progress_state=None, time_to_stop=None):
