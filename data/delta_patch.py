@@ -46,9 +46,14 @@ def apply_patchfile_to_buffer(buf, buflen, patchpath, legacy):
 
     # some patches (Windows Update MSU) come with a CRC32 prepended to the file
     # if the file doesn't start with the signature (PA) then check it
-    if patch_contents[:2] != b"PA":
-        paoff = patch_contents.find(b"PA")
-        if paoff != 4:
+    # if patch_contents[:2] != b"PA":
+    #     paoff = patch_contents.find(b"PA")
+    #     if paoff != 4:
+
+    # Above is the original code, which breaks if the CRC32 happens to contain
+    # "PA". Just assume that the first 4 bytes are the CRC32.
+    if True:
+        if patch_contents[4:6] != b"PA":
             raise Exception("Patch is invalid")
         crc = int.from_bytes(patch_contents[:4], 'little')
         patch_contents = patch_contents[4:]
