@@ -5107,6 +5107,16 @@
             "releaseDate": "2022-09-13",
             "releaseVersion": "19042.2006",
             "updateUrl": "https://support.microsoft.com/help/5017308"
+        },
+        "KB5017380": {
+            "heading": "September 20, 2022&#x2014;KB5017380 (OS Builds 19042.2075, 19043.2075, and 19044.2075) Preview",
+            "otherWindowsVersions": [
+                "21H1",
+                "21H2"
+            ],
+            "releaseDate": "2022-09-20",
+            "releaseVersion": "19042.2075",
+            "updateUrl": "https://support.microsoft.com/help/5017380"
         }
     }
 }
