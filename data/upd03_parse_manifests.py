@@ -63,6 +63,7 @@ def get_delta_data_for_manifest_file(manifest_path: Path, name: str):
         machine_type_values = {
             'CLI4_I386': 332,
             'CLI4_AMD64': 34404,
+            # 'CLI4_ARM': 452,
             'CLI4_ARM64': 43620,
         }
         result['machineType'] = machine_type_values[delta_data['Code']]
@@ -95,25 +96,26 @@ def get_file_data_for_manifest_file(manifest_path: Path, name: str):
     if size >= 0x40:
         # https://gist.github.com/geudrik/03152ba1a148d9475e81
         with open(file_path, 'rb') as handle:
-            # Get PE offset from DOS header.
-            handle.seek(0x3c)
-            offset = handle.read(4)
-            offset = unpack('<I', offset)[0]
+            if handle.read(2) == b'MZ':
+                # Get PE offset from DOS header.
+                handle.seek(0x3c)
+                offset = handle.read(4)
+                offset = unpack('<I', offset)[0]
 
-            if size >= offset + 0x54:
-                handle.seek(offset)
-                # Check if PE signature is valid.
-                if handle.read(4) == b'PE\0\0':
-                    word = handle.read(2)
-                    result['machineType'] = unpack('<H', word)[0]
+                if size >= offset + 0x54:
+                    handle.seek(offset)
+                    # Check if PE signature is valid.
+                    if handle.read(4) == b'PE\0\0':
+                        word = handle.read(2)
+                        result['machineType'] = unpack('<H', word)[0]
 
-                    handle.seek(offset + 8)
-                    dword = handle.read(4)
-                    result['timestamp'] = unpack('<I', dword)[0]
+                        handle.seek(offset + 8)
+                        dword = handle.read(4)
+                        result['timestamp'] = unpack('<I', dword)[0]
 
-                    handle.seek(offset + 0x50)
-                    dword = handle.read(4)
-                    result['virtualSize'] = unpack('<I', dword)[0]
+                        handle.seek(offset + 0x50)
+                        dword = handle.read(4)
+                        result['virtualSize'] = unpack('<I', dword)[0]
 
     return result
 
