@@ -32,8 +32,11 @@ def filter_updates(updates, update_kbs):
 
 def prepare_updates():
     last_time_updates_path = config.out_path.joinpath('updates_last.json')
-    with open(last_time_updates_path, 'r') as f:
-        last_time_updates = json.load(f)
+    if last_time_updates_path.is_file():
+        with open(last_time_updates_path, 'r') as f:
+            last_time_updates = json.load(f)
+    else:
+        last_time_updates = {}
 
     last_time_update_kbs = {update_kb for updates in last_time_updates.values() for update_kb in updates}
 
@@ -174,6 +177,9 @@ def build_html_index_of_hashes():
     with open('info_sources.json', 'r') as f:
         info_sources = json.load(f)
 
+    output_dir = Path('..').joinpath('hashes')
+    output_dir.mkdir(parents=True, exist_ok=True)
+
     for prefix in range(0x100):
         prefix_str = f'{prefix:02x}'
 
@@ -235,7 +241,7 @@ def build_html_index_of_hashes():
         html_code_main += '</div>\n'
 
         html_code = html_code_start + html_code_index + html_code_main + html_code_end
-        with open(f'../hashes/{prefix_str}.html', 'w') as f:
+        with output_dir.joinpath(f'{prefix_str}.html').open('w') as f:
             f.write(html_code)
 
 
@@ -262,9 +268,11 @@ def update_readme_stats():
     files_without_link = files_by_status['novt'] + files_by_status['none']
 
     stats = f'Total amount of supported PE files: {files_total:,}  \n'
-    stats += f'Files with a download link: {files_with_link:,} ({files_by_status["file"]:,} from the actual files, {files_by_status["vt"]:,} from VirusTotal)  \n'
-    stats += f'Files without a download link: {files_without_link:,} ({files_by_status["novt"]:,} weren\'t uploaded to VirusTotal, {files_by_status["none"]:,} weren\'t checked yet)  \n'
-    stats += f'% of files with a download link: {100 * files_with_link / (files_with_link + files_without_link):.1f}  \n'
+    stats += f'Files with full information: {files_with_link:,} ({files_by_status["file"]:,} from the actual files, {files_by_status["vt"]:,} from VirusTotal)  \n'
+    stats += f'Files with partial information: {files_without_link:,} ({files_by_status["novt"]:,} weren\'t uploaded to VirusTotal, {files_by_status["none"]:,} weren\'t checked yet)  \n'
+
+    if files_with_link + files_without_link > 0:
+        stats += f'% of files with full information: {100 * files_with_link / (files_with_link + files_without_link):.1f}  \n'
 
     with open('README.md', 'r') as f:
         readme = f.read()
@@ -276,7 +284,7 @@ def update_readme_stats():
 
 
 def init_deploy():
-    args = ['git', 'remote', 'add', 'push-origin', f'https://{os.environ["GITHUB_TOKEN"]}@github.com/m417z/winbindex.git']
+    args = ['git', 'remote', 'add', 'push-origin', f'https://{os.environ["GITHUB_TOKEN"]}@github.com/{os.environ["GITHUB_REPOSITORY"]}.git']
     subprocess.run(args, check=True)
 
 
@@ -324,7 +332,7 @@ def commit_deploy(pr_title):
             'Accept': 'application/vnd.github.v3+json',
             'Authorization': f'token {os.environ["GITHUB_TOKEN"]}'
         }
-        response = requests.post('https://api.github.com/repos/m417z/winbindex/pulls', data=json.dumps(data), headers=headers)
+        response = requests.post('https://api.github.com/repos/{os.environ["GITHUB_REPOSITORY"]}/pulls', data=json.dumps(data), headers=headers)
         #print(response.text)
         response.raise_for_status()
 
