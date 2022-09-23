@@ -5,6 +5,7 @@ import itertools
 import bisect
 import orjson
 import json
+import re
 
 import config
 
@@ -190,17 +191,38 @@ def add_file_info_from_update(filename, output_dir, *,
                               assembly_identity,
                               attributes,
                               delta_or_pe_file_info):
+    data = None
+    data_file = None
+    json_data_file_before = None
+    json_data_file_after = None
+
     if filename in file_info_data:
         data = file_info_data[filename]
     else:
         output_path = output_dir.joinpath(filename + '.json.gz')
         if output_path.is_file():
-            with gzip.open(output_path, 'r') as f:
-                data = orjson.loads(f.read())
+            with gzip.open(output_path, 'rb') as f:
+                json_data = f.read()
+
+            # Try an optimization - operate only on the relevant part of the json.
+            match = None
+            if not config.high_mem_usage_for_performance:
+                match = re.search(rb'"' + file_hash.encode() + rb'":({.*?})(?:,"[0-9a-f]{64}":{|}$)', json_data)
+
+            if match:
+                data_file = orjson.loads(match.group(1))
+                json_data_file_before = json_data[:match.start(1)]
+                json_data_file_after = json_data[match.end(1):]
+            else:
+                data = orjson.loads(json_data)
         else:
             data = {}
 
-    x = data.setdefault(file_hash, {})
+    if data_file is not None:
+        assert data is None
+        x = data_file
+    else:
+        x = data.setdefault(file_hash, {})
 
     updated_file_info = update_file_info(x.get('fileInfo'), delta_or_pe_file_info, virustotal_file_info, None)
     if updated_file_info:
@@ -229,10 +251,17 @@ def add_file_info_from_update(filename, output_dir, *,
         x.append(attributes)
 
     if config.high_mem_usage_for_performance:
+        assert data is not None
         file_info_data[filename] = data
     else:
         output_path = output_dir.joinpath(filename + '.json.gz')
-        write_to_gzip_file(output_path, orjson.dumps(data))
+
+        if data_file is not None:
+            json_data = json_data_file_before + orjson.dumps(data_file) + json_data_file_after
+        else:
+            json_data = orjson.dumps(data)
+
+        write_to_gzip_file(output_path, json_data)
 
 
 virustotal_info_cache = {}
@@ -468,7 +497,7 @@ def add_file_info_from_virustotal_data(filename, output_dir, *, file_hash, file_
     else:
         output_path = output_dir.joinpath(filename + '.json.gz')
         if output_path.is_file():
-            with gzip.open(output_path, 'r') as f:
+            with gzip.open(output_path, 'rb') as f:
                 data = orjson.loads(f.read())
         else:
             data = {}
