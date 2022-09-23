@@ -83,7 +83,7 @@ def get_updates_from_microsoft_support_for_version(windows_major_version, url):
                 windows_version = match[1]
         else:
             assert windows_major_version == 11
-            if windows_version_title == 'Windows 11 (original release)':
+            if windows_version_title == 'Windows 11, version 21H2':
                 windows_version = '11-21H2'
             else:
                 match = re.match(r'Windows 11, version (\w+)(?:(?:, Windows Server| and Windows Server).*)? update history$', windows_version_title, re.IGNORECASE)
@@ -93,7 +93,7 @@ def get_updates_from_microsoft_support_for_version(windows_major_version, url):
 
         updates_section = re.sub(r'<a [^>]*>Windows.*? update history</a>', '', updates_section, flags=re.IGNORECASE)
         updates_section = re.sub(r'<a [^>]*>End of service statement</a>', '', updates_section, flags=re.IGNORECASE)
-        updates_section = re.sub(r'<a [^>]*>Windows 11 \(original release\)</a>', '', updates_section, flags=re.IGNORECASE)
+        updates_section = re.sub(r'<a [^>]*>Windows 11, version 21H2</a>', '', updates_section, flags=re.IGNORECASE)
 
         # Specific title fixes.
         if windows_version in ['21H2', '21H1', '20H2']:
