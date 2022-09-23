@@ -12,25 +12,23 @@ jobs:
   update:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v3
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: '3.x'
       - name: Install Windows dependencies
         if: runner.os == 'Windows'
         run: |
-          choco install -y aria2
-          choco install -y tor
+          choco install -y aria2 tor
           7z x data\tools.zip -odata\tools
       - name: Install Linux dependencies
         if: runner.os == 'Linux'
         run: |
-          sudo apt-get install -y aria2
-          sudo apt-get install -y cabextract
-          sudo apt-get install -y tor
+          sudo apt-get install -y aria2 cabextract tor
       - name: Cache Python dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ${{ env.pythonLocation }}
           key: v2-${{ runner.os }}-${{ env.pythonLocation }}-${{ hashFiles('.github/workflows/deploy.yml') }}
