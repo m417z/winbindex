@@ -8,15 +8,15 @@ import config
 
 # To get data from an ISO file use the following commands:
 #
-# 7z.exe e C:\path\to\windows.iso sources\install.wim -oC:\path\to\output
-# 7z.exe x C:\path\to\output\install.wim -r -oC:\path\to\output
-# del C:\path\to\output\install.wim
+# cd C:\path\to\output
+# 7z.exe e C:\path\to\windows.iso sources\install.wim
+# 7z.exe x install.wim -r
+# del install.wim
 #
 # Then point this script at the resulting folder.
-# Note: keep the path short, e.g. extract to:
-# C:\w10
-# In order to keep paths under MAX_PATH=260.
-# Long paths are not supported by some of the tools (like sigcheck).
+# Note: Prefix the path with \\?\, for example:
+# \\?\C:\w10
+# In order to add support for long paths to sigcheck.
 
 
 # https://stackoverflow.com/a/1151705
@@ -33,8 +33,9 @@ def main(folder, windows_version, iso_sha256, release_date):
     assert re.match(r'^[A-Fa-f0-9]{64}$', iso_sha256)
     assert re.match(r'^\d{4}-\d{2}-\d{2}$', release_date)
 
+    file_hashes = set()
     result_files = set()
-    file_hashes = {}
+    pe_file_hashes = {}
 
     excluded_paths = [
         R'Windows\WinSxS',
@@ -59,11 +60,17 @@ def main(folder, windows_version, iso_sha256, release_date):
         return filename_relative
 
     def callback(filename: str, result_item):
+        if result_item['sha256'] in file_hashes:
+            assert hashabledict(result_item) in result_files, result_item['sha256']
+            return
+
+        file_hashes.add(result_item['sha256'])
+
         result_files.add(hashabledict(result_item))
 
         name = filename.split('\\')[-1].lower()
         if (re.search(r'\.(exe|dll|sys|winmd|cpl|ax|node|ocx|efi|acm|scr|tsp|drv)$', name)):
-            file_hashes.setdefault(name, set()).add(result_item['sha256'])
+            pe_file_hashes.setdefault(name, set()).add(result_item['sha256'])
 
     extract_data_from_pe_files(folder, callback, path_filter_callback=path_filter_callback, verbose=True)
 
@@ -88,8 +95,8 @@ def main(folder, windows_version, iso_sha256, release_date):
     else:
         info_sources = {}
 
-    for name in file_hashes:
-        for file_hash in file_hashes[name]:
+    for name in pe_file_hashes:
+        for file_hash in pe_file_hashes[name]:
             info_sources.setdefault(name, {})[file_hash] = 'file'
 
     with open(info_sources_path, 'w') as f:
