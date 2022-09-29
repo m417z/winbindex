@@ -159,6 +159,17 @@ def get_updates_from_microsoft_support_for_version(windows_major_version, url):
 
         all_updates[windows_version] = windows_version_updates
 
+    # A temporary fix for a missing entry in the Microsoft website's sidebar.
+    if '11-22H2' not in all_updates:
+        all_updates['11-22H2'] = {
+            "KB5019311": {
+                "heading": "September 27, 2022&#x2014;KB5019311 (OS Build 22621.525) Out-of-band",
+                "releaseDate": "2022-09-27",
+                "releaseVersion": "22621.525",
+                "updateUrl": "https://support.microsoft.com/help/5019311"
+            }
+        }
+
     return all_updates
 
 
