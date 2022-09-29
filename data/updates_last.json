@@ -151,6 +151,14 @@
             "updateUrl": "https://support.microsoft.com/help/5017383"
         }
     },
+    "11-22H2": {
+        "KB5019311": {
+            "heading": "September 27, 2022&#x2014;KB5019311 (OS Build 22621.525) Out-of-band",
+            "releaseDate": "2022-09-27",
+            "releaseVersion": "22621.525",
+            "updateUrl": "https://support.microsoft.com/help/5019311"
+        }
+    },
     "1507": {
         "KB3074683": {
             "releaseDate": "2015-07-29",
