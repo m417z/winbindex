@@ -243,6 +243,8 @@ def parse_manifests(manifests_dir: Path, output_dir: Path):
 
         try:
             parsed = parse_manifest(path)
+        except (KeyboardInterrupt, SystemExit):
+            raise
         except Exception as e:
             print(f'ERROR: failed to process {path}')
             print(f'       {e}')
