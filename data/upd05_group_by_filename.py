@@ -35,43 +35,46 @@ def write_all_file_info():
         json.dump(all_filenames, f, indent=0, sort_keys=True)
 
 
-def is_delta_raw_file_info(file_info):
-    return file_info.keys() == {
+def get_file_info_type(file_info):
+    if file_info.keys() == {
         'size',
         'md5',
-    }
+    }:
+        assert False, f'Unexpected raw file info: {file_info}'
 
-
-def is_delta_pe_file_info(file_info):
-    return file_info.keys() == {
+    if file_info.keys() == {
         'size',
         'md5',
         'machineType',
         'timestamp',
         'lastSectionVirtualAddress',
         'lastSectionPointerToRawData',
-    }
+    }:
+        return 'delta'
 
+    if file_info.keys() == {
+        'size',
+        'md5',
+        'machineType',
+        'timestamp',
+        'lastSectionVirtualAddress',
+        'lastSectionPointerToRawData',
+        'virtualSize',
+    }:
+        return 'delta+'
 
-def is_pe_file_info(file_info):
-    return file_info.keys() == {
+    if file_info.keys() == {
         'size',
         'md5',
         'machineType',
         'timestamp',
         'virtualSize',
-    }
-
-
-def is_delta_or_pe_file_info(file_info):
-    if (is_delta_raw_file_info(file_info) or
-        is_delta_pe_file_info(file_info) or
-        is_pe_file_info(file_info)):
-        return True
+    }:
+        return 'pe'
 
     assert 'lastSectionVirtualAddress' not in file_info
     assert 'lastSectionPointerToRawData' not in file_info
-    return False
+    return 'vt_or_file'
 
 
 def assert_file_info_close_enough(file_info_1, file_info_2, multiple_sign_times=False):
@@ -132,7 +135,8 @@ def assert_file_info_close_enough(file_info_1, file_info_2, multiple_sign_times=
     assert file_info_1['machineType'] == file_info_2['machineType']
     assert file_info_1['timestamp'] == file_info_2['timestamp']
 
-    if is_delta_or_pe_file_info(file_info_1) or is_delta_or_pe_file_info(file_info_2):
+    delta_or_pe_types = ['delta', 'delta+', 'pe']
+    if get_file_info_type(file_info_1) in delta_or_pe_types or get_file_info_type(file_info_2) in delta_or_pe_types:
         for key in file_info_1.keys() & file_info_2.keys():
             assert file_info_1[key] == file_info_2[key]
         return
@@ -163,20 +167,39 @@ def update_file_info(existing_file_info, delta_or_pe_file_info, virustotal_file_
     for file_info_1, file_info_2 in itertools.combinations(file_infos, 2):
         assert_file_info_close_enough(file_info_1, file_info_2, multiple_sign_times)
 
+    new_file_info = None
+    new_file_info_type = None
+
     if real_file_info:
-        return real_file_info
+        new_file_info = real_file_info
+        new_file_info_type = 'file'
+    elif virustotal_file_info:
+        new_file_info = virustotal_file_info
+        new_file_info_type = 'vt'
+    elif delta_or_pe_file_info:
+        new_file_info = delta_or_pe_file_info
+        new_file_info_type = get_file_info_type(delta_or_pe_file_info)
+        assert new_file_info_type in ['delta', 'delta+', 'pe']
 
-    if existing_file_info and not is_delta_or_pe_file_info(existing_file_info):
+    if not new_file_info:
         return existing_file_info
 
-    if virustotal_file_info:
-        return virustotal_file_info
+    if not existing_file_info:
+        return new_file_info
 
-    if existing_file_info and not is_delta_pe_file_info(existing_file_info):
-        return existing_file_info
+    existing_file_info_type = get_file_info_type(existing_file_info)
 
-    if delta_or_pe_file_info:
-        return delta_or_pe_file_info
+    sources = [
+        'delta',
+        'delta+',
+        'pe',
+        'vt',
+        'vt_or_file',
+        'file',
+    ]
+
+    if sources.index(new_file_info_type) > sources.index(existing_file_info_type):
+        return new_file_info
 
     return existing_file_info
 
