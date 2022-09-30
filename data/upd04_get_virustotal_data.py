@@ -65,8 +65,8 @@ def get_virustotal_data_for_file(session, file_hash, output_dir):
 
     try:
         r = session.get(url, verify=False, headers=headers, timeout=30)
-    except KeyboardInterrupt as e:
-        raise e
+    except (KeyboardInterrupt, SystemExit):
+        raise
     except:
         return 'retry'
 
@@ -117,6 +117,8 @@ def get_virustotal_data_for_files(hashes, session, output_dir, time_to_stop):
 
             try:
                 file_result = get_virustotal_data_for_file(session, hash, output_dir)
+            except (KeyboardInterrupt, SystemExit):
+                raise
             except Exception as e:
                 print(f'ERROR: failed to process {hash}')
                 print(f'       {e}')
