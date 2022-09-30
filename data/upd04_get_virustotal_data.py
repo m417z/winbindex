@@ -12,6 +12,27 @@ import time
 import config
 
 
+def get_file_hashes_of_updates(name, updates):
+    output_dir = config.out_path.joinpath('by_filename_compressed')
+
+    with gzip.open(output_dir.joinpath(f'{name}.json.gz'), 'r') as f:
+        data = orjson.loads(f.read())
+
+    file_hashes = set()
+
+    for file_hash in data:
+        file_updates = set()
+
+        windows_versions = data[file_hash]['windowsVersions']
+        for windows_version in windows_versions:
+            file_updates |= windows_versions[windows_version].keys()
+
+        if any(update in updates for update in file_updates):
+            file_hashes.add(file_hash)
+
+    return file_hashes
+
+
 def create_virustotal_urllib_session():
     # https://stackoverflow.com/a/28002687
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -79,27 +100,6 @@ def get_virustotal_data_for_file(session, file_hash, output_dir):
     return result
 
 
-def get_file_hashes_of_updates(name, updates):
-    output_dir = config.out_path.joinpath('by_filename_compressed')
-
-    with gzip.open(output_dir.joinpath(f'{name}.json.gz'), 'r') as f:
-        data = orjson.loads(f.read())
-
-    file_hashes = set()
-
-    for file_hash in data:
-        file_updates = set()
-
-        windows_versions = data[file_hash]['windowsVersions']
-        for windows_version in windows_versions:
-            file_updates |= windows_versions[windows_version].keys()
-
-        if any(update in updates for update in file_updates):
-            file_hashes.add(file_hash)
-
-    return file_hashes
-
-
 def get_virustotal_data_for_files(hashes, session, output_dir, time_to_stop):
     result = {
         'found': set(),
@@ -128,7 +128,7 @@ def get_virustotal_data_for_files(hashes, session, output_dir, time_to_stop):
 
             # print('Waiting to retry...')
             # time.sleep(30)
-            print('Retrying')
+            print(f'Retrying {hash}')
 
         if file_result in ['ok', 'exists']:
             result['found'].add(hash)
@@ -163,8 +163,6 @@ def main(time_to_stop=None):
     else:
         info_progress_vt = {}
 
-    session = create_virustotal_urllib_session()
-
     progress_updates = info_progress_vt.get('updates')
     progress_next = info_progress_vt.get('next')
 
@@ -184,9 +182,9 @@ def main(time_to_stop=None):
     if progress_next is not None:
         progress_hash_index = hashes.index(progress_next)
         if progress_updates is not None:
-            hashes = hashes[progress_hash_index + 1:]
+            hashes = hashes[progress_hash_index:]
         else:
-            hashes = hashes[progress_hash_index + 1:] + hashes[:progress_hash_index + 1]
+            hashes = hashes[progress_hash_index:] + hashes[:progress_hash_index]
 
     hashes_to_retry = info_progress_vt.get('retry', [])
     hashes = hashes_to_retry + [h for h in hashes if h not in hashes_to_retry]
@@ -194,6 +192,8 @@ def main(time_to_stop=None):
     if config.verbose_progress:
         print(f'{len(hashes_to_retry)} hashes to retry')
         print(f'{len(hashes)} hashes total')
+
+    session = create_virustotal_urllib_session()
 
     result = get_virustotal_data_for_files(hashes, session, output_dir, time_to_stop)
 
