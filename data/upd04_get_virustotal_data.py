@@ -1,52 +1,40 @@
+from isal import igzip as gzip
 from datetime import datetime
 from pathlib import Path
 import requests
 import urllib3
 import base64
+import orjson
 import random
 import json
 import time
 
 import config
 
-file_hashes = {
-    'found': {},
-    'not_found': {}
-}
 
+def create_virustotal_urllib_session():
+    # https://stackoverflow.com/a/28002687
+    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-def update_file_hashes():
-    info_sources_path = config.out_path.joinpath('info_sources.json')
-    if info_sources_path.is_file():
-        with open(info_sources_path, 'r') as f:
-            info_sources = json.load(f)
-    else:
-        info_sources = {}
+    session = requests.Session()
+    # The headers are necessary for getting info from VirusTotal.
+    session.headers.update({
+        'User-Agent': 'Mozilla/5.0',
+        'Referer': 'https://www.virustotal.com/',
+        'Accept-Ianguage': 'en-US,en;q=0.9,es;q=0.8',  # That's a deliberate typo, seems like an anti-automation protection
+        'X-Tool': 'vt-ui-main',
+    })
+    session.proxies.update({'https': 'http://127.0.0.1:8080'})  # for pymultitor
 
-    for name in file_hashes['found']:
-        for file_hash in file_hashes['found'][name]:
-            assert info_sources[name][file_hash] in ['none', 'novt']
-            info_sources[name][file_hash] = 'newvt'
-
-    file_hashes['found'].clear()
-
-    for name in file_hashes['not_found']:
-        for file_hash in file_hashes['not_found'][name]:
-            assert info_sources[name][file_hash] in ['none', 'novt']
-            info_sources[name][file_hash] = 'novt'
-
-    file_hashes['not_found'].clear()
-
-    with open(info_sources_path, 'w') as f:
-        json.dump(info_sources, f)
+    return session
 
 
 def get_virustotal_data_for_file(session, file_hash, output_dir):
     if output_dir.joinpath(file_hash + '.json').is_file():
         return 'exists'
 
-    if output_dir.joinpath('_404_' + file_hash + '.json').is_file():
-        return 'not_found'
+    # if output_dir.joinpath('_404_' + file_hash + '.json').is_file():
+    #     return 'not_found'
 
     url = 'https://www.virustotal.com/ui/files/' + file_hash
     headers = {
@@ -54,9 +42,10 @@ def get_virustotal_data_for_file(session, file_hash, output_dir):
         'X-VT-Anti-Abuse-Header': base64.b64encode(f'{random.randint(10000000000, 20000000000)}-ZG9udCBiZSBldmls-{round(time.time(), 3)}'.encode()).decode(),
     }
 
-    r = None
     try:
         r = session.get(url, verify=False, headers=headers, timeout=30)
+    except KeyboardInterrupt as e:
+        raise e
     except:
         return 'retry'
 
@@ -90,90 +79,149 @@ def get_virustotal_data_for_file(session, file_hash, output_dir):
     return result
 
 
-def get_virustotal_data_for_target_source(info_sources, session, output_dir, target_source, time_to_stop=None):
-    total_count = sum(1 for name in info_sources for file_hash in info_sources[name] if info_sources[name][file_hash] == target_source)
-    if total_count == 0:
-        return
+def get_file_hashes_of_updates(name, updates):
+    output_dir = config.out_path.joinpath('by_filename_compressed')
 
-    print(f'{total_count} items of type {target_source}')
+    with gzip.open(output_dir.joinpath(f'{name}.json.gz'), 'r') as f:
+        data = orjson.loads(f.read())
+
+    file_hashes = set()
+
+    for file_hash in data:
+        file_updates = set()
+
+        windows_versions = data[file_hash]['windowsVersions']
+        for windows_version in windows_versions:
+            file_updates |= windows_versions[windows_version].keys()
+
+        if any(update in updates for update in file_updates):
+            file_hashes.add(file_hash)
+
+    return file_hashes
+
+
+def get_virustotal_data_for_files(hashes, session, output_dir, time_to_stop):
+    result = {
+        'found': set(),
+        'not_found': set(),
+        'failed': set(),
+        'next': None,
+    }
 
     count = 0
-    names = info_sources.keys()
-    if time_to_stop:
-        if datetime.now() >= time_to_stop:
-            return
+    for hash in hashes:
+        while True:
+            if time_to_stop and datetime.now() >= time_to_stop:
+                result['next'] = hash
+                return result
 
-        # Time is limited, shuffle keys to try different ones at different runs.
-        names = list(names)
-        random.shuffle(names)
+            try:
+                file_result = get_virustotal_data_for_file(session, hash, output_dir)
+            except Exception as e:
+                print(f'ERROR: failed to process {hash}')
+                print(f'       {e}')
+                if config.exit_on_first_error:
+                    raise
 
-    for name in names:
-        for file_hash in info_sources[name]:
-            info_source = info_sources[name][file_hash]
-            if info_source != target_source:
-                continue
+            if file_result != 'retry':
+                break
 
-            while True:
-                if time_to_stop and datetime.now() >= time_to_stop:
-                    return
+            # print('Waiting to retry...')
+            # time.sleep(30)
+            print('Retrying')
 
-                try:
-                    result = get_virustotal_data_for_file(session, file_hash, output_dir)
-                except Exception as e:
-                    print(f'ERROR: failed to process {file_hash}')
-                    print(f'       {e}')
-                    if config.exit_on_first_error:
-                        raise
+        if file_result in ['ok', 'exists']:
+            result['found'].add(hash)
+        elif file_result == 'not_found':
+            result['not_found'].add(hash)
+        else:
+            print(f'WARNING: got result {file_result} for {hash}')
+            result['failed'].add(hash)
 
-                if result != 'retry':
-                    break
+        count += 1
+        if count % 10 == 0 and config.verbose_progress:
+            print(f'Processed {count} of {len(hashes)}')
 
-                #print('Waiting to retry...')
-                #time.sleep(30)
-                print('Retrying')
-
-            if result in ['ok', 'exists']:
-                file_hashes['found'].setdefault(name, set()).add(file_hash)
-            elif result == 'not_found':
-                file_hashes['not_found'].setdefault(name, set()).add(file_hash)
-            else:
-                print(f'WARNING: got result {result} for {file_hash} ({name})')
-
-            count += 1
-            if count % 10 == 0 and config.verbose_progress:
-                print(f'Processed {count} of {total_count}')
-
-
-def get_virustotal_data(time_to_stop=None):
-    with open(config.out_path.joinpath('info_sources.json')) as f:
-        info_sources = json.load(f)
-
-    # https://stackoverflow.com/a/28002687
-    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-
-    session = requests.Session()
-    # The headers are necessary for getting info from VirusTotal.
-    session.headers.update({
-        'User-Agent': 'Mozilla/5.0',
-        'Referer': 'https://www.virustotal.com/',
-        'Accept-Ianguage': 'en-US,en;q=0.9,es;q=0.8',  # That's a deliberate typo, seems like an anti-automation protection
-        'X-Tool': 'vt-ui-main',
-    })
-    session.proxies.update({'https': 'http://127.0.0.1:8080'})  # for pymultitor
-
-    output_dir = config.out_path.joinpath('virustotal')
-    output_dir.mkdir(parents=True, exist_ok=True)
-
-    # Check files that weren't ever checked against VT.
-    get_virustotal_data_for_target_source(info_sources, session, output_dir, 'none', time_to_stop)
-
-    # Check again the files that were checked before, perhaps they're on VT now.
-    get_virustotal_data_for_target_source(info_sources, session, output_dir, 'novt', time_to_stop)
+    return result
 
 
 def main(time_to_stop=None):
-    get_virustotal_data(time_to_stop)
-    update_file_hashes()
+    output_dir = config.out_path.joinpath('virustotal')
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    info_sources_path = config.out_path.joinpath('info_sources.json')
+    if info_sources_path.is_file():
+        with open(info_sources_path, 'r') as f:
+            info_sources = json.load(f)
+    else:
+        info_sources = {}
+
+    info_progress_vt_path = config.out_path.joinpath('info_progress_vt.json')
+    if info_progress_vt_path.is_file():
+        with open(info_progress_vt_path, 'r') as f:
+            info_progress_vt = json.load(f)
+    else:
+        info_progress_vt = {}
+
+    session = create_virustotal_urllib_session()
+
+    progress_updates = info_progress_vt.get('updates')
+    progress_next = info_progress_vt.get('next')
+
+    # Get hashes of all PE files without full information.
+    hashes = []
+    for name in sorted(info_sources.keys()):
+        file_hashes = set(hash for hash in info_sources[name] if info_sources[name][hash] not in ['vt', 'file'])
+        if not file_hashes:
+            continue
+
+        if progress_updates is not None:
+            file_hashes &= get_file_hashes_of_updates(name, progress_updates)
+
+        hashes += sorted(file_hashes)
+
+    # Order list to start from the 'next' file where the script stopped last time.
+    if progress_next is not None:
+        progress_hash_index = hashes.index(progress_next)
+        if progress_updates is not None:
+            hashes = hashes[progress_hash_index + 1:]
+        else:
+            hashes = hashes[progress_hash_index + 1:] + hashes[:progress_hash_index + 1]
+
+    hashes_to_retry = info_progress_vt.get('retry', [])
+    hashes = hashes_to_retry + [h for h in hashes if h not in hashes_to_retry]
+
+    if config.verbose_progress:
+        print(f'{len(hashes_to_retry)} hashes to retry')
+        print(f'{len(hashes)} hashes total')
+
+    result = get_virustotal_data_for_files(hashes, session, output_dir, time_to_stop)
+
+    if result['next'] is None:
+        # All hashes were processed.
+        info_progress_vt['next'] = None
+        info_progress_vt['updates'] = None
+    elif result['next'] not in hashes_to_retry:
+        # Save 'next' file for next time.
+        info_progress_vt['next'] = result['next']
+
+    # Set failed and unprocessed files to retry.
+    info_progress_vt['retry'] = sorted((set(hashes_to_retry) - result['found'] - result['not_found']) | result['failed'])
+
+    # Update status of files for which full information was found.
+    for name in info_sources:
+        for hash in info_sources[name]:
+            if hash in result['found']:
+                info_sources[name][hash] = 'vt'
+                pending_for_file = info_progress_vt.setdefault('pending', {}).setdefault(name, [])
+                if hash not in pending_for_file:
+                    pending_for_file.append(hash)
+
+    with open(info_sources_path, 'w') as f:
+        json.dump(info_sources, f, indent=0)
+
+    with open(info_progress_vt_path, 'w') as f:
+        json.dump(info_progress_vt, f, indent=0)
 
 
 if __name__ == '__main__':

@@ -76,6 +76,23 @@ def prepare_updates():
     return update_kb
 
 
+def add_update_to_info_progress_vt(update_kb):
+    info_progress_vt_path = config.out_path.joinpath('info_progress_vt.json')
+    if info_progress_vt_path.is_file():
+        with open(info_progress_vt_path, 'r') as f:
+            info_progress_vt = json.load(f)
+    else:
+        info_progress_vt = {}
+
+    updates = info_progress_vt.setdefault('updates', [])
+    if update_kb not in updates:
+        updates.append(update_kb)
+        info_progress_vt['next'] = None
+
+    with open(info_progress_vt_path, 'w') as f:
+        json.dump(info_progress_vt, f, indent=0)
+
+
 def check_pymultitor(proxy='http://127.0.0.1:8080'):
     try:
         url = 'http://0.0.0.0/'
@@ -160,6 +177,8 @@ def run_deploy():
     assert progress_state['files_processed'] == progress_state['files_total']
 
     config.out_path.joinpath('updates.json').unlink()
+
+    add_update_to_info_progress_vt(progress_state['update_kb'])
 
     return f'Updated with files from {progress_state["update_kb"]}'
 
@@ -252,7 +271,9 @@ def update_readme_stats():
     files_total = 0
     files_by_status = {
         'none': 0,
-        'novt': 0,
+        'delta': 0,
+        'delta+': 0,
+        'pe': 0,
         'vt': 0,
         'file': 0,
     }
@@ -264,15 +285,28 @@ def update_readme_stats():
             files_total += 1
             files_by_status[file_status] += 1
 
-    files_with_link = files_by_status['file'] + files_by_status['vt']
-    files_without_link = files_by_status['novt'] + files_by_status['none']
+    stats = f'Total amount of supported PE files: {files_total:,}\n'
+    stats += f'\n'
+    stats += f'* No information: {files_by_status["none"]:,}\n'
+    stats += f'* Delta file information (multiple links): {files_by_status["delta"]:,}\n'
+    stats += f'* Delta file information: {files_by_status["delta+"]:,}\n'
+    stats += f'* PE file information: {files_by_status["pe"]:,}\n'
+    stats += f'* Full information (VirusTotal): {files_by_status["vt"]:,}\n'
+    stats += f'* Full information (file): {files_by_status["file"]:,}\n'
+    stats += f'\n'
 
-    stats = f'Total amount of supported PE files: {files_total:,}  \n'
-    stats += f'Files with full information: {files_with_link:,} ({files_by_status["file"]:,} from the actual files, {files_by_status["vt"]:,} from VirusTotal)  \n'
-    stats += f'Files with partial information: {files_without_link:,} ({files_by_status["novt"]:,} weren\'t uploaded to VirusTotal, {files_by_status["none"]:,} weren\'t checked yet)  \n'
+    if files_total > 0:
+        stats += f'Some stats:\n'
+        stats += f'\n'
 
-    if files_with_link + files_without_link > 0:
-        stats += f'% of files with full information: {100 * files_with_link / (files_with_link + files_without_link):.1f}  \n'
+        files_with_link = files_total - files_by_status['none']
+        stats += f'* {100 * files_with_link / files_total:.1f}% of files with a link\n'
+
+        files_with_link = files_total - files_by_status['none'] - files_by_status['delta']
+        stats += f'* {100 * files_with_link / files_total:.1f}% of files with a single link\n'
+
+        files_with_full_info = files_by_status['vt'] + files_by_status['file']
+        stats += f'* {100 * files_with_full_info / files_total:.1f}% of files with full information\n'
 
     with open('README.md', 'r') as f:
         readme = f.read()
