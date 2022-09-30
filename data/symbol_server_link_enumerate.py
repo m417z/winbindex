@@ -185,7 +185,7 @@ def main(time_to_stop=None):
     progress_next = info_progress_symbol_server.get('next')
 
     if progress_updates == []:
-        return 0  # no updates to process
+        return None  # no updates to process
 
     # Get hashes and names of all PE files with multiple links.
     hashes_and_names = []

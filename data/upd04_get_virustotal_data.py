@@ -158,15 +158,16 @@ def main(time_to_stop=None):
     else:
         info_sources = {}
 
-    info_progress_vt_path = config.out_path.joinpath('info_progress_virustotal.json')
-    if info_progress_vt_path.is_file():
-        with open(info_progress_vt_path, 'r') as f:
-            info_progress_vt = json.load(f)
+    info_progress_virustotal_path = config.out_path.joinpath('info_progress_virustotal.json')
+    if info_progress_virustotal_path.is_file():
+        with open(info_progress_virustotal_path, 'r') as f:
+            info_progress_virustotal = json.load(f)
     else:
-        info_progress_vt = {}
+        info_progress_virustotal = {}
 
-    progress_updates = info_progress_vt.get('updates')
-    progress_next = info_progress_vt.get('next')
+    progress_updates = info_progress_virustotal.get('updates')
+    progress_updates_next_key = 'next' if progress_updates is None else 'next_updates'
+    progress_next = info_progress_virustotal.get(progress_updates_next_key)
 
     # Get hashes of all PE files without full information.
     hashes = []
@@ -188,7 +189,7 @@ def main(time_to_stop=None):
         else:
             hashes = hashes[progress_hash_index:] + hashes[:progress_hash_index]
 
-    hashes_to_retry = info_progress_vt.get('retry', [])
+    hashes_to_retry = info_progress_virustotal.get('retry', [])
     hashes = hashes_to_retry + [h for h in hashes if h not in hashes_to_retry]
 
     if config.verbose_progress:
@@ -201,29 +202,29 @@ def main(time_to_stop=None):
 
     if result['next'] is None:
         # All hashes were processed.
-        info_progress_vt['next'] = None
-        info_progress_vt['updates'] = None
+        info_progress_virustotal[progress_updates_next_key] = None
+        info_progress_virustotal['updates'] = None
     elif result['next'] not in hashes_to_retry:
         # Save 'next' file for next time.
-        info_progress_vt['next'] = result['next']
+        info_progress_virustotal[progress_updates_next_key] = result['next']
 
     # Set failed and unprocessed files to retry.
-    info_progress_vt['retry'] = sorted((set(hashes_to_retry) - result['found'] - result['not_found']) | result['failed'])
+    info_progress_virustotal['retry'] = sorted((set(hashes_to_retry) - result['found'] - result['not_found']) | result['failed'])
 
     # Update status of files for which full information was found.
     for name in info_sources:
         for hash in info_sources[name]:
             if hash in result['found']:
                 info_sources[name][hash] = 'vt'
-                pending_for_file = info_progress_vt.setdefault('pending', {}).setdefault(name, [])
+                pending_for_file = info_progress_virustotal.setdefault('pending', {}).setdefault(name, [])
                 if hash not in pending_for_file:
                     pending_for_file.append(hash)
 
     with open(info_sources_path, 'w') as f:
         json.dump(info_sources, f, indent=0)
 
-    with open(info_progress_vt_path, 'w') as f:
-        json.dump(info_progress_vt, f, indent=0)
+    with open(info_progress_virustotal_path, 'w') as f:
+        json.dump(info_progress_virustotal, f, indent=0)
 
 
 if __name__ == '__main__':
