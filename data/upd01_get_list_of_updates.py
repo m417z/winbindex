@@ -86,14 +86,14 @@ def get_updates_from_microsoft_support_for_version(windows_major_version, url):
             if windows_version_title == 'Windows 11, version 21H2':
                 windows_version = '11-21H2'
             else:
-                match = re.match(r'Windows 11, version (\w+)(?:(?:, Windows Server| and Windows Server).*)? update history$', windows_version_title, re.IGNORECASE)
+                match = re.match(r'Windows 11, version (\w+)$', windows_version_title, re.IGNORECASE)
                 windows_version = '11-' + match[1]
 
         assert windows_version not in all_updates
 
         updates_section = re.sub(r'<a [^>]*>Windows.*? update history</a>', '', updates_section, flags=re.IGNORECASE)
         updates_section = re.sub(r'<a [^>]*>End of service statement</a>', '', updates_section, flags=re.IGNORECASE)
-        updates_section = re.sub(r'<a [^>]*>Windows 11, version 21H2</a>', '', updates_section, flags=re.IGNORECASE)
+        updates_section = re.sub(r'<a [^>]*>Windows 11, version \w+</a>', '', updates_section, flags=re.IGNORECASE)
 
         # Specific title fixes.
         if windows_version in ['21H2', '21H1', '20H2']:
@@ -148,7 +148,7 @@ def get_updates_from_microsoft_support_for_version(windows_major_version, url):
 
         assert all(x in windows_version_update_urls for x in windows_update_urls_to_skip.get(windows_version, {}).values())
 
-        # A temporary fix for a missing entry in the Microsoft website's sidebar.
+        # A temporary fix for missing entries in the Microsoft website's sidebar.
         if windows_version == '1709' and 'KB4341235' not in windows_version_updates:
             windows_version_updates['KB4341235'] = {
                 "heading": "July 10, 2018&#x2014;KB4341235 Update for Windows 10 Mobile (OS Build 15254.490)",
@@ -156,19 +156,15 @@ def get_updates_from_microsoft_support_for_version(windows_major_version, url):
                 "releaseVersion": "15254.490",
                 "updateUrl": "https://support.microsoft.com/help/4341235"
             }
-
-        all_updates[windows_version] = windows_version_updates
-
-    # A temporary fix for a missing entry in the Microsoft website's sidebar.
-    if '11-22H2' not in all_updates:
-        all_updates['11-22H2'] = {
-            "KB5019311": {
+        elif windows_version == '11-22H2' and 'KB5019311' not in windows_version_updates:
+            windows_version_updates['KB5019311'] = {
                 "heading": "September 27, 2022&#x2014;KB5019311 (OS Build 22621.525) Out-of-band",
                 "releaseDate": "2022-09-27",
                 "releaseVersion": "22621.525",
                 "updateUrl": "https://support.microsoft.com/help/5019311"
             }
-        }
+
+        all_updates[windows_version] = windows_version_updates
 
     return all_updates
 
