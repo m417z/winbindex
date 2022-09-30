@@ -11,6 +11,22 @@ import config
 file_hashes = {}
 
 
+def update_info_source(old, new):
+    sources = [
+        'none',
+        'delta',
+        'delta+',
+        'pe',
+        'vt',
+        'file',
+    ]
+
+    if old is None or sources.index(new) > sources.index(old):
+        return new
+
+    return old
+
+
 def update_file_hashes():
     info_sources_path = config.out_path.joinpath('info_sources.json')
     if info_sources_path.is_file():
@@ -20,11 +36,15 @@ def update_file_hashes():
         info_sources = {}
 
     for name in file_hashes:
+        file_info_sources = info_sources.setdefault(name, {})
+
         for file_hash in file_hashes[name]:
-            info_sources.setdefault(name, {}).setdefault(file_hash, 'none')
+            old = file_info_sources.get(file_hash)
+            new = file_hashes[name][file_hash]
+            file_info_sources[file_hash] = update_info_source(old, new)
 
     with open(info_sources_path, 'w') as f:
-        json.dump(info_sources, f)
+        json.dump(info_sources, f, indent=0)
 
     file_hashes.clear()
 
@@ -148,22 +168,31 @@ def parse_manifest_file(manifest_path, file_el):
     digest_value_el = digest_values[0]
     hash = base64.b64decode(digest_value_el.text).hex()
 
-    if algorithm == 'sha256':
-        filename = file_el.attrib['name'].split('\\')[-1].lower()
-        if (re.search(r'\.(exe|dll|sys|winmd|cpl|ax|node|ocx|efi|acm|scr|tsp|drv)$', filename)):
-            file_hashes.setdefault(filename, set()).add(hash)
-
     result = {
         algorithm: hash,
         'attributes': dict(file_el.attrib.items()),
     }
 
+    info_source = 'none'
+
     file_info = get_file_data_for_manifest_file(manifest_path, file_el.attrib['name'])
-    if not file_info:
+    if file_info:
+        info_source = 'pe'
+    else:
         file_info = get_delta_data_for_manifest_file(manifest_path, file_el.attrib['name'])
+        if file_info:
+            info_source = 'delta'
 
     if file_info:
         result['fileInfo'] = file_info
+
+    if algorithm == 'sha256':
+        filename = file_el.attrib['name'].split('\\')[-1].lower()
+        if (re.search(r'\.(exe|dll|sys|winmd|cpl|ax|node|ocx|efi|acm|scr|tsp|drv)$', filename)):
+            assert info_source == 'none' or 'machineType' in file_info, (filename, hash)
+            file_hashes_for_filename = file_hashes.setdefault(filename, {})
+            old_info_source = file_hashes_for_filename.get(hash)
+            file_hashes_for_filename[hash] = update_info_source(old_info_source, info_source)
 
     return result
 

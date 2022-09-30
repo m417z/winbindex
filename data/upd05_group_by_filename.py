@@ -521,20 +521,17 @@ def process_virustotal_data():
     output_dir = config.out_path.joinpath('by_filename_compressed')
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    info_sources_path = config.out_path.joinpath('info_sources.json')
-    if info_sources_path.is_file():
-        with open(info_sources_path, 'r') as f:
-            info_sources = json.load(f)
+    info_progress_vt_path = config.out_path.joinpath('info_progress_vt.json')
+    if info_progress_vt_path.is_file():
+        with open(info_progress_vt_path, 'r') as f:
+            info_progress_vt = json.load(f)
     else:
-        info_sources = {}
+        info_progress_vt = {}
 
-    for name in info_sources:
-        for file_hash in info_sources[name]:
-            if info_sources[name][file_hash] != 'newvt':
-                continue
+    pending = info_progress_vt.get('pending', {})
 
-            info_sources[name][file_hash] = 'vt'
-
+    for name in pending:
+        for file_hash in pending[name]:
             if file_hash in virustotal_info_cache:
                 # Was already added with one of the updates.
                 continue
@@ -548,8 +545,10 @@ def process_virustotal_data():
                 file_hash=file_hash,
                 file_info=virustotal_info)
 
-    with open(info_sources_path, 'w') as f:
-        json.dump(info_sources, f)
+    info_progress_vt['pending'] = {}
+
+    with open(info_progress_vt_path, 'w') as f:
+        json.dump(info_progress_vt, f, indent=0)
 
     virustotal_info_cache.clear()
 
