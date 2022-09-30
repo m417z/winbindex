@@ -521,7 +521,7 @@ def process_virustotal_data():
     output_dir = config.out_path.joinpath('by_filename_compressed')
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    info_progress_vt_path = config.out_path.joinpath('info_progress_vt.json')
+    info_progress_vt_path = config.out_path.joinpath('info_progress_virustotal.json')
     if info_progress_vt_path.is_file():
         with open(info_progress_vt_path, 'r') as f:
             info_progress_vt = json.load(f)
