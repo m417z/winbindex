@@ -86,9 +86,9 @@ def add_update_to_info_progress_symbol_server(update_kb):
         info_progress_symbol_server = {}
 
     updates = info_progress_symbol_server.setdefault('updates', [])
-    if update_kb not in updates:
-        updates.append(update_kb)
-        info_progress_symbol_server['next'] = None
+    assert update_kb not in updates, update_kb
+    updates.append(update_kb)
+    info_progress_symbol_server['next'] = None
 
     with open(info_progress_symbol_server_path, 'w') as f:
         json.dump(info_progress_symbol_server, f, indent=0)
@@ -102,27 +102,27 @@ def run_symbol_server_updates():
 
     print('Running symbol_server_link_enumerate')
     num_files = symbol_server_link_enumerate(time_to_stop)
-    if num_files == 0:
+    if num_files is None:
         return None
 
     return f'Updated info of {num_files} files from Microsoft Symbol Server'
 
 
-def add_update_to_info_progress_vt(update_kb):
-    info_progress_vt_path = config.out_path.joinpath('info_progress_virustotal.json')
-    if info_progress_vt_path.is_file():
-        with open(info_progress_vt_path, 'r') as f:
-            info_progress_vt = json.load(f)
+def add_update_to_info_progress_virustotal(update_kb):
+    info_progress_virustotal_path = config.out_path.joinpath('info_progress_virustotal.json')
+    if info_progress_virustotal_path.is_file():
+        with open(info_progress_virustotal_path, 'r') as f:
+            info_progress_virustotal = json.load(f)
     else:
-        info_progress_vt = {}
+        info_progress_virustotal = {}
 
-    updates = info_progress_vt.setdefault('updates', [])
-    if update_kb not in updates:
-        updates.append(update_kb)
-        info_progress_vt['next'] = None
+    updates = info_progress_virustotal.setdefault('updates', [])
+    assert update_kb not in updates, update_kb
+    updates.append(update_kb)
+    info_progress_virustotal['next_updates'] = None
 
-    with open(info_progress_vt_path, 'w') as f:
-        json.dump(info_progress_vt, f, indent=0)
+    with open(info_progress_virustotal_path, 'w') as f:
+        json.dump(info_progress_virustotal, f, indent=0)
 
 
 def check_pymultitor(proxy='http://127.0.0.1:8080'):
@@ -215,7 +215,7 @@ def run_deploy():
     config.out_path.joinpath('updates.json').unlink()
 
     add_update_to_info_progress_symbol_server(progress_state['update_kb'])
-    add_update_to_info_progress_vt(progress_state['update_kb'])
+    add_update_to_info_progress_virustotal(progress_state['update_kb'])
 
     return f'Updated with files from {progress_state["update_kb"]}'
 

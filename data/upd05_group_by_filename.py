@@ -546,14 +546,14 @@ def process_virustotal_data():
     output_dir = config.out_path.joinpath('by_filename_compressed')
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    info_progress_vt_path = config.out_path.joinpath('info_progress_virustotal.json')
-    if info_progress_vt_path.is_file():
-        with open(info_progress_vt_path, 'r') as f:
-            info_progress_vt = json.load(f)
+    info_progress_virustotal_path = config.out_path.joinpath('info_progress_virustotal.json')
+    if info_progress_virustotal_path.is_file():
+        with open(info_progress_virustotal_path, 'r') as f:
+            info_progress_virustotal = json.load(f)
     else:
-        info_progress_vt = {}
+        info_progress_virustotal = {}
 
-    pending = info_progress_vt.get('pending', {})
+    pending = info_progress_virustotal.get('pending', {})
 
     for name in pending:
         for file_hash in pending[name]:
@@ -570,10 +570,10 @@ def process_virustotal_data():
                 file_hash=file_hash,
                 file_info=virustotal_info)
 
-    info_progress_vt['pending'] = {}
+    info_progress_virustotal['pending'] = {}
 
-    with open(info_progress_vt_path, 'w') as f:
-        json.dump(info_progress_vt, f, indent=0)
+    with open(info_progress_virustotal_path, 'w') as f:
+        json.dump(info_progress_virustotal, f, indent=0)
 
     virustotal_info_cache.clear()
 
