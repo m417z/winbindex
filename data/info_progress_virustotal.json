@@ -3,5 +3,54 @@
 "updates": [
 "KB5017389"
 ],
-"next_updates": null
+"next_updates": [
+"fssprov.dll",
+"c995c1531f758b6e0c6035eca1993753c320e44457041970c7554c6133f8827e"
+],
+"retry": [
+[
+"axinstsv.dll",
+"2d2061f2e0a639dba0159a38c030e98c1adbf24bb5f89e17cad32e14221f35c7"
+],
+[
+"cmd.exe",
+"b7edc54e6b42ca1cda290ce8cacfecaac6dbcc8c14631bc20fb184a6309c1824"
+],
+[
+"chtquickds.dll",
+"1e2968ba8f872bdfc4761e2d9fcc0c5125c7289ecd5800320894cef190819131"
+],
+[
+"cachfile.dll",
+"fd7da0a1fe0079bda2ea2a0f7553b5f744ca91998aef437dcd3fe0622f6a591f"
+],
+[
+"d3d12core.dll",
+"c8ab04d176ecea89a0073c880cf55dab4a6a9b834c857690cd7afef7a4ef871e"
+],
+[
+"appresolverux.exe",
+"8c352b83e741a007fb03bfdb4764fe8dc781bc157f5f2b03d4e11186133a42f1"
+],
+[
+"chtquickds.dll",
+"25faf22a1b5d530aa20420274292063e7d81980134babd7463831246996e4e60"
+],
+[
+"d3d12core.dll",
+"2cdbc895b51157be4114cc0642f564a1d563f006dbef3822c5b9981dc69a81fe"
+],
+[
+"devicesflowui.dll",
+"d76fdb5fecfe393977d92c853d4b0df136b7b1e86c6f3d98ac520a3e8f14c13f"
+],
+[
+"chthkstrokeds.dll",
+"585561d70869daf15cf67b9c507457f911492aa78fa4d4a52b13ebeae8f5020a"
+],
+[
+"cabview.dll",
+"bf361677dba4b8c9bedb174d671702e46e891971fa53f75841c850e3e571bff9"
+]
+]
 }
