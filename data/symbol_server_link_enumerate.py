@@ -183,6 +183,8 @@ def main(time_to_stop=None):
 
     progress_updates = info_progress_symbol_server.get('updates')
     progress_next = info_progress_symbol_server.get('next')
+    if progress_next is not None:
+        progress_next = tuple(progress_next)
 
     if progress_updates == []:
         return None  # no updates to process
@@ -203,7 +205,7 @@ def main(time_to_stop=None):
 
     # Order list to start from the 'next' file where the script stopped last time.
     if progress_next is not None:
-        progress_hash_index = names_and_hashes.index(tuple(progress_next))
+        progress_hash_index = names_and_hashes.index(progress_next)
         names_and_hashes = names_and_hashes[progress_hash_index:]
 
     if config.verbose_progress:

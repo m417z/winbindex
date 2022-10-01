@@ -168,6 +168,8 @@ def main(time_to_stop=None):
     progress_updates = info_progress_virustotal.get('updates')
     progress_updates_next_key = 'next' if progress_updates is None else 'next_updates'
     progress_next = info_progress_virustotal.get(progress_updates_next_key)
+    if progress_next is not None:
+        progress_next = tuple(progress_next)
 
     # Get names and hashes of all PE files without full information.
     names_and_hashes = []
@@ -185,13 +187,13 @@ def main(time_to_stop=None):
 
     # Order list to start from the 'next' file where the script stopped last time.
     if progress_next is not None:
-        progress_hash_index = names_and_hashes.index(tuple(progress_next))
+        progress_hash_index = names_and_hashes.index(progress_next)
         if progress_updates is not None:
             names_and_hashes = names_and_hashes[progress_hash_index:]
         else:
             names_and_hashes = names_and_hashes[progress_hash_index:] + names_and_hashes[:progress_hash_index]
 
-    names_and_hashes_to_retry = info_progress_virustotal.get('retry', [])
+    names_and_hashes_to_retry = [tuple(x) for x in info_progress_virustotal.get('retry', [])]
     names_and_hashes = names_and_hashes_to_retry + [h for h in names_and_hashes if h not in names_and_hashes_to_retry]
 
     if config.verbose_progress:
