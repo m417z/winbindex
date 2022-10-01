@@ -85,9 +85,11 @@ def add_update_to_info_progress_symbol_server(update_kb):
     else:
         info_progress_symbol_server = {}
 
-    updates = info_progress_symbol_server.setdefault('updates', [])
-    assert update_kb not in updates, update_kb
-    updates.append(update_kb)
+    updates = info_progress_symbol_server.get('updates')
+    if updates is not None:
+        assert update_kb not in updates, update_kb
+        updates.append(update_kb)
+
     info_progress_symbol_server['next'] = None
 
     with open(info_progress_symbol_server_path, 'w') as f:
