@@ -1,32 +1,43 @@
 {
 "pending": {},
-"updates": [
-"KB5017389"
-],
-"next_updates": [
-"sxstrace.exe",
-"da1fc2b2154e460067d2e363b4de8dcef8c41b0e561d4b79bad188ae6888c518"
-],
+"updates": null,
+"next_updates": null,
 "retry": [
 [
-"roottools.dll",
-"61d888906f62fba28cd9df6c15b2fcbccc9875e192d4e9debbf40efe808127d3"
+"wdscommonlib.dll",
+"39a2ac95ed0ad7b60d0778bfe1a5ceb8760fad7e65fec17c18d336e2f9179299"
 ],
 [
-"settingshandlers_batteryusage.dll",
-"dee7f4326447b7c53cb93034b1b9c98c4aa09bfb21d72601820b8c6f8f7e7adc"
+"vmemulateddevices.dll",
+"c2eadd0f1a049749569b298091e3436831899db3660a5a1b45344d791b532927"
 ],
 [
-"padrs804.dll",
-"b96ad8c6e6eb6d7004ae9b4908116836e0de2dd12a989e505dd208ee221e08ce"
+"vmcrashdump.dll",
+"3bdb03ceedb32dd8b98b0d7903dc8e09bc877ea324eb03bbe171e52362ad3462"
 ],
 [
-"roomadjustmentapp.exe",
-"61bb8a5d32db7aea6208073045967cfcde8a44a697d1c2f9ce33d3de05348e07"
+"twinui.dll",
+"72685a93f3d2d5e63678be1dcc4e0577086a8d2d31e2a653fb842f7de1b257e0"
 ],
 [
 "storvsc.sys",
 "2d2fd986589d7a2c9f2a4bea633efe3b01aefda68d228fa329c5495a34e61bdd"
+],
+[
+"vmdatastore.dll",
+"69ee4d57f1ad48b481cbb0a800faff9cfb9c8bb83a23613c79ad7cf054bd2249"
+],
+[
+"tabsvc.dll",
+"295871636983d2a8e345d2dbaaad046b3485c4d298d5ac7de8d681ba1e7cdbe4"
+],
+[
+"weretw.dll",
+"3f0a8f5f7d450536d5977f7fcf2a256e30a56adcb0f7ec1cb96e7b3f990fb951"
+],
+[
+"werenc.dll",
+"c6f7ba7ed972ad0b6ca256920a726b67a673b12b7a4d3a094a9bd6c7311ad7b6"
 ]
 ]
 }
