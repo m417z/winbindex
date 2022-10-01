@@ -187,7 +187,7 @@ def main(time_to_stop=None):
     if progress_updates == []:
         return None  # no updates to process
 
-    # Get hashes and names of all PE files with multiple links.
+    # Get names and hashes of all PE files with multiple links.
     names_and_hashes = []
     for name in info_sources.keys():
         file_hashes = set(hash for hash in info_sources[name] if info_sources[name][hash] == 'delta')
@@ -207,14 +207,14 @@ def main(time_to_stop=None):
         names_and_hashes = names_and_hashes[progress_hash_index:]
 
     if config.verbose_progress:
-        print(f'{len(names_and_hashes)} hashes to process')
+        print(f'{len(names_and_hashes)} items to process')
 
     session = create_symbol_server_urllib_session()
 
     result = get_symbol_server_links_for_files(names_and_hashes, session, time_to_stop)
 
     if result['next'] is None:
-        # All hashes were processed.
+        # All items were processed.
         info_progress_symbol_server['next'] = None
         info_progress_symbol_server['updates'] = []
     else:
@@ -222,11 +222,9 @@ def main(time_to_stop=None):
         info_progress_symbol_server['next'] = result['next']
 
     # Update status of files for which full information was found.
-    for name in info_sources:
-        for hash in info_sources[name]:
-            if (name, hash) in result['found']:
-                assert info_sources[name][hash] == 'delta'
-                info_sources[name][hash] = 'delta+'
+    for name, hash in result['found']:
+        assert info_sources[name][hash] == 'delta'
+        info_sources[name][hash] = 'delta+'
 
     with open(info_sources_path, 'w') as f:
         json.dump(info_sources, f, indent=0)

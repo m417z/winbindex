@@ -100,7 +100,7 @@ def get_virustotal_data_for_file(session, file_hash, output_dir):
     return result
 
 
-def get_virustotal_data_for_files(hashes, session, output_dir, time_to_stop):
+def get_virustotal_data_for_files(names_and_hashes, session, output_dir, time_to_stop):
     result = {
         'found': set(),
         'not_found': set(),
@@ -109,10 +109,10 @@ def get_virustotal_data_for_files(hashes, session, output_dir, time_to_stop):
     }
 
     count = 0
-    for hash in hashes:
+    for name, hash in names_and_hashes:
         while True:
             if time_to_stop and datetime.now() >= time_to_stop:
-                result['next'] = hash
+                result['next'] = (name, hash)
                 return result
 
             try:
@@ -120,7 +120,7 @@ def get_virustotal_data_for_files(hashes, session, output_dir, time_to_stop):
             except (KeyboardInterrupt, SystemExit):
                 raise
             except Exception as e:
-                print(f'ERROR: failed to process {hash}')
+                print(f'ERROR: failed to process {hash} ({name})')
                 print(f'       {e}')
                 if config.exit_on_first_error:
                     raise
@@ -130,19 +130,19 @@ def get_virustotal_data_for_files(hashes, session, output_dir, time_to_stop):
 
             # print('Waiting to retry...')
             # time.sleep(30)
-            print(f'Retrying {hash}')
+            print(f'Retrying {hash} ({name})')
 
         if file_result in ['ok', 'exists']:
-            result['found'].add(hash)
+            result['found'].add((name, hash))
         elif file_result == 'not_found':
-            result['not_found'].add(hash)
+            result['not_found'].add((name, hash))
         else:
-            print(f'WARNING: got result {file_result} for {hash}')
-            result['failed'].add(hash)
+            print(f'WARNING: got result {file_result} for {hash} ({name})')
+            result['failed'].add((name, hash))
 
         count += 1
         if count % 10 == 0 and config.verbose_progress:
-            print(f'Processed {count} of {len(hashes)}')
+            print(f'Processed {count} of {len(names_and_hashes)} ({name})')
 
     return result
 
@@ -169,9 +169,9 @@ def main(time_to_stop=None):
     progress_updates_next_key = 'next' if progress_updates is None else 'next_updates'
     progress_next = info_progress_virustotal.get(progress_updates_next_key)
 
-    # Get hashes of all PE files without full information.
-    hashes = []
-    for name in sorted(info_sources.keys()):
+    # Get names and hashes of all PE files without full information.
+    names_and_hashes = []
+    for name in info_sources.keys():
         file_hashes = set(hash for hash in info_sources[name] if info_sources[name][hash] not in ['vt', 'file'])
         if not file_hashes:
             continue
@@ -179,46 +179,47 @@ def main(time_to_stop=None):
         if progress_updates is not None:
             file_hashes &= get_file_hashes_of_updates(name, progress_updates)
 
-        hashes += sorted(file_hashes)
+        names_and_hashes += [(name, hash) for hash in file_hashes]
+
+    names_and_hashes.sort()
 
     # Order list to start from the 'next' file where the script stopped last time.
     if progress_next is not None:
-        progress_hash_index = hashes.index(progress_next)
+        progress_hash_index = names_and_hashes.index(tuple(progress_next))
         if progress_updates is not None:
-            hashes = hashes[progress_hash_index:]
+            names_and_hashes = names_and_hashes[progress_hash_index:]
         else:
-            hashes = hashes[progress_hash_index:] + hashes[:progress_hash_index]
+            names_and_hashes = names_and_hashes[progress_hash_index:] + names_and_hashes[:progress_hash_index]
 
-    hashes_to_retry = info_progress_virustotal.get('retry', [])
-    hashes = hashes_to_retry + [h for h in hashes if h not in hashes_to_retry]
+    names_and_hashes_to_retry = info_progress_virustotal.get('retry', [])
+    names_and_hashes = names_and_hashes_to_retry + [h for h in names_and_hashes if h not in names_and_hashes_to_retry]
 
     if config.verbose_progress:
-        print(f'{len(hashes_to_retry)} hashes to retry')
-        print(f'{len(hashes)} hashes total')
+        print(f'{len(names_and_hashes_to_retry)} items to retry')
+        print(f'{len(names_and_hashes)} items total')
 
     session = create_virustotal_urllib_session()
 
-    result = get_virustotal_data_for_files(hashes, session, output_dir, time_to_stop)
+    result = get_virustotal_data_for_files(names_and_hashes, session, output_dir, time_to_stop)
 
     if result['next'] is None:
-        # All hashes were processed.
+        # All items were processed.
         info_progress_virustotal[progress_updates_next_key] = None
         info_progress_virustotal['updates'] = None
-    elif result['next'] not in hashes_to_retry:
+    elif result['next'] not in names_and_hashes_to_retry:
         # Save 'next' file for next time.
         info_progress_virustotal[progress_updates_next_key] = result['next']
 
     # Set failed and unprocessed files to retry.
-    info_progress_virustotal['retry'] = sorted((set(hashes_to_retry) - result['found'] - result['not_found']) | result['failed'])
+    info_progress_virustotal['retry'] = list((set(names_and_hashes_to_retry) - result['found'] - result['not_found']) | result['failed'])
 
     # Update status of files for which full information was found.
-    for name in info_sources:
-        for hash in info_sources[name]:
-            if info_sources[name][hash] not in ['vt', 'file'] and hash in result['found']:
-                info_sources[name][hash] = 'vt'
-                pending_for_file = info_progress_virustotal.setdefault('pending', {}).setdefault(name, [])
-                if hash not in pending_for_file:
-                    pending_for_file.append(hash)
+    for name, hash in result['found']:
+        assert info_sources[name][hash] not in ['vt', 'file']
+        info_sources[name][hash] = 'vt'
+        pending_for_file = info_progress_virustotal.setdefault('pending', {}).setdefault(name, [])
+        if hash not in pending_for_file:
+            pending_for_file.append(hash)
 
     with open(info_sources_path, 'w') as f:
         json.dump(info_sources, f, indent=0)
