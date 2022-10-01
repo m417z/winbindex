@@ -214,7 +214,7 @@ def main(time_to_stop=None):
     # Update status of files for which full information was found.
     for name in info_sources:
         for hash in info_sources[name]:
-            if hash in result['found']:
+            if info_sources[name][hash] not in ['vt', 'file'] and hash in result['found']:
                 info_sources[name][hash] = 'vt'
                 pending_for_file = info_progress_virustotal.setdefault('pending', {}).setdefault(name, [])
                 if hash not in pending_for_file:
