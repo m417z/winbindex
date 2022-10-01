@@ -436,6 +436,29 @@ def group_update_assembly_by_filename(input_filename, output_dir, *, windows_ver
         if not hash_is_sha256:
             raise Exception('No SHA256 hash')
 
+        # Temporary workaround for what seems to be an incorrect SHA256 hash in
+        # the KB5017389 manifests for some of the files. The files are language
+        # resource files (e.g. resources.en-GB.pri) for some esoteric apps:
+        # * holocamera_cw5n1h2txyewy
+        # * MixedRealityLearning_cw5n1h2txyewy
+        # * RoomAdjustment_cw5n1h2txyewy
+        file_hash_md5 = file_item.get('fileInfo', {}).get('md5')
+        if update_kb == 'KB5017389' and (file_hash, file_hash_md5) in [
+            ('f8636d2d93606b0069117cb05bc8d91ecb9a09e72e14695d56a693adf419f4e8', '70db27fdd0fd76305fb1dfcd401e8cde'),
+            ('5ca0a43e4be5f7b60cd2170b05eb4627407729c65e7e0b62ed4ef3cdf895f5c5', '6ad932076c6a059db6e9743ae06c62cf'),
+            ('b5a73db6c73c788dd62a1e5c0aa7bc2f50a260d52b04fcec4cd0192a25c6658f', 'af8a7f7b812a40bf8a1c151d3f09a98c'),
+            ('d52440f126d95e94a86465e78849a72df11f0c22115e5b8cda10174d69167a44', 'afbb5df39d32d142a4cca08f89bbbe8e'),
+            ('5a3b750a6dcc984084422d5c28ac99a2f878fdfe26c7261c9bff8de77658e8f8', '7ed0e64f81f63730983913be5b3cce17'),
+            ('5292013c895e0f412c98766ba4ed7ba5ecb24bebf00aac5b56c71bcf44891945', '886ee85f216e28ac547fe71ff2823fc4'),
+            ('b9297098632fbb1a513f96d6d2462926144d6528c4cc426d6caed5ed234438f0', '19aabb40b6431f411f97c85fbe77d7fe'),
+            ('700760afebec6b3d638adac2f1cbb96cb60fbe9a2e2558eb20a63f9ebbd2c74f', '1f91bbe1b8ec8c42f00ffc73cbb72247'),
+            ('994274f4494a852c0fe8c968d054fbaf0f6f7489ea586fc84102c6ebcafeeca3', 'a0d4e4256e8d54ab86ac6505f1272219'),
+        ]:
+            print(f'WARNING: Skipping file with (probably) an incorrect SHA256 hash: {file_hash}')
+            print(f'         MD5 hash: {file_hash_md5}')
+            print(f'         Manifest name: {manifest_name}')
+            continue
+
         add_file_info_from_update(filename, output_dir,
             file_hash=file_hash,
             virustotal_file_info=virustotal_info,
