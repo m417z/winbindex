@@ -40,7 +40,7 @@ def get_file_info_type(file_info):
         'size',
         'md5',
     }:
-        assert False, f'Unexpected raw file info: {file_info}'
+        return 'raw'
 
     if file_info.keys() == {
         'size',
@@ -179,7 +179,7 @@ def update_file_info(existing_file_info, delta_or_pe_file_info, virustotal_file_
     elif delta_or_pe_file_info:
         new_file_info = delta_or_pe_file_info
         new_file_info_type = get_file_info_type(delta_or_pe_file_info)
-        assert new_file_info_type in ['delta', 'delta+', 'pe']
+        assert new_file_info_type in ['raw', 'delta', 'delta+', 'pe']
 
     if not new_file_info:
         return existing_file_info
@@ -190,6 +190,7 @@ def update_file_info(existing_file_info, delta_or_pe_file_info, virustotal_file_
     existing_file_info_type = get_file_info_type(existing_file_info)
 
     sources = [
+        'raw',
         'delta',
         'delta+',
         'pe',

@@ -120,7 +120,7 @@ def get_symbol_server_links_for_file(session, hash, name, data):
     return data
 
 
-def get_symbol_server_links_for_files(hashes_and_names, session, time_to_stop):
+def get_symbol_server_links_for_files(names_and_hashes, session, time_to_stop):
     result = {
         'found': set(),
         'not_found': set(),
@@ -133,9 +133,9 @@ def get_symbol_server_links_for_files(hashes_and_names, session, time_to_stop):
     data_modified = False
 
     count = 0
-    for hash, name in hashes_and_names:
+    for name, hash in names_and_hashes:
         if time_to_stop and datetime.now() >= time_to_stop:
-            result['next'] = hash
+            result['next'] = (name, hash)
             break
 
         new_output_path = output_dir.joinpath(f'{name}.json.gz')
@@ -152,13 +152,13 @@ def get_symbol_server_links_for_files(hashes_and_names, session, time_to_stop):
         if new_data:
             data = new_data
             data_modified = True
-            result['found'].add(hash)
+            result['found'].add((name, hash))
         else:
-            result['not_found'].add(hash)
+            result['not_found'].add((name, hash))
 
         count += 1
         if count % 10 == 0 and config.verbose_progress:
-            print(f'Processed {count} of {len(hashes_and_names)}')
+            print(f'Processed {count} of {len(names_and_hashes)}')
 
     if output_path and data_modified:
         write_to_gzip_file(output_path, orjson.dumps(data))
@@ -188,8 +188,8 @@ def main(time_to_stop=None):
         return None  # no updates to process
 
     # Get hashes and names of all PE files with multiple links.
-    hashes_and_names = []
-    for name in sorted(info_sources.keys()):
+    names_and_hashes = []
+    for name in info_sources.keys():
         file_hashes = set(hash for hash in info_sources[name] if info_sources[name][hash] == 'delta')
         if not file_hashes:
             continue
@@ -197,25 +197,21 @@ def main(time_to_stop=None):
         if progress_updates is not None:
             file_hashes &= get_file_hashes_of_updates(name, progress_updates)
 
-        hashes_and_names += sorted((hash, name) for hash in file_hashes)
+        names_and_hashes += [(name, hash) for hash in file_hashes]
+
+    names_and_hashes.sort()
 
     # Order list to start from the 'next' file where the script stopped last time.
     if progress_next is not None:
-        progress_hash_index = None
-        for i, v in enumerate(hashes_and_names):
-            hash, name = v
-            if hash == progress_next:
-                progress_hash_index = i
-                break
-
-        hashes_and_names = hashes_and_names[progress_hash_index:]
+        progress_hash_index = names_and_hashes.index(tuple(progress_next))
+        names_and_hashes = names_and_hashes[progress_hash_index:]
 
     if config.verbose_progress:
-        print(f'{len(hashes_and_names)} hashes to process')
+        print(f'{len(names_and_hashes)} hashes to process')
 
     session = create_symbol_server_urllib_session()
 
-    result = get_symbol_server_links_for_files(hashes_and_names, session, time_to_stop)
+    result = get_symbol_server_links_for_files(names_and_hashes, session, time_to_stop)
 
     if result['next'] is None:
         # All hashes were processed.
@@ -228,7 +224,8 @@ def main(time_to_stop=None):
     # Update status of files for which full information was found.
     for name in info_sources:
         for hash in info_sources[name]:
-            if hash in result['found']:
+            if (name, hash) in result['found']:
+                assert info_sources[name][hash] == 'delta'
                 info_sources[name][hash] = 'delta+'
 
     with open(info_sources_path, 'w') as f:
