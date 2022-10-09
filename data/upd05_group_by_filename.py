@@ -597,7 +597,7 @@ def process_virustotal_data():
     info_progress_virustotal['pending'] = {}
 
     with open(info_progress_virustotal_path, 'w') as f:
-        json.dump(info_progress_virustotal, f, indent=0)
+        json.dump(info_progress_virustotal, f, indent=0, sort_keys=True)
 
     virustotal_info_cache.clear()
 

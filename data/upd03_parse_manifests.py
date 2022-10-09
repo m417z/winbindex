@@ -44,7 +44,7 @@ def update_file_hashes():
             file_info_sources[file_hash] = update_info_source(old, new)
 
     with open(info_sources_path, 'w') as f:
-        json.dump(info_sources, f, indent=0)
+        json.dump(info_sources, f, indent=0, sort_keys=True)
 
     file_hashes.clear()
 
