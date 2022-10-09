@@ -85,10 +85,10 @@ def get_virustotal_data_for_file(session, file_hash, output_dir):
             try:
                 _ = virustotal_json['data']['attributes']['pe_info']['sections'][0]
                 result = 'ok'
-            except:
+            except KeyError:
                 prefix = '_no_pe_info_'  # no PE info, need to rescan it on VirusTotal
                 result = 'no_pe_info'
-        except:
+        except json.JSONDecodeError:
             prefix = '_not_json_'
             result = 'not_json'
 
