@@ -229,10 +229,10 @@ def main(time_to_stop=None):
         info_sources[name][hash] = 'delta+'
 
     with open(info_sources_path, 'w') as f:
-        json.dump(info_sources, f, indent=0)
+        json.dump(info_sources, f, indent=0, sort_keys=True)
 
     with open(info_progress_symbol_server_path, 'w') as f:
-        json.dump(info_progress_symbol_server, f, indent=0)
+        json.dump(info_progress_symbol_server, f, indent=0, sort_keys=True)
 
     return len(result['found'])
 

@@ -93,7 +93,7 @@ def add_update_to_info_progress_symbol_server(update_kb):
     info_progress_symbol_server['next'] = None
 
     with open(info_progress_symbol_server_path, 'w') as f:
-        json.dump(info_progress_symbol_server, f, indent=0)
+        json.dump(info_progress_symbol_server, f, indent=0, sort_keys=True)
 
 
 def run_symbol_server_updates():
@@ -124,7 +124,7 @@ def add_update_to_info_progress_virustotal(update_kb):
     info_progress_virustotal['next_updates'] = None
 
     with open(info_progress_virustotal_path, 'w') as f:
-        json.dump(info_progress_virustotal, f, indent=0)
+        json.dump(info_progress_virustotal, f, indent=0, sort_keys=True)
 
 
 def check_pymultitor(proxy='http://127.0.0.1:8080'):

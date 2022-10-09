@@ -213,7 +213,7 @@ def main(time_to_stop=None):
         info_progress_virustotal[progress_updates_next_key] = result['next']
 
     # Set failed and unprocessed files to retry.
-    info_progress_virustotal['retry'] = list((set(names_and_hashes_to_retry) - result['found'] - result['not_found']) | result['failed'])
+    info_progress_virustotal['retry'] = sorted((set(names_and_hashes_to_retry) - result['found'] - result['not_found']) | result['failed'])
 
     # Update status of files for which full information was found.
     for name, hash in result['found']:
@@ -224,10 +224,10 @@ def main(time_to_stop=None):
             pending_for_file.append(hash)
 
     with open(info_sources_path, 'w') as f:
-        json.dump(info_sources, f, indent=0)
+        json.dump(info_sources, f, indent=0, sort_keys=True)
 
     with open(info_progress_virustotal_path, 'w') as f:
-        json.dump(info_progress_virustotal, f, indent=0)
+        json.dump(info_progress_virustotal, f, indent=0, sort_keys=True)
 
 
 if __name__ == '__main__':

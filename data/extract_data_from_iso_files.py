@@ -100,7 +100,7 @@ def main(folder, windows_version, iso_sha256, release_date):
             info_sources.setdefault(name, {})[file_hash] = 'file'
 
     with open(info_sources_path, 'w') as f:
-        json.dump(info_sources, f, indent=0)
+        json.dump(info_sources, f, indent=0, sort_keys=True)
 
 
 if __name__ == '__main__':
