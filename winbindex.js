@@ -12,6 +12,17 @@ var globalFunctions = {};
         globalFunctions.onShowExtraClick = onShowExtraClick;
         globalFunctions.onMultiDownloadClick = onMultiDownloadClick;
 
+        var architecture = getParameterByName('arch');
+        var baseDataUrl = 'data';
+        if (architecture === 'arm64') {
+            $('#winbindex-arch').val(architecture);
+            $('#main-logo-link').attr('href', '?arch=arm64');
+            $('#main-logo-arch-badge').text('ARM64').removeClass('d-none');
+            $('#arch-links a[href="."]').removeClass('active');
+            $('#arch-links a[href="?arch=arm64"]').addClass('active');
+            baseDataUrl = 'https://m417z.com/winbindex-data-arm64';
+        }
+
         animateLogo();
 
         var displayFile = getParameterByName('file');
@@ -31,9 +42,9 @@ var globalFunctions = {};
 
             var searchQuery = getParameterByName('search');
 
-            loadFileInfoToTable(displayFile, searchQuery);
+            loadFileInfoToTable(baseDataUrl, displayFile, searchQuery);
         } else {
-            loadFileNames();
+            loadFileNames(baseDataUrl);
         }
     }
 
@@ -134,7 +145,7 @@ var globalFunctions = {};
         update();
     }
 
-    function loadFileNames() {
+    function loadFileNames(baseDataUrl) {
         // select2 is 2 slow!
         /*$('#winbindex-file-select').select2({
             placeholder: 'Select a file',
@@ -153,7 +164,7 @@ var globalFunctions = {};
                 deferred.resolve();
             } else {
                 $.ajax({
-                    url: 'data/filenames.json'
+                    url: baseDataUrl + '/filenames.json'
                 }).done(function (data) {
                     self.availableItems = [];
                     data.forEach(function (item) {
@@ -224,7 +235,7 @@ var globalFunctions = {};
         }).virtualselect('load');
     }
 
-    function loadFileInfoToTable(fileToLoad, searchQuery) {
+    function loadFileInfoToTable(baseDataUrl, fileToLoad, searchQuery) {
         $.extend($.fn.dataTableExt.oSort, {
             'natural-asc': function (a, b) {
                 return a.localeCompare(b, undefined, { numeric: true });
@@ -465,7 +476,7 @@ var globalFunctions = {};
         yadcf.init(filesTable, yadcfColumns);
 
         $.ajax({
-            url: 'data/by_filename_compressed/' + fileToLoad + '.json.gz',
+            url: baseDataUrl + '/by_filename_compressed/' + fileToLoad + '.json.gz',
             // https://stackoverflow.com/a/17682424
             xhrFields: {
                 responseType: 'blob'
@@ -801,11 +812,14 @@ var globalFunctions = {};
             case 34404:
                 return 'x64';
 
+            case 452:
+                return 'ARM';
+
             case 43620:
                 return 'ARM64';
         }
 
-        return arch;
+        return arch.toString();
     }
 
     function makeSymbolServerUrl(peName, timeStamp, imageSize) {
