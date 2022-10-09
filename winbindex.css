@@ -1,7 +1,18 @@
+#main-logo-link {
+    position: relative;
+}
+
 #main-logo-canvas {
     width: 88px;
     height: 88px;
     clip-path: url(#windows-clip);
+}
+
+#main-logo-arch-badge {
+    position: absolute;
+    right: -14px;
+    transform: rotate(20deg);
+    font-weight: normal;
 }
 
 .winbindex-table-container-hidden {
@@ -120,4 +131,23 @@ div.dataTables_wrapper div.dataTables_info {
     padding: 10px;
     margin-bottom: 0;
     overflow: auto;
+}
+
+.gap-0 {
+    gap: 0 !important;
+}
+.gap-1 {
+    gap: .25rem !important;
+}
+.gap-2 {
+    gap: .5rem !important;
+}
+.gap-3 {
+    gap: 1rem !important;
+}
+.gap-4 {
+    gap: 1.5rem !important;
+}
+.gap-5 {
+    gap: 3rem !important;
 }
