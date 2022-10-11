@@ -5137,6 +5137,16 @@
             "releaseDate": "2022-09-20",
             "releaseVersion": "19042.2075",
             "updateUrl": "https://support.microsoft.com/help/5017380"
+        },
+        "KB5018410": {
+            "heading": "October 11, 2022&#x2014;KB5018410 (OS Builds 19042.2130, 19043.2130, and 19044.2130)",
+            "otherWindowsVersions": [
+                "21H1",
+                "21H2"
+            ],
+            "releaseDate": "2022-10-11",
+            "releaseVersion": "19042.2130",
+            "updateUrl": "https://support.microsoft.com/help/5018410"
         }
     }
 }
