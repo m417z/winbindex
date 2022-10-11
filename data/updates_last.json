@@ -812,6 +812,12 @@
             "releaseDate": "2022-09-13",
             "releaseVersion": "10240.19444",
             "updateUrl": "https://support.microsoft.com/help/5017327"
+        },
+        "KB5018425": {
+            "heading": "October 11, 2022-KB5018425 (OS Build 10240.19507)",
+            "releaseDate": "2022-10-11",
+            "releaseVersion": "10240.19507",
+            "updateUrl": "https://support.microsoft.com/help/5018425"
         }
     },
     "1511": {
