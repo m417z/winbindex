@@ -149,6 +149,12 @@
             "releaseDate": "2022-09-20",
             "releaseVersion": "22000.1042",
             "updateUrl": "https://support.microsoft.com/help/5017383"
+        },
+        "KB5018418": {
+            "heading": "October 11, 2022&#x2014;KB5018418 (OS Build 22000.1098)",
+            "releaseDate": "2022-10-11",
+            "releaseVersion": "22000.1098",
+            "updateUrl": "https://support.microsoft.com/help/5018418"
         }
     },
     "11-22H2": {
