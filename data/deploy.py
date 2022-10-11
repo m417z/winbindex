@@ -118,9 +118,15 @@ def add_update_to_info_progress_virustotal(update_kb):
     else:
         info_progress_virustotal = {}
 
-    updates = info_progress_virustotal.setdefault('updates', [])
-    assert update_kb not in updates, update_kb
-    updates.append(update_kb)
+    updates = info_progress_virustotal.get('updates')
+    if updates is None:
+        updates = [update_kb]
+    else:
+        assert updates != []
+        assert update_kb not in updates, update_kb
+        updates.append(update_kb)
+
+    info_progress_virustotal['updates'] = updates
     info_progress_virustotal['next_updates'] = None
 
     with open(info_progress_virustotal_path, 'w') as f:
