@@ -1863,6 +1863,12 @@
             "releaseDate": "2022-09-13",
             "releaseVersion": "14393.5356",
             "updateUrl": "https://support.microsoft.com/help/5017305"
+        },
+        "KB5018411": {
+            "heading": "October 11, 2022&#x2014;KB5018411 (OS Build 14393.5427)",
+            "releaseDate": "2022-10-11",
+            "releaseVersion": "14393.5427",
+            "updateUrl": "https://support.microsoft.com/help/5018411"
         }
     },
     "1703": {
