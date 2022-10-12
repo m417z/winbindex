@@ -437,13 +437,14 @@ def group_update_assembly_by_filename(input_filename, output_dir, *, windows_ver
             raise Exception('No SHA256 hash')
 
         # Temporary workaround for what seems to be an incorrect SHA256 hash in
-        # the KB5017389 manifests for some of the files. The files are language
-        # resource files (e.g. resources.en-GB.pri) for some esoteric apps:
+        # KB5017389 and newer Windows 11 22H2 update manifests for some of the
+        # files. The files are language resource files (e.g.
+        # resources.en-GB.pri) for some esoteric apps:
         # * holocamera_cw5n1h2txyewy
         # * MixedRealityLearning_cw5n1h2txyewy
         # * RoomAdjustment_cw5n1h2txyewy
         file_hash_md5 = file_item.get('fileInfo', {}).get('md5')
-        if update_kb == 'KB5017389' and (file_hash, file_hash_md5) in [
+        if windows_version == '11-22H2' and (file_hash, file_hash_md5) in [
             ('f8636d2d93606b0069117cb05bc8d91ecb9a09e72e14695d56a693adf419f4e8', '70db27fdd0fd76305fb1dfcd401e8cde'),
             ('5ca0a43e4be5f7b60cd2170b05eb4627407729c65e7e0b62ed4ef3cdf895f5c5', '6ad932076c6a059db6e9743ae06c62cf'),
             ('b5a73db6c73c788dd62a1e5c0aa7bc2f50a260d52b04fcec4cd0192a25c6658f', 'af8a7f7b812a40bf8a1c151d3f09a98c'),
