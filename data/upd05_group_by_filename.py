@@ -322,6 +322,12 @@ def get_virustotal_info(file_hash):
     elif file_hash == 'ede86c8d8c6b9256b926701f4762bd6f71e487f366dfc7db8d74b8af57e79bbb':  # ftdibus.sys
         assert first_section['virtual_address'] == 0x380
         section_alignment = 0x80
+    elif file_hash == '5bec55192eaef43b0fade13bbadfdf77eb0d45b4b281ae19d4b0b7a0c2350836':  # onnxruntime.dll
+        assert first_section['virtual_address'] == 0x2d0
+        section_alignment = 0x10
+    elif file_hash == '09ced31cad8547a9ee5dcf739565def2f4359075e56a7b699cc85971e0905864':  # onnxruntime.dll
+        assert first_section['virtual_address'] == 0x310
+        section_alignment = 0x10
     else:
         section_alignment = first_section['virtual_address']
         assert is_power_of_two(section_alignment), file_hash
