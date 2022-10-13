@@ -124,6 +124,7 @@ def get_virustotal_data_for_files(names_and_hashes, session, output_dir, time_to
                 print(f'       {e}')
                 if config.exit_on_first_error:
                     raise
+                file_result = 'exception'
 
             if file_result != 'retry':
                 break
