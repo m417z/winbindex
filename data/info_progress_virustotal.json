@@ -3,10 +3,7 @@
 "mbaeapi.dll",
 "167531dd624bd86df3ce87625fbd82961b93417c48c17a1ea03d9b7f79a39be3"
 ],
-"next_updates": [
-"setupplatform.dll",
-"37feca069e159f30e794be7d7b714093f4d84162efb9e4bcf29bcbf0780edcc9"
-],
+"next_updates": null,
 "pending": {},
 "retry": [
 [
@@ -14,41 +11,29 @@
 "20578b4984af8ba4e69b88b843d6a24dd8af6bb0e6b06fd6e6fd9b259b97b21d"
 ],
 [
-"microsoft.windows.servermanager.common.resources.dll",
-"995b826a94f83ff66663aba3c39868cb0204c5c8891ae96f31be538f6420e06d"
+"sfc.exe",
+"b2ee355827e0ff2d2160c0fe1c13019e20705976ab254c0524ddcede52908992"
 ],
 [
-"mspaint.exe",
-"f5e3ea1ee3d25e800d294e5a4cca0be14f9eb9996908354f850c34dae4b0095a"
+"shlwapi.dll",
+"73aad928373fb48f7ba02ddb05a36976521f90873e45b8c3c0a3facff7399e8f"
 ],
 [
-"mspatcha.dll",
-"112ac7da727deb19b36c2fef58780542147f54e25b7d3b4584ebfd926424b69d"
+"shlwapi.dll",
+"7d4223bc29183374eccb61efc5469e903876c91b6f5dd223752633838d9e09b5"
 ],
 [
-"netsetupai.dll",
-"6dbbf5e4c89cd7824b7819d04512fa3b48e2426c00f1a80d133c3688e45601b6"
+"surfacehubmicrophonearrayapo.dll",
+"ed89bef6d35eb3ea05bd58c448517ca6bd0c86c4f44d4709939314719cc539a6"
 ],
 [
-"objsel.dll",
-"d233307da7be96186e451e4b40c8fd9975392ebd71d98d0a4c74917a8b8adc53"
+"system.management.automation.resources.dll",
+"bcaedbe5c2053412e01f3c8e2587cc1fbc89dcd0e9e8a271e2bdfb47aa7ed7e9"
 ],
 [
-"objsel.dll",
-"de0fa4090b4e85908ab693ebe7de9e6a282358471424a41c384f70099a735239"
-],
-[
-"offreg.dll",
-"4b24e34476dd9c6ba755e0c31855203011cf10ba0628a55417d174060925fa16"
-],
-[
-"remoteapplifetimemanager.exe",
-"d31df830154ce5a296c2157f2dd358359f264113f2c40ae192ba497bf07c59be"
+"wpx.dll",
+"b96e0f93c1e35a0b394663f4e4e60547fcd8012751476f1f8df63f20844d0d70"
 ]
 ],
-"updates": [
-"KB5020387",
-"KB5020435",
-"KB5020438"
-]
+"updates": null
 }
