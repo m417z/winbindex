@@ -1,7 +1,7 @@
 {
 "next": [
-"mbaeapi.dll",
-"167531dd624bd86df3ce87625fbd82961b93417c48c17a1ea03d9b7f79a39be3"
+"micaut.dll",
+"5586206cf2d42d550f4859c2eacef7af38e508f41cd32a75f366dd431cf2ed6e"
 ],
 "next_updates": null,
 "pending": {},
@@ -11,28 +11,36 @@
 "20578b4984af8ba4e69b88b843d6a24dd8af6bb0e6b06fd6e6fd9b259b97b21d"
 ],
 [
-"sfc.exe",
-"b2ee355827e0ff2d2160c0fe1c13019e20705976ab254c0524ddcede52908992"
+"mdmregistration.dll",
+"3c3bd8f42fd47c9f67e9fa8155bba20ef2ec350ac157d087fb60e2311df084e8"
 ],
 [
-"shlwapi.dll",
-"73aad928373fb48f7ba02ddb05a36976521f90873e45b8c3c0a3facff7399e8f"
+"mediafoundation.defaultperceptionprovider.dll",
+"f11f9df065222289b3dad153b5ffb5c73581bf0141dfb93891ee14cc63375a30"
 ],
 [
-"shlwapi.dll",
-"7d4223bc29183374eccb61efc5469e903876c91b6f5dd223752633838d9e09b5"
+"memtest.efi",
+"0ea5106beeabdf7a5644d06656f5cd99e9de1bd17973b1455c37592e88ff12cb"
 ],
 [
-"surfacehubmicrophonearrayapo.dll",
-"ed89bef6d35eb3ea05bd58c448517ca6bd0c86c4f44d4709939314719cc539a6"
+"memtest.efi",
+"996d6b5fd67343b4df5a446cbb8d690106e8f1e339f39bfd20a1d07b5c61ca09"
 ],
 [
-"system.management.automation.resources.dll",
-"bcaedbe5c2053412e01f3c8e2587cc1fbc89dcd0e9e8a271e2bdfb47aa7ed7e9"
+"memtest.efi",
+"ca76b4524d0095f67fd7764c947e3a417e6e1a39ffb64a23e8407c270b647683"
 ],
 [
-"wpx.dll",
-"b96e0f93c1e35a0b394663f4e4e60547fcd8012751476f1f8df63f20844d0d70"
+"memtest.efi",
+"ddabac226289bcf1425b6ea8d7601c4e417d2ad4232acbac26ee8517da887b1f"
+],
+[
+"memtest.exe",
+"09666b2ce3f8336a363e6237abf4e44deb569540c05af833cf3dba1c574cd1f1"
+],
+[
+"mfps.dll",
+"b50570a87417e1b7b3408358db75575dc7e8ad6dc188454d359657050485274f"
 ]
 ],
 "updates": null
