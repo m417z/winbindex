@@ -155,6 +155,12 @@
             "releaseDate": "2022-10-11",
             "releaseVersion": "22000.1098",
             "updateUrl": "https://support.microsoft.com/help/5018418"
+        },
+        "KB5020387": {
+            "heading": "October 17, 2022&#x2014;KB5020387 (OS Build 22000.1100) Out-of-band",
+            "releaseDate": "2022-10-17",
+            "releaseVersion": "22000.1100",
+            "updateUrl": "https://support.microsoft.com/help/5020387"
         }
     },
     "11-22H2": {
