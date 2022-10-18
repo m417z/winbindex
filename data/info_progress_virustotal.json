@@ -1,7 +1,7 @@
 {
 "next": [
-"micaut.dll",
-"5586206cf2d42d550f4859c2eacef7af38e508f41cd32a75f366dd431cf2ed6e"
+"microsoft.identityserver.resources.dll",
+"8f676a52b8476cbbdb7c43747916b8b14fee5f616bed46a60012dae03cce9d77"
 ],
 "next_updates": null,
 "pending": {},
@@ -11,36 +11,40 @@
 "20578b4984af8ba4e69b88b843d6a24dd8af6bb0e6b06fd6e6fd9b259b97b21d"
 ],
 [
-"mdmregistration.dll",
-"3c3bd8f42fd47c9f67e9fa8155bba20ef2ec350ac157d087fb60e2311df084e8"
+"microsoft.bing.client.graph.dll",
+"047854cf000fedbe6f46703355df4ea480c714e9ab8faebf2ce62a1dd4aab49f"
 ],
 [
-"mediafoundation.defaultperceptionprovider.dll",
-"f11f9df065222289b3dad153b5ffb5c73581bf0141dfb93891ee14cc63375a30"
+"microsoft.bluetooth.profiles.gatt.interface.dll",
+"923e69d1beea3ada0844b844cc10ee0d2e2ae8395c065d2a4c2702db13ae6c3a"
 ],
 [
-"memtest.efi",
-"0ea5106beeabdf7a5644d06656f5cd99e9de1bd17973b1455c37592e88ff12cb"
+"microsoft.bluetooth.profiles.gatt.interface.dll",
+"a2d69f06694ffb14636e046559f08aded9e180dc831c6fb88f078b741b2309fc"
 ],
 [
-"memtest.efi",
-"996d6b5fd67343b4df5a446cbb8d690106e8f1e339f39bfd20a1d07b5c61ca09"
+"microsoft.cloudnet.slb.slbm.repositorymanager.dll",
+"66b49840fb6d0d72a1e6cc62da624973aa1c7cd01f19b7785d804017d9eb8730"
 ],
 [
-"memtest.efi",
-"ca76b4524d0095f67fd7764c947e3a417e6e1a39ffb64a23e8407c270b647683"
+"microsoft.cloudnet.slb.slbm.repositorymanager.dll",
+"8025f20d19241174621b851386fee0a9719ffac64b51f9e712affcc29581db02"
 ],
 [
-"memtest.efi",
-"ddabac226289bcf1425b6ea8d7601c4e417d2ad4232acbac26ee8517da887b1f"
+"microsoft.cloudnet.slb.utilities.slbclient.dll",
+"7eadb6b0b1807d99476e15e70d5c77569de505df55866b06678cbbe6caefc2e6"
 ],
 [
-"memtest.exe",
-"09666b2ce3f8336a363e6237abf4e44deb569540c05af833cf3dba1c574cd1f1"
+"microsoft.identityserver.resources.dll",
+"3c2f6490e4ab00de1b2f2766bc486a6526b98aaccbcbe311e55570b2e3e101b7"
 ],
 [
-"mfps.dll",
-"b50570a87417e1b7b3408358db75575dc7e8ad6dc188454d359657050485274f"
+"microsoft.identityserver.resources.dll",
+"40cbe47fd39d59aa318773e875604fd049ccb5d2e3457f37dcfb1b46c13d3766"
+],
+[
+"microsoft.identityserver.resources.dll",
+"414552c6d68f796659cbf7f28829143689d9c1b6f07e2ccbe846086fdada460d"
 ]
 ],
 "updates": null
