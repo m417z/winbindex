@@ -3,48 +3,19 @@
 "microsoft.identityserver.resources.dll",
 "8f676a52b8476cbbdb7c43747916b8b14fee5f616bed46a60012dae03cce9d77"
 ],
-"next_updates": null,
+"next_updates": [
+"psomimm.dll",
+"ff74827ab0fa0e5e3ae2d3c0d5291a162f0878b859b2ec88624807e7ea8c532a"
+],
 "pending": {},
 "retry": [
 [
-"ieframe.dll",
-"20578b4984af8ba4e69b88b843d6a24dd8af6bb0e6b06fd6e6fd9b259b97b21d"
+"d3d11_3sdklayers.dll",
+"32020eb518da7bc494ce4870a754872d72158ab926adf3c43cca4f1656afc67b"
 ],
 [
-"microsoft.bing.client.graph.dll",
-"047854cf000fedbe6f46703355df4ea480c714e9ab8faebf2ce62a1dd4aab49f"
-],
-[
-"microsoft.bluetooth.profiles.gatt.interface.dll",
-"923e69d1beea3ada0844b844cc10ee0d2e2ae8395c065d2a4c2702db13ae6c3a"
-],
-[
-"microsoft.bluetooth.profiles.gatt.interface.dll",
-"a2d69f06694ffb14636e046559f08aded9e180dc831c6fb88f078b741b2309fc"
-],
-[
-"microsoft.cloudnet.slb.slbm.repositorymanager.dll",
-"66b49840fb6d0d72a1e6cc62da624973aa1c7cd01f19b7785d804017d9eb8730"
-],
-[
-"microsoft.cloudnet.slb.slbm.repositorymanager.dll",
-"8025f20d19241174621b851386fee0a9719ffac64b51f9e712affcc29581db02"
-],
-[
-"microsoft.cloudnet.slb.utilities.slbclient.dll",
-"7eadb6b0b1807d99476e15e70d5c77569de505df55866b06678cbbe6caefc2e6"
-],
-[
-"microsoft.identityserver.resources.dll",
-"3c2f6490e4ab00de1b2f2766bc486a6526b98aaccbcbe311e55570b2e3e101b7"
-],
-[
-"microsoft.identityserver.resources.dll",
-"40cbe47fd39d59aa318773e875604fd049ccb5d2e3457f37dcfb1b46c13d3766"
-],
-[
-"microsoft.identityserver.resources.dll",
-"414552c6d68f796659cbf7f28829143689d9c1b6f07e2ccbe846086fdada460d"
+"esscli.dll",
+"9201fbb25064e0099a8ca90746824ce4111dac9977707405a660027d2c170a66"
 ]
 ],
 "updates": [
