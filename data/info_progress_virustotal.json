@@ -3,16 +3,35 @@
 "microsoft.identityserver.resources.dll",
 "8f676a52b8476cbbdb7c43747916b8b14fee5f616bed46a60012dae03cce9d77"
 ],
-"next_updates": null,
+"next_updates": [
+"displayswitch.exe",
+"b54d7906116496e843a83fd81ae85c9913b46cae0649f8e528ca5f80cc4989bd"
+],
 "pending": {},
 "retry": [
 [
-"d3d11_3sdklayers.dll",
-"32020eb518da7bc494ce4870a754872d72158ab926adf3c43cca4f1656afc67b"
+"appobj.dll",
+"3562a7e6dc47a1820e3f38b5350108fc8477109c985b5887ff4f0edb899b32f3"
 ],
 [
-"esscli.dll",
-"9201fbb25064e0099a8ca90746824ce4111dac9977707405a660027d2c170a66"
+"cng.sys",
+"1275b409e26bba28993fb6b76833ccb536abbc1a17f56c6f27fad9c4cedf46c8"
+],
+[
+"combase.dll",
+"6f1d831dc53dd0cc8602017a845874c600b893cef6a923a6e6fb7587e9650442"
+],
+[
+"comctl32.dll",
+"50e3f3d67519a139a958f60f2961831dfde26053c9013c5a3c24784eff3e79ef"
+],
+[
+"comctl32.dll",
+"5c308ad4e7a73bf3f470592e50a62acb5b79d60ab9f2291c8901fb5bc6f39cc2"
+],
+[
+"contactapis.dll",
+"cbc3dc7e28f3c4d0f3703257c3027405d42b7bf1739ea306392389abbb69af85"
 ]
 ],
 "updates": [
