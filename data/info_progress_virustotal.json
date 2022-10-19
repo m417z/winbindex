@@ -3,10 +3,7 @@
 "microsoft.identityserver.resources.dll",
 "8f676a52b8476cbbdb7c43747916b8b14fee5f616bed46a60012dae03cce9d77"
 ],
-"next_updates": [
-"psomimm.dll",
-"ff74827ab0fa0e5e3ae2d3c0d5291a162f0878b859b2ec88624807e7ea8c532a"
-],
+"next_updates": null,
 "pending": {},
 "retry": [
 [
@@ -19,6 +16,7 @@
 ]
 ],
 "updates": [
-"KB5019509"
+"KB5019509",
+"KB5020439"
 ]
 }

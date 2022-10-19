@@ -1899,6 +1899,12 @@
             "releaseDate": "2022-10-11",
             "releaseVersion": "14393.5427",
             "updateUrl": "https://support.microsoft.com/help/5018411"
+        },
+        "KB5020439": {
+            "heading": "October 18, 2022&#x2014;KB5020439 (OS Build 14393.5429) Out-of-band",
+            "releaseDate": "2022-10-18",
+            "releaseVersion": "14393.5429",
+            "updateUrl": "https://support.microsoft.com/help/5020439"
         }
     },
     "1703": {
