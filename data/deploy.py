@@ -133,6 +133,22 @@ def add_update_to_info_progress_virustotal(update_kb):
         json.dump(info_progress_virustotal, f, indent=0, sort_keys=True)
 
 
+def is_handling_update_in_info_progress_virustotal():
+    info_progress_virustotal_path = config.out_path.joinpath('info_progress_virustotal.json')
+    if info_progress_virustotal_path.is_file():
+        with open(info_progress_virustotal_path, 'r') as f:
+            info_progress_virustotal = json.load(f)
+    else:
+        info_progress_virustotal = {}
+
+    updates = info_progress_virustotal.get('updates')
+    if updates is None:
+        return False
+    else:
+        assert updates != []
+        return True
+
+
 def check_pymultitor(proxy='http://127.0.0.1:8080'):
     try:
         url = 'http://0.0.0.0/'
@@ -446,10 +462,10 @@ def main():
 
         commit_deploy(pr_title)
 
-        # Stop once we got less than 100 files from VirusTotal.
+        # Stop once we got less than 100 non-update files from VirusTotal.
         # Otherwise, continue as long as there are new updates.
         match = re.match(r'Updated info of (\d+) files from VirusTotal$', pr_title)
-        if match and int(match.group(1)) < 100:
+        if match and int(match.group(1)) < 100 and not is_handling_update_in_info_progress_virustotal():
             print('Done')
             return
 
