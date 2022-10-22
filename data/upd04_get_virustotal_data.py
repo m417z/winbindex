@@ -81,10 +81,12 @@ def get_virustotal_data_for_file(session: requests.Session, file_hash, output_di
         r = session.get(url, verify=False, headers=headers, timeout=30)
     except (KeyboardInterrupt, SystemExit):
         raise
-    except:
+    except Exception as e:
+        print(f'ERROR: failed to get {url}')
+        print(f'       {e}')
         return 'retry'
 
-    if r.status_code == 429:
+    if r.status_code in [403, 429]:
         return 'retry'
 
     virustotal_data = r.text
