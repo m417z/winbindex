@@ -2,7 +2,6 @@ from isal import igzip as gzip
 from datetime import datetime
 from pathlib import Path
 import requests
-import urllib3
 import base64
 import orjson
 import random
@@ -35,7 +34,7 @@ def get_file_hashes_of_updates(name, updates):
 
 def create_virustotal_urllib_session():
     # https://stackoverflow.com/a/28002687
-    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+    requests.packages.urllib3.disable_warnings(requests.packages.urllib3.exceptions.InsecureRequestWarning)
 
     session = requests.Session()
     # The headers are necessary for getting info from VirusTotal.
@@ -50,7 +49,22 @@ def create_virustotal_urllib_session():
     return session
 
 
-def get_virustotal_data_for_file(session, file_hash, output_dir):
+def lookup_virustotal_bulk_hashes_exist(file_hashes):
+    url = 'https://www.virustotal.com/partners/sysinternals/file-reports?apikey=4e3202fdbe953d628f650229af5b3eb49cd46b2d3bfe5546ae3c5fa48b554e0c'
+    body = [{'hash': hash} for hash in file_hashes]
+
+    response = requests.post(url, json=body, headers={'User-Agent': 'VirusTotal'})
+    response.raise_for_status()
+    response = response.json()
+
+    hashes_found = {}
+    for result in response['data']:
+        hashes_found[result['hash']] = result['found']
+
+    return hashes_found
+
+
+def get_virustotal_data_for_file(session: requests.Session, file_hash, output_dir):
     if output_dir.joinpath(file_hash + '.json').is_file():
         return 'exists'
 
@@ -100,7 +114,7 @@ def get_virustotal_data_for_file(session, file_hash, output_dir):
     return result
 
 
-def get_virustotal_data_for_files(names_and_hashes, session, output_dir, time_to_stop):
+def get_virustotal_data_for_files(names_and_hashes, session: requests.Session, output_dir, time_to_stop):
     result = {
         'found': set(),
         'not_found': set(),
@@ -108,42 +122,70 @@ def get_virustotal_data_for_files(names_and_hashes, session, output_dir, time_to
         'next': None,
     }
 
-    count = 0
-    for name, hash in names_and_hashes:
-        while True:
-            if time_to_stop and datetime.now() >= time_to_stop:
-                result['next'] = (name, hash)
-                return result
+    # https://stackoverflow.com/a/312464
+    def chunks(lst, n):
+        """Yield successive n-sized chunks from lst."""
+        for i in range(0, len(lst), n):
+            yield lst[i:i + n]
 
+    # Split to chunks, the bulk lookup fails for an input which is too large.
+    chunk_size = 1000
+
+    count = 0
+
+    for names_and_hashes_chunk in chunks(names_and_hashes, chunk_size):
+        while True:
             try:
-                file_result = get_virustotal_data_for_file(session, hash, output_dir)
+                hashes_found = lookup_virustotal_bulk_hashes_exist([hash for name, hash in names_and_hashes_chunk])
+                break
             except (KeyboardInterrupt, SystemExit):
                 raise
             except Exception as e:
-                print(f'ERROR: failed to process {hash} ({name})')
+                print(f'ERROR: failed to do bulk lookup, retrying in 10 seconds')
                 print(f'       {e}')
-                if config.exit_on_first_error:
-                    raise
-                file_result = 'exception'
+                time.sleep(10)
 
-            if file_result != 'retry':
-                break
+        print(f'Found {sum(hashes_found.values())} hashes of {len(hashes_found)}')
 
-            # print('Waiting to retry...')
-            # time.sleep(30)
-            print(f'Retrying {hash} ({name})')
+        for name, hash in names_and_hashes_chunk:
+            if hashes_found[hash]:
+                while True:
+                    if time_to_stop and datetime.now() >= time_to_stop:
+                        result['next'] = (name, hash)
+                        return result
 
-        if file_result in ['ok', 'exists']:
-            result['found'].add((name, hash))
-        elif file_result == 'not_found':
-            result['not_found'].add((name, hash))
-        else:
-            print(f'WARNING: got result {file_result} for {hash} ({name})')
-            result['failed'].add((name, hash))
+                    try:
+                        file_result = get_virustotal_data_for_file(session, hash, output_dir)
+                    except (KeyboardInterrupt, SystemExit):
+                        raise
+                    except Exception as e:
+                        print(f'ERROR: failed to process {hash} ({name})')
+                        print(f'       {e}')
+                        if config.exit_on_first_error:
+                            raise
+                        file_result = 'exception'
 
-        count += 1
-        if count % 10 == 0 and config.verbose_progress:
-            print(f'Processed {count} of {len(names_and_hashes)} ({name})')
+                    if file_result != 'retry':
+                        break
+
+                    # print('Waiting to retry...')
+                    # time.sleep(30)
+                    print(f'Retrying {hash} ({name})')
+
+                if file_result in ['ok', 'exists']:
+                    result['found'].add((name, hash))
+                elif file_result == 'not_found':
+                    assert False, (name, hash)
+                    # result['not_found'].add((name, hash))
+                else:
+                    print(f'WARNING: got result {file_result} for {hash} ({name})')
+                    result['failed'].add((name, hash))
+            else:
+                result['not_found'].add((name, hash))
+
+            count += 1
+            if count % 10 == 0 and config.verbose_progress:
+                print(f'Processed {count} of {len(names_and_hashes)} ({name})')
 
     return result
 
