@@ -462,10 +462,10 @@ def main():
 
         commit_deploy(pr_title)
 
-        # Stop once we got less than 100 non-update files from VirusTotal.
-        # Otherwise, continue as long as there are new updates.
+        # Stop once we get non-update files from VirusTotal. Otherwise, continue
+        # as long as there are other tasks.
         match = re.match(r'Updated info of (\d+) files from VirusTotal$', pr_title)
-        if match and int(match.group(1)) < 100 and not is_handling_update_in_info_progress_virustotal():
+        if match and not is_handling_update_in_info_progress_virustotal():
             print('Done')
             return
 
