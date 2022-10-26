@@ -26650,6 +26650,7 @@
 "microsoft.windows.ethernet.client.vmware.vmxnet3~~1.0.mum",
 "microsoft.windows.fileserver.management.common.dll",
 "microsoft.windows.fileserver.management.plugin.dll",
+"microsoft.windows.fileserver.management.plugin.resources.dll",
 "microsoft.windows.fileserver.management.plugin.ui.dll",
 "microsoft.windows.fileserver.management.plugin.ui.resources.dll",
 "microsoft.windows.fileserver.management.servermanagerproxy.dll",
