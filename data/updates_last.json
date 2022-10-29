@@ -5239,6 +5239,16 @@
             "releaseDate": "2022-10-17",
             "releaseVersion": "19042.2132",
             "updateUrl": "https://support.microsoft.com/help/5020435"
+        },
+        "KB5020953": {
+            "heading": "October 28, 2022&#x2014;KB5020953 (OS Builds 19042.2194, 19043.2194, and 19044.2194) Out-of-band",
+            "otherWindowsVersions": [
+                "21H1",
+                "21H2"
+            ],
+            "releaseDate": "2022-10-28",
+            "releaseVersion": "19042.2194",
+            "updateUrl": "https://support.microsoft.com/help/5020953"
         }
     }
 }
