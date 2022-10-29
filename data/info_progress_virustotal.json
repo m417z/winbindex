@@ -2,13 +2,6 @@
 "next": null,
 "next_updates": null,
 "pending": {},
-"retry": [
-[
-"windowsinternal.composableshell.experiences.switcher.dll",
-"1413213306f7c20a0739bdf4eef0d289adc65f83e7e23598bb2d0a1b10cf99bf"
-]
-],
-"updates": [
-"KB5020953"
-]
+"retry": [],
+"updates": null
 }
