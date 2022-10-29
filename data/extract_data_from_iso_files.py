@@ -33,7 +33,6 @@ def main(folder, windows_version, iso_sha256, release_date):
     assert re.match(r'^[A-Fa-f0-9]{64}$', iso_sha256)
     assert re.match(r'^\d{4}-\d{2}-\d{2}$', release_date)
 
-    file_hashes = set()
     result_files = set()
     pe_file_hashes = {}
 
@@ -60,12 +59,6 @@ def main(folder, windows_version, iso_sha256, release_date):
         return filename_relative
 
     def callback(filename: str, result_item):
-        if result_item['sha256'] in file_hashes:
-            assert hashabledict(result_item) in result_files, result_item['sha256']
-            return
-
-        file_hashes.add(result_item['sha256'])
-
         result_files.add(hashabledict(result_item))
 
         name = filename.split('\\')[-1].lower()
