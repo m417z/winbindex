@@ -22,8 +22,10 @@ def consolidate_overlapping_updates(updates):
                     ('2004', '21H2'),
                     ('20H2', '21H1'),
                     ('20H2', '21H2'),
+                    ('20H2', '22H2'),
                     # ('21H1', '21H2'),  # TODO: uncomment after 20H2 end-of-service
-                ]
+                    # ('21H1', '22H2'),  # TODO: uncomment after 20H2 end-of-service
+                ], (update_kb, seen_windows_version, windows_version)
 
                 assert update['updateUrl'] == seen_update['updateUrl']
                 if update_kb not in ['KB5003173']:  # KB5003173 was released later for 21H1
@@ -41,6 +43,10 @@ def consolidate_overlapping_updates(updates):
                 continue
 
             seen_kbs[update_kb] = windows_version, update
+
+    for windows_version in list(updates.keys()):
+        if len(updates[windows_version]) == 0:
+            del updates[windows_version]
 
 
 def get_updates_from_microsoft_support_for_version(windows_major_version, url):
