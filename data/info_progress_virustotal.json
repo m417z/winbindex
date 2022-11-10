@@ -4,8 +4,12 @@
 "pending": {},
 "retry": [
 [
-"msscntrs.dll",
-"c646bfe154a2534dfd701cfb80e96192817258b9cc3c92b454325189e826ee85"
+"amdk8.sys",
+"0d79be4e0efd0be6a18e63490958110067f96f1a405ef5868421382bcb056c4e"
+],
+[
+"printadvancedinstaller.dll",
+"a143da1e003b3b3e13a5cbd642f21d8c0f95a953848a6c3e402ad41198d3cabf"
 ]
 ],
 "updates": null
