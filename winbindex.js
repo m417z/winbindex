@@ -15,8 +15,8 @@ var globalFunctions = {};
         var architecture = getParameterByName('arch');
         var baseDataUrl = 'data';
         if (architecture === 'arm64') {
-            $('#winbindex-arch').val(architecture);
-            $('#main-logo-link').attr('href', '?arch=arm64');
+            $('#winbindex-arch').val(architecture).prop('disabled', false);
+            $('#main-logo-link').prop('href', '?arch=arm64');
             $('#main-logo-arch-badge').text('ARM64').removeClass('d-none');
             $('#arch-links a[href="."]').removeClass('active');
             $('#arch-links a[href="?arch=arm64"]').addClass('active');
@@ -230,7 +230,7 @@ var globalFunctions = {};
             dataProvider: dataProvider,
             onSelect: function (item) {
                 $('#winbindex-file-value').val(item.id);
-                $('#winbindex-file-select-container button[type=submit]').removeAttr('disabled');
+                $('#winbindex-file-select-container button[type=submit]').prop('disabled', false);
             },
         }).virtualselect('load');
     }
