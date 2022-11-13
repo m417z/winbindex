@@ -1,7 +1,19 @@
 {
-"next": null,
+"next": [
+"wincredui.dll",
+"9b371d2a175a8e6ba6fdf408f24bc1b9c7876baa963457a422208b4c3da4d4b8"
+],
 "next_updates": null,
 "pending": {},
-"retry": [],
+"retry": [
+[
+"bfsvc.dll",
+"047b5bd12e37683bd8b0c3963340e9ad0666ef52e006b23acb430ff71de224be"
+],
+[
+"fveupdateai.dll",
+"55057f297f9471a938aedaf465ebee936fa75284591230144f2772c74a9e694b"
+]
+],
 "updates": null
 }
