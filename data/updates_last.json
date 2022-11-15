@@ -162,6 +162,12 @@
             "releaseVersion": "22000.1165",
             "updateUrl": "https://support.microsoft.com/help/5018483"
         },
+        "KB5019157": {
+            "heading": "November 15, 2022&#x2014;KB5019157 (OS Build 22000.1281) Preview",
+            "releaseDate": "2022-11-15",
+            "releaseVersion": "22000.1281",
+            "updateUrl": "https://support.microsoft.com/help/5019157"
+        },
         "KB5019961": {
             "heading": "November 8, 2022&#x2014;KB5019961 (OS Build 22000.1219)",
             "releaseDate": "2022-11-08",
