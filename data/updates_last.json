@@ -5277,6 +5277,17 @@
             "releaseVersion": "19042.2251",
             "updateUrl": "https://support.microsoft.com/help/5019959"
         },
+        "KB5020030": {
+            "heading": "November 15, 2022&#x2014;KB5020030 (OS Builds 19042.2311, 19043.2311, 19044.2311, and 19045.2311) Preview",
+            "otherWindowsVersions": [
+                "21H1",
+                "21H2",
+                "22H2"
+            ],
+            "releaseDate": "2022-11-15",
+            "releaseVersion": "19042.2311",
+            "updateUrl": "https://support.microsoft.com/help/5020030"
+        },
         "KB5020435": {
             "heading": "October 17, 2022&#x2014;KB5020435 (OS Builds 19042.2132, 19043.2132, and 19044.2132) Out-of-band",
             "otherWindowsVersions": [
