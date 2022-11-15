@@ -4,12 +4,9 @@
 "pending": {},
 "retry": [
 [
-"generaltel.dll",
-"1eccd490a8e9101e32728595899d5ed0c543e4604fd2a30930349cdac8c7e9e6"
+"spatialaudiolicensesrv.exe",
+"49772b698052e7b29f5f444b04b4ad20e6f2df1bd945247eb1fb46d243366484"
 ]
 ],
-"updates": [
-"KB5019157",
-"KB5020030"
-]
+"updates": null
 }
