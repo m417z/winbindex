@@ -2,6 +2,19 @@
 "next": null,
 "next_updates": null,
 "pending": {},
-"retry": [],
+"retry": [
+[
+"deviceaccess.dll",
+"ac613e3c55bd4b3f250744ec896fca267a343d10d332b16cbf19be7d583a4fd6"
+],
+[
+"vhdparser.sys",
+"3ff5474183b1ff1a3d549125466377cc676f2c2ad1fa4234e6024b89667dd260"
+],
+[
+"wintypes.dll",
+"9f63b9890ac016b027a57e14a4f5da73ddb9cf12a2f92d6b3e45046601331e3d"
+]
+],
 "updates": null
 }
