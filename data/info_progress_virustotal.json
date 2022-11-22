@@ -2,11 +2,6 @@
 "next": null,
 "next_updates": null,
 "pending": {},
-"retry": [
-[
-"cortana.search.winmd",
-"b57064594711c43f79e9cd85a33d320919b453d9983914a0556097b149619970"
-]
-],
+"retry": [],
 "updates": null
 }
