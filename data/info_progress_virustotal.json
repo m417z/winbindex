@@ -2,6 +2,15 @@
 "next": null,
 "next_updates": null,
 "pending": {},
-"retry": [],
+"retry": [
+[
+"dxgi.dll",
+"946a8c23317d9d856d890c84128626d4c1e9932e98e96f6fe5e5abbc4c73edf1"
+],
+[
+"wudfplatform.dll",
+"f47a7efbff923b9acae5bbe01c6355278ca0f8804dded2ee380fed8316709034"
+]
+],
 "updates": null
 }
