@@ -217,6 +217,12 @@
             "releaseDate": "2022-11-08",
             "releaseVersion": "22621.819",
             "updateUrl": "https://support.microsoft.com/help/5019980"
+        },
+        "KB5020044": {
+            "heading": "November 29, 2022&#x2014;KB5020044 (OS Build 22621.900) Preview",
+            "releaseDate": "2022-11-29",
+            "releaseVersion": "22621.900",
+            "updateUrl": "https://support.microsoft.com/help/5020044"
         }
     },
     "1507": {
