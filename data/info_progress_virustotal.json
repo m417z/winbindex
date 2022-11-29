@@ -4,12 +4,16 @@
 "pending": {},
 "retry": [
 [
-"dxgi.dll",
-"946a8c23317d9d856d890c84128626d4c1e9932e98e96f6fe5e5abbc4c73edf1"
+"dbghelp.dll",
+"1379de03b687716741fb0a2e871caeefc5ea4cc07acd03b6a3ff1945e8f197b1"
 ],
 [
-"wudfplatform.dll",
-"f47a7efbff923b9acae5bbe01c6355278ca0f8804dded2ee380fed8316709034"
+"dhcpcsvc.dll",
+"766b7e472d5aa0536d8e05643fc52368699a1602f02253e48d101d101fba49d6"
+],
+[
+"ncryptsslp.dll",
+"83f87cee35b2c06dec3ebf75b32eb4e367d6af8f7fcb338e1c3a4e08783f8de6"
 ]
 ],
 "updates": null
