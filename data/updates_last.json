@@ -890,6 +890,12 @@
             "releaseDate": "2022-10-18",
             "releaseVersion": "10240.19509",
             "updateUrl": "https://support.microsoft.com/help/5020440"
+        },
+        "KB5021243": {
+            "heading": "December 13, 2022-KB5021243 (OS Build 10240.19624)",
+            "releaseDate": "2022-12-13",
+            "releaseVersion": "10240.19624",
+            "updateUrl": "https://support.microsoft.com/help/5021243"
         }
     },
     "1511": {
