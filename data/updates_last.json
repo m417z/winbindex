@@ -229,6 +229,12 @@
             "releaseDate": "2022-11-29",
             "releaseVersion": "22621.900",
             "updateUrl": "https://support.microsoft.com/help/5020044"
+        },
+        "KB5021255": {
+            "heading": "December 13, 2022&#x2014;KB5021255 (OS Build 22621.963)",
+            "releaseDate": "2022-12-13",
+            "releaseVersion": "22621.963",
+            "updateUrl": "https://support.microsoft.com/help/5021255"
         }
     },
     "1507": {
