@@ -179,6 +179,12 @@
             "releaseDate": "2022-10-17",
             "releaseVersion": "22000.1100",
             "updateUrl": "https://support.microsoft.com/help/5020387"
+        },
+        "KB5021234": {
+            "heading": "December 13, 2022&#x2014;KB5021234 (OS Build 22000.1335)",
+            "releaseDate": "2022-12-13",
+            "releaseVersion": "22000.1335",
+            "updateUrl": "https://support.microsoft.com/help/5021234"
         }
     },
     "11-22H2": {
