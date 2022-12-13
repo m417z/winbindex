@@ -219,7 +219,7 @@
             "updateUrl": "https://support.microsoft.com/help/5019980"
         },
         "KB5020044": {
-            "heading": "November 29, 2022&#x2014;KB5020044 (OS Build 22621.900) Preview",
+            "heading": "November 29, 2022&#x2014;KB5020044 (OS Build 22621.900) Preview ",
             "releaseDate": "2022-11-29",
             "releaseVersion": "22621.900",
             "updateUrl": "https://support.microsoft.com/help/5020044"
@@ -5326,6 +5326,17 @@
             "releaseDate": "2022-10-28",
             "releaseVersion": "19042.2194",
             "updateUrl": "https://support.microsoft.com/help/5020953"
+        },
+        "KB5021233": {
+            "heading": "December 13, 2022&#x2014;KB5021233 (OS Builds 19042.2364, 19043.2364, 19044.2364, and 19045.2364)",
+            "otherWindowsVersions": [
+                "21H1",
+                "21H2",
+                "22H2"
+            ],
+            "releaseDate": "2022-12-13",
+            "releaseVersion": "19042.2364",
+            "updateUrl": "https://support.microsoft.com/help/5021233"
         }
     }
 }
