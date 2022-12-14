@@ -4,36 +4,12 @@
 "pending": {},
 "retry": [
 [
-"lsaiso.exe",
-"784e00c9d40e1c4b4620f02627157d0df05eeb0950dda42492fb7251e3fef309"
+"presentationframework-systemdata.dll",
+"256f820a1ed1cb6e9ed1494fb8bf724940c3b45d60c499b319887b7d7d99f23d"
 ],
 [
-"lsm.dll",
-"e88f6397ebb39466540972446085af3fd587fd93dafa4a5c583e3660c7918fe1"
-],
-[
-"sppsvc.exe",
-"6a00c9893b0f17cd18861966bc855425288b064c9938dea58b1be63aa48cadfa"
-],
-[
-"tssdis_migplugin.dll",
-"b3c00b200f122cbf8f0d226e1b9e4c636a7ed398f4d49ad5352aaade27a7a186"
-],
-[
-"uiautomationprovider.dll",
-"87bf747f312035a0f28908b7bc3aa04f8801d1e0c438b18ffa771eee21e984e3"
-],
-[
-"uiautomationtypes.dll",
-"a6b819af8b23a58edee1490e9c52c5a243aafe6d4242072097b19e3d73a65397"
-],
-[
-"windowsbase.dll",
-"17e1764d5c61d7000deaf99eecd7688748cdc6b1e39db282cbc4bd07464fde6a"
-],
-[
-"windowsbase.dll",
-"78f15e9a38eab6ab7629592f85b8f40b2b4b406d0cb699fb3b20a4a3447ebe2f"
+"wab32.dll",
+"e4dfff7cd5b81f6eaa59327f2cf1d6d4d644ddb56dcf1a9f1977965cc7f2ebbc"
 ]
 ],
 "updates": null
