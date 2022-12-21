@@ -4192,6 +4192,12 @@
             "releaseDate": "2022-11-17",
             "releaseVersion": "17763.3653",
             "updateUrl": "https://support.microsoft.com/help/5021655"
+        },
+        "KB5022554": {
+            "heading": "December 20, 2022&#x2014;KB5022554 (OS Build 17763.3772) Out-of-band",
+            "releaseDate": "2022-12-20",
+            "releaseVersion": "17763.3772",
+            "updateUrl": "https://support.microsoft.com/help/5022554"
         }
     },
     "1903": {
