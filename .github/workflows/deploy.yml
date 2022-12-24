@@ -1,5 +1,9 @@
 name: Winbindex Periodic Update
 
+defaults:
+  run:
+    shell: bash
+
 on:
   workflow_dispatch:
   schedule:
@@ -22,7 +26,7 @@ jobs:
         if: runner.os == 'Windows'
         run: |
           choco install -y aria2 tor
-          7z x data\tools.zip -odata\tools
+          7z x data/tools.zip -odata/tools
       - name: Install Linux dependencies
         if: runner.os == 'Linux'
         run: |
