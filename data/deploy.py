@@ -379,14 +379,14 @@ def update_readme_stats():
 
 
 def init_deploy():
-    args = ['git', 'remote', 'add', 'push-origin', f'https://{os.environ["GITHUB_TOKEN"]}@github.com/{os.environ["GITHUB_REPOSITORY"]}.git']
-    subprocess.run(args, check=True)
-
-
-def commit_deploy(pr_title):
     git_email = '69083578+winbindex-deploy-bot@users.noreply.github.com'
     git_name = 'winbindex-deploy-bot'
 
+    subprocess.check_call(['git', 'config', '--global', 'user.email', git_email])
+    subprocess.check_call(['git', 'config', '--global', 'user.name', git_name])
+
+
+def commit_deploy(pr_title):
     exclude_from_commit = [
         'tools',
         'manifests',
@@ -395,41 +395,18 @@ def commit_deploy(pr_title):
     ]
 
     # https://stackoverflow.com/a/51914162
-    extra_commit_params = [f':!{path}/*' for path in exclude_from_commit]
+    exclude_params = [f':!{path}/*' for path in exclude_from_commit]
 
-    commit_directly = True  # pr_title.endswith('files from VirusTotal')
-    if commit_directly:
-        branch_name = 'gh-pages'
-        checkout_params = [branch_name]
-    else:
-        branch_name = f'deploy-{time.time()}'
-        checkout_params = ['-b', branch_name]
+    subprocess.check_call(['git', 'add', '-A', '--'] + exclude_params)
 
-    commands = [
-        ['git', 'config', '--global', 'user.email', git_email],
-        ['git', 'config', '--global', 'user.name', git_name],
-        ['git', 'checkout'] + checkout_params,
-        ['git', 'add', '-A', '--'] + extra_commit_params,
-        ['git', 'commit', '-m', pr_title],
-        ['git', 'push', 'push-origin', branch_name],
-    ]
+    # https://stackoverflow.com/a/2659808
+    result = subprocess.run(['git', 'diff-index', '--quiet', '--cached', 'HEAD'])
+    if result.returncode == 0:
+        print('No changes to commit')
+        return
 
-    for args in commands:
-        subprocess.run(args, check=True)
-
-    if not commit_directly:
-        data = {
-            'title': pr_title,
-            'head': branch_name,
-            'base': 'gh-pages'
-        }
-        headers = {
-            'Accept': 'application/vnd.github.v3+json',
-            'Authorization': f'token {os.environ["GITHUB_TOKEN"]}'
-        }
-        response = requests.post('https://api.github.com/repos/{os.environ["GITHUB_REPOSITORY"]}/pulls', data=json.dumps(data), headers=headers)
-        #print(response.text)
-        response.raise_for_status()
+    subprocess.check_call(['git', 'commit', '-m', pr_title])
+    subprocess.check_call(['git', 'push'])
 
 
 def clean_deploy_files():

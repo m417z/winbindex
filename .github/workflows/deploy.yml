@@ -44,5 +44,3 @@ jobs:
         run: |
           cd data
           python -u deploy.py
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
