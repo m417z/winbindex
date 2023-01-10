@@ -5373,6 +5373,16 @@
             "releaseDate": "2022-12-13",
             "releaseVersion": "19042.2364",
             "updateUrl": "https://support.microsoft.com/help/5021233"
+        },
+        "KB5022282": {
+            "heading": "January 10, 2023&#x2014;KB5022282 (OS Builds 19042.2486, 19044.2486, and 19045.2486)",
+            "otherWindowsVersions": [
+                "21H2",
+                "22H2"
+            ],
+            "releaseDate": "2023-01-10",
+            "releaseVersion": "19042.2486",
+            "updateUrl": "https://support.microsoft.com/help/5022282"
         }
     }
 }
