@@ -241,6 +241,12 @@
             "releaseDate": "2022-12-13",
             "releaseVersion": "22621.963",
             "updateUrl": "https://support.microsoft.com/help/5021255"
+        },
+        "KB5022303": {
+            "heading": "January 10, 2023&#x2014;KB5022303 (OS Build 22621.1105)",
+            "releaseDate": "2023-01-10",
+            "releaseVersion": "22621.1105",
+            "updateUrl": "https://support.microsoft.com/help/5022303"
         }
     },
     "1507": {
