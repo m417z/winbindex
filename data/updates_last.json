@@ -1995,6 +1995,12 @@
             "releaseDate": "2022-11-17",
             "releaseVersion": "14393.5502",
             "updateUrl": "https://support.microsoft.com/help/5021654"
+        },
+        "KB5022289": {
+            "heading": "January 10, 2023&#x2014;KB5022289 (OS Build 14393.5648) ",
+            "releaseDate": "2023-01-10",
+            "releaseVersion": "14393.5648",
+            "updateUrl": "https://support.microsoft.com/help/5022289"
         }
     },
     "1703": {
