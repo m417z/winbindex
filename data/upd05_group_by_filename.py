@@ -337,13 +337,22 @@ def get_virustotal_info(file_hash):
         assert virtual_size == section['virtual_address'], file_hash
         virtual_size += align_by(section['virtual_size'], section_alignment)
 
+    if 'timestamp' in attr['pe_info']:
+        timestamp = attr['pe_info']['timestamp']
+    else:
+        # Zero timestamp.
+        assert file_hash in [
+            '7a9113d00a274c075c58b22a3ebacf1754e7da7cfb4d3334b90367b602158d78',  # brltty.exe
+        ], file_hash
+        timestamp = 0
+
     info = {
         'size': attr['size'],
         'md5': attr['md5'],
         'sha1': attr['sha1'],
         'sha256': attr['sha256'],
         'machineType': attr['pe_info']['machine_type'],
-        'timestamp': attr['pe_info']['timestamp'],
+        'timestamp': timestamp,
         'virtualSize': virtual_size,
     }
 
@@ -357,11 +366,13 @@ def get_virustotal_info(file_hash):
                 'b175123eff88d1573f451b286cd5370003a0839e53c7ae86bf22b35b7e77bad3',  # brlapi-0.6.dll
                 '3eaa62334520b41355c5103dcd663744ba26caae3496bd9015bc399fbaf42fce',  # brltty.exe
                 '69f83db2fda7545ab0a1c60056aee472bf3c70a0af7454c51e1cd449b5c7f43b',  # brltty.exe
+                '7a9113d00a274c075c58b22a3ebacf1754e7da7cfb4d3334b90367b602158d78',  # brltty.exe
                 'b4cc93cf4d7c2906c1929c079cd98ef00c7a33832e132ac57adde71857082e36',  # libgcc_s_dw2-1.dll
             ], file_hash
         else:
             unsigned_with_overlay = [
                 'cf54a8504f2dbdd7bea3acdcd065608d21f5c06924baf647955cc28b8637ae68',  # libiconv-2.dll
+                'ee1df918ca67581f21eac49ae4baffca959f71d1a0676d7c35bc5fb96bea3a48',  # libiconv-2.dll
                 '9eec7e5188d1a224325281e4d0e6e1d5f9f034f02bd1fadeb792d3612c72319e',  # libpdcurses.dll
                 'f9b385e19b9d57a1d1831e744ed2d1c3bb8396d28f48d10120cecfe72595b222',  # libpdcursesu.dll
                 '787d5c07ab0bb782dede7564840e86c468e3728e81266dae23eb8ad614bcee95',  # libpdcursesw.dll

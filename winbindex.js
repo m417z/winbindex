@@ -386,7 +386,7 @@ var globalFunctions = {};
                         var hash = data.hash;
                         var d = data.fileInfo;
 
-                        if (d.timestamp && d.virtualSize) {
+                        if (d.timestamp !== undefined && d.virtualSize) {
                             var url = makeSymbolServerUrl(fileToLoad, d.timestamp, d.virtualSize);
 
                             var downloadLink = $('<a class="btn btn-secondary btn-sm">Download</a>')
@@ -395,7 +395,7 @@ var globalFunctions = {};
                             return downloadLink[0].outerHTML;
                         }
 
-                        if (d.timestamp && d.size && d.lastSectionPointerToRawData && d.lastSectionVirtualAddress) {
+                        if (d.timestamp !== undefined && d.size && d.lastSectionPointerToRawData && d.lastSectionVirtualAddress) {
                             var multiDownloadBtn = $('<a href="#" class="btn btn-secondary btn-sm"><abbr data-toggle="tooltip" title="Several download link candidates">Download</abbr></a>')
                                 .attr('onclick', 'arguments[0].stopPropagation(); return globalFunctions.onMultiDownloadClick(this, "' + hash + '", "' + encodeURIComponent(fileToLoad) + '", ' + d.timestamp + ', ' + d.size + ', ' + d.lastSectionPointerToRawData + ', ' + d.lastSectionVirtualAddress + ');');
 
