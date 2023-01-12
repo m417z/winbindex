@@ -6,9 +6,6 @@ defaults:
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 7 * * *'
-    - cron: '15 18 * * TUE'
 
 concurrency: winbindex-periodic-update
 
