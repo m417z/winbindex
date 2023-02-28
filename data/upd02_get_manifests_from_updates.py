@@ -80,7 +80,7 @@ def get_update(windows_version, update_kb):
 
     found_updates = search_for_updates(search_query)
 
-    filter_regex = r'\bserver\b|\bDynamic Cumulative Update\b'
+    filter_regex = r'\bserver\b|\bDynamic Cumulative Update\b| UUP$'
 
     found_updates = [update for update in found_updates if not re.search(filter_regex, update[1], re.IGNORECASE)]
 
