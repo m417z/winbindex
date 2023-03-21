@@ -24,6 +24,11 @@ th .winbindex-column-header-with-yadcf {
     display: none;
 }
 
+/* Mark filtered columns with a different color */
+div.yadcf-filter-wrapper:has(> .yadcf-filter.inuse) {
+    color: rgb(0,123,255,.75);
+}
+
 /* Cursor for disabled buttons: https://stackoverflow.com/a/50349274 */
 button:disabled {
     cursor: not-allowed;
