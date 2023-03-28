@@ -83,9 +83,10 @@ def get_delta_data_for_manifest_file(manifest_path: Path, name: str):
         machine_type_values = {
             'CLI4_I386': 332,
             'CLI4_AMD64': 34404,
-            # 'CLI4_ARM': 452,
+            'CLI4_ARM': 452,
             'CLI4_ARM64': 43620,
         }
+        assert delta_data['Code'] in config.delta_machine_type_values_supported
         result['machineType'] = machine_type_values[delta_data['Code']]
 
         result['timestamp'] = int(delta_data['TimeStamp'])
@@ -189,10 +190,17 @@ def parse_manifest_file(manifest_path, file_el):
     if algorithm == 'sha256':
         filename = file_el.attrib['name'].split('\\')[-1].lower()
         if (re.search(r'\.(exe|dll|sys|winmd|cpl|ax|node|ocx|efi|acm|scr|tsp|drv)$', filename)):
-            assert info_source == 'none' or 'machineType' in file_info, (filename, hash)
-            file_hashes_for_filename = file_hashes.setdefault(filename, {})
-            old_info_source = file_hashes_for_filename.get(hash)
-            file_hashes_for_filename[hash] = update_info_source(old_info_source, info_source)
+            if hash in config.file_hashes_non_pe:
+                if file_info:
+                    assert info_source == 'delta' and file_info.keys() == {'size', 'md5'}
+                else:
+                    assert info_source == 'none'
+                assert hash not in file_hashes.get(filename, {})
+            else:
+                assert info_source == 'none' or (file_info and 'machineType' in file_info), (filename, hash)
+                file_hashes_for_filename = file_hashes.setdefault(filename, {})
+                old_info_source = file_hashes_for_filename.get(hash)
+                file_hashes_for_filename[hash] = update_info_source(old_info_source, info_source)
 
     return result
 

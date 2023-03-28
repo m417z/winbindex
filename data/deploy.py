@@ -257,7 +257,7 @@ def build_html_index_of_hashes():
     with open('info_sources.json', 'r') as f:
         info_sources = json.load(f)
 
-    output_dir = Path('..').joinpath('hashes')
+    output_dir = config.index_of_hashes_out_path
     output_dir.mkdir(parents=True, exist_ok=True)
 
     for prefix in range(0x100):
