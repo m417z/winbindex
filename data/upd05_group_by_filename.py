@@ -317,17 +317,11 @@ def get_virustotal_info(file_hash):
 
     # Handle special cases.
     if attr.get('signature_info', {}).get('description') == 'TCB Launcher':
-        assert first_section['virtual_address'] in [0x3000, 0x4000]
+        assert first_section['virtual_address'] in config.tcb_launcher_large_first_section_virtual_addresses
         section_alignment = 0x1000
-    elif file_hash == 'ede86c8d8c6b9256b926701f4762bd6f71e487f366dfc7db8d74b8af57e79bbb':  # ftdibus.sys
-        assert first_section['virtual_address'] == 0x380
-        section_alignment = 0x80
-    elif file_hash == '5bec55192eaef43b0fade13bbadfdf77eb0d45b4b281ae19d4b0b7a0c2350836':  # onnxruntime.dll
-        assert first_section['virtual_address'] == 0x2d0
-        section_alignment = 0x10
-    elif file_hash == '09ced31cad8547a9ee5dcf739565def2f4359075e56a7b699cc85971e0905864':  # onnxruntime.dll
-        assert first_section['virtual_address'] == 0x310
-        section_alignment = 0x10
+    elif unusual_section_alignment_info := config.file_hashes_unusual_section_alignment.get(file_hash):
+        assert first_section['virtual_address'] == unusual_section_alignment_info['first_section_virtual_address']
+        section_alignment = unusual_section_alignment_info['section_alignment']
     else:
         section_alignment = first_section['virtual_address']
         assert is_power_of_two(section_alignment), file_hash
@@ -340,11 +334,7 @@ def get_virustotal_info(file_hash):
     if 'timestamp' in attr['pe_info']:
         timestamp = attr['pe_info']['timestamp']
     else:
-        # Zero timestamp.
-        assert file_hash in [
-            '18dd945c04ce0fbe882cd3f234c2da2d0faa12b23bd6df7b1edc31faecf51c69',  # brlapi-0.8.dll
-            '7a9113d00a274c075c58b22a3ebacf1754e7da7cfb4d3334b90367b602158d78',  # brltty.exe
-        ], file_hash
+        assert file_hash in config.file_hashes_zero_timestamp, file_hash
         timestamp = 0
 
     info = {
@@ -361,26 +351,9 @@ def get_virustotal_info(file_hash):
     if 'overlay' in attr['pe_info']:
         overlay_size = attr['pe_info']['overlay']['size']
         if overlay_size < 0x20:
-            # Small non-signature overlay.
-            assert file_hash in [
-                '11efef27aea856060bdeb6d2f0d62c68088eb891997d4e99de708a6b51743148',  # brlapi-0.6.dll
-                'b175123eff88d1573f451b286cd5370003a0839e53c7ae86bf22b35b7e77bad3',  # brlapi-0.6.dll
-                '18dd945c04ce0fbe882cd3f234c2da2d0faa12b23bd6df7b1edc31faecf51c69',  # brlapi-0.8.dll
-                '3eaa62334520b41355c5103dcd663744ba26caae3496bd9015bc399fbaf42fce',  # brltty.exe
-                '69f83db2fda7545ab0a1c60056aee472bf3c70a0af7454c51e1cd449b5c7f43b',  # brltty.exe
-                '7a9113d00a274c075c58b22a3ebacf1754e7da7cfb4d3334b90367b602158d78',  # brltty.exe
-                'b4cc93cf4d7c2906c1929c079cd98ef00c7a33832e132ac57adde71857082e36',  # libgcc_s_dw2-1.dll
-            ], file_hash
-        else:
-            unsigned_with_overlay = [
-                'cf54a8504f2dbdd7bea3acdcd065608d21f5c06924baf647955cc28b8637ae68',  # libiconv-2.dll
-                'ee1df918ca67581f21eac49ae4baffca959f71d1a0676d7c35bc5fb96bea3a48',  # libiconv-2.dll
-                '9eec7e5188d1a224325281e4d0e6e1d5f9f034f02bd1fadeb792d3612c72319e',  # libpdcurses.dll
-                'f9b385e19b9d57a1d1831e744ed2d1c3bb8396d28f48d10120cecfe72595b222',  # libpdcursesu.dll
-                '787d5c07ab0bb782dede7564840e86c468e3728e81266dae23eb8ad614bcee95',  # libpdcursesw.dll
-            ]
-            if file_hash not in unsigned_with_overlay:
-                has_signature_overlay = True
+            assert file_hash in config.file_hashes_small_non_signature_overlay, file_hash
+        elif file_hash not in config.file_hashes_unsigned_with_overlay:
+            has_signature_overlay = True
 
     info['signingStatus'] = 'Unsigned'
     file_signed = False
@@ -455,25 +428,10 @@ def group_update_assembly_by_filename(input_filename, output_dir, *, windows_ver
         if not hash_is_sha256:
             raise Exception('No SHA256 hash')
 
-        # Temporary workaround for what seems to be an incorrect SHA256 hash in
-        # KB5017389 and newer Windows 11 22H2 update manifests for some of the
-        # files. The files are language resource files (e.g.
-        # resources.en-GB.pri) for some esoteric apps:
-        # * holocamera_cw5n1h2txyewy
-        # * MixedRealityLearning_cw5n1h2txyewy
-        # * RoomAdjustment_cw5n1h2txyewy
+        # Skip files with what seems to be a hash mismatch.
         file_hash_md5 = file_item.get('fileInfo', {}).get('md5')
-        if windows_version == '11-22H2' and (file_hash, file_hash_md5) in [
-            ('f8636d2d93606b0069117cb05bc8d91ecb9a09e72e14695d56a693adf419f4e8', '70db27fdd0fd76305fb1dfcd401e8cde'),
-            ('5ca0a43e4be5f7b60cd2170b05eb4627407729c65e7e0b62ed4ef3cdf895f5c5', '6ad932076c6a059db6e9743ae06c62cf'),
-            ('b5a73db6c73c788dd62a1e5c0aa7bc2f50a260d52b04fcec4cd0192a25c6658f', 'af8a7f7b812a40bf8a1c151d3f09a98c'),
-            ('d52440f126d95e94a86465e78849a72df11f0c22115e5b8cda10174d69167a44', 'afbb5df39d32d142a4cca08f89bbbe8e'),
-            ('5a3b750a6dcc984084422d5c28ac99a2f878fdfe26c7261c9bff8de77658e8f8', '7ed0e64f81f63730983913be5b3cce17'),
-            ('5292013c895e0f412c98766ba4ed7ba5ecb24bebf00aac5b56c71bcf44891945', '886ee85f216e28ac547fe71ff2823fc4'),
-            ('b9297098632fbb1a513f96d6d2462926144d6528c4cc426d6caed5ed234438f0', '19aabb40b6431f411f97c85fbe77d7fe'),
-            ('700760afebec6b3d638adac2f1cbb96cb60fbe9a2e2558eb20a63f9ebbd2c74f', '1f91bbe1b8ec8c42f00ffc73cbb72247'),
-            ('994274f4494a852c0fe8c968d054fbaf0f6f7489ea586fc84102c6ebcafeeca3', 'a0d4e4256e8d54ab86ac6505f1272219'),
-        ]:
+        if (file_hash, file_hash_md5) in config.file_hashes_mismatch:
+            assert windows_version in config.file_hashes_mismatch[(file_hash, file_hash_md5)]
             print(f'WARNING: Skipping file with (probably) an incorrect SHA256 hash: {file_hash}')
             print(f'         MD5 hash: {file_hash_md5}')
             print(f'         Manifest name: {manifest_name}')
