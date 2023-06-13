@@ -272,7 +272,11 @@ def main():
     consolidate_overlapping_updates(updates_from_release_health)
     windows_version_updates_sanity_check(updates_from_release_health)
 
-    assert updates_from_microsoft_support.keys() == updates_from_release_health.keys()
+    assert updates_from_microsoft_support.keys() == updates_from_release_health.keys() or (
+        # This is a temporary fix to handle a missing update on the release health page.
+        updates_from_microsoft_support.keys() - {'21H2'} == updates_from_release_health.keys() and
+        updates_from_microsoft_support['21H2'].keys() == {'KB5027215'}
+    )
 
     result = updates_from_microsoft_support
     merge_updates(result, updates_from_release_health)
