@@ -23,8 +23,7 @@ def consolidate_overlapping_updates(updates):
                     ('20H2', '21H1'),
                     ('20H2', '21H2'),
                     ('20H2', '22H2'),
-                    # ('21H1', '21H2'),  # TODO: uncomment after 20H2 end-of-service
-                    # ('21H1', '22H2'),  # TODO: uncomment after 20H2 end-of-service
+                    ('21H2', '22H2'),
                 ], (update_kb, seen_windows_version, windows_version)
 
                 assert update['updateUrl'] == seen_update['updateUrl']
