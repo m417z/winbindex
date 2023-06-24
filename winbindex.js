@@ -14,13 +14,18 @@ var globalFunctions = {};
 
         var architecture = getParameterByName('arch');
         var baseDataUrl = 'data';
-        if (architecture === 'arm64') {
+        if (architecture === 'arm64' || architecture === 'insider') {
+            var archTitles = {
+                'arm64': 'ARM64',
+                'insider': 'Insider'
+            };
+
             $('#winbindex-arch').val(architecture).prop('disabled', false);
-            $('#main-logo-link').prop('href', '?arch=arm64');
-            $('#main-logo-arch-badge').text('ARM64').removeClass('d-none');
+            $('#main-logo-link').prop('href', '?arch=' + architecture);
+            $('#main-logo-arch-badge').text(archTitles[architecture]).removeClass('d-none');
             $('#arch-links a[href="."]').removeClass('active');
-            $('#arch-links a[href="?arch=arm64"]').addClass('active');
-            baseDataUrl = 'https://m417z.com/winbindex-data-arm64';
+            $('#arch-links a[href="?arch=' + architecture + '"]').addClass('active');
+            baseDataUrl = 'https://m417z.com/winbindex-data-' + architecture;
         }
 
         animateLogo();
@@ -722,36 +727,67 @@ var globalFunctions = {};
     }
 
     function getWin10Versions(data) {
-        var items = Object.keys(data.windowsVersions);
-
         var windowsVersions = data.windowsVersions;
-        Object.keys(windowsVersions).forEach(function (windowsVersion) {
-            Object.keys(windowsVersions[windowsVersion]).forEach(function (update) {
-                if (update === 'BASE') {
-                    return;
+
+        var items = Object.keys(windowsVersions);
+        if (items.length === 1 && items[0] === 'builds') {
+            items = [];
+
+            Object.keys(windowsVersions['builds']).forEach(function (update) {
+                var updateInfo = windowsVersions['builds'][update].updateInfo;
+                var title = updateInfo.title;
+                title = title.replace(/^Cumulative Update Preview for /, '');
+                title = title.replace(/^Cumulative Update for /, '');
+                title = title.replace(/^Feature update to /, '');
+                title = title.replace(/^Update for /, '');
+                var windowsVersion = null;
+                if (/^Microsoft server operating system,? version \w+/.test(title)) {
+                    windowsVersion = title.replace(/^Microsoft server operating system,? version (\w+).*$/, 'Windows Server $1');
+                } else if (/^Windows (?:\d+|Server) Insider Preview/.test(title)) {
+                    windowsVersion = title.replace(/^(Windows (?:\d+|Server) Insider) Preview.*$/, '$1');
+                } else if (/^Windows \d+,? [vV]ersion \w+/.test(title)) {
+                    windowsVersion = title.replace(/^(Windows \d+),? [vV]ersion (\w+).*$/, '$1 $2');
+                } else if (/^Windows Server \w+ [(-]/.test(title)) {
+                    windowsVersion = title.replace(/^(Windows Server \w+) [(-].*$/, '$1');
+                } else if (/^Windows \d+ [(-]/.test(title)) {
+                    windowsVersion = title.replace(/^(Windows \d+) [(-].*$/, '$1');
+                } else if (/^Azure Stack HCI, version \w+/.test(title)) {
+                    windowsVersion = title.replace(/^(Azure Stack HCI), version (\w+).*$/, '$1 $2');
                 }
 
-                var updateInfo = windowsVersions[windowsVersion][update].updateInfo;
-                if (!updateInfo.otherWindowsVersions) {
-                    return;
+                if (windowsVersion && items.indexOf(windowsVersion) === -1) {
+                    items.push(windowsVersion);
                 }
-
-                updateInfo.otherWindowsVersions.forEach(function (otherWindowsVersion) {
-                    if (items.indexOf(otherWindowsVersion) === -1) {
-                        items.push(otherWindowsVersion);
+            });
+        } else {
+            Object.keys(windowsVersions).forEach(function (windowsVersion) {
+                Object.keys(windowsVersions[windowsVersion]).forEach(function (update) {
+                    if (update === 'BASE') {
+                        return;
                     }
+
+                    var updateInfo = windowsVersions[windowsVersion][update].updateInfo;
+                    if (!updateInfo.otherWindowsVersions) {
+                        return;
+                    }
+
+                    updateInfo.otherWindowsVersions.forEach(function (otherWindowsVersion) {
+                        if (items.indexOf(otherWindowsVersion) === -1) {
+                            items.push(otherWindowsVersion);
+                        }
+                    });
                 });
             });
-        });
 
-        items = items.map(function (item) {
-            var split = item.split('-', 2);
-            if (split.length === 1) {
-                return 'Windows 10 ' + split[0];
-            }
+            items = items.map(function (item) {
+                var split = item.split('-', 2);
+                if (split.length === 1) {
+                    return 'Windows 10 ' + split[0];
+                }
 
-            return 'Windows ' + split[0] + ' ' + split[1];
-        });
+                return 'Windows ' + split[0] + ' ' + split[1];
+            });
+        }
 
         items.sort();
 
@@ -775,6 +811,10 @@ var globalFunctions = {};
                     var windowsVersionInfo = windowsVersions[windowsVersion][update].windowsVersionInfo;
                     var baseDate = windowsVersionInfo.releaseDate;
                     itemText = baseDate + ' - Base ' + windowsVersion;
+                } else if (/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(update)) {
+                    var updateUupInfo = windowsVersions[windowsVersion][update].updateInfo;
+                    var updateUupDate = new Date(updateUupInfo.created * 1000).toISOString().slice(0, '2000-01-01'.length);
+                    itemText = updateUupDate + ' - ' + update.slice(0, 8);
                 } else {
                     var updateInfo = windowsVersions[windowsVersion][update].updateInfo;
                     var updateDate = updateInfo.releaseDate.slice(0, '2000-01-01'.length);
