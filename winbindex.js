@@ -534,8 +534,8 @@ var globalFunctions = {};
                         version = fileInfo.version || fallbackForOptionalData;
                     }
 
-                    var assemblyArchitecture = getAssemblyParam(d, 'processorArchitecture') || '-';
-                    var assemblyVersion = getAssemblyParam(d, 'version') || '-';
+                    var assemblyArchitecture = getAssemblyProcessorArchitecture(d);
+                    var assemblyVersion = getAssemblyVersion(d);
 
                     var win10Versions = getWin10Versions(d);
                     var updateKbs = getUpdateKbs(d);
@@ -701,7 +701,7 @@ var globalFunctions = {};
     }
 
     function getAssemblyParam(data, param) {
-        var values = {};
+        var items = {};
 
         var windowsVersions = data.windowsVersions;
         Object.keys(windowsVersions).forEach(function (windowsVersion) {
@@ -711,19 +711,48 @@ var globalFunctions = {};
                     Object.keys(assemblies).forEach(function (assembly) {
                         var paramValue = assemblies[assembly].assemblyIdentity[param];
                         if (paramValue) {
-                            values[paramValue] = true;
+                            items[paramValue] = true;
                         }
                     });
                 }
             });
         });
 
-        values = Object.keys(values);
-        if (values.length === 1) {
-            return values[0];
-        }
+        return Object.keys(items);
+    }
 
-        return null;
+    function getAssemblyProcessorArchitecture(data) {
+        var items = getAssemblyParam(data, 'processorArchitecture');
+
+        items = items.map(function (item) {
+            return humanFileArch(item);
+        });
+
+        items.sort();
+
+        var title = items[0] || '-';
+
+        return {
+            items: items,
+            title: title,
+            sort: items.join(',') || title
+        };
+    }
+
+    function getAssemblyVersion(data) {
+        var items = getAssemblyParam(data, 'version');
+
+        items.sort(function (a, b) {
+            return a.localeCompare(b, undefined, { numeric: true });
+        });
+
+        var title = items[0] || '-';
+
+        return {
+            items: items,
+            title: title,
+            sort: items.join(',') || title
+        };
     }
 
     function getWin10Versions(data) {
