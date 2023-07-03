@@ -6,7 +6,6 @@ import shutil
 import html
 import json
 import time
-import os
 import re
 
 from upd01_get_list_of_updates import main as upd01_get_list_of_updates
@@ -49,15 +48,15 @@ def prepare_updates():
 
     uptodate_update_kbs = {update_kb for updates in uptodate_updates.values() for update_kb in updates}
 
-    if last_time_update_kbs == uptodate_update_kbs:
+    if config.updates_never_removed:
+        assert uptodate_update_kbs >= last_time_update_kbs
+
+    new_update_kbs = sorted(uptodate_update_kbs - last_time_update_kbs)
+    if len(new_update_kbs) == 0:
         temp_updates_path.unlink()
         print('No new updates')
         return None
 
-    assert len(last_time_update_kbs - uptodate_update_kbs) == 0
-    assert len(uptodate_update_kbs - last_time_update_kbs) > 0
-
-    new_update_kbs = sorted(uptodate_update_kbs - last_time_update_kbs)
     print(f'New updates: {new_update_kbs}')
 
     # Update one at a time.
@@ -254,7 +253,7 @@ def can_deploy():
 
 
 def build_html_index_of_hashes():
-    with open('info_sources.json', 'r') as f:
+    with open(config.out_path.joinpath('info_sources.json'), 'r') as f:
         info_sources = json.load(f)
 
     output_dir = config.index_of_hashes_out_path
@@ -321,12 +320,12 @@ def build_html_index_of_hashes():
         html_code_main += '</div>\n'
 
         html_code = html_code_start + html_code_index + html_code_main + html_code_end
-        with output_dir.joinpath(f'{prefix_str}.html').open('w') as f:
+        with open(output_dir.joinpath(f'{prefix_str}.html'), 'w') as f:
             f.write(html_code)
 
 
 def update_readme_stats():
-    with open('info_sources.json', 'r') as f:
+    with open(config.out_path.joinpath('info_sources.json'), 'r') as f:
         info_sources = json.load(f)
 
     files_total = 0
@@ -369,12 +368,12 @@ def update_readme_stats():
         files_with_full_info = files_by_status['vt'] + files_by_status['file']
         stats += f'* {100 * files_with_full_info / files_total:.1f}% of files with full information\n'
 
-    with open('README.md', 'r') as f:
+    with open(config.out_path.joinpath('README.md'), 'r') as f:
         readme = f.read()
 
     readme = re.sub(r'(\n<!--FileStats-->\n)[\s\S]*?\n(<!--/FileStats-->\n)', rf'\1{stats}\2', readme)
 
-    with open('README.md', 'w') as f:
+    with open(config.out_path.joinpath('README.md'), 'w') as f:
         f.write(readme)
 
 
@@ -387,26 +386,33 @@ def init_deploy():
 
 
 def commit_deploy(pr_title):
-    exclude_from_commit = [
-        'tools',
+    # Make sure no accidental changes in the main repo.
+    # https://stackoverflow.com/a/25149786
+    status = subprocess.check_output(['git', 'status', '--porcelain', ':!gh-pages/*'], text=True)
+    if status:
+        raise Exception(f'Non-empty status:\n{status}')
+
+    git_cmd = ['git', '-C', config.out_path]
+
+    exclude_paths_from_commit = [
         'manifests',
         'parsed',
-        'virustotal'
+        'virustotal',
     ]
 
     # https://stackoverflow.com/a/51914162
-    exclude_params = [f':!{path}/*' for path in exclude_from_commit]
+    exclude_params = [f':!{path}/*' for path in exclude_paths_from_commit]
 
-    subprocess.check_call(['git', 'add', '-A', '--'] + exclude_params)
+    subprocess.check_call(git_cmd + ['add', '-A', '--'] + exclude_params)
 
     # https://stackoverflow.com/a/2659808
-    result = subprocess.run(['git', 'diff-index', '--quiet', '--cached', 'HEAD'])
+    result = subprocess.run(git_cmd + ['diff-index', '--quiet', '--cached', 'HEAD'])
     if result.returncode == 0:
         print('No changes to commit')
         return
 
-    subprocess.check_call(['git', 'commit', '-m', pr_title])
-    subprocess.check_call(['git', 'push'])
+    subprocess.check_call(git_cmd + ['commit', '-m', pr_title])
+    subprocess.check_call(git_cmd + ['push'])
 
 
 def clean_deploy_files():

@@ -1,7 +1,8 @@
 from pathlib import Path
 
-out_path = Path('.')
-index_of_hashes_out_path = Path('..', 'hashes')
+out_path_override = Path('.out_path_override')
+out_path = Path(out_path_override.read_text().strip() if out_path_override.exists() else '.')
+index_of_hashes_out_path =  out_path / '..' / 'hashes'
 
 windows_versions_unsupported = set()
 
@@ -12,6 +13,9 @@ updates_unsupported = {
 }
 
 updates_architecture = 'x64'
+updates_never_removed = True
+allow_missing_sha256_hash = False
+allow_unknown_non_pe_files = False
 
 verbose_run = False
 verbose_progress = True
@@ -30,6 +34,7 @@ delta_machine_type_values_supported = {
 # Non-PE files (very rare).
 file_hashes_non_pe = set()
 
+tcb_launcher_descriptions = ['TCB Launcher']
 tcb_launcher_large_first_section_virtual_addresses = [0x3000, 0x4000]
 
 file_hashes_unusual_section_alignment = {
@@ -60,6 +65,8 @@ file_hashes_unsigned_with_overlay = {
     'f9b385e19b9d57a1d1831e744ed2d1c3bb8396d28f48d10120cecfe72595b222',  # libpdcursesu.dll
     '787d5c07ab0bb782dede7564840e86c468e3728e81266dae23eb8ad614bcee95',  # libpdcursesw.dll
 }
+
+file_details_unsigned_with_overlay = []
 
 # Details: https://gist.github.com/m417z/3248c18efd942f63013b8d3035e2dc79
 file_hashes_mismatch = {

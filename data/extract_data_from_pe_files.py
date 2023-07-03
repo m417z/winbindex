@@ -20,7 +20,7 @@ def sigcheck_folder(folder: Path, output_file: Path):
         return f.read()
 
 
-def prase_sigcheck(sigcheck_data, folder, path_filter_callback=None):
+def parse_sigcheck(sigcheck_data, folder, path_filter_callback=None):
     folder_in_correct_case = sigcheck_data[:len(str(folder))]
     assert folder_in_correct_case.lower() == str(folder).lower(), f'{folder_in_correct_case}.lower() == {str(folder)}.lower()'
 
@@ -87,14 +87,17 @@ def prase_sigcheck(sigcheck_data, folder, path_filter_callback=None):
             assert len(catalogs) == len(signing_dates)
             assert len(signing_dates) <= 4, key_value  # haven't seen more than that
 
+            has_overlay_signature = False
             embedded_signing_dates = []
             for catalog, signing_date in zip(catalogs, signing_dates):
                 if catalog.lower() == str(filename_absolute).lower():
-                    embedded_signing_dates.append(int(signing_date))
+                    has_overlay_signature = True
+                    if signing_date != '0':
+                        embedded_signing_dates.append(int(signing_date))
                 else:
                     assert catalog.lower().startswith('c:\\windows\\system32\\catroot\\')
 
-            if len(embedded_signing_dates) > 0:
+            if has_overlay_signature:
                 item['Signing date'] = embedded_signing_dates
         else:
             assert item['Verified'] != 'An error occurred while reading or writing to a file.'
@@ -155,7 +158,7 @@ def extract_data_from_pe_files(folder: Path, callback, path_filter_callback=None
     if verbose:
         print('Running sigcheck...')
 
-    sigcheck_data = prase_sigcheck(sigcheck_folder(folder, sigcheck_file), folder, path_filter_callback)
+    sigcheck_data = parse_sigcheck(sigcheck_folder(folder, sigcheck_file), folder, path_filter_callback)
 
     if verbose:
         print('Parsing PE files...')

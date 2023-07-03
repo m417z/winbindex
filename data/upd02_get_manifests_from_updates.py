@@ -2,13 +2,13 @@ from threading import Thread
 from pathlib import Path
 import subprocess
 import datetime
-import platform
 import requests
 import hashlib
 import shutil
 import json
 import re
 
+from delta_patch import unpack_null_differential_file
 import config
 
 
@@ -149,10 +149,7 @@ def sha256sum(filename):
 def extract_update_files(local_dir: Path, local_path: Path):
     def cab_extract(pattern: str, from_file: Path, to_dir: Path):
         to_dir.mkdir()
-        if platform.system() == 'Windows':
-            args = ['expand', '-r', f'-f:{pattern}', from_file, to_dir]
-        else:
-            args = ['cabextract', '-F', pattern, '-d', to_dir, from_file]
+        args = ['expand', '-r', f'-f:{pattern}', from_file, to_dir]
         subprocess.check_call(args, stdout=None if config.verbose_run else subprocess.DEVNULL)
 
     # Extract all files from all cab files until no more cab files can be found.
@@ -216,36 +213,30 @@ def extract_update_files(local_dir: Path, local_path: Path):
     # References:
     # https://www.betaarchive.com/forum/viewtopic.php?t=43163
     # https://github.com/Secant1006/PSFExtractor
-    if platform.system() == 'Windows':
-        psf_files = list(local_dir.glob('*.psf'))
-        assert len(psf_files) <= 1
-        if len(psf_files) == 1:
-            psf_file = psf_files[0]
-            args = ['tools/PSFExtractor.exe', '-v2', psf_file, local_dir.joinpath('express.psf.cix.xml'), local_dir]
-            subprocess.check_call(args, stdout=None if config.verbose_run else subprocess.DEVNULL)
-            psf_file.unlink()
+    psf_files = list(local_dir.glob('*.psf'))
+    assert len(psf_files) <= 1
+    if len(psf_files) == 1:
+        psf_file = psf_files[0]
+        args = ['tools/PSFExtractor.exe', '-v2', psf_file, local_dir.joinpath('express.psf.cix.xml'), local_dir]
+        subprocess.check_call(args, stdout=None if config.verbose_run else subprocess.DEVNULL)
+        psf_file.unlink()
 
     # Unpack null differential files.
-    if platform.system() == 'Windows':
-        from delta_patch import unpack_null_differential_file
-
-        for file in local_dir.glob('*/n/**/*'):
-            if file.is_file():
-                unpack_null_differential_file(file, file)
+    for file in local_dir.glob('*/n/**/*'):
+        if file.is_file():
+            unpack_null_differential_file(file, file)
 
     # Use DeltaDownloader to extract meaningful data from delta files:
     # https://github.com/m417z/DeltaDownloader
-    if platform.system() == 'Windows':
-        # Avoid path limitations by using a UNC path.
-        local_dir_unc = Rf'\\?\{local_dir.absolute()}'
-        args = ['tools/DeltaDownloader/DeltaDownloader.exe', '/g', local_dir_unc]
-        subprocess.check_call(args, stdout=None if config.verbose_run else subprocess.DEVNULL)
+    # Avoid path limitations by using a UNC path.
+    local_dir_unc = Rf'\\?\{local_dir.absolute()}'
+    args = ['tools/DeltaDownloader/DeltaDownloader.exe', '/g', local_dir_unc]
+    subprocess.check_call(args, stdout=None if config.verbose_run else subprocess.DEVNULL)
 
     # Starting with Windows 11, manifest files are compressed with the DCM v1 format.
     # Use SYSEXP to de-compress them: https://github.com/hfiref0x/SXSEXP
-    if platform.system() == 'Windows':
-        args = ['tools/sxsexp64.exe', local_dir, local_dir]
-        subprocess.run(args, stdout=None if config.verbose_run else subprocess.DEVNULL)
+    args = ['tools/sxsexp64.exe', local_dir, local_dir]
+    subprocess.run(args, stdout=None if config.verbose_run else subprocess.DEVNULL)
 
 
 def get_files_from_update(windows_version: str, update_kb: str):

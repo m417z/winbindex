@@ -63,6 +63,10 @@ def get_file_info_type(file_info):
     }:
         return 'delta+'
 
+    assert 'lastSectionVirtualAddress' not in file_info
+    assert 'lastSectionPointerToRawData' not in file_info
+
+    # For old info.
     if file_info.keys() == {
         'size',
         'md5',
@@ -72,45 +76,33 @@ def get_file_info_type(file_info):
     }:
         return 'pe'
 
-    assert 'lastSectionVirtualAddress' not in file_info
-    assert 'lastSectionPointerToRawData' not in file_info
+    if file_info['signingStatus'] == 'Unknown':
+        return 'file_unknown_sig'
+
     return 'vt_or_file'
 
 
-def assert_file_info_close_enough(file_info_1, file_info_2, multiple_sign_times=False):
+def assert_file_info_close_enough(file_info_1, file_info_2):
     def canonical_file_info(file_info):
-        if 'signingStatus' not in file_info or file_info['signingStatus'] == 'Unsigned':
-            return file_info
-
         file_info = file_info.copy()
 
+        # VirusTotal strips whitespaces in descriptions.
+        if 'description' in file_info:
+            file_info['description'] = file_info['description'].strip()
+            if file_info['description'].strip() == '':
+                del file_info['description']
+
+        # VirusTotal strips whitespaces in versions.
+        if 'version' in file_info:
+            file_info['version'] = file_info['version'].strip()
+            if file_info['version'].strip() == '':
+                del file_info['version']
+
         # Nullify Catalog file based data since it depends on the computer the scan ran on.
-        if file_info['signatureType'] == 'Catalog file':
+        if file_info.get('signatureType') == 'Catalog file':
             assert 'signingDate' not in file_info
             file_info['signingStatus'] = 'Unsigned'
             del file_info['signatureType']
-            return file_info
-
-        # There might be several dates, choose one.
-        if 'signingDate' in file_info:
-            dates = file_info['signingDate']
-
-            # Assert that all signatures represent the same time,
-            # unless the file is known to be signed several times at different times.
-            if not multiple_sign_times:
-                datetime1 = datetime.fromisoformat(dates[0])
-                for date in dates[1:]:
-                    datetime2 = datetime.fromisoformat(date)
-                    difference = datetime1 - datetime2
-                    minutes = abs(difference.total_seconds()) / 60
-                    assert minutes <= 10
-
-            file_info['signingDate'] = dates[0]
-            return file_info
-
-        # If the signature is invalid (but exists), VirusTotal doesn't return dates, but we do.
-        if file_info['signingStatus'] != 'Signed':
-            file_info['signingDate'] = '???'
 
         return file_info
 
@@ -144,28 +136,48 @@ def assert_file_info_close_enough(file_info_1, file_info_2, multiple_sign_times=
     file_info_1 = canonical_file_info(file_info_1)
     file_info_2 = canonical_file_info(file_info_2)
 
-    assert file_info_1.keys() == file_info_2.keys()
+    assert file_info_1.keys() - {'signingDate'} == file_info_2.keys() - {'signingDate'}, (file_info_1, file_info_2)
 
-    for key in file_info_1.keys() - {'signingDate'}:
-        assert file_info_1[key] == file_info_2[key]
+    for key in file_info_1.keys() - {'signingStatus', 'signingDate'}:
+        assert file_info_1[key] == file_info_2[key], (file_info_1, file_info_2)
 
-    if 'signingDate' in file_info_1 and file_info_1['signingDate'] != '???' and file_info_2['signingDate'] != '???':
-        datetime1 = datetime.fromisoformat(file_info_1['signingDate'])
-        datetime2 = datetime.fromisoformat(file_info_2['signingDate'])
-        difference = datetime1 - datetime2
-        hours = abs(difference.total_seconds()) / 3600
+    if 'signingStatus' in file_info_1:
+        if file_info_1['signingStatus'] == 'Unknown':
+            assert file_info_2['signingStatus'] != 'Unsigned'
+        elif file_info_2['signingStatus'] == 'Unknown':
+            assert file_info_1['signingStatus'] != 'Unsigned'
+        else:
+            assert file_info_1['signingStatus'] == file_info_2['signingStatus']
 
-        # VirusTotal returns the time in a local, unknown timezone.
-        # "the maximum difference could be over 30 hours", https://stackoverflow.com/a/8131056
-        assert hours <= 32, f'{hours} {file_info_1["sha256"]}'
+    if 'signingDate' in file_info_1 and 'signingDate' in file_info_2:
+        if file_info_1['signingDate'] != [] and file_info_2['signingDate'] != []:
+            # Compare only first date.
+            datetime1 = datetime.fromisoformat(file_info_1['signingDate'][0])
+            datetime2 = datetime.fromisoformat(file_info_2['signingDate'][0])
+            difference = datetime1 - datetime2
+            hours = abs(difference.total_seconds()) / 3600
+
+            # VirusTotal returns the time in a local, unknown timezone.
+            # "the maximum difference could be over 30 hours", https://stackoverflow.com/a/8131056
+            assert hours <= 32, f'{hours} {file_info_1["sha256"]}'
+        else:
+            assert file_info_1['signingDate'] == []
+            assert file_info_2['signingDate'] == []
+    else:
+        # If the signature is invalid (but exists), VirusTotal doesn't return dates, but we do.
+        if 'signingDate' not in file_info_1:
+            assert file_info_1['signingStatus'] != 'Signed'
+
+        if 'signingDate' not in file_info_2:
+            assert file_info_2['signingStatus'] != 'Signed'
 
 
-def update_file_info(existing_file_info, delta_or_pe_file_info, virustotal_file_info, real_file_info, multiple_sign_times=False):
+def update_file_info(existing_file_info, delta_or_pe_file_info, virustotal_file_info, real_file_info):
     file_infos = [existing_file_info, delta_or_pe_file_info, virustotal_file_info, real_file_info]
     file_infos = [x for x in file_infos if x is not None]
 
     for file_info_1, file_info_2 in itertools.combinations(file_infos, 2):
-        assert_file_info_close_enough(file_info_1, file_info_2, multiple_sign_times)
+        assert_file_info_close_enough(file_info_1, file_info_2)
 
     new_file_info = None
     new_file_info_type = None
@@ -179,7 +191,11 @@ def update_file_info(existing_file_info, delta_or_pe_file_info, virustotal_file_
     elif delta_or_pe_file_info:
         new_file_info = delta_or_pe_file_info
         new_file_info_type = get_file_info_type(delta_or_pe_file_info)
-        assert new_file_info_type in ['raw', 'delta', 'delta+', 'pe']
+        assert new_file_info_type in ['raw', 'delta', 'delta+', 'pe', 'file_unknown_sig', 'vt_or_file']
+        if new_file_info_type == 'vt_or_file':
+            new_file_info_type = 'file'
+    else:
+        assert False
 
     if not new_file_info:
         return existing_file_info
@@ -194,10 +210,23 @@ def update_file_info(existing_file_info, delta_or_pe_file_info, virustotal_file_
         'delta',
         'delta+',
         'pe',
+        # 'file_unknown_sig',
         'vt',
         'vt_or_file',
         'file',
     ]
+
+    # Special merge: file_unknown_sig data is more reliable than VirusTotal's. Only add signingStatus.
+    if existing_file_info_type == 'file_unknown_sig':
+        if 'signingStatus' in new_file_info:
+            assert new_file_info['signingStatus'] != 'Unsigned'
+            return existing_file_info | {'signingStatus': new_file_info['signingStatus']}
+        return existing_file_info
+    elif new_file_info_type == 'file_unknown_sig':
+        if 'signingStatus' in existing_file_info:
+            assert existing_file_info['signingStatus'] != 'Unsigned'
+            return new_file_info | {'signingStatus': existing_file_info['signingStatus']}
+        return new_file_info
 
     if sources.index(new_file_info_type) > sources.index(existing_file_info_type):
         return new_file_info
@@ -246,6 +275,7 @@ def add_file_info_from_update(filename, output_dir, *,
         assert data is None
         x = data_file
     else:
+        assert data
         x = data.setdefault(file_hash, {})
 
     updated_file_info = update_file_info(x.get('fileInfo'), delta_or_pe_file_info, virustotal_file_info, None)
@@ -281,6 +311,8 @@ def add_file_info_from_update(filename, output_dir, *,
         output_path = output_dir.joinpath(filename + '.json.gz')
 
         if data_file is not None:
+            assert isinstance(json_data_file_before, bytes)
+            assert isinstance(json_data_file_after, bytes)
             json_data = json_data_file_before + orjson.dumps(data_file) + json_data_file_after
         else:
             json_data = orjson.dumps(data)
@@ -316,8 +348,8 @@ def get_virustotal_info(file_hash):
     first_section = attr['pe_info']['sections'][0]
 
     # Handle special cases.
-    if attr.get('signature_info', {}).get('description') == 'TCB Launcher':
-        assert first_section['virtual_address'] in config.tcb_launcher_large_first_section_virtual_addresses
+    if attr.get('signature_info', {}).get('description') in config.tcb_launcher_descriptions:
+        assert first_section['virtual_address'] in config.tcb_launcher_large_first_section_virtual_addresses, file_hash
         section_alignment = 0x1000
     elif unusual_section_alignment_info := config.file_hashes_unusual_section_alignment.get(file_hash):
         assert first_section['virtual_address'] == unusual_section_alignment_info['first_section_virtual_address']
@@ -352,7 +384,12 @@ def get_virustotal_info(file_hash):
         overlay_size = attr['pe_info']['overlay']['size']
         if overlay_size < 0x20:
             assert file_hash in config.file_hashes_small_non_signature_overlay, file_hash
-        elif file_hash not in config.file_hashes_unsigned_with_overlay:
+        elif file_hash in config.file_hashes_unsigned_with_overlay:
+            pass
+        elif any(attr.get('signature_info', {}).get(x['k']) == x['v'] and overlay_size == x['overlay_size']
+                 for x in config.file_details_unsigned_with_overlay):
+            pass
+        else:
             has_signature_overlay = True
 
     info['signingStatus'] = 'Unsigned'
@@ -373,7 +410,7 @@ def get_virustotal_info(file_hash):
             info['signatureType'] = 'Overlay' if has_signature_overlay else 'Catalog file'
             file_signed = True
 
-            # If the value is something else, the "signing date" is often the analysis (file modified?) date.
+            # If the value is something else, the "signing date" is often the analysis date.
             if signature_info['verified'] == 'Signed':
                 signing_date_reliable = True
 
@@ -393,6 +430,11 @@ def get_virustotal_info(file_hash):
 
             datetime_object = datetime.strptime(signature_info['signing date'], date_format)
             info['signingDate'] = [datetime_object.isoformat()]
+
+            # If this assertion fails, the "signing date" might be the analysis
+            # date, in which case the signature type is "Catalog file", and
+            # has_signature_overlay should be False.
+            assert datetime_object.timestamp() < attr['first_submission_date'], file_hash
 
     assert not has_signature_overlay or file_signed, file_hash
 
@@ -426,6 +468,9 @@ def group_update_assembly_by_filename(input_filename, output_dir, *, windows_ver
             hash_is_sha256 = True
 
         if not hash_is_sha256:
+            if config.allow_missing_sha256_hash:
+                print(f'WARNING: No SHA256 hash for {filename} ({file_hash}) in {input_filename}')
+                continue
             raise Exception('No SHA256 hash')
 
         # Skip files with what seems to be a hash mismatch.
@@ -564,6 +609,7 @@ def process_virustotal_data():
                 continue
 
             virustotal_info = get_virustotal_info(file_hash)
+            assert virustotal_info
             if file_hash != virustotal_info['sha256']:
                 assert file_hash == virustotal_info['sha1']
                 file_hash = virustotal_info['sha256']
@@ -593,13 +639,7 @@ def add_file_info_from_iso_data(filename, output_dir, *, file_hash, file_info, s
 
     x = data.setdefault(file_hash, {})
 
-    # Many files distributed with Edge are for some reason signed twice.
-    multiple_sign_times = (
-        source_path.startswith('Program Files (x86)\\Microsoft\\Edge\\Application\\') or
-        source_path.startswith('Program Files (x86)\\Microsoft\\EdgeCore\\') or
-        source_path.startswith('Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\')
-    )
-    updated_file_info = update_file_info(x.get('fileInfo'), None, None, file_info, multiple_sign_times)
+    updated_file_info = update_file_info(x.get('fileInfo'), None, None, file_info)
     assert updated_file_info
     x['fileInfo'] = updated_file_info
 

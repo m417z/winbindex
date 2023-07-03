@@ -16,21 +16,26 @@ jobs:
   update:
     runs-on: windows-latest
     steps:
-      - name: Checkout
+      - name: Checkout main
         uses: actions/checkout@v3
+        with:
+          ref: main
+      - name: Checkout gh-pages
+        uses: actions/checkout@v3
+        with:
+          ref: gh-pages
+          path: data/gh-pages
+      - name: Override out_path
+        run: |
+          echo ./gh-pages/data > data/.out_path_override
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.x'
       - name: Install Windows dependencies
-        if: runner.os == 'Windows'
         run: |
           choco install -y aria2 tor
           7z x data/tools.zip -odata/tools
-      - name: Install Linux dependencies
-        if: runner.os == 'Linux'
-        run: |
-          sudo apt-get install -y aria2 cabextract tor
       - name: Cache Python dependencies
         uses: actions/cache@v3
         with:
@@ -39,7 +44,7 @@ jobs:
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install 'git+https://github.com/m417z/pymultitor.git' isal mitmproxy orjson requests
+          pip install 'git+https://github.com/m417z/pymultitor.git' isal mitmproxy orjson requests signify
       - name: Run periodic update
         run: |
           cd data

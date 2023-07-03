@@ -1,8 +1,12 @@
+from signify.authenticode.signed_pe import SignedPEFile
 import xml.etree.ElementTree as ET
 from struct import unpack
 from pathlib import Path
+from typing import List
 import hashlib
+import signify
 import base64
+import ctypes
 import json
 import re
 
@@ -50,14 +54,157 @@ def update_file_hashes():
 
 
 # https://stackoverflow.com/a/44873382
-def md5sum(filename):
-    h  = hashlib.md5()
-    b  = bytearray(128*1024)
+def hash_sum(filename: Path):
+    hash_md5 = hashlib.md5()
+    hash_sha1 = hashlib.sha1()
+    hash_sha256 = hashlib.sha256()
+    b = bytearray(128*1024)
     mv = memoryview(b)
     with open(filename, 'rb', buffering=0) as f:
         while n := f.readinto(mv):
-            h.update(mv[:n])
-    return h.hexdigest()
+            hash_md5.update(mv[:n])
+            hash_sha1.update(mv[:n])
+            hash_sha256.update(mv[:n])
+    return hash_md5.hexdigest(), hash_sha1.hexdigest(), hash_sha256.hexdigest()
+
+
+# returns the requested version information from the given file
+#
+# if language, codepage are None, the first translation in the translation table
+# is used instead, as well as common fallback translations
+#
+# Reference: https://stackoverflow.com/a/56266129
+def get_file_version_info(pathname: Path, prop_names: List[str],
+                          language: int | None = None, codepage: int | None = None):
+    # VerQueryValue() returns an array of that for VarFileInfo\Translation
+    #
+    class LANGANDCODEPAGE(ctypes.Structure):
+        _fields_ = [
+            ("wLanguage", ctypes.c_uint16),
+            ("wCodePage", ctypes.c_uint16)]
+
+    wstr_file = ctypes.wstring_at(str(pathname))
+
+    # getting the size in bytes of the file version info buffer
+    size = ctypes.windll.version.GetFileVersionInfoSizeExW(2, wstr_file, None)
+    if size == 0:
+        e = ctypes.WinError()
+        if e.winerror == 1813:
+            # ERROR_RESOURCE_TYPE_NOT_FOUND
+            return {}
+        raise e
+
+    buffer = ctypes.create_string_buffer(size)
+
+    # getting the file version info data
+    if ctypes.windll.version.GetFileVersionInfoExW(2, wstr_file, None, size, buffer) == 0:
+        raise ctypes.WinError()
+
+    # VerQueryValue() wants a pointer to a void* and DWORD; used both for
+    # getting the default translation (if necessary) and getting the actual data
+    # below
+    value = ctypes.c_void_p(0)
+    value_size = ctypes.c_uint(0)
+
+    translations = []
+
+    if language is None and codepage is None:
+        # file version information can contain much more than the version
+        # number (copyright, application name, etc.) and these are all
+        # translatable
+        #
+        # the following arbitrarily gets the first language and codepage from
+        # the list
+        ret = ctypes.windll.version.VerQueryValueW(
+            buffer, ctypes.wstring_at(R"\VarFileInfo\Translation"),
+            ctypes.byref(value), ctypes.byref(value_size))
+
+        if ret == 0:
+            e = ctypes.WinError()
+            if e.winerror == 1813:
+                # ERROR_RESOURCE_TYPE_NOT_FOUND
+                first_language, first_codepage = None, None
+            else:
+                raise e
+        else:
+            # value points to a byte inside buffer, value_size is the size in bytes
+            # of that particular section
+
+            # casting the void* to a LANGANDCODEPAGE*
+            lcp = ctypes.cast(value, ctypes.POINTER(LANGANDCODEPAGE))
+
+            first_language, first_codepage = lcp.contents.wLanguage, lcp.contents.wCodePage
+
+            translation = first_language, first_codepage
+            translations.append(translation)
+
+        # use fallback values the same way sigcheck does
+        translation = first_language, 1252
+        if first_language and translation not in translations:
+            translations.append(translation)
+
+        translation = 1033, 1252
+        if translation not in translations:
+            translations.append(translation)
+
+        translation = 1033, first_codepage
+        if first_codepage and translation not in translations:
+            translations.append(translation)
+    else:
+        assert language is not None and codepage is not None
+        translation = language, codepage
+        translations.append(translation)
+
+    # getting the actual data
+    result = {}
+    for prop_name in prop_names:
+        for language_id, codepage_id in translations:
+            # formatting language and codepage to something like "040904b0"
+            translation = "{0:04x}{1:04x}".format(language_id, codepage_id)
+
+            res = ctypes.windll.version.VerQueryValueW(
+                buffer, ctypes.wstring_at("\\StringFileInfo\\" + translation + "\\" + prop_name),
+                ctypes.byref(value), ctypes.byref(value_size))
+
+            if res == 0:
+                e = ctypes.WinError()
+                if e.winerror == 1813:
+                    # ERROR_RESOURCE_TYPE_NOT_FOUND
+                    continue
+                raise e
+
+            # value points to a string of value_size characters, minus one for the
+            # terminating null
+            prop = ctypes.wstring_at(value.value, value_size.value - 1)
+
+            # some resource strings contain null characters, but they indicate the
+            # end of the string for most tools; removing them
+            #
+            # example:
+            # imjppsgf.fil
+            # https://www.virustotal.com/gui/file/42deb76551bc087d791eac266a6570032246ec78f4471e7a8922ceb7eb2e91c3/details
+            # FileVersion: '15.0.2271.1000\x001000'
+            # FileDescription: '\u5370[...]\u3002\x00System Dictionary File'
+            prop = prop.split('\0', 1)[0]
+
+            result[prop_name] = prop
+            break
+
+    return result
+
+
+# Reference:
+# https://signify.readthedocs.io/en/latest/authenticode.html
+def get_file_signing_times(pathname: Path):
+    signing_times = []
+    with open(pathname, 'rb') as f:
+        pefile = SignedPEFile(f)
+        for signed_data in pefile.signed_datas:
+            if signed_data.signer_info.countersigner is not None:
+                signing_time = signed_data.signer_info.countersigner.signing_time
+                signing_times.append(signing_time.isoformat().removesuffix('+00:00'))
+
+    return signing_times
 
 
 def get_delta_data_for_manifest_file(manifest_path: Path, name: str):
@@ -100,7 +247,7 @@ def get_delta_data_for_manifest_file(manifest_path: Path, name: str):
     return result
 
 
-def get_file_data_for_manifest_file(manifest_path: Path, name: str):
+def get_file_data_for_manifest_file(manifest_path: Path, name: str, algorithm_to_assert: str, hash_to_assert: str):
     file_path = manifest_path.parent.joinpath(manifest_path.stem, 'n', name)
     if not file_path.exists():
         file_path = manifest_path.parent.joinpath(manifest_path.stem, name)
@@ -108,11 +255,23 @@ def get_file_data_for_manifest_file(manifest_path: Path, name: str):
             return None
 
     size = file_path.stat().st_size
+    md5, sha1, sha256 = hash_sum(file_path)
+
+    if algorithm_to_assert == 'md5':
+        assert md5 == hash_to_assert
+    elif algorithm_to_assert == 'sha1':
+        assert sha1 == hash_to_assert
+    elif algorithm_to_assert == 'sha256':
+        assert sha256 == hash_to_assert
+    else:
+        assert False
 
     result = {
         'size': size,
-        'md5': md5sum(file_path),
+        'md5': md5,
     }
+
+    is_pe_file = False
 
     if size >= 0x40:
         # https://gist.github.com/geudrik/03152ba1a148d9475e81
@@ -127,6 +286,8 @@ def get_file_data_for_manifest_file(manifest_path: Path, name: str):
                     handle.seek(offset)
                     # Check if PE signature is valid.
                     if handle.read(4) == b'PE\0\0':
+                        is_pe_file = True
+
                         word = handle.read(2)
                         result['machineType'] = unpack('<H', word)[0]
 
@@ -137,6 +298,28 @@ def get_file_data_for_manifest_file(manifest_path: Path, name: str):
                         handle.seek(offset + 0x50)
                         dword = handle.read(4)
                         result['virtualSize'] = unpack('<I', dword)[0]
+
+    if is_pe_file:
+        result['sha1'] = sha1
+        result['sha256'] = sha256
+
+        version_info = get_file_version_info(file_path, ['FileVersion', 'FileDescription'])
+
+        if version_info.get('FileVersion'):
+            result['version'] = version_info['FileVersion']
+
+        if version_info.get('FileDescription'):
+            result['description'] = version_info['FileDescription']
+
+        try:
+            signing_times = get_file_signing_times(file_path)
+            result['signingStatus'] = 'Unknown'  # Verification is too time consuming.
+            result['signatureType'] = 'Overlay'
+            result['signingDate'] = signing_times
+        except signify.exceptions.SignedPEParseError as e:
+            if str(e) != 'The PE file does not contain a certificate table.':
+                raise
+            result['signingStatus'] = 'Unsigned'
 
     return result
 
@@ -176,7 +359,7 @@ def parse_manifest_file(manifest_path, file_el):
 
     info_source = 'none'
 
-    file_info = get_file_data_for_manifest_file(manifest_path, file_el.attrib['name'])
+    file_info = get_file_data_for_manifest_file(manifest_path, file_el.attrib['name'], algorithm, hash)
     if file_info:
         info_source = 'pe'
     else:
@@ -190,12 +373,23 @@ def parse_manifest_file(manifest_path, file_el):
     if algorithm == 'sha256':
         filename = file_el.attrib['name'].split('\\')[-1].lower()
         if (re.search(r'\.(exe|dll|sys|winmd|cpl|ax|node|ocx|efi|acm|scr|tsp|drv)$', filename)):
-            if hash in config.file_hashes_non_pe:
+            is_pe_file = hash not in config.file_hashes_non_pe
+            if (is_pe_file and
+                file_info and
+                info_source in ['pe', 'delta'] and
+                file_info.keys() == {'size', 'md5'}):
+                if config.allow_unknown_non_pe_files:
+                    is_pe_file = False
+                else:
+                    raise Exception(f'Unknown non-pe file {filename} with hash {hash}')
+
+            if not is_pe_file:
                 if file_info:
-                    assert info_source == 'delta' and file_info.keys() == {'size', 'md5'}
+                    assert info_source in ['pe', 'delta'] and file_info.keys() == {'size', 'md5'}
                 else:
                     assert info_source == 'none'
                 assert hash not in file_hashes.get(filename, {})
+                print(f'Skipping non-pe file {filename} with hash {hash}')
             else:
                 assert info_source == 'none' or (file_info and 'machineType' in file_info), (filename, hash)
                 file_hashes_for_filename = file_hashes.setdefault(filename, {})
