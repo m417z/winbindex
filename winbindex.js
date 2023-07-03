@@ -768,12 +768,12 @@ var globalFunctions = {};
 
             Object.keys(windowsVersions['builds']).forEach(function (update) {
                 var updateInfo = windowsVersions['builds'][update].updateInfo;
-                var title = updateInfo.title;
-                title = title.replace(/^Cumulative Update Preview for /, '');
-                title = title.replace(/^Cumulative Update for /, '');
-                title = title.replace(/^Feature update to /, '');
-                title = title.replace(/^Update for /, '');
-                var windowsVersion = null;
+                var title = updateInfo.title
+                    .replace(/^Cumulative Update Preview for /, '')
+                    .replace(/^Cumulative Update for /, '')
+                    .replace(/^Feature update to /, '')
+                    .replace(/^Update for /, '');
+                var windowsVersion = title;
                 var match;
                 if ((match = /^Microsoft server operating system,? version (\w+)/.exec(title))) {
                     windowsVersion = 'Windows Server ' + match[1];
@@ -789,7 +789,7 @@ var globalFunctions = {};
                     windowsVersion = 'Azure Stack HCI ' + match[1];
                 }
 
-                if (windowsVersion && items.indexOf(windowsVersion) === -1) {
+                if (items.indexOf(windowsVersion) === -1) {
                     items.push(windowsVersion);
                 }
             });
