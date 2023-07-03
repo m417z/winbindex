@@ -348,8 +348,12 @@ var globalFunctions = {};
                 }, {
                     targets: 'target-file-signing-date',
                     render: function (data, type) {
-                        if (!data || data.length === 0) {
+                        if (!data) {
                             return '???';
+                        }
+
+                        if (data.length === 0) {
+                            return '-';
                         }
 
                         var text = data[0].slice(0, '2000-01-01'.length);
