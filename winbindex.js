@@ -288,7 +288,7 @@ var globalFunctions = {};
                             return escapeHtml(data.sort || data.title);
                         }
 
-                        if (data.items.length === 1 && data.items[0] === data.title) {
+                        if (data.items.length === 0 || (data.items.length === 1 && data.items[0] === data.title)) {
                             return escapeHtml(data.title);
                         }
 
@@ -741,18 +741,19 @@ var globalFunctions = {};
                 title = title.replace(/^Feature update to /, '');
                 title = title.replace(/^Update for /, '');
                 var windowsVersion = null;
-                if (/^Microsoft server operating system,? version \w+/.test(title)) {
-                    windowsVersion = title.replace(/^Microsoft server operating system,? version (\w+).*$/, 'Windows Server $1');
-                } else if (/^Windows (?:\d+|Server) Insider Preview/.test(title)) {
-                    windowsVersion = title.replace(/^(Windows (?:\d+|Server) Insider) Preview.*$/, '$1');
-                } else if (/^Windows \d+,? [vV]ersion \w+/.test(title)) {
-                    windowsVersion = title.replace(/^(Windows \d+),? [vV]ersion (\w+).*$/, '$1 $2');
-                } else if (/^Windows Server \w+ [(-]/.test(title)) {
-                    windowsVersion = title.replace(/^(Windows Server \w+) [(-].*$/, '$1');
-                } else if (/^Windows \d+ [(-]/.test(title)) {
-                    windowsVersion = title.replace(/^(Windows \d+) [(-].*$/, '$1');
-                } else if (/^Azure Stack HCI, version \w+/.test(title)) {
-                    windowsVersion = title.replace(/^(Azure Stack HCI), version (\w+).*$/, '$1 $2');
+                var match;
+                if ((match = /^Microsoft server operating system,? version (\w+)/.exec(title))) {
+                    windowsVersion = 'Windows Server ' + match[1];
+                } else if ((match = /^Windows (\d+|Server) Insider Preview/.exec(title))) {
+                    windowsVersion = 'Windows ' + match[1] + ' Insider';
+                } else if ((match = /^Windows (\d+|Server),? [vV]ersion (\w+)/.exec(title))) {
+                    windowsVersion = 'Windows ' + match[1] + ' ' + match[2];
+                } else if ((match = /^Windows Server (\w+) [(-]/.exec(title))) {
+                    windowsVersion = 'Windows Server ' + match[1];
+                } else if ((match = /^Windows (\d+) [(-]/.exec(title))) {
+                    windowsVersion = 'Windows ' + match[1];
+                } else if ((match = /^Azure Stack HCI, version (\w+)/.exec(title))) {
+                    windowsVersion = 'Azure Stack HCI ' + match[1];
                 }
 
                 if (windowsVersion && items.indexOf(windowsVersion) === -1) {
