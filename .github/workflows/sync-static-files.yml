@@ -1,0 +1,35 @@
+name: Sync Static Files
+
+defaults:
+  run:
+    shell: bash
+
+on:
+  workflow_dispatch:
+
+concurrency: sync-static-files
+
+jobs:
+  update:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v3
+        with:
+          ref: main
+      - name: Checkout gh-pages
+        uses: actions/checkout@v3
+        with:
+          ref: gh-pages
+          path: data/gh-pages
+      - name: Sync static files
+        # https://superuser.com/questions/280425/getting-robocopy-to-return-a-proper-exit-code
+        run: |
+          robocopy /job:RSYNC-STATIC-FILES || [ $? -lt 8 ]
+      - name: Commit changes of static files
+        uses: EndBug/add-and-commit@v9
+        with:
+          cwd: data/gh-pages
+          default_author: github_actions
+          message: 'Sync static files'
+          fetch: false

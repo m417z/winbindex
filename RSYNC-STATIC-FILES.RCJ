@@ -1,0 +1,62 @@
+
+::
+:: Robocopy Job .\RSYNC-STATIC-FILES.RCJ
+::
+:: Created by User on Wednesday, July 5, 2023 at 09:04:19
+::
+:: Created with :
+:: robocopy . .\data\gh-pages /MIR /XD .* /XD data /XD hashes /XF .* /XF CNAME /XF LICENSE /XF package-lock.json /XF package.json /XF README.md /XF RSYNC-STATIC-FILES.RCJ /save:rsync-static-files
+::
+
+::
+:: Source Directory :
+::
+	/SD:.\	:: Source Directory.
+
+::
+:: Destination Directory :
+::
+	/DD:.\data\gh-pages\	:: Destination Directory.
+
+::
+:: Include These Files :
+::
+	/IF		:: Include Files matching these names
+::		*.*	:: Include all names (currently - Command Line may override)
+
+::
+:: Exclude These Directories :
+::
+	/XD		:: eXclude Directories matching these names
+		data
+		hashes
+		.*
+
+::
+:: Exclude These Files :
+::
+	/XF		:: eXclude Files matching these names
+		CNAME
+		LICENSE
+		package-lock.json
+		package.json
+		README.md
+		RSYNC-STATIC-FILES.RCJ
+		.*
+::
+:: Copy options :
+::
+	/S		:: copy Subdirectories, but not empty ones.
+	/E		:: copy subdirectories, including Empty ones.
+	/DCOPY:DA	:: what to COPY for directories (default is /DCOPY:DA).
+	/COPY:DAT	:: what to COPY for files (default is /COPY:DAT).
+	/PURGE		:: delete dest files/dirs that no longer exist in source.
+	/MIR		:: MIRror a directory tree (equivalent to /E plus /PURGE).
+::
+:: Retry Options :
+::
+	/R:1000000	:: number of Retries on failed copies: default 1 million.
+	/W:30		:: Wait time between retries: default is 30 seconds.
+::
+:: Logging Options :
+::
