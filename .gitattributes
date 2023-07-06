@@ -1,0 +1,3 @@
+# Apply override to all files and directories in the directory
+# https://github.com/github-linguist/linguist/blob/master/docs/overrides.md#vendored-code
+modules/** linguist-vendored
