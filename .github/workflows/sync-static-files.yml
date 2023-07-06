@@ -5,6 +5,11 @@ defaults:
     shell: bash
 
 on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'data/**'
   workflow_dispatch:
 
 concurrency: sync-static-files
