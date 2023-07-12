@@ -229,7 +229,7 @@ def extract_update_files(local_dir: Path, local_path: Path):
     # Use DeltaDownloader to extract meaningful data from delta files:
     # https://github.com/m417z/DeltaDownloader
     # Avoid path limitations by using a UNC path.
-    local_dir_unc = Rf'\\?\{local_dir.absolute()}'
+    local_dir_unc = Rf'\\?\{local_dir.resolve(strict=True)}'
     args = ['tools/DeltaDownloader/DeltaDownloader.exe', '/g', local_dir_unc]
     subprocess.check_call(args, stdout=None if config.verbose_run else subprocess.DEVNULL)
 

@@ -269,6 +269,8 @@ def get_file_data_for_manifest_file(manifest_path: Path, name: str, algorithm_to
     result = {
         'size': size,
         'md5': md5,
+        'sha1': sha1,
+        'sha256': sha256,
     }
 
     is_pe_file = False
@@ -300,9 +302,6 @@ def get_file_data_for_manifest_file(manifest_path: Path, name: str, algorithm_to
                         result['virtualSize'] = unpack('<I', dword)[0]
 
     if is_pe_file:
-        result['sha1'] = sha1
-        result['sha256'] = sha256
-
         version_info = get_file_version_info(file_path, ['FileVersion', 'FileDescription'])
 
         if version_info.get('FileVersion'):

@@ -36,10 +36,16 @@ def write_all_file_info():
 
 
 def get_file_info_type(file_info):
-    if file_info.keys() == {
-        'size',
-        'md5',
-    }:
+    if 'machineType' not in file_info:
+        assert file_info.keys() in [{
+            'size',
+            'md5',
+        }, {
+            'size',
+            'md5',
+            'sha1',
+            'sha256',
+        }]
         return 'raw'
 
     if file_info.keys() == {
@@ -194,11 +200,11 @@ def update_file_info(existing_file_info, delta_or_pe_file_info, virustotal_file_
         assert new_file_info_type in ['raw', 'delta', 'delta+', 'pe', 'file_unknown_sig', 'vt_or_file']
         if new_file_info_type == 'vt_or_file':
             new_file_info_type = 'file'
-    else:
-        assert False
 
     if not new_file_info:
         return existing_file_info
+
+    assert new_file_info_type is not None
 
     if not existing_file_info:
         return new_file_info
@@ -275,7 +281,7 @@ def add_file_info_from_update(filename, output_dir, *,
         assert data is None
         x = data_file
     else:
-        assert data
+        assert data is not None
         x = data.setdefault(file_hash, {})
 
     updated_file_info = update_file_info(x.get('fileInfo'), delta_or_pe_file_info, virustotal_file_info, None)
@@ -609,7 +615,7 @@ def process_virustotal_data():
                 continue
 
             virustotal_info = get_virustotal_info(file_hash)
-            assert virustotal_info
+            assert virustotal_info is not None
             if file_hash != virustotal_info['sha256']:
                 assert file_hash == virustotal_info['sha1']
                 file_hash = virustotal_info['sha256']
