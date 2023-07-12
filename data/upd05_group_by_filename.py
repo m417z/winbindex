@@ -37,16 +37,21 @@ def write_all_file_info():
 
 def get_file_info_type(file_info):
     if 'machineType' not in file_info:
-        assert file_info.keys() in [{
+        if file_info.keys() == {
             'size',
             'md5',
-        }, {
+        }:
+            return 'raw'
+
+        if file_info.keys() == {
             'size',
             'md5',
             'sha1',
             'sha256',
-        }]
-        return 'raw'
+        }:
+            return 'raw_file'
+
+        assert False, file_info
 
     if file_info.keys() == {
         'size',
@@ -81,6 +86,17 @@ def get_file_info_type(file_info):
         'virtualSize',
     }:
         return 'pe'
+    
+    assert file_info.keys() >= {
+        'size',
+        'md5',
+        'sha1',
+        'sha256',
+        'machineType',
+        'timestamp',
+        'virtualSize',
+        'signingStatus',
+    }, file_info
 
     if file_info['signingStatus'] == 'Unknown':
         return 'file_unknown_sig'
@@ -197,7 +213,6 @@ def update_file_info(existing_file_info, delta_or_pe_file_info, virustotal_file_
     elif delta_or_pe_file_info:
         new_file_info = delta_or_pe_file_info
         new_file_info_type = get_file_info_type(delta_or_pe_file_info)
-        assert new_file_info_type in ['raw', 'delta', 'delta+', 'pe', 'file_unknown_sig', 'vt_or_file']
         if new_file_info_type == 'vt_or_file':
             new_file_info_type = 'file'
 
@@ -213,6 +228,7 @@ def update_file_info(existing_file_info, delta_or_pe_file_info, virustotal_file_
 
     sources = [
         'raw',
+        'raw_file',
         'delta',
         'delta+',
         'pe',
