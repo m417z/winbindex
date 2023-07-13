@@ -376,7 +376,7 @@ def parse_manifest_file(manifest_path, file_el):
             if (is_pe_file and
                 file_info and
                 info_source in ['pe', 'delta'] and
-                file_info.keys() == {'size', 'md5'}):
+                file_info.keys() in [{'size', 'md5'}, {'size', 'md5', 'sha1', 'sha256'}]):
                 if config.allow_unknown_non_pe_files:
                     is_pe_file = False
                 else:
@@ -384,7 +384,7 @@ def parse_manifest_file(manifest_path, file_el):
 
             if not is_pe_file:
                 if file_info:
-                    assert info_source in ['pe', 'delta'] and file_info.keys() == {'size', 'md5'}
+                    assert info_source in ['pe', 'delta'] and file_info.keys() in [{'size', 'md5'}, {'size', 'md5', 'sha1', 'sha256'}]
                 else:
                     assert info_source == 'none'
                 assert hash not in file_hashes.get(filename, {})
