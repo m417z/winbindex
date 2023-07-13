@@ -194,35 +194,25 @@ def assert_file_info_close_enough(file_info_1, file_info_2):
             assert file_info_2['signingStatus'] != 'Signed'
 
 
-def update_file_info(existing_file_info, delta_or_pe_file_info, virustotal_file_info, real_file_info):
-    file_infos = [existing_file_info, delta_or_pe_file_info, virustotal_file_info, real_file_info]
-    file_infos = [x for x in file_infos if x is not None]
+def update_file_info(existing_file_info, new_file_info, new_file_info_source):
+    if existing_file_info is None:
+        return new_file_info
 
-    for file_info_1, file_info_2 in itertools.combinations(file_infos, 2):
-        assert_file_info_close_enough(file_info_1, file_info_2)
-
-    new_file_info = None
-    new_file_info_type = None
-
-    if real_file_info:
-        new_file_info = real_file_info
-        new_file_info_type = 'file'
-    elif virustotal_file_info:
-        new_file_info = virustotal_file_info
-        new_file_info_type = 'vt'
-    elif delta_or_pe_file_info:
-        new_file_info = delta_or_pe_file_info
-        new_file_info_type = get_file_info_type(delta_or_pe_file_info)
-        if new_file_info_type == 'vt_or_file':
-            new_file_info_type = 'file'
-
-    if not new_file_info:
+    if new_file_info is None:
         return existing_file_info
 
-    assert new_file_info_type is not None
+    assert_file_info_close_enough(existing_file_info, new_file_info)
 
-    if not existing_file_info:
-        return new_file_info
+    if new_file_info_source == 'iso':
+        new_file_info_type = 'file'
+    elif new_file_info_source == 'vt':
+        new_file_info_type = 'vt'
+    elif new_file_info_source == 'update':
+        new_file_info_type = get_file_info_type(new_file_info)
+        if new_file_info_type == 'vt_or_file':
+            new_file_info_type = 'file'
+    else:
+        assert False
 
     existing_file_info_type = get_file_info_type(existing_file_info)
 
@@ -300,7 +290,8 @@ def add_file_info_from_update(filename, output_dir, *,
         assert data is not None
         x = data.setdefault(file_hash, {})
 
-    updated_file_info = update_file_info(x.get('fileInfo'), delta_or_pe_file_info, virustotal_file_info, None)
+    updated_file_info = update_file_info(x.get('fileInfo'), delta_or_pe_file_info, 'update')
+    updated_file_info = update_file_info(updated_file_info, virustotal_file_info, 'vt')
     if updated_file_info:
         x['fileInfo'] = updated_file_info
 
@@ -600,7 +591,7 @@ def add_file_info_from_virustotal_data(filename, output_dir, *, file_hash, file_
 
     x = data[file_hash]
 
-    updated_file_info = update_file_info(x.get('fileInfo'), None, file_info, None)
+    updated_file_info = update_file_info(x.get('fileInfo'), file_info, 'vt')
     assert updated_file_info
     x['fileInfo'] = updated_file_info
 
@@ -661,7 +652,7 @@ def add_file_info_from_iso_data(filename, output_dir, *, file_hash, file_info, s
 
     x = data.setdefault(file_hash, {})
 
-    updated_file_info = update_file_info(x.get('fileInfo'), None, None, file_info)
+    updated_file_info = update_file_info(x.get('fileInfo'), file_info, 'iso')
     assert updated_file_info
     x['fileInfo'] = updated_file_info
 
