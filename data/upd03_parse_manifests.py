@@ -83,7 +83,8 @@ def get_file_version_info(pathname: Path, prop_names: List[str],
             ("wLanguage", ctypes.c_uint16),
             ("wCodePage", ctypes.c_uint16)]
 
-    wstr_file = ctypes.wstring_at(str(pathname))
+    # avoid some path length limitations by using a resolved path
+    wstr_file = ctypes.wstring_at(str(pathname.resolve(strict=True)))
 
     # getting the size in bytes of the file version info buffer
     size = ctypes.windll.version.GetFileVersionInfoSizeExW(2, wstr_file, None)
