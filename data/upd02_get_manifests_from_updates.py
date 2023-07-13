@@ -252,8 +252,6 @@ def get_files_from_update(windows_version: str, update_kb: str):
         print(f'[{update_kb}] Extracting update files')
         try:
             extract_update_files(local_dir, local_path)
-        except (KeyboardInterrupt, SystemExit):
-            raise
         except Exception as e:
             print(f'[{update_kb}] ERROR: Failed to process update')
             print(f'[{update_kb}]        {e}')
@@ -279,8 +277,6 @@ def main():
         for update_kb in updates[windows_version]:
             try:
                 get_files_from_update(windows_version, update_kb)
-            except (KeyboardInterrupt, SystemExit):
-                raise
             except UpdateNotSupported:
                 print(f'[{update_kb}] WARNING: Skipping unsupported update')
             except UpdateNotFound:

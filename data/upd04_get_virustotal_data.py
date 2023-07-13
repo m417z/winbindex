@@ -79,8 +79,6 @@ def get_virustotal_data_for_file(session: requests.Session, file_hash, output_di
 
     try:
         r = session.get(url, verify=False, headers=headers, timeout=30)
-    except (KeyboardInterrupt, SystemExit):
-        raise
     except Exception as e:
         print(f'ERROR: failed to get {url}')
         print(f'       {e}')
@@ -140,8 +138,6 @@ def get_virustotal_data_for_files(names_and_hashes, session: requests.Session, o
             try:
                 hashes_found = lookup_virustotal_bulk_hashes_exist([hash for name, hash in names_and_hashes_chunk])
                 break
-            except (KeyboardInterrupt, SystemExit):
-                raise
             except Exception as e:
                 print(f'ERROR: failed to do bulk lookup, retrying in 10 seconds')
                 print(f'       {e}')
@@ -158,8 +154,6 @@ def get_virustotal_data_for_files(names_and_hashes, session: requests.Session, o
 
                     try:
                         file_result = get_virustotal_data_for_file(session, hash, output_dir)
-                    except (KeyboardInterrupt, SystemExit):
-                        raise
                     except Exception as e:
                         print(f'ERROR: failed to process {hash} ({name})')
                         print(f'       {e}')

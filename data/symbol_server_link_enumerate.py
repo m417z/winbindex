@@ -106,8 +106,6 @@ def get_symbol_server_links_for_file(session, hash, name, data):
         try:
             valid_urls = test_symbol_server_urls(session, urls_and_virtual_sizes.keys())
             break
-        except (KeyboardInterrupt, SystemExit):
-            raise
         except Exception as e:
             print(e)
             print(f'Retrying {hash}')

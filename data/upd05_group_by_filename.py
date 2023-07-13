@@ -539,8 +539,6 @@ def group_update_by_filename(windows_version, update_kb, update, parsed_dir, pro
                     update_kb=update_kb,
                     update_info=update,
                     manifest_name=path.stem)
-            except (KeyboardInterrupt, SystemExit):
-                raise
             except Exception as e:
                 print(f'ERROR: failed to process {path}')
                 print(f'       {e}')
