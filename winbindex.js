@@ -524,9 +524,9 @@ var globalFunctions = {};
                         // we can mark it as such.
                         //
                         // For now, we don't have a convenient indication for
-                        // partial data, but we can check the hashes below, and
-                        // for now that's a distinguishing factor.
-                        var partialFileInfo = !fileInfo.sha1 || !fileInfo.md5;
+                        // partial data, but we can check signingStatus, and for
+                        // now that's a distinguishing factor.
+                        var partialFileInfo = fileInfo.machineType && !fileInfo.signingStatus;
                         var fallbackForOptionalData = partialFileInfo ? null : '-';
 
                         sha1 = fileInfo.sha1 || null;
