@@ -378,11 +378,8 @@ def update_readme_stats():
 
 
 def init_deploy():
-    git_email = '69083578+winbindex-deploy-bot@users.noreply.github.com'
-    git_name = 'winbindex-deploy-bot'
-
-    subprocess.check_call(['git', 'config', '--global', 'user.email', git_email])
-    subprocess.check_call(['git', 'config', '--global', 'user.name', git_name])
+    subprocess.check_call(['git', 'config', '--global', 'user.email', config.deploy_git_email])
+    subprocess.check_call(['git', 'config', '--global', 'user.name', config.deploy_git_name])
 
 
 def commit_deploy(pr_title):
@@ -411,8 +408,27 @@ def commit_deploy(pr_title):
         print('No changes to commit')
         return
 
-    subprocess.check_call(git_cmd + ['commit', '-m', pr_title])
-    subprocess.check_call(git_cmd + ['push'])
+    amend_last_commit = False
+    last_commit_body = None
+    if config.deploy_amend_last_commit:
+        email, body = subprocess.check_output(git_cmd + ['log', '--format=%ae%n%B', '-n1'], text=True).split('\n', 1)
+        if email == config.deploy_git_email:
+            amend_last_commit = True
+            last_commit_body = body
+
+    if amend_last_commit:
+        assert last_commit_body is not None
+        current_time_iso = datetime.now().isoformat(timespec='seconds')
+        new_body = f'{last_commit_body.strip()}\n\n[{current_time_iso}] {pr_title}'
+        subprocess.check_call(git_cmd + ['commit', '--amend', '-m', new_body])
+        subprocess.check_call(git_cmd + ['push', '--force-with-lease'])
+
+        # Free disk space by removing old objects.
+        subprocess.check_call(git_cmd + ['reflog', 'expire', '--expire=all', '--all'])
+        subprocess.check_call(git_cmd + ['gc', '--prune=now'])
+    else:
+        subprocess.check_call(git_cmd + ['commit', '-m', pr_title])
+        subprocess.check_call(git_cmd + ['push'])
 
 
 def clean_deploy_files():
