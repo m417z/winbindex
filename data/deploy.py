@@ -419,7 +419,7 @@ def commit_deploy(pr_title):
     if amend_last_commit:
         assert last_commit_body is not None
         current_time_iso = datetime.now().isoformat(timespec='seconds')
-        new_body = f'{last_commit_body.strip()}\n\n[{current_time_iso}] {pr_title}'
+        new_body = f'[{current_time_iso}] {pr_title}\n\n{last_commit_body}'
         subprocess.check_call(git_cmd + ['commit', '--amend', '-m', new_body])
         subprocess.check_call(git_cmd + ['push', '--force-with-lease'])
 
