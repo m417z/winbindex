@@ -2,7 +2,6 @@ from datetime import datetime, timedelta
 from pathlib import Path
 import subprocess
 import requests
-import shutil
 import html
 import json
 import time
@@ -385,22 +384,13 @@ def init_deploy():
 def commit_deploy(pr_title):
     # Make sure no accidental changes in the main repo.
     # https://stackoverflow.com/a/25149786
-    status = subprocess.check_output(['git', 'status', '--porcelain', ':!gh-pages/*'], text=True)
+    status = subprocess.check_output(['git', 'status', '--porcelain'], text=True)
     if status:
         raise Exception(f'Non-empty status:\n{status}')
 
     git_cmd = ['git', '-C', config.out_path]
 
-    exclude_paths_from_commit = [
-        'manifests',
-        'parsed',
-        'virustotal',
-    ]
-
-    # https://stackoverflow.com/a/51914162
-    exclude_params = [f':!{path}/*' for path in exclude_paths_from_commit]
-
-    subprocess.check_call(git_cmd + ['add', '-A', '--'] + exclude_params)
+    subprocess.check_call(git_cmd + ['add', '-A'])
 
     # https://stackoverflow.com/a/2659808
     result = subprocess.run(git_cmd + ['diff-index', '--quiet', '--cached', 'HEAD'])
@@ -409,18 +399,14 @@ def commit_deploy(pr_title):
         return
 
     amend_last_commit = False
-    last_commit_body = None
     if config.deploy_amend_last_commit:
-        email, body = subprocess.check_output(git_cmd + ['log', '--format=%ae%n%B', '-n1'], text=True).split('\n', 1)
-        if email == config.deploy_git_email:
-            commit_count = int(subprocess.check_output(git_cmd + ['rev-list', '--count', 'HEAD'], text=True).rstrip('\n'))
-            if commit_count > 1:
-                amend_last_commit = True
-                last_commit_body = body
+        commit_count = int(subprocess.check_output(git_cmd + ['rev-list', '--count', 'HEAD'], text=True).rstrip('\n'))
+        if commit_count > 1:
+            amend_last_commit = True
 
     if amend_last_commit:
-        assert last_commit_body is not None
-        current_time_iso = datetime.now().isoformat(timespec='seconds')
+        last_commit_body = subprocess.check_output(git_cmd + ['log', '--format=%B', '-n1'], text=True)
+        current_time_iso = datetime.now().isoformat(timespec='seconds').replace('T', ' ')
         new_body = f'[{current_time_iso}] {pr_title}\n\n{last_commit_body}'
         subprocess.check_call(git_cmd + ['commit', '--amend', '-m', new_body])
         subprocess.check_call(git_cmd + ['push', '--force-with-lease'])
@@ -428,25 +414,18 @@ def commit_deploy(pr_title):
         # Free disk space by removing old objects.
         subprocess.check_call(git_cmd + ['reflog', 'expire', '--expire=all', '--all'])
 
-        # Hopefully prevents out-of-disk errors.
-        # https://stackoverflow.com/a/47890963
+        # Use `git prune` instead of `git gc --prune=now` to hopefully prevent
+        # out-of-disk errors: https://stackoverflow.com/a/47890963
         subprocess.check_call(git_cmd + ['prune'])
-
-        subprocess.check_call(git_cmd + ['gc', '--prune=now'])
     else:
         subprocess.check_call(git_cmd + ['commit', '-m', pr_title])
         subprocess.check_call(git_cmd + ['push'])
 
 
 def clean_deploy_files():
-    # Remove files that take a lot of space and are no longer needed.
-    p = config.out_path.joinpath('manifests')
-    if p.exists():
-        shutil.rmtree(p)
+    git_cmd = ['git', '-C', config.out_path]
 
-    p = config.out_path.joinpath('parsed')
-    if p.exists():
-        shutil.rmtree(p)
+    subprocess.check_call(git_cmd + ['clean', '-fdx'])
 
 
 def main():

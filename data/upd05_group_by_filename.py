@@ -347,7 +347,15 @@ def get_virustotal_info(file_hash):
     if config.high_mem_usage_for_performance and file_hash in virustotal_info_cache:
         return virustotal_info_cache[file_hash]
 
-    filename = config.out_path.joinpath('virustotal', file_hash + '.json')
+    if len(file_hash) == 64:
+        # SHA256, the default.
+        source_dir = 'virustotal'
+    elif len(file_hash) == 40:
+        source_dir = 'virustotal_sha1'
+    else:
+        assert False, file_hash
+
+    filename = config.out_path.joinpath(source_dir, file_hash + '.json')
     if not filename.is_file():
         if config.high_mem_usage_for_performance:
             virustotal_info_cache[file_hash] = None
