@@ -413,8 +413,10 @@ def commit_deploy(pr_title):
     if config.deploy_amend_last_commit:
         email, body = subprocess.check_output(git_cmd + ['log', '--format=%ae%n%B', '-n1'], text=True).split('\n', 1)
         if email == config.deploy_git_email:
-            amend_last_commit = True
-            last_commit_body = body
+            commit_count = int(subprocess.check_output(git_cmd + ['rev-list', '--count', 'HEAD'], text=True).rstrip('\n'))
+            if commit_count > 1:
+                amend_last_commit = True
+                last_commit_body = body
 
     if amend_last_commit:
         assert last_commit_body is not None
@@ -425,6 +427,11 @@ def commit_deploy(pr_title):
 
         # Free disk space by removing old objects.
         subprocess.check_call(git_cmd + ['reflog', 'expire', '--expire=all', '--all'])
+
+        # Hopefully prevents out-of-disk errors.
+        # https://stackoverflow.com/a/47890963
+        subprocess.check_call(git_cmd + ['prune'])
+
         subprocess.check_call(git_cmd + ['gc', '--prune=now'])
     else:
         subprocess.check_call(git_cmd + ['commit', '-m', pr_title])
