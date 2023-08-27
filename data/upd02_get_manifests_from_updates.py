@@ -221,6 +221,10 @@ def extract_update_files(local_dir: Path, local_path: Path):
         subprocess.check_call(args, stdout=None if config.verbose_run else subprocess.DEVNULL)
         psf_file.unlink()
 
+    # Make sure there are no MSU files.
+    msu_files = list(local_dir.glob('*.msu'))
+    assert len(msu_files) == 0
+
     # Unpack null differential files.
     for file in local_dir.glob('*/n/**/*'):
         if file.is_file():
