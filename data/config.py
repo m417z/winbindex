@@ -2,6 +2,7 @@ from pathlib import Path
 
 out_path_override = Path('.out_path_override')
 out_path = Path(out_path_override.read_text().strip() if out_path_override.exists() else '.')
+index_of_hashes_title = 'Winbindex x64 Hashes'
 index_of_hashes_out_path =  out_path / '..' / 'hashes'
 
 deploy_git_email = '69083578+winbindex-deploy-bot@users.noreply.github.com'

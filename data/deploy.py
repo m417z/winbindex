@@ -254,7 +254,9 @@ def can_deploy():
 
 def build_html_index_of_hashes():
     def write_html(file, html_content, title='', full_version_link='..'):
-        title_full = f'{title} - Winbindex' if title else 'Winbindex'
+        title_full = config.index_of_hashes_title
+        if title:
+            title_full = f'{title} - {title_full}'
 
         html = inspect.cleandoc(f"""
             <!DOCTYPE html>
