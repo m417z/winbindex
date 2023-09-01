@@ -269,6 +269,7 @@ def build_html_index_of_hashes():
                 <style>
                     p {{
                         font-family: monospace;
+                        overflow-wrap: break-word;
                     }}
                 </style>
             </head>
