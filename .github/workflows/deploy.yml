@@ -35,6 +35,10 @@ jobs:
       - name: Install Windows dependencies
         run: |
           choco install -y aria2 tor
+      - name: Configure Windows dependencies
+        run: |
+          # Make sure git clean doesn't fail on long paths.
+          git config --system core.longpaths true
       - name: Cache Python dependencies
         uses: actions/cache@v3
         with:
