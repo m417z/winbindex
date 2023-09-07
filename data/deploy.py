@@ -266,7 +266,7 @@ def build_html_index_of_hashes():
                 <meta name="description" content="An index of Windows binaries, including download links for executables such as exe, dll and sys files">
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
                 <title>{title_full}</title>
-                <link rel="shortcut icon" href="favicon.ico">
+                <link rel="shortcut icon" href="https://winbindex.m417z.com/favicon.ico">
                 <link rel="stylesheet" href="https://winbindex.m417z.com/modules/bootstrap/css/bootstrap.min.css">
                 <style>
                     p {{
