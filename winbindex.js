@@ -769,10 +769,10 @@ var globalFunctions = {};
             Object.keys(windowsVersions['builds']).forEach(function (update) {
                 var updateInfo = windowsVersions['builds'][update].updateInfo;
                 var title = updateInfo.title
-                    .replace(/^Cumulative Update Preview for /, '')
-                    .replace(/^Cumulative Update for /, '')
-                    .replace(/^Feature update to /, '')
-                    .replace(/^Update for /, '');
+                    .replace(/^(\d{4}-\d{2} )?Cumulative Update Preview for /, '')
+                    .replace(/^(\d{4}-\d{2} )?Cumulative Update for /, '')
+                    .replace(/^(\d{4}-\d{2} )?Feature update to /, '')
+                    .replace(/^(\d{4}-\d{2} )?Update for /, '');
                 var windowsVersion = title;
                 var match;
                 if ((match = /^Microsoft server operating system,? version (\w+)/.exec(title))) {
@@ -783,11 +783,14 @@ var globalFunctions = {};
                     windowsVersion = 'Windows ' + match[1] + ' ' + match[2];
                 } else if ((match = /^Windows Server (\w+) [(-]/.exec(title))) {
                     windowsVersion = 'Windows Server ' + match[1];
-                } else if ((match = /^Windows (\d+) [(-]/.exec(title))) {
+                } else if ((match = /^Windows (\d+) (?:[(-]|for \w+-based)/.exec(title))) {
                     windowsVersion = 'Windows ' + match[1];
                 } else if ((match = /^Azure Stack HCI, version (\w+)/.exec(title))) {
                     windowsVersion = 'Azure Stack HCI ' + match[1];
                 }
+
+                // Remove commas as they're used as separators in filtering.
+                windowsVersion = windowsVersion.replace(/\s*,\s*/g, ' ');
 
                 if (items.indexOf(windowsVersion) === -1) {
                     items.push(windowsVersion);
