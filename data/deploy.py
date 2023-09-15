@@ -51,7 +51,17 @@ def prepare_updates():
     if config.updates_never_removed:
         assert uptodate_update_kbs >= last_time_update_kbs
 
-    new_update_kbs = sorted(uptodate_update_kbs - last_time_update_kbs)
+    def kb_sort_key(update_kb):
+        for windows_version, updates in uptodate_updates.items():
+            if update_kb in updates:
+                update_info = updates[update_kb]
+                if windows_version == 'builds':
+                    return update_info['created'], update_info['build'], update_kb
+                else:
+                    return update_info['releaseDate'], update_info['releaseVersion'], update_kb
+        assert False, update_kb
+
+    new_update_kbs = sorted(uptodate_update_kbs - last_time_update_kbs, key=kb_sort_key)
     if len(new_update_kbs) == 0:
         temp_updates_path.unlink()
         print('No new updates')
@@ -96,8 +106,8 @@ def add_update_to_info_progress_symbol_server(update_kb):
 
 
 def run_symbol_server_updates():
-    #time_to_stop = deploy_start_time + timedelta(minutes=46)  # For Travis
-    time_to_stop = min(datetime.now() + timedelta(minutes=46), deploy_start_time + timedelta(hours=6, minutes=-10))  # For GitHub Actions
+    # GitHub Actions has a 6 hour limit, so stop 10 minutes before that.
+    time_to_stop = min(datetime.now() + timedelta(minutes=60), deploy_start_time + timedelta(hours=6, minutes=-10))
     if datetime.now() >= time_to_stop:
         return None
 
@@ -158,8 +168,8 @@ def check_pymultitor(proxy='http://127.0.0.1:8080'):
 
 
 def run_virustotal_updates():
-    #time_to_stop = deploy_start_time + timedelta(minutes=46)  # For Travis
-    time_to_stop = min(datetime.now() + timedelta(minutes=46), deploy_start_time + timedelta(hours=6, minutes=-10))  # For GitHub Actions
+    # GitHub Actions has a 6 hour limit, so stop 10 minutes before that.
+    time_to_stop = min(datetime.now() + timedelta(minutes=60), deploy_start_time + timedelta(hours=6, minutes=-10))
     if datetime.now() >= time_to_stop:
         return None
 
@@ -191,8 +201,8 @@ def run_virustotal_updates():
 
 
 def run_deploy():
-    #time_to_stop = deploy_start_time + timedelta(minutes=46)  # For Travis
-    time_to_stop = deploy_start_time + timedelta(hours=6, minutes=-10)  # For GitHub Actions
+    # GitHub Actions has a 6 hour limit, so stop 10 minutes before that.
+    time_to_stop = deploy_start_time + timedelta(hours=6, minutes=-10)
     if datetime.now() >= time_to_stop:
         return None
 
