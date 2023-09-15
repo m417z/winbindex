@@ -224,8 +224,14 @@ def run_deploy():
     print('Running upd03_parse_manifests')
     upd03_parse_manifests()
 
+    if config.deploy_save_disk_space:
+        clean_deploy_files(['manifests/'])
+
     print('Running upd05_group_by_filename')
     upd05_group_by_filename(progress_state, time_to_stop)
+
+    if config.deploy_save_disk_space:
+        clean_deploy_files(['parsed/'])
 
     if progress_state['files_processed'] < progress_state['files_total']:
         with open(progress_file, 'w') as f:
@@ -471,10 +477,14 @@ def commit_deploy(pr_title):
         subprocess.check_call(git_cmd + ['push'])
 
 
-def clean_deploy_files():
+def clean_deploy_files(pathspecs=[]):
     git_cmd = ['git', '-C', config.out_path]
 
-    subprocess.check_call(git_cmd + ['clean', '-fdx'])
+    cmd = git_cmd + ['clean', '-fdx']
+    if pathspecs:
+        cmd += ['--'] + pathspecs
+
+    subprocess.check_call(cmd)
 
 
 def main():
@@ -503,7 +513,8 @@ def main():
             print('Done')
             return
 
-        clean_deploy_files()
+        if config.deploy_save_disk_space:
+            clean_deploy_files()
 
 
 if __name__ == '__main__':
