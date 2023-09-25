@@ -3,6 +3,7 @@ from datetime import datetime
 from pathlib import Path
 import requests
 import base64
+import bisect
 import orjson
 import random
 import json
@@ -226,7 +227,7 @@ def main(time_to_stop=None):
 
     # Order list to start from the 'next' file where the script stopped last time.
     if progress_next is not None:
-        progress_hash_index = names_and_hashes.index(progress_next)
+        progress_hash_index = bisect.bisect_left(names_and_hashes, progress_next)
         if progress_updates is not None:
             names_and_hashes = names_and_hashes[progress_hash_index:]
         else:
