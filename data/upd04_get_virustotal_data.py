@@ -101,8 +101,14 @@ def get_virustotal_data_for_file(session: requests.Session, file_hash, output_di
                 _ = virustotal_json['data']['attributes']['pe_info']['sections'][0]
                 result = 'ok'
             except KeyError:
-                prefix = '_no_pe_info_'  # no PE info, need to rescan it on VirusTotal
-                result = 'no_pe_info'
+                # VirusTotal often doesn't have PE information for large files.
+                # https://twitter.com/sixtyvividtails/status/1697355272568643970
+                if virustotal_json['data']['attributes']['size'] > 250000000:
+                    prefix = '_too_large_no_pe_info_'
+                    result = 'too_large_no_pe_info'
+                else:
+                    prefix = '_no_pe_info_'  # no PE info, need to rescan it on VirusTotal
+                    result = 'no_pe_info'
         except json.JSONDecodeError:
             prefix = '_not_json_'
             result = 'not_json'
@@ -174,6 +180,8 @@ def get_virustotal_data_for_files(names_and_hashes, session: requests.Session, o
                 elif file_result == 'not_found':
                     assert False, (name, hash)
                     # result['not_found'].add((name, hash))
+                elif file_result == 'too_large_no_pe_info':
+                    result['not_found'].add((name, hash))
                 else:
                     print(f'WARNING: got result {file_result} for {hash} ({name})')
                     result['failed'].add((name, hash))
