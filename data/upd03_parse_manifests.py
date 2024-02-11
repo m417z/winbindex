@@ -224,8 +224,12 @@ def get_delta_data_for_manifest_file(manifest_path: Path, name: str):
 
     result['size'] = int(delta_data['TargetSize'])
 
-    assert delta_data['HashAlgorithm'] == 'CALG_MD5'
-    result['md5'] = delta_data['Hash'].lower()
+    if delta_data['HashAlgorithm'] == 'CALG_MD5':
+        result['md5'] = delta_data['Hash'].lower()
+    elif delta_data['HashAlgorithm'] == 'CALG_SHA_256':
+        result['sha256'] = delta_data['Hash'].lower()
+    else:
+        assert False, delta_data['HashAlgorithm']
 
     if delta_data['Code'] != 'Raw':
         machine_type_values = {

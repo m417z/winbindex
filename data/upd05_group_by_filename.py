@@ -37,10 +37,11 @@ def write_all_file_info():
 
 def get_file_info_type(file_info):
     if 'machineType' not in file_info:
-        if file_info.keys() == {
-            'size',
-            'md5',
-        }:
+        k = {'size'}
+        if file_info.keys() in [
+            k | {'md5'},
+            k | {'sha256'},
+        ]:
             return 'raw'
 
         if file_info.keys() == {
@@ -53,25 +54,31 @@ def get_file_info_type(file_info):
 
         assert False, file_info
 
-    if file_info.keys() == {
+    k = {
         'size',
-        'md5',
         'machineType',
         'timestamp',
         'lastSectionVirtualAddress',
         'lastSectionPointerToRawData',
-    }:
+    }
+    if file_info.keys() in [
+        k | {'md5'},
+        k | {'sha256'},
+    ]:
         return 'delta'
 
-    if file_info.keys() == {
+    k = {
         'size',
-        'md5',
         'machineType',
         'timestamp',
         'lastSectionVirtualAddress',
         'lastSectionPointerToRawData',
         'virtualSize',
-    }:
+    }
+    if file_info.keys() in [
+        k | {'md5'},
+        k | {'sha256'},
+    ]:
         return 'delta+'
 
     assert 'lastSectionVirtualAddress' not in file_info
