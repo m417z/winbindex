@@ -129,7 +129,7 @@ def download_update(windows_version, update_kb):
     #    with open(local_path, 'wb') as f:
     #        shutil.copyfileobj(r.raw, f)
 
-    args = ['aria2c', '-x4', '-o', local_path, '--allow-overwrite=true', download_url]
+    args = ['aria2c', '-x4', '-d', local_dir, '-o', local_filename, '--allow-overwrite=true', download_url]
     subprocess.check_call(args, stdout=None if config.verbose_run else subprocess.DEVNULL)
 
     return download_url, local_dir, local_path
