@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 import subprocess
 import requests
+import tempfile
 import inspect
 import html
 import json
@@ -167,6 +168,31 @@ def check_pymultitor(proxy='http://127.0.0.1:8080'):
         return False
 
 
+def start_pymultitor(args):
+    # Using check_pymultitor while pymultitor is starting leads to errors. Use
+    # --ready-marker-file instead.
+
+    with tempfile.NamedTemporaryFile() as tmp:
+        temp_file = Path(tmp.name)
+
+    subprocess.Popen([
+        'pymultitor',
+        '--ready-marker-file', temp_file,
+        *args
+    ])
+
+    while True:
+        try:
+            if temp_file.read_text() == '1':
+                break
+        except FileNotFoundError:
+            pass
+
+        time.sleep(1)
+
+    temp_file.unlink()
+
+
 def run_virustotal_updates():
     # GitHub Actions has a 6 hour limit, so stop 10 minutes before that.
     time_to_stop = min(datetime.now() + timedelta(minutes=60), deploy_start_time + timedelta(hours=6, minutes=-10))
@@ -174,10 +200,10 @@ def run_virustotal_updates():
         return None
 
     if not check_pymultitor():
-        subprocess.Popen(['pymultitor', '--on-error-code', '403,429', '--tor-timeout', '0'])
-
-        while not check_pymultitor():
-            time.sleep(1)
+        start_pymultitor([
+            '--on-status-code', '403', '429',
+            '--tor-timeout', '0',
+        ])
 
     virustotal_path = config.out_path.joinpath('virustotal')
     files_count_before = sum(1 for x in virustotal_path.glob('*.json') if not x.name.startswith('_'))
