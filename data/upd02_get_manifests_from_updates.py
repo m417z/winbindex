@@ -219,8 +219,10 @@ def extract_update_files(local_dir: Path, local_path: Path):
     assert len(psf_files) <= 1
     if len(psf_files) == 1:
         psf_file = psf_files[0]
-        args = ['tools/PSFExtractor.exe', '-v2', psf_file, local_dir.joinpath('express.psf.cix.xml'), local_dir]
+        description_file = local_dir.joinpath('express.psf.cix.xml')
+        args = ['tools/PSFExtractor.exe', '-v2', psf_file, description_file, local_dir]
         subprocess.check_call(args, stdout=None if config.verbose_run else subprocess.DEVNULL)
+        description_file.unlink()
         psf_file.unlink()
 
     # Make sure there are no MSU files.
