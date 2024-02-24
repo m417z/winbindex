@@ -242,10 +242,8 @@ def extract_update_files(local_dir: Path, local_path: Path):
     subprocess.check_call(args, stdout=None if config.verbose_run else subprocess.DEVNULL)
 
     # Starting with Windows 11, manifest files are compressed with the DCM v1 format.
-    # Use SYSEXP to de-compress them: https://github.com/hfiref0x/SXSEXP
-    # Avoid some path length limitations by using a resolved path (the limit is
-    # still MAX_PATH).
-    args = ['tools/sxsexp64.exe', local_dir_resolved, local_dir_resolved]
+    # Use SXSEXP to de-compress them: https://github.com/hfiref0x/SXSEXP
+    args = ['tools/sxsexp64.exe', local_dir, local_dir]
     subprocess.run(args, stdout=None if config.verbose_run else subprocess.DEVNULL)
 
 
