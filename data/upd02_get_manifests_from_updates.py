@@ -157,6 +157,7 @@ def extract_update_files(local_dir: Path, local_path: Path):
     next_extract_dir_num = 1
 
     extract_dir = local_dir.joinpath(f'_extract_{next_extract_dir_num}')
+    print(f'Extracting {local_path} to {extract_dir}')
     next_extract_dir_num += 1
     cab_extract('*', local_path, extract_dir)
     local_path.unlink()
@@ -168,6 +169,7 @@ def extract_update_files(local_dir: Path, local_path: Path):
             src_extract_dir = local_dir.joinpath(f'_extract_{src_extract_dir_num}')
             for cab in src_extract_dir.glob('*.cab'):
                 extract_dir = local_dir.joinpath(f'_extract_{next_extract_dir_num}')
+                print(f'Extracting {cab} to {extract_dir}')
                 next_extract_dir_num += 1
                 cab_extract('*', cab, extract_dir)
                 cab.unlink()
@@ -200,7 +202,7 @@ def extract_update_files(local_dir: Path, local_path: Path):
                             raise Exception(f'A destination item already exists and is not a file: {destination_file}')
 
                         if sha256sum(source_file) != sha256sum(destination_file):
-                            raise Exception(f'A different file copy already exists: {destination_file}')
+                            raise Exception(f'A different file copy already exists: {destination_file} (source: {source_file})')
 
                         ignore.append(name)
 
