@@ -118,6 +118,14 @@ def get_virustotal_data_for_file(session: requests.Session, file_hash, output_di
     with open(output_filename, 'w') as f:
         f.write(virustotal_data)
 
+    if result == 'no_pe_info':
+        try:
+            r = session.post(url + '/analyse', verify=False, headers=headers, timeout=30)
+            print(f'Submitted {file_hash} for analysis, response: {r.status_code}')
+        except Exception as e:
+            print(f'ERROR: failed to submit {file_hash} for analysis')
+            print(f'       {e}')
+
     return result
 
 
