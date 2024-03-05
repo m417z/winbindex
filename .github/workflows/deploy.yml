@@ -17,11 +17,11 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout main
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: main
       - name: Checkout gh-pages
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: gh-pages
           path: data/gh-pages
@@ -29,7 +29,7 @@ jobs:
         run: |
           echo ./gh-pages/data > data/.out_path_override
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.x'
       - name: Install Windows dependencies
@@ -40,7 +40,7 @@ jobs:
           # Make sure git clean doesn't fail on long paths.
           git config --system core.longpaths true
       - name: Cache Python dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ env.pythonLocation }}
           key: v2-${{ runner.os }}-${{ env.pythonLocation }}-${{ hashFiles('.github/workflows/deploy.yml') }}
