@@ -220,6 +220,13 @@ def get_delta_data_for_manifest_file(manifest_path: Path, name: str):
     for key, value in key_value:
         delta_data[key] = value.strip()
 
+    # Skip delta files without RiftTable. In this case, it was also observed
+    # that machineType doesn't have the correct value.
+    if delta_data['Code'] != 'Raw' and delta_data['RiftTable'] == '(none)':
+        assert name.lower() in config.delta_data_without_rift_table_names, name
+        assert int(delta_data['TimeStamp']) == 0
+        return None
+
     result = {}
 
     result['size'] = int(delta_data['TargetSize'])
@@ -241,13 +248,18 @@ def get_delta_data_for_manifest_file(manifest_path: Path, name: str):
         assert delta_data['Code'] in config.delta_machine_type_values_supported
         result['machineType'] = machine_type_values[delta_data['Code']]
 
-        result['timestamp'] = int(delta_data['TimeStamp'])
-
+        timestamp = int(delta_data['TimeStamp'])
         rift_table = delta_data['RiftTable']
-        rift_table_last = rift_table.split(';')[-1].split(',')
 
-        result['lastSectionVirtualAddress'] = int(rift_table_last[0])
-        result['lastSectionPointerToRawData'] = int(rift_table_last[1])
+        if rift_table != '(none)':
+            result['timestamp'] = timestamp
+
+            rift_table_last = rift_table.split(';')[-1].split(',')
+
+            result['lastSectionVirtualAddress'] = int(rift_table_last[0])
+            result['lastSectionPointerToRawData'] = int(rift_table_last[1])
+        else:
+            assert timestamp == 0
 
     return result
 
