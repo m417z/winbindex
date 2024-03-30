@@ -93,7 +93,7 @@ def get_file_info_type(file_info):
         'virtualSize',
     }:
         return 'pe'
-    
+
     assert file_info.keys() >= {
         'size',
         'md5',
