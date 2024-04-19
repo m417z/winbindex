@@ -65,6 +65,33 @@ def lookup_virustotal_bulk_hashes_exist(file_hashes):
     return hashes_found
 
 
+def identify_virustotal_result(file_hash, virustotal_json):
+    try:
+        type_tag = virustotal_json['data']['attributes']['type_tag']
+    except KeyError:
+        type_tag = '(missing)'
+
+    if type_tag == 'neexe':
+        print(f'WARNING: type_tag {type_tag} for {file_hash}')
+        return 'win16'
+
+    if type_tag not in ['peexe', 'pedll']:
+        print(f'WARNING: Unknown type_tag {type_tag} for {file_hash}')
+        # Proceed anyway...
+
+    try:
+        _ = virustotal_json['data']['attributes']['pe_info']['sections'][0]
+        return 'ok'
+    except KeyError:
+        # VirusTotal often doesn't have PE information for large files.
+        # https://twitter.com/sixtyvividtails/status/1697355272568643970
+        if virustotal_json['data']['attributes']['size'] > 250000000:
+            return 'too_large_no_pe_info'
+
+        # No PE info, need to rescan it on VirusTotal.
+        return 'no_pe_info'
+
+
 def get_virustotal_data_for_file(session: requests.Session, file_hash, output_dir):
     if output_dir.joinpath(file_hash + '.json').is_file():
         return 'exists'
@@ -97,21 +124,16 @@ def get_virustotal_data_for_file(session: requests.Session, file_hash, output_di
     else:
         try:
             virustotal_json = json.loads(virustotal_data)
-            try:
-                _ = virustotal_json['data']['attributes']['pe_info']['sections'][0]
-                result = 'ok'
-            except KeyError:
-                # VirusTotal often doesn't have PE information for large files.
-                # https://twitter.com/sixtyvividtails/status/1697355272568643970
-                if virustotal_json['data']['attributes']['size'] > 250000000:
-                    prefix = '_too_large_no_pe_info_'
-                    result = 'too_large_no_pe_info'
-                else:
-                    prefix = '_no_pe_info_'  # no PE info, need to rescan it on VirusTotal
-                    result = 'no_pe_info'
         except json.JSONDecodeError:
-            prefix = '_not_json_'
+            virustotal_json = None
+
+        if virustotal_json:
+            result = identify_virustotal_result(file_hash, virustotal_json)
+        else:
             result = 'not_json'
+
+        if result != 'ok':
+            prefix = f'_{result}_'
 
     output_filename = output_dir.joinpath(prefix + file_hash + '.json')
 
