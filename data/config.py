@@ -37,7 +37,9 @@ delta_machine_type_values_supported = {
     'CLI4_ARM64',
 }
 
-delta_data_without_rift_table_names = set()
+delta_data_without_rift_table_names = {
+    '*.mui',
+}
 
 # Non-PE files (very rare).
 file_hashes_non_pe = set()

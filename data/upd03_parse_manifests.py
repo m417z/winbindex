@@ -3,6 +3,7 @@ import xml.etree.ElementTree as ET
 from struct import unpack
 from pathlib import Path
 from typing import List
+import fnmatch
 import hashlib
 import signify
 import base64
@@ -223,7 +224,7 @@ def get_delta_data_for_manifest_file(manifest_path: Path, name: str):
     # Skip delta files without RiftTable. In this case, it was also observed
     # that machineType doesn't have the correct value.
     if delta_data['Code'] != 'Raw' and delta_data['RiftTable'] == '(none)':
-        assert name.lower() in config.delta_data_without_rift_table_names, name
+        assert any(fnmatch.fnmatch(name.lower(), p) for p in config.delta_data_without_rift_table_names), name
         assert int(delta_data['TimeStamp']) == 0
         return None
 
