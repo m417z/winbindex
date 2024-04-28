@@ -68,21 +68,26 @@ def lookup_virustotal_bulk_hashes_exist(file_hashes):
 def identify_virustotal_result(file_hash, virustotal_json):
     try:
         type_tag = virustotal_json['data']['attributes']['type_tag']
+        if type_tag == 'neexe':
+            return 'win16'
     except KeyError:
-        type_tag = '(missing)'
-
-    if type_tag == 'neexe':
-        print(f'WARNING: type_tag {type_tag} for {file_hash}')
-        return 'win16'
-
-    if type_tag not in ['peexe', 'pedll']:
-        print(f'WARNING: Unknown type_tag {type_tag} for {file_hash}')
-        # Proceed anyway...
+        type_tag = None
 
     try:
         _ = virustotal_json['data']['attributes']['pe_info']['sections'][0]
-        return 'ok'
+        has_pe_info = True
     except KeyError:
+        has_pe_info = False
+
+    # Warn about unexpected type_tag, and proceed anyway. Don't warn if both
+    # type_tag and PE info are missing as that's to be expected.
+    if type_tag is None:
+        if has_pe_info:
+            print(f'WARNING: type_tag is missing for {file_hash}')
+    elif type_tag not in ['peexe', 'pedll']:
+        print(f'WARNING: Unknown type_tag {type_tag} for {file_hash}')
+
+    if not has_pe_info:
         # VirusTotal often doesn't have PE information for large files.
         # https://twitter.com/sixtyvividtails/status/1697355272568643970
         if virustotal_json['data']['attributes']['size'] > 250000000:
@@ -90,6 +95,8 @@ def identify_virustotal_result(file_hash, virustotal_json):
 
         # No PE info, need to rescan it on VirusTotal.
         return 'no_pe_info'
+
+    return 'ok'
 
 
 def get_virustotal_data_for_file(session: requests.Session, file_hash, output_dir):
