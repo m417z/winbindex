@@ -29,6 +29,7 @@ extract_in_a_new_thread = False
 exit_on_first_error = True
 high_mem_usage_for_performance = False
 compression_level = 3
+group_by_filename_processes = 4
 
 delta_machine_type_values_supported = {
     'CLI4_I386',

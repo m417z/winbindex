@@ -250,7 +250,7 @@ def run_deploy():
 
         progress_state = {
             'update_kb': new_single_update,
-            'files_processed': 0,
+            'files_processed': [],
             'files_total': None
         }
 
@@ -269,13 +269,13 @@ def run_deploy():
     if config.deploy_save_disk_space:
         clean_deploy_files(['parsed/'])
 
-    if progress_state['files_processed'] < progress_state['files_total']:
+    if len(progress_state['files_processed']) < progress_state['files_total']:
         with open(progress_file, 'w') as f:
             json.dump(progress_state, f, indent=4)
 
-        return f'Updated with files from {progress_state["update_kb"]} ({progress_state["files_processed"]} of {progress_state["files_total"]})'
+        return f'Updated with files from {progress_state["update_kb"]} ({len(progress_state["files_processed"])} of {progress_state["files_total"]})'
 
-    assert progress_state['files_processed'] == progress_state['files_total']
+    assert len(progress_state['files_processed']) == progress_state['files_total']
 
     config.out_path.joinpath('updates.json').unlink()
 

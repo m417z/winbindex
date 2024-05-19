@@ -1,10 +1,11 @@
+from multiprocessing import Pool
 from isal import igzip as gzip
 from datetime import datetime
+from itertools import repeat
 from pathlib import Path
 import bisect
 import orjson
 import json
-import re
 
 import config
 
@@ -252,7 +253,7 @@ def update_file_info(existing_file_info, new_file_info, new_file_info_source):
     return existing_file_info
 
 
-def add_file_info_from_update(filename, output_dir, *,
+def add_file_info_from_update(data, *,
                               file_hash,
                               virustotal_file_info,
                               windows_version,
@@ -262,39 +263,7 @@ def add_file_info_from_update(filename, output_dir, *,
                               assembly_identity,
                               attributes,
                               delta_or_pe_file_info):
-    data = None
-    data_file = None
-    json_data_file_before = None
-    json_data_file_after = None
-
-    if filename in file_info_data:
-        data = file_info_data[filename]
-    else:
-        output_path = output_dir.joinpath(filename + '.json.gz')
-        if output_path.is_file():
-            with gzip.open(output_path, 'rb') as f:
-                json_data = f.read()
-
-            # Try an optimization - operate only on the relevant part of the json.
-            match = None
-            if not config.high_mem_usage_for_performance:
-                match = re.search(rb'"' + file_hash.encode() + rb'":({.*?})(?:,"[0-9a-f]{64}":{|}$)', json_data)
-
-            if match:
-                data_file = orjson.loads(match.group(1))
-                json_data_file_before = json_data[:match.start(1)]
-                json_data_file_after = json_data[match.end(1):]
-            else:
-                data = orjson.loads(json_data)
-        else:
-            data = {}
-
-    if data_file is not None:
-        assert data is None
-        x = data_file
-    else:
-        assert data is not None
-        x = data.setdefault(file_hash, {})
+    x = data.setdefault(file_hash, {})
 
     updated_file_info = update_file_info(x.get('fileInfo'), delta_or_pe_file_info, 'update')
     updated_file_info = update_file_info(updated_file_info, virustotal_file_info, 'vt')
@@ -323,20 +292,7 @@ def add_file_info_from_update(filename, output_dir, *,
     if attributes not in x:
         x.append(attributes)
 
-    if config.high_mem_usage_for_performance:
-        assert data is not None
-        file_info_data[filename] = data
-    else:
-        output_path = output_dir.joinpath(filename + '.json.gz')
-
-        if data_file is not None:
-            assert isinstance(json_data_file_before, bytes)
-            assert isinstance(json_data_file_after, bytes)
-            json_data = json_data_file_before + orjson.dumps(data_file) + json_data_file_after
-        else:
-            json_data = orjson.dumps(data)
-
-        write_to_gzip_file(output_path, json_data)
+    return data
 
 
 virustotal_info_cache = {}
@@ -473,20 +429,35 @@ def get_virustotal_info(file_hash):
     return info
 
 
-def group_update_assembly_by_filename(input_filename, output_dir, *, windows_version, update_kb, update_info, manifest_name):
-    with open(input_filename) as f:
-        data = json.load(f)
-
-    assembly_identity = data['assemblyIdentity']
-
-    for file_item in data['files']:
-        filename = file_item['attributes']['name'].split('\\')[-1].lower()
-
-        hash_is_sha256 = 'sha256' in file_item
-        if hash_is_sha256:
-            file_hash = file_item['sha256']
+def group_update_assembly_by_filename(filename, file_manifest_data, output_dir: Path, *,
+                                      windows_version,
+                                      update_kb,
+                                      update_info):
+    if filename in file_info_data:
+        data = file_info_data[filename]
+    else:
+        output_path = output_dir.joinpath(filename + '.json.gz')
+        if output_path.is_file():
+            with gzip.open(output_path, 'rb') as f:
+                data = orjson.loads(f.read())
         else:
-            file_hash = file_item['sha1']
+            data = {}
+
+    for item in file_manifest_data:
+        file_hash_sha256 = item['file_hash_sha256']
+        file_hash_sha1 = item['file_hash_sha1']
+        file_hash_md5 = item['file_hash_md5']
+        manifest_name = item['manifest_name']
+        assembly_identity = item['assembly_identity']
+        attributes = item['attributes']
+        delta_or_pe_file_info = item['delta_or_pe_file_info']
+
+        if file_hash_sha256 is not None:
+            hash_is_sha256 = True
+            file_hash = file_hash_sha256
+        else:
+            hash_is_sha256 = False
+            file_hash = file_hash_sha1
 
         virustotal_info = get_virustotal_info(file_hash)
         if virustotal_info and file_hash != virustotal_info['sha256']:
@@ -496,12 +467,11 @@ def group_update_assembly_by_filename(input_filename, output_dir, *, windows_ver
 
         if not hash_is_sha256:
             if config.allow_missing_sha256_hash:
-                print(f'WARNING: No SHA256 hash for {filename} ({file_hash}) in {input_filename}')
+                print(f'WARNING: No SHA256 hash for {filename} ({file_hash}) in {manifest_name}')
                 continue
             raise Exception('No SHA256 hash')
 
         # Skip files with what seems to be a hash mismatch.
-        file_hash_md5 = file_item.get('fileInfo', {}).get('md5')
         if (file_hash, file_hash_md5) in config.file_hashes_mismatch:
             assert windows_version in config.file_hashes_mismatch[(file_hash, file_hash_md5)]
             print(f'WARNING: Skipping file with (probably) an incorrect SHA256 hash: {file_hash}')
@@ -509,7 +479,7 @@ def group_update_assembly_by_filename(input_filename, output_dir, *, windows_ver
             print(f'         Manifest name: {manifest_name}')
             continue
 
-        add_file_info_from_update(filename, output_dir,
+        data = add_file_info_from_update(data,
             file_hash=file_hash,
             virustotal_file_info=virustotal_info,
             windows_version=windows_version,
@@ -517,54 +487,129 @@ def group_update_assembly_by_filename(input_filename, output_dir, *, windows_ver
             update_info=update_info,
             manifest_name=manifest_name,
             assembly_identity=assembly_identity,
-            attributes=file_item['attributes'],
-            delta_or_pe_file_info=file_item.get('fileInfo'))
+            attributes=attributes,
+            delta_or_pe_file_info=delta_or_pe_file_info)
+
+    if config.high_mem_usage_for_performance:
+        file_info_data[filename] = data
+    else:
+        output_path = output_dir.joinpath(filename + '.json.gz')
+        write_to_gzip_file(output_path, orjson.dumps(data))
 
 
-def group_update_by_filename(windows_version, update_kb, update, parsed_dir, progress_state=None, time_to_stop=None):
+def get_file_details_from_assembly(assembly_path: Path):
+    with open(assembly_path) as f:
+        data = json.load(f)
+
+    result = {}
+
+    manifest_name = assembly_path.stem
+    assembly_identity = data['assemblyIdentity']
+
+    for file_item in data['files']:
+        filename = file_item['attributes']['name'].split('\\')[-1].lower()
+
+        result.setdefault(filename, []).append({
+            'file_hash_sha256': file_item.get('sha256'),
+            'file_hash_sha1': file_item.get('sha1'),
+            'file_hash_md5': file_item.get('fileInfo', {}).get('md5'),
+            'manifest_name': manifest_name,
+            'assembly_identity': assembly_identity,
+            'attributes': file_item['attributes'],
+            'delta_or_pe_file_info': file_item.get('fileInfo'),
+        })
+
+    return result
+
+
+def group_update_assembly_by_filename_worker(filename,
+                                             file_details,
+                                             output_dir,
+                                             windows_version,
+                                             update_kb,
+                                             update,
+                                             time_to_stop):
+    if time_to_stop and datetime.now() >= time_to_stop:
+        return False
+
+    group_update_assembly_by_filename(filename, file_details, output_dir,
+                                        windows_version=windows_version,
+                                        update_kb=update_kb,
+                                        update_info=update)
+    return True
+
+
+def group_update_by_filename(windows_version, update_kb, update, parsed_dir: Path, progress_state=None, time_to_stop=None):
     output_dir = config.out_path.joinpath('by_filename_compressed')
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    paths = sorted(parsed_dir.glob('*.json'))  # for reproducible order
-    count_total = len(paths)
-
     if progress_state:
         assert progress_state['update_kb'] == update_kb
+        files_processed = set(progress_state['files_processed'])
+    else:
+        files_processed = set()
 
-        count = progress_state['files_processed']
+    file_details_from_assembly = {}
+    for path in parsed_dir.glob('*.json'):
+        if path.is_dir():
+            continue
+
+        details = get_file_details_from_assembly(path)
+        for filename, file_details in details.items():
+            if filename in files_processed:
+                continue
+
+            file_details_from_assembly.setdefault(filename, []).extend(file_details)
+
+    if progress_state:
+        files_unprocessed_count = len(file_details_from_assembly)
 
         if progress_state['files_total'] is None:
-            progress_state['files_total'] = count_total
+            assert files_processed == set()
+            progress_state['files_total'] = files_unprocessed_count
         else:
-            assert progress_state['files_total'] == count_total
+            assert progress_state['files_total'] == len(files_processed) + files_unprocessed_count
 
-        paths = paths[count:]
+    processes = config.group_by_filename_processes
+    if processes > 1:
+        # Global state is not shared between processes.
+        assert not config.high_mem_usage_for_performance
+        assert file_info_data == {}
+
+        with Pool(processes) as pool:
+            results = pool.starmap(group_update_assembly_by_filename_worker, zip(
+                file_details_from_assembly.keys(),
+                file_details_from_assembly.values(),
+                repeat(output_dir),
+                repeat(windows_version),
+                repeat(update_kb),
+                repeat(update),
+                repeat(time_to_stop),
+            ))
+            file_details_from_assembly_results = dict(zip(file_details_from_assembly.keys(), results))
+
+            for filename, result in file_details_from_assembly_results.items():
+                if result:
+                    files_processed.add(filename)
     else:
-        count = 0
+        for filename, file_details in file_details_from_assembly.items():
+            if time_to_stop and datetime.now() >= time_to_stop:
+                break
 
-    for path in paths:
-        if time_to_stop and datetime.now() >= time_to_stop:
-            break
-
-        if path.is_file():
             try:
-                group_update_assembly_by_filename(path, output_dir,
-                    windows_version=windows_version,
-                    update_kb=update_kb,
-                    update_info=update,
-                    manifest_name=path.stem)
+                group_update_assembly_by_filename(filename, file_details, output_dir,
+                                                  windows_version=windows_version,
+                                                  update_kb=update_kb,
+                                                  update_info=update)
+                files_processed.add(filename)
             except Exception as e:
                 print(f'ERROR: failed to process {path}')
                 print(f'       {e}')
                 if config.exit_on_first_error:
                     raise
 
-        count += 1
-        if count % 200 == 0 and config.verbose_progress:
-            print(f'Processed {count} of {count_total}')
-
     if progress_state:
-        progress_state['files_processed'] = count
+        progress_state['files_processed'] = sorted(files_processed)
 
 
 def process_updates(progress_state=None, time_to_stop=None):
