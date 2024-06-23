@@ -15,6 +15,10 @@
     font-weight: normal;
 }
 
+#main-title {
+    overflow-wrap: break-word;
+}
+
 .winbindex-table-container-hidden {
     height: 0;
     overflow: hidden;
