@@ -458,6 +458,10 @@ def parse_manifests(manifests_dir: Path, output_dir: Path):
         if not path.is_file():
             continue
 
+        if path.stat().st_size == 0:
+            print(f'WARNING: Skipping empty manifest file {path}')
+            continue
+
         try:
             parsed = parse_manifest(path)
         except Exception as e:
