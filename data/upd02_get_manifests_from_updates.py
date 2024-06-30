@@ -234,19 +234,15 @@ def extract_update_files(local_dir: Path, local_path: Path):
         if file.is_file():
             unpack_null_differential_file(file, file)
 
-    local_dir_resolved = local_dir.resolve(strict=True)
-    local_dir_unc = Rf'\\?\{local_dir_resolved}'
-
     # Use DeltaDownloader to extract meaningful data from delta files:
     # https://github.com/m417z/DeltaDownloader
-    # Avoid path length limitations by using a UNC path.
-    args = ['tools/DeltaDownloader/DeltaDownloader.exe', '/g', local_dir_unc]
+    args = ['tools/DeltaDownloader/DeltaDownloader.exe', '/g', local_dir]
     subprocess.check_call(args, stdout=None if config.verbose_run else subprocess.DEVNULL)
 
     # Starting with Windows 11, manifest files are compressed with the DCM v1 format.
     # Use SXSEXP to de-compress them: https://github.com/hfiref0x/SXSEXP
     args = ['tools/sxsexp64.exe', local_dir, local_dir]
-    subprocess.run(args, stdout=None if config.verbose_run else subprocess.DEVNULL)
+    subprocess.check_call(args, stdout=None if config.verbose_run else subprocess.DEVNULL)
 
 
 def get_files_from_update(windows_version: str, update_kb: str):
