@@ -1,0 +1,46 @@
+name: Winbindex maintenance
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 1 1 * *'
+
+concurrency: winbindex-maintenance
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Checkout gh-pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages
+          fetch-depth: 0
+          filter: 'blob:none'
+      - name: Override out_path
+        run: |
+          echo ./gh-pages/data > data/.out_path_override
+      - name: Squash old commits
+        run: ./data/maintenance_squash_old_commits.sh gh-pages "30 days ago"
+      - name: Push squashed repo gradually with temporary sliding tags
+        run: |
+          cd gh-pages
+          for i in $(git rev-list --reverse HEAD); do
+            echo "Pushing $i"
+            git tag "_temp_tag_for_squash_$i" "$i"
+            git push origin tag "_temp_tag_for_squash_$i"
+          done
+      - name: Push squashed repo
+        run: git -C gh-pages push --force-with-lease
+      - name: Remove temporary sliding tags
+        run: |
+          cd gh-pages
+          for i in $(git rev-list --reverse HEAD); do
+            git tag -d "_temp_tag_for_squash_$i"
+            git push origin -d "_temp_tag_for_squash_$i"
+          done
