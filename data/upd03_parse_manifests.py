@@ -388,11 +388,14 @@ def parse_manifest_file(manifest_path, file_el):
     if algorithm == 'sha256':
         filename = file_el.attrib['name'].split('\\')[-1].lower()
         if (re.search(r'\.(exe|dll|sys|winmd|cpl|ax|node|ocx|efi|acm|scr|tsp|drv)$', filename)):
+            def is_raw_file(file_info):
+                return file_info.keys() in [{'size', 'md5'}, {'size', 'sha256'}, {'size', 'md5', 'sha1', 'sha256'}]
+
             is_pe_file = hash not in config.file_hashes_non_pe
             if (is_pe_file and
                 file_info and
                 info_source in ['pe', 'delta'] and
-                file_info.keys() in [{'size', 'md5'}, {'size', 'md5', 'sha1', 'sha256'}]):
+                is_raw_file(file_info)):
                 if config.allow_unknown_non_pe_files:
                     is_pe_file = False
                 else:
@@ -400,7 +403,7 @@ def parse_manifest_file(manifest_path, file_el):
 
             if not is_pe_file:
                 if file_info:
-                    assert info_source in ['pe', 'delta'] and file_info.keys() in [{'size', 'md5'}, {'size', 'md5', 'sha1', 'sha256'}]
+                    assert info_source in ['pe', 'delta'] and is_raw_file(file_info)
                 else:
                     assert info_source == 'none'
                 assert hash not in file_hashes.get(filename, {})
