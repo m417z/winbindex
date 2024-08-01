@@ -56,7 +56,7 @@ def get_updates_from_microsoft_support_for_version(windows_major_version, url):
         r'<div [^>]*\bid="supLeftNav"[^>]*>'
         r'([\s\S]*?)'
         r'</div>\s*'
-        r'<div [^>]*\bid="supArticleContent"[^>]*>'
+        r'<main [^>]*\bid="supArticleContent"[^>]*>'
     )
     updates_navigation_links = re.findall(p, html)
     assert len(updates_navigation_links) == 1
