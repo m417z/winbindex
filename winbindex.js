@@ -199,7 +199,7 @@ var globalFunctions = {};
         };
         DataProvider.prototype.filter = function (search) {
             var searchArray = search.toLowerCase().split(/\s+/);
-            if (searchArray.length > 0) {
+            if (searchArray.length > 1 || (searchArray.length === 1 && searchArray[0] !== '')) {
                 this.items = this.availableItems.filter(function (item) {
                     return searchArray.every(function (word) {
                         return item.name.indexOf(word) !== -1;
