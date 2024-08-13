@@ -10,7 +10,7 @@ deploy_git_name = 'winbindex-deploy-bot'
 deploy_save_disk_space = True
 deploy_amend_last_commit = True
 
-windows_versions_unsupported = set()
+windows_versions_unsupported = {}
 
 updates_unsupported = {
     # ARM only.
