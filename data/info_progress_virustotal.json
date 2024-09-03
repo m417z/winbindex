@@ -2,6 +2,11 @@
 "next": null,
 "next_updates": null,
 "pending": {},
-"retry": [],
+"retry": [
+[
+"microsoft.uev.management.dll",
+"7716084c386baf28289b2c6d73225afd0452dc17c5b4bd05ac81844264508bfb"
+]
+],
 "updates": null
 }
