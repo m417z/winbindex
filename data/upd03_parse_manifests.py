@@ -201,7 +201,7 @@ def get_file_signing_times(pathname: Path):
     signing_times = []
     with open(pathname, 'rb') as f:
         pefile = SignedPEFile(f)
-        for signed_data in pefile.signed_datas:
+        for signed_data in pefile.iter_signed_datas(ignore_parse_errors=False):
             if signed_data.signer_info.countersigner is not None:
                 signing_time = signed_data.signer_info.countersigner.signing_time
                 signing_times.append(signing_time.isoformat().removesuffix('+00:00'))
