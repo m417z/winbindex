@@ -6588,6 +6588,12 @@
             "releaseDate": "2024-08-29",
             "releaseVersion": "19045.4842",
             "updateUrl": "https://support.microsoft.com/help/5041582"
+        },
+        "KB5043131": {
+            "heading": "September 24, 2024&#x2014;KB5043131 (OS Build 19045.4957) Preview",
+            "releaseDate": "2024-09-24",
+            "releaseVersion": "19045.4957",
+            "updateUrl": "https://support.microsoft.com/help/5043131"
         }
     }
 }
