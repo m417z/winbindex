@@ -718,6 +718,15 @@
             "releaseDate": "2024-09-10",
             "releaseVersion": "22621.4169",
             "updateUrl": "https://support.microsoft.com/help/5043076"
+        },
+        "KB5043145": {
+            "heading": "September 26, 2024&#x2014;KB5043145 (OS Builds 22621.4249 and 22631.4249) Preview",
+            "otherWindowsVersions": [
+                "11-23H2"
+            ],
+            "releaseDate": "2024-09-26",
+            "releaseVersion": "22621.4249",
+            "updateUrl": "https://support.microsoft.com/help/5043145"
         }
     },
     "1507": {
