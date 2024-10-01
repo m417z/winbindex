@@ -3,7 +3,7 @@
 # https://wumb0.in/extracting-and-diffing-ms-patches-in-2020.html
 
 from ctypes import (windll, wintypes, c_uint64, cast, POINTER, Union, c_ubyte,
-                    LittleEndianStructure, byref, c_size_t)
+                    LittleEndianStructure, byref, c_size_t, CDLL)
 import zlib
 
 
@@ -30,11 +30,14 @@ class DELTA_OUTPUT(LittleEndianStructure):
 
 
 # functions
-ApplyDeltaB = windll.msdelta.ApplyDeltaB
+# Use custom msdelta.dll. Refer to msdelta.dll.txt for details.
+# msdelta = windll.msdelta
+msdelta = CDLL('tools/msdelta.dll')
+ApplyDeltaB = msdelta.ApplyDeltaB
 ApplyDeltaB.argtypes = [DELTA_FLAG_TYPE, DELTA_INPUT, DELTA_INPUT,
                         POINTER(DELTA_OUTPUT)]
 ApplyDeltaB.rettype = wintypes.BOOL
-DeltaFree = windll.msdelta.DeltaFree
+DeltaFree = msdelta.DeltaFree
 DeltaFree.argtypes = [wintypes.LPVOID]
 DeltaFree.rettype = wintypes.BOOL
 gle = windll.kernel32.GetLastError

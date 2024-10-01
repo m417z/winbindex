@@ -149,7 +149,28 @@ def sha256sum(filename):
 def extract_update_files(local_dir: Path, local_path: Path):
     def cab_extract(pattern: str, from_file: Path, to_dir: Path):
         to_dir.mkdir()
-        args = ['expand', '-r', f'-f:{pattern}', from_file, to_dir]
+        args = ['tools/expand/expand.exe', '-r', f'-f:{pattern}', from_file, to_dir]
+        subprocess.check_call(args, stdout=None if config.verbose_run else subprocess.DEVNULL)
+
+    def run_7z_extract(from_file: Path, to_dir: Path):
+        args = ['7z.exe', 'x', from_file, f'-o{to_dir}', '-y']
+        subprocess.check_call(args, stdout=None if config.verbose_run else subprocess.DEVNULL)
+
+    def psf_extract(from_file: Path, to_dir: Path):
+        # Extract delta files from the PSF file which can be found in Windows 11
+        # updates. References:
+        # https://www.betaarchive.com/forum/viewtopic.php?t=43163
+        # https://github.com/Secant1006/PSFExtractor
+        description_file = from_file.parent.joinpath('express.psf.cix.xml')
+        if not description_file.exists():
+            # In newer updates, the description file and other files are in a
+            # .wim file which must be extracted first.
+            wim_file = from_file.with_suffix('.wim')
+            run_7z_extract(wim_file, to_dir)
+            wim_file.unlink()
+            description_file = to_dir.joinpath('express.psf.cix.xml')
+
+        args = ['tools/PSFExtractor.exe', '-v2', from_file, description_file, to_dir]
         subprocess.check_call(args, stdout=None if config.verbose_run else subprocess.DEVNULL)
 
     # Extract all files from all cab files until no more cab files can be found.
@@ -159,22 +180,40 @@ def extract_update_files(local_dir: Path, local_path: Path):
     extract_dir = local_dir.joinpath(f'_extract_{next_extract_dir_num}')
     print(f'Extracting {local_path} to {extract_dir}')
     next_extract_dir_num += 1
-    cab_extract('*', local_path, extract_dir)
+    with local_path.open('rb') as f:
+        first_bytes = f.read(16)
+    if first_bytes.startswith(b'MSCF'):
+        cab_extract('*', local_path, extract_dir)
+    elif first_bytes.startswith(b'MSWIM\0\0\0\xD0\0\0\0\0'):
+        run_7z_extract(local_path, extract_dir)
+    else:
+        raise Exception(f'Unknown archive format: {first_bytes}')
     local_path.unlink()
+
+    psf_file_dirs = []
 
     while first_unhandled_extract_dir_num < next_extract_dir_num:
         next_unhandled_extract_dir_num = next_extract_dir_num
 
         for src_extract_dir_num in range(first_unhandled_extract_dir_num, next_extract_dir_num):
             src_extract_dir = local_dir.joinpath(f'_extract_{src_extract_dir_num}')
-            for cab in src_extract_dir.glob('*.cab'):
-                extract_dir = local_dir.joinpath(f'_extract_{next_extract_dir_num}')
-                print(f'Extracting {cab} to {extract_dir}')
-                next_extract_dir_num += 1
-                cab_extract('*', cab, extract_dir)
-                cab.unlink()
+            for p in src_extract_dir.glob('*'):
+                if p.suffix in {'.cab', '.psf'}:
+                    extract_dir = local_dir.joinpath(f'_extract_{next_extract_dir_num}')
+                    print(f'Extracting {p} to {extract_dir}')
+                    next_extract_dir_num += 1
+                    if p.suffix == '.cab':
+                        cab_extract('*', p, extract_dir)
+                    else:
+                        assert p.suffix == '.psf'
+                        psf_file_dirs.append(src_extract_dir_num)
+                        psf_extract(p, extract_dir)
+                    p.unlink()
 
         first_unhandled_extract_dir_num = next_unhandled_extract_dir_num
+
+    # For now we've only seen one PSF file in the root directory.
+    assert psf_file_dirs == [1], psf_file_dirs
 
     # Move all extracted files from all folders to the target folder.
     for extract_dir in local_dir.glob('_extract_*'):
@@ -187,11 +226,8 @@ def extract_update_files(local_dir: Path, local_path: Path):
                 source_file = source_dir.joinpath(name)
                 if source_file.is_file():
                     # Ignore files in root folder which have different non-identical copies with the same name.
-                    # Also ignore cab archives in the root folder.
                     if source_dir == extract_dir:
-                        if (name in ['update.cat', 'update.mum'] or
-                            name.endswith('.cab') or
-                            name.endswith('.dll')):
+                        if name in ['update.cat', 'update.mum'] or name.endswith('.dll'):
                            ignore.append(name)
                            continue
 
@@ -211,23 +247,10 @@ def extract_update_files(local_dir: Path, local_path: Path):
         shutil.copytree(extract_dir, local_dir, copy_function=shutil.move, dirs_exist_ok=True, ignore=ignore_files)
         shutil.rmtree(extract_dir)
 
-    # Extract delta files from the PSF file which can be found in Windows 11 updates.
-    # References:
-    # https://www.betaarchive.com/forum/viewtopic.php?t=43163
-    # https://github.com/Secant1006/PSFExtractor
-    psf_files = list(local_dir.glob('*.psf'))
-    assert len(psf_files) <= 1
-    if len(psf_files) == 1:
-        psf_file = psf_files[0]
-        description_file = local_dir.joinpath('express.psf.cix.xml')
-        args = ['tools/PSFExtractor.exe', '-v2', psf_file, description_file, local_dir]
-        subprocess.check_call(args, stdout=None if config.verbose_run else subprocess.DEVNULL)
-        description_file.unlink()
-        psf_file.unlink()
-
-    # Make sure there are no MSU files.
-    msu_files = list(local_dir.glob('*.msu'))
-    assert len(msu_files) == 0
+    # Make sure there are no archive files left.
+    for p in local_dir.glob('*'):
+        if p.suffix in {'.msu', '.cab', '.psf', '.wim'}:
+            raise Exception(f'Unexpected archive file left: {p}')
 
     # Unpack null differential files.
     for file in local_dir.glob('*/n/**/*'):
