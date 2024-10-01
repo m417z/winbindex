@@ -42,7 +42,7 @@ def search_for_updates(search_terms):
     return matches
 
 
-def get_update_download_url(update_uid):
+def get_update_download_url(update_uid, update_kb):
     input_json = [{
         'uidInfo': update_uid,
         'updateID': update_uid
@@ -52,6 +52,12 @@ def get_update_download_url(update_uid):
 
     p = r'\ndownloadInformation\[\d+\]\.files\[\d+\]\.url = \'([^\']+)\';'
     matches = re.findall(p, html)
+
+    # For some reason (bug?), the KB5043178 update has two links, one for
+    # KB5043080 as well.
+    if len(matches) != 1 and update_kb == 'KB5043178':
+        matches = [x for x in matches if '/windows11.0-kb5043080-' not in x]
+
     if len(matches) != 1:
         raise Exception(f'Expected one downloadInformation item, found {len(matches)}')
 
@@ -115,7 +121,7 @@ def get_update(windows_version, update_kb):
 def download_update(windows_version, update_kb):
     update_uid, update_title = get_update(windows_version, update_kb)
 
-    download_url = get_update_download_url(update_uid)
+    download_url = get_update_download_url(update_uid, update_kb)
     if not download_url:
         raise Exception('Update not found in catalog')
 
