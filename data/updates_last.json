@@ -747,6 +747,30 @@
             "releaseDate": "2024-07-09",
             "releaseVersion": "26100.1150",
             "updateUrl": "https://support.microsoft.com/help/5040435"
+        },
+        "KB5040529": {
+            "heading": "July 30, 2024&#x2014;KB5040529 (OS Build 26100.1301) Preview",
+            "releaseDate": "2024-07-30",
+            "releaseVersion": "26100.1301",
+            "updateUrl": "https://support.microsoft.com/help/5040529"
+        },
+        "KB5041571": {
+            "heading": "August 13, 2024&#x2014;KB5041571 (OS Build 26100.1457)",
+            "releaseDate": "2024-08-13",
+            "releaseVersion": "26100.1457",
+            "updateUrl": "https://support.microsoft.com/help/5041571"
+        },
+        "KB5041865": {
+            "heading": "August 27, 2024&#x2014;KB5041865 (OS Build 26100.1591) Preview",
+            "releaseDate": "2024-08-27",
+            "releaseVersion": "26100.1591",
+            "updateUrl": "https://support.microsoft.com/help/5041865"
+        },
+        "KB5043080": {
+            "heading": "September 10, 2024&#x2014;KB5043080 (OS Build 26100.1742)",
+            "releaseDate": "2024-09-10",
+            "releaseVersion": "26100.1742",
+            "updateUrl": "https://support.microsoft.com/help/5043080"
         }
     },
     "1507": {
