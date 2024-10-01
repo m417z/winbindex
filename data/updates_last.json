@@ -771,6 +771,12 @@
             "releaseDate": "2024-09-10",
             "releaseVersion": "26100.1742",
             "updateUrl": "https://support.microsoft.com/help/5043080"
+        },
+        "KB5043178": {
+            "heading": "September 30, 2024&#x2014;KB5043178 (OS Build 26100.1882) Preview",
+            "releaseDate": "2024-09-30",
+            "releaseVersion": "26100.1882",
+            "updateUrl": "https://support.microsoft.com/help/5043178"
         }
     },
     "1507": {
