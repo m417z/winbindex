@@ -98,9 +98,6 @@ def get_updates_from_microsoft_support_for_version(windows_major_version, url):
         assert windows_version not in all_updates
 
         # Specific title fixes.
-        if windows_version == '11-23H2':
-            updates_section = updates_section.replace('>Windows 11, version 23H2 </a>', '>Windows 11, version 23H2</a>')
-
         if windows_version in ['21H2', '21H1', '20H2']:
             updates_section = updates_section.replace('KB5012599(OS Builds', 'KB5012599 (OS Builds')
 
@@ -118,7 +115,7 @@ def get_updates_from_microsoft_support_for_version(windows_major_version, url):
 
         updates_section = re.sub(r'<a [^>]*>Windows.*? update history</a>', '', updates_section, flags=re.IGNORECASE)
         updates_section = re.sub(r'<a [^>]*>End of service statement</a>', '', updates_section, flags=re.IGNORECASE)
-        updates_section = re.sub(r'<a [^>]*>Windows 11, version \w+</a>', '', updates_section, flags=re.IGNORECASE)
+        updates_section = re.sub(r'<a [^>]*>Windows 11, version \w+\s*</a>', '', updates_section, flags=re.IGNORECASE)
 
         p = r'<a class="supLeftNavLink" data-bi-slot="\d+" href="/en-us(/help/\d+)">((\w+) (\d+), (\d+) ?(?:&#x2014;|-) ?KB(\d{7})(?: Update for Windows 10 Mobile)? \(OS Builds? .+?\).*?)</a>'
         items = re.findall(p, updates_section)
@@ -281,7 +278,10 @@ def main():
     consolidate_overlapping_updates(updates_from_release_health)
     windows_version_updates_sanity_check(updates_from_release_health)
 
-    assert updates_from_microsoft_support.keys() == updates_from_release_health.keys()
+    assert updates_from_microsoft_support.keys() == updates_from_release_health.keys() | {
+        # Temporarily (?) missing in Release Health.
+        '11-24H2',
+    }
 
     result = updates_from_microsoft_support
     merge_updates(result, updates_from_release_health)
