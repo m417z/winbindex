@@ -2,6 +2,19 @@
 "next": null,
 "next_updates": null,
 "pending": {},
-"retry": [],
+"retry": [
+[
+"usbhub.sys",
+"1899f2cf6ce7ae9adb185c27e23ec819a2eab58fe9011715aab3059ac626862e"
+],
+[
+"vmms.exe",
+"811d707f40d86696fe711423d2346bc795c9a41d27a412f8e3887d2b8270f33b"
+],
+[
+"wudfhost.exe",
+"62729559cd7df578c70921e0b0a886241d5c2a819915679496011c99c8286d6b"
+]
+],
 "updates": null
 }
