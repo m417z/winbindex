@@ -80,7 +80,12 @@ def parse_sigcheck(sigcheck_data, folder, path_filter_callback=None):
 
         if len(signing_dates) == 1:
             assert signing_dates[0] == '0'
-            assert len(catalogs) == 0
+            # Turns out a file can have a signature without a signing date.
+            # Example: Program Files\WindowsApps\Microsoft.WindowsNotepad_11.2312.18.0_x64__8wekyb3d8bbwe\Notepad\riched20.dll
+            # SHA256: A69BA3DCC02E9D2F057B1043388E2A0630622F6068A9CD721D2787D90EAA731A
+            # Still leave the assert for now, let's see if there are other such files in the future.
+            # Note that currently a manual adjustment for the "signingStatus" property might be required (e.g. "Catalog file" to "Overlay").
+            assert len(catalogs) == 0, file_info
         elif item['Verified'] != 'Unsigned':
             assert len(signing_dates) >= 2 and signing_dates[0] == signing_dates[1], str(filename)
             signing_dates = signing_dates[1:]
