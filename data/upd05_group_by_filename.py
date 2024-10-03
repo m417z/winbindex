@@ -239,11 +239,17 @@ def update_file_info(existing_file_info, new_file_info, new_file_info_source):
     if existing_file_info_type == 'file_unknown_sig':
         if 'signingStatus' in new_file_info:
             assert new_file_info['signingStatus'] != 'Unsigned'
+            # Unless the file is from VirusTotal, the dates should be identical.
+            if new_file_info_type != 'vt':
+                assert new_file_info.get('signingDate') == existing_file_info.get('signingDate'), new_file_info
             return existing_file_info | {'signingStatus': new_file_info['signingStatus']}
         return existing_file_info
     elif new_file_info_type == 'file_unknown_sig':
         if 'signingStatus' in existing_file_info:
             assert existing_file_info['signingStatus'] != 'Unsigned'
+            # Unless the file is from VirusTotal, the dates should be identical.
+            if existing_file_info_type not in ['vt', 'vt_or_file']:
+                assert new_file_info.get('signingDate') == existing_file_info.get('signingDate'), new_file_info
             return new_file_info | {'signingStatus': existing_file_info['signingStatus']}
         return new_file_info
 
