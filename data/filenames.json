@@ -28799,6 +28799,7 @@
 "microsoft.virtualization.client.common.types.dll",
 "microsoft.virtualization.client.dll",
 "microsoft.virtualization.client.management.dll",
+"microsoft.virtualization.client.management.resources.dll",
 "microsoft.virtualization.client.rdpclientaxhost.dll",
 "microsoft.virtualization.client.rdpclientinterop.dll",
 "microsoft.virtualization.client.settings.dll",

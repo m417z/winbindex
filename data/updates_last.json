@@ -1576,6 +1576,12 @@
             "releaseDate": "2024-09-10",
             "releaseVersion": "10240.20766",
             "updateUrl": "https://support.microsoft.com/help/5043083"
+        },
+        "KB5044286": {
+            "heading": "October 8, 2024-KB5044286 (OS Build 10240.20796)",
+            "releaseDate": "2024-10-08",
+            "releaseVersion": "10240.20796",
+            "updateUrl": "https://support.microsoft.com/help/5044286"
         }
     },
     "1511": {
@@ -2801,6 +2807,12 @@
             "releaseDate": "2024-09-10",
             "releaseVersion": "14393.7336",
             "updateUrl": "https://support.microsoft.com/help/5043051"
+        },
+        "KB5044293": {
+            "heading": "October 8, 2024&#x2014;KB5044293 (OS Build 14393.7428)",
+            "releaseDate": "2024-10-08",
+            "releaseVersion": "14393.7428",
+            "updateUrl": "https://support.microsoft.com/help/5044293"
         }
     },
     "1703": {
@@ -5148,6 +5160,12 @@
             "releaseDate": "2024-09-10",
             "releaseVersion": "17763.6293",
             "updateUrl": "https://support.microsoft.com/help/5043050"
+        },
+        "KB5044277": {
+            "heading": "October 8, 2024&#x2014;KB5044277 (OS Build 17763.6414)",
+            "releaseDate": "2024-10-08",
+            "releaseVersion": "17763.6414",
+            "updateUrl": "https://support.microsoft.com/help/5044277"
         }
     },
     "1903": {
@@ -6549,6 +6567,15 @@
             "releaseDate": "2024-09-10",
             "releaseVersion": "19044.4894",
             "updateUrl": "https://support.microsoft.com/help/5043064"
+        },
+        "KB5044273": {
+            "heading": "October 8, 2024&#x2014;KB5044273 (OS Builds 19044.5011 and 19045.5011)",
+            "otherWindowsVersions": [
+                "22H2"
+            ],
+            "releaseDate": "2024-10-08",
+            "releaseVersion": "19044.5011",
+            "updateUrl": "https://support.microsoft.com/help/5044273"
         }
     },
     "22H2": {
