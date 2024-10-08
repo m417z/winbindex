@@ -20,7 +20,7 @@ class UpdateNotSupported(Exception):
     pass
 
 
-def search_for_updates(search_terms):
+def search_for_updates(search_terms: str):
     url = 'https://www.catalog.update.microsoft.com/Search.aspx'
     while True:
         html = requests.get(url, {'q': search_terms}).text
@@ -42,7 +42,7 @@ def search_for_updates(search_terms):
     return matches
 
 
-def get_update_download_url(update_uid, update_kb):
+def get_update_download_urls(update_uid: str):
     input_json = [{
         'uidInfo': update_uid,
         'updateID': update_uid
@@ -51,20 +51,10 @@ def get_update_download_url(update_uid, update_kb):
     html = requests.post(url, {'updateIDs': json.dumps(input_json)}).text
 
     p = r'\ndownloadInformation\[\d+\]\.files\[\d+\]\.url = \'([^\']+)\';'
-    matches = re.findall(p, html)
-
-    # For some reason (bug?), the KB5043178 update has two links, one for
-    # KB5043080 as well.
-    if len(matches) != 1 and update_kb == 'KB5043178':
-        matches = [x for x in matches if '/windows11.0-kb5043080-' not in x]
-
-    if len(matches) != 1:
-        raise Exception(f'Expected one downloadInformation item, found {len(matches)}')
-
-    return matches[0]
+    return re.findall(p, html)
 
 
-def get_update(windows_version, update_kb):
+def get_update(windows_version: str, update_kb: str):
     search_query = update_kb
 
     if windows_version == '11-21H2':
@@ -118,12 +108,20 @@ def get_update(windows_version, update_kb):
     return update_uid, update_title
 
 
-def download_update(windows_version, update_kb):
+def download_update(windows_version: str, update_kb: str):
     update_uid, update_title = get_update(windows_version, update_kb)
 
-    download_url = get_update_download_url(update_uid, update_kb)
-    if not download_url:
+    download_urls = get_update_download_urls(update_uid)
+    if not download_urls:
         raise Exception('Update not found in catalog')
+
+    p = fr'/windows[^-]*-{re.escape(update_kb.lower())}-[^/]*$'
+    download_urls = [x for x in download_urls if re.search(p, x)]
+
+    if len(download_urls) != 1:
+        raise Exception(f'Expected one update URL, found {len(download_urls)}')
+
+    download_url = download_urls[0]
 
     local_dir = config.out_path.joinpath('manifests', windows_version, update_kb)
     local_dir.mkdir(parents=True, exist_ok=True)
