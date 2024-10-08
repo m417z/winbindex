@@ -219,7 +219,8 @@ def extract_update_files(local_dir: Path, local_path: Path):
         first_unhandled_extract_dir_num = next_unhandled_extract_dir_num
 
     # For now we've only seen one PSF file in the root directory.
-    assert psf_file_dirs == [1], psf_file_dirs
+    if psf_file_dirs:
+        assert psf_file_dirs == [1], psf_file_dirs
 
     # Move all extracted files from all folders to the target folder.
     for extract_dir in local_dir.glob('_extract_*'):
