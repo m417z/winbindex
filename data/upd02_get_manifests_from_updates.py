@@ -153,9 +153,9 @@ def sha256sum(filename):
 
 
 def extract_update_files(local_dir: Path, local_path: Path):
-    def cab_extract(pattern: str, from_file: Path, to_dir: Path):
+    def cab_extract(from_file: Path, to_dir: Path):
         to_dir.mkdir()
-        args = ['tools/expand/expand.exe', '-r', f'-f:{pattern}', from_file, to_dir]
+        args = ['tools/expand/expand.exe', '-r', f'-f:*', from_file, to_dir]
         subprocess.check_call(args, stdout=None if config.verbose_run else subprocess.DEVNULL)
 
     def run_7z_extract(from_file: Path, to_dir: Path):
@@ -169,58 +169,68 @@ def extract_update_files(local_dir: Path, local_path: Path):
         # https://github.com/Secant1006/PSFExtractor
         description_file = from_file.parent.joinpath('express.psf.cix.xml')
         if not description_file.exists():
-            # In newer updates, the description file and other files are in a
-            # .wim file which must be extracted first.
+            cab_file = from_file.with_suffix('.cab')
             wim_file = from_file.with_suffix('.wim')
-            run_7z_extract(wim_file, to_dir)
-            wim_file.unlink()
+            if cab_file.exists():
+                assert not wim_file.exists()
+                cab_extract(cab_file, to_dir)
+                cab_file.unlink()
+            elif wim_file.exists():
+                assert not cab_file.exists()
+                run_7z_extract(wim_file, to_dir)
+                wim_file.unlink()
+            else:
+                raise Exception(f'PSF description file not found: {from_file}')
+
             description_file = to_dir.joinpath('express.psf.cix.xml')
 
         args = ['tools/PSFExtractor.exe', '-v2', from_file, description_file, to_dir]
         subprocess.check_call(args, stdout=None if config.verbose_run else subprocess.DEVNULL)
 
-    # Extract all files from all cab files until no more cab files can be found.
     first_unhandled_extract_dir_num = 1
     next_extract_dir_num = 1
 
+    # Extract main archive.
     extract_dir = local_dir.joinpath(f'_extract_{next_extract_dir_num}')
     print(f'Extracting {local_path} to {extract_dir}')
     next_extract_dir_num += 1
     with local_path.open('rb') as f:
         first_bytes = f.read(16)
     if first_bytes.startswith(b'MSCF'):
-        cab_extract('*', local_path, extract_dir)
+        cab_extract(local_path, extract_dir)
     elif first_bytes.startswith(b'MSWIM\0\0\0\xD0\0\0\0\0'):
         run_7z_extract(local_path, extract_dir)
     else:
         raise Exception(f'Unknown archive format: {first_bytes}')
     local_path.unlink()
 
-    psf_file_dirs = []
+    # Extract PSF file.
+    psf_files = list(extract_dir.glob('*.psf'))
+    if psf_files:
+        # Only one PSF file per update was observed so far.
+        assert len(psf_files) == 1, psf_files
+        p = psf_files[0]
 
+        extract_dir = local_dir.joinpath(f'_extract_{next_extract_dir_num}')
+        print(f'Extracting {p} to {extract_dir}')
+        next_extract_dir_num += 1
+        psf_extract(p, extract_dir)
+        p.unlink()
+
+    # Extract all files from all cab files until no more cab files can be found.
     while first_unhandled_extract_dir_num < next_extract_dir_num:
         next_unhandled_extract_dir_num = next_extract_dir_num
 
         for src_extract_dir_num in range(first_unhandled_extract_dir_num, next_extract_dir_num):
             src_extract_dir = local_dir.joinpath(f'_extract_{src_extract_dir_num}')
-            for p in src_extract_dir.glob('*'):
-                if p.suffix in {'.cab', '.psf'}:
-                    extract_dir = local_dir.joinpath(f'_extract_{next_extract_dir_num}')
-                    print(f'Extracting {p} to {extract_dir}')
-                    next_extract_dir_num += 1
-                    if p.suffix == '.cab':
-                        cab_extract('*', p, extract_dir)
-                    else:
-                        assert p.suffix == '.psf'
-                        psf_file_dirs.append(src_extract_dir_num)
-                        psf_extract(p, extract_dir)
-                    p.unlink()
+            for p in src_extract_dir.glob('*.cab'):
+                extract_dir = local_dir.joinpath(f'_extract_{next_extract_dir_num}')
+                print(f'Extracting {p} to {extract_dir}')
+                next_extract_dir_num += 1
+                cab_extract(p, extract_dir)
+                p.unlink()
 
         first_unhandled_extract_dir_num = next_unhandled_extract_dir_num
-
-    # For now we've only seen one PSF file in the root directory.
-    if psf_file_dirs:
-        assert psf_file_dirs == [1], psf_file_dirs
 
     # Move all extracted files from all folders to the target folder.
     for extract_dir in local_dir.glob('_extract_*'):
