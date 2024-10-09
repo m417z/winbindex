@@ -150,10 +150,13 @@ def sha256sum(filename):
     return h.hexdigest()
 
 
-def extract_update_files(local_dir: Path, local_path: Path):
+def extract_update_files(local_dir: Path, local_path: Path, windows_version: str):
     def cab_extract(from_file: Path, to_dir: Path):
         to_dir.mkdir()
-        args = ['tools/expand/expand.exe', '-r', f'-f:*', from_file, to_dir]
+        # New cab files fail to be extracted with the older system expand tool,
+        # and old cab files fail to be extracted with the newer expand tool.
+        expand = 'tools/expand/expand.exe' if windows_version.startswith('11-') else 'expand.exe'
+        args = [expand, '-r', f'-f:*', from_file, to_dir]
         subprocess.check_call(args, stdout=None if config.verbose_run else subprocess.DEVNULL)
 
     def run_7z_extract(from_file: Path, to_dir: Path):
@@ -295,7 +298,7 @@ def get_files_from_update(windows_version: str, update_kb: str):
     def extract_update_files_start():
         print(f'[{update_kb}] Extracting update files')
         try:
-            extract_update_files(local_dir, local_path)
+            extract_update_files(local_dir, local_path, windows_version)
         except Exception as e:
             print(f'[{update_kb}] ERROR: Failed to process update')
             print(f'[{update_kb}]        {e}')
