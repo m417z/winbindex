@@ -285,15 +285,6 @@ def run_deploy():
     return f'Updated with files from {progress_state["update_kb"]}'
 
 
-def can_deploy():
-    # Unsupported in this flow.
-    assert not config.extract_in_a_new_thread
-
-    # Can deploy only if there's no pending PR yet.
-    url = 'https://api.github.com/search/issues?q=is:pr+is:open+repo:m417z/winbindex+author:winbindex-deploy-bot'
-    return requests.get(url).json()['total_count'] == 0
-
-
 def build_html_index_of_hashes():
     def write_html(file, html_content, title='', full_version_link='..'):
         title_full = config.index_of_hashes_title
@@ -467,11 +458,6 @@ def update_readme_stats():
         f.write(readme)
 
 
-def init_deploy():
-    subprocess.check_call(['git', 'config', '--global', 'user.email', config.deploy_git_email])
-    subprocess.check_call(['git', 'config', '--global', 'user.name', config.deploy_git_name])
-
-
 def commit_deploy(pr_title):
     # Make sure no accidental changes in the main repo.
     # https://stackoverflow.com/a/25149786
@@ -524,11 +510,8 @@ def clean_deploy_files(pathspecs=[]):
 
 
 def main():
-    if not can_deploy():
-        print('can_deploy() returned False, exiting')
-        return
-
-    init_deploy()
+    # Unsupported in this flow.
+    assert not config.extract_in_a_new_thread
 
     while True:
         pr_title = run_deploy()
