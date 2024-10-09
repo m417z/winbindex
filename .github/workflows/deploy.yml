@@ -51,4 +51,4 @@ jobs:
       - name: Run periodic update
         run: |
           cd data
-          python -u deploy.py
+          python -X utf8 -u deploy.py
