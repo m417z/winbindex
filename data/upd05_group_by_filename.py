@@ -94,7 +94,12 @@ def get_file_info_type(file_info):
     }:
         return 'pe'
 
-    assert file_info.keys() >= {
+    assert file_info.keys() - {
+        'version',
+        'description',
+        'signatureType',
+        'signingDate',
+    } == {
         'size',
         'md5',
         'sha1',
@@ -310,23 +315,46 @@ def update_file_info(existing_file_info, new_file_info, new_file_info_source):
         'file',
     ]
 
-    # Special merge: file_unknown_sig data is more reliable than VirusTotal's. Only add signingStatus.
-    if existing_file_info_type == 'file_unknown_sig':
-        if 'signingStatus' in new_file_info:
-            assert new_file_info['signingStatus'] != 'Unsigned'
-            # Unless the file is from VirusTotal, the dates should be identical.
-            # if new_file_info_type != 'vt':
-            #     assert new_file_info.get('signingDate') == existing_file_info.get('signingDate'), new_file_info
-            return existing_file_info | {'signingStatus': new_file_info['signingStatus']}
-        return existing_file_info
+    # Special merge: file_unknown_sig data is more reliable than VirusTotal's.
+    # Only add signingStatus.
+    unknown_sig_file_info = None
+    other_file_info = None
+    other_file_info_type = None
+    if existing_file_info_type == 'file_unknown_sig' and new_file_info_type == 'file_unknown_sig':
+        # Temporarily prefer new file info. TODO: remove.
+        unknown_sig_file_info = new_file_info
+        other_file_info = existing_file_info
+        other_file_info_type = existing_file_info_type
+    elif existing_file_info_type == 'file_unknown_sig':
+        unknown_sig_file_info = existing_file_info
+        other_file_info = new_file_info
+        other_file_info_type = new_file_info_type
     elif new_file_info_type == 'file_unknown_sig':
-        if 'signingStatus' in existing_file_info:
-            assert existing_file_info['signingStatus'] != 'Unsigned'
-            # Unless the file is from VirusTotal, the dates should be identical.
-            # if existing_file_info_type not in ['vt', 'vt_or_file']:
-            #     assert new_file_info.get('signingDate') == existing_file_info.get('signingDate'), new_file_info
-            return new_file_info | {'signingStatus': existing_file_info['signingStatus']}
-        return new_file_info
+        unknown_sig_file_info = new_file_info
+        other_file_info = existing_file_info
+        other_file_info_type = existing_file_info_type
+
+    if unknown_sig_file_info and other_file_info and other_file_info_type:
+        if 'signingStatus' not in other_file_info:
+            return unknown_sig_file_info
+
+        assert other_file_info['signingStatus'] != 'Unsigned'
+        assert other_file_info['signatureType'] == unknown_sig_file_info['signatureType']
+
+        # Unless the file is from VirusTotal, the dates should be identical.
+        if (
+            other_file_info_type not in ['vt', 'vt_or_file']
+            and other_file_info.get('signingDate') != unknown_sig_file_info.get('signingDate')
+        ):
+            print(
+                f'WARNING: Updating signing date of {other_file_info["sha256"]}:'
+                f' {other_file_info["signingDate"]} ->'
+                f' {unknown_sig_file_info["signingDate"]}'
+            )
+
+        return unknown_sig_file_info | {
+            'signingStatus': other_file_info.get('signingStatus'),
+        }
 
     if sources.index(new_file_info_type) > sources.index(existing_file_info_type):
         return new_file_info
