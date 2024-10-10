@@ -16,6 +16,8 @@ updates_unsupported = {
     'KB5016139',
 }
 
+updates_alternative_links = {}
+
 updates_architecture = 'x64'
 updates_never_removed = True
 allow_missing_sha256_hash = False

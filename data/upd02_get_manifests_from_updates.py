@@ -109,19 +109,21 @@ def get_update(windows_version: str, update_kb: str):
 
 
 def download_update(windows_version: str, update_kb: str):
-    update_uid, update_title = get_update(windows_version, update_kb)
+    download_url = config.updates_alternative_links.get((windows_version, update_kb))
+    if not download_url:
+        update_uid, update_title = get_update(windows_version, update_kb)
 
-    download_urls = get_update_download_urls(update_uid)
-    if not download_urls:
-        raise Exception('Update not found in catalog')
+        download_urls = get_update_download_urls(update_uid)
+        if not download_urls:
+            raise Exception('Update not found in catalog')
 
-    p = fr'/windows[^-]*-{re.escape(update_kb.lower())}-[^/]*$'
-    download_urls = [x for x in download_urls if re.search(p, x)]
+        p = fr'/windows[^-]*-{re.escape(update_kb.lower())}-[^/]*$'
+        download_urls = [x for x in download_urls if re.search(p, x)]
 
-    if len(download_urls) != 1:
-        raise Exception(f'Expected one update URL, found {len(download_urls)}')
+        if len(download_urls) != 1:
+            raise Exception(f'Expected one update URL, found {len(download_urls)}')
 
-    download_url = download_urls[0]
+        download_url = download_urls[0]
 
     local_dir = config.out_path.joinpath('manifests', windows_version, update_kb)
     local_dir.mkdir(parents=True, exist_ok=True)
