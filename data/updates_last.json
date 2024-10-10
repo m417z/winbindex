@@ -370,6 +370,66 @@
             "releaseDate": "2019-07-09",
             "releaseVersion": "10240.18275",
             "updateUrl": "https://support.microsoft.com/help/4507458"
+        },
+        "KB4512497": {
+            "heading": "August 13, 2019-KB4512497 (OS Build 10240.18305)",
+            "releaseDate": "2019-08-13",
+            "releaseVersion": "10240.18305",
+            "updateUrl": "https://support.microsoft.com/help/4512497"
+        },
+        "KB4516070": {
+            "heading": "September 10, 2019-KB4516070 (OS Build 10240.18333)",
+            "releaseDate": "2019-09-10",
+            "releaseVersion": "10240.18333",
+            "updateUrl": "https://support.microsoft.com/help/4516070"
+        },
+        "KB4517276": {
+            "heading": "August 17, 2019-KB4517276 (OS Build 10240.18308)",
+            "releaseDate": "2019-08-17",
+            "releaseVersion": "10240.18308",
+            "updateUrl": "https://support.microsoft.com/help/4517276"
+        },
+        "KB4520011": {
+            "heading": "October 8, 2019-KB4520011 (OS Build 10240.18368)",
+            "releaseDate": "2019-10-08",
+            "releaseVersion": "10240.18368",
+            "updateUrl": "https://support.microsoft.com/help/4520011"
+        },
+        "KB4522009": {
+            "heading": "September 23, 2019-KB4522009 (OS Build 10240.18334)",
+            "releaseDate": "2019-09-23",
+            "releaseVersion": "10240.18334",
+            "updateUrl": "https://support.microsoft.com/help/4522009"
+        },
+        "KB4524153": {
+            "heading": "October 3, 2019-KB4524153 (OS Build 10240.18335)",
+            "releaseDate": "2019-10-03",
+            "releaseVersion": "10240.18335",
+            "updateUrl": "https://support.microsoft.com/help/4524153"
+        },
+        "KB4525232": {
+            "heading": "November 12, 2019-KB4525232 (OS Build 10240.18395)",
+            "releaseDate": "2019-11-12",
+            "releaseVersion": "10240.18395",
+            "updateUrl": "https://support.microsoft.com/help/4525232"
+        },
+        "KB4530681": {
+            "heading": "December 10, 2019-KB4530681 (OS Build 10240.18427)",
+            "releaseDate": "2019-12-10",
+            "releaseVersion": "10240.18427",
+            "updateUrl": "https://support.microsoft.com/help/4530681"
+        },
+        "KB4534306": {
+            "heading": "January 14, 2020-KB4534306 (OS Build 10240.18453)",
+            "releaseDate": "2020-01-14",
+            "releaseVersion": "10240.18453",
+            "updateUrl": "https://support.microsoft.com/help/4534306"
+        },
+        "KB4537776": {
+            "heading": "February 11, 2020-KB4537776 (OS Build 10240.18486)",
+            "releaseDate": "2020-02-11",
+            "releaseVersion": "10240.18486",
+            "updateUrl": "https://support.microsoft.com/help/4537776"
         }
     },
     "1511": {
@@ -1091,6 +1151,84 @@
             "releaseDate": "2019-06-27",
             "releaseVersion": "14393.3056",
             "updateUrl": "https://support.microsoft.com/help/4509475"
+        },
+        "KB4512495": {
+            "heading": "August 17, 2019&#x2014;KB4512495 (OS Build 14393.3181)",
+            "releaseDate": "2019-08-17",
+            "releaseVersion": "14393.3181",
+            "updateUrl": "https://support.microsoft.com/help/4512495"
+        },
+        "KB4512517": {
+            "heading": "August 13, 2019&#x2014;KB4512517 (OS Build 14393.3144)",
+            "releaseDate": "2019-08-13",
+            "releaseVersion": "14393.3144",
+            "updateUrl": "https://support.microsoft.com/help/4512517"
+        },
+        "KB4516044": {
+            "heading": "September 10, 2019&#x2014;KB4516044 (OS Build 14393.3204)",
+            "releaseDate": "2019-09-10",
+            "releaseVersion": "14393.3204",
+            "updateUrl": "https://support.microsoft.com/help/4516044"
+        },
+        "KB4516061": {
+            "heading": "September 24, 2019&#x2014;KB4516061 (OS Build 14393.3242)",
+            "releaseDate": "2019-09-24",
+            "releaseVersion": "14393.3242",
+            "updateUrl": "https://support.microsoft.com/help/4516061"
+        },
+        "KB4519979": {
+            "heading": "October 15, 2019&#x2014;KB4519979 (OS Build 14393.3300)",
+            "releaseDate": "2019-10-15",
+            "releaseVersion": "14393.3300",
+            "updateUrl": "https://support.microsoft.com/help/4519979"
+        },
+        "KB4519998": {
+            "heading": "October 8, 2019&#x2014;KB4519998 (OS Build 14393.3274)",
+            "releaseDate": "2019-10-08",
+            "releaseVersion": "14393.3274",
+            "updateUrl": "https://support.microsoft.com/help/4519998"
+        },
+        "KB4522010": {
+            "heading": "September 23, 2019&#x2014;KB4522010 (OS Build 14393.3206)",
+            "releaseDate": "2019-09-23",
+            "releaseVersion": "14393.3206",
+            "updateUrl": "https://support.microsoft.com/help/4522010"
+        },
+        "KB4524152": {
+            "heading": "October 3, 2019&#x2014;KB4524152 (OS Build 14393.3243)",
+            "releaseDate": "2019-10-03",
+            "releaseVersion": "14393.3243",
+            "updateUrl": "https://support.microsoft.com/help/4524152"
+        },
+        "KB4525236": {
+            "heading": "November 12, 2019&#x2014;KB4525236 (OS Build 14393.3326)",
+            "releaseDate": "2019-11-12",
+            "releaseVersion": "14393.3326",
+            "updateUrl": "https://support.microsoft.com/help/4525236"
+        },
+        "KB4530689": {
+            "heading": "December 10, 2019&#x2014;KB4530689 (OS Build 14393.3384)",
+            "releaseDate": "2019-12-10",
+            "releaseVersion": "14393.3384",
+            "updateUrl": "https://support.microsoft.com/help/4530689"
+        },
+        "KB4534271": {
+            "heading": "January 14, 2020&#x2014;KB4534271 (OS Build 14393.3443)",
+            "releaseDate": "2020-01-14",
+            "releaseVersion": "14393.3443",
+            "updateUrl": "https://support.microsoft.com/help/4534271"
+        },
+        "KB4534307": {
+            "heading": "January 23, 2020&#x2014;KB4534307 (OS Build 14393.3474)",
+            "releaseDate": "2020-01-23",
+            "releaseVersion": "14393.3474",
+            "updateUrl": "https://support.microsoft.com/help/4534307"
+        },
+        "KB4537764": {
+            "heading": "February 11, 2020&#x2014;KB4537764 (OS Build 14393.3504)",
+            "releaseDate": "2020-02-11",
+            "releaseVersion": "14393.3504",
+            "updateUrl": "https://support.microsoft.com/help/4537764"
         }
     },
     "1703": {
@@ -1442,11 +1580,83 @@
             "releaseVersion": "15063.1928",
             "updateUrl": "https://support.microsoft.com/help/4507450"
         },
+        "KB4507467": {
+            "heading": "July 16, 2019&#x2014;KB4507467 (OS Build 15063.1955)",
+            "releaseDate": "2019-07-16",
+            "releaseVersion": "15063.1955",
+            "updateUrl": "https://support.microsoft.com/help/4507467"
+        },
         "KB4509476": {
             "heading": "June 26, 2019&#x2014;KB4509476 (OS Build 15063.1898)",
             "releaseDate": "2019-06-26",
             "releaseVersion": "15063.1898",
             "updateUrl": "https://support.microsoft.com/help/4509476"
+        },
+        "KB4512474": {
+            "heading": "August 17, 2019&#x2014;KB4512474 (OS Build 15063.2021)",
+            "releaseDate": "2019-08-17",
+            "releaseVersion": "15063.2021",
+            "updateUrl": "https://support.microsoft.com/help/4512474"
+        },
+        "KB4512507": {
+            "heading": "August 13, 2019&#x2014;KB4512507 (OS Build 15063.1988)",
+            "releaseDate": "2019-08-13",
+            "releaseVersion": "15063.1988",
+            "updateUrl": "https://support.microsoft.com/help/4512507"
+        },
+        "KB4516059": {
+            "heading": "September 24, 2019&#x2014;KB4516059 (OS Build 15063.2078)",
+            "releaseDate": "2019-09-24",
+            "releaseVersion": "15063.2078",
+            "updateUrl": "https://support.microsoft.com/help/4516059"
+        },
+        "KB4516068": {
+            "heading": "September 10, 2019&#x2014;KB4516068 (OS Build 15063.2045)",
+            "releaseDate": "2019-09-10",
+            "releaseVersion": "15063.2045",
+            "updateUrl": "https://support.microsoft.com/help/4516068"
+        },
+        "KB4520010": {
+            "heading": "October 8, 2019&#x2014;KB4520010 (OS Build 15063.2108)",
+            "releaseDate": "2019-10-08",
+            "releaseVersion": "15063.2108",
+            "updateUrl": "https://support.microsoft.com/help/4520010"
+        },
+        "KB4522011": {
+            "heading": "September 23, 2019&#x2014;KB4522011 (OS Build 15063.2046)",
+            "releaseDate": "2019-09-23",
+            "releaseVersion": "15063.2046",
+            "updateUrl": "https://support.microsoft.com/help/4522011"
+        },
+        "KB4524151": {
+            "heading": "October 3, 2019&#x2014;KB4524151 (OS Build 15063.2079)",
+            "releaseDate": "2019-10-03",
+            "releaseVersion": "15063.2079",
+            "updateUrl": "https://support.microsoft.com/help/4524151"
+        },
+        "KB4525245": {
+            "heading": "November 12, 2019&#x2014;KB4525245 (OS Build 15063.2172)",
+            "releaseDate": "2019-11-12",
+            "releaseVersion": "15063.2172",
+            "updateUrl": "https://support.microsoft.com/help/4525245"
+        },
+        "KB4530711": {
+            "heading": "December 10, 2019&#x2014;KB4530711 (OS Build 15063.2224)",
+            "releaseDate": "2019-12-10",
+            "releaseVersion": "15063.2224",
+            "updateUrl": "https://support.microsoft.com/help/4530711"
+        },
+        "KB4534296": {
+            "heading": "January 14, 2020&#x2014;KB4534296 (OS Build 15063.2254)",
+            "releaseDate": "2020-01-14",
+            "releaseVersion": "15063.2254",
+            "updateUrl": "https://support.microsoft.com/help/4534296"
+        },
+        "KB4537765": {
+            "heading": "February 11, 2020&#x2014;KB4537765 (OS Build 15063.2284)",
+            "releaseDate": "2020-02-11",
+            "releaseVersion": "15063.2284",
+            "updateUrl": "https://support.microsoft.com/help/4537765"
         }
     },
     "1709": {
@@ -1845,6 +2055,12 @@
             "releaseVersion": "16299.1268",
             "updateUrl": "https://support.microsoft.com/help/4507455"
         },
+        "KB4507465": {
+            "heading": "July 16, 2019&#x2014;KB4507465 (OS Build 16299.1296 )",
+            "releaseDate": "2019-07-16",
+            "releaseVersion": "16299.1296",
+            "updateUrl": "https://support.microsoft.com/help/4507465"
+        },
         "KB4509104": {
             "heading": "July 9, 2019&#x2014;KB4509104 Update for Windows 10 Mobile (OS Build 15254.575)",
             "releaseDate": "2019-07-09",
@@ -1856,6 +2072,120 @@
             "releaseDate": "2019-06-26",
             "releaseVersion": "16299.1239",
             "updateUrl": "https://support.microsoft.com/help/4509477"
+        },
+        "KB4512494": {
+            "heading": "August 16, 2019&#x2014;KB4512494 (OS Build 16299.1365)",
+            "releaseDate": "2019-08-16",
+            "releaseVersion": "16299.1365",
+            "updateUrl": "https://support.microsoft.com/help/4512494"
+        },
+        "KB4512516": {
+            "heading": "August 13, 2019&#x2014;KB4512516 (OS Build 16299.1331)",
+            "releaseDate": "2019-08-13",
+            "releaseVersion": "16299.1331",
+            "updateUrl": "https://support.microsoft.com/help/4512516"
+        },
+        "KB4513172": {
+            "heading": "August 13, 2019&#x2014;KB4513172 Update for Windows 10 Mobile (OS Build 15254.582)",
+            "releaseDate": "2019-08-13",
+            "releaseVersion": "15254.582",
+            "updateUrl": "https://support.microsoft.com/help/4513172"
+        },
+        "KB4516066": {
+            "heading": "September 10, 2019&#x2014;KB4516066 (OS Build 16299.1387)",
+            "releaseDate": "2019-09-10",
+            "releaseVersion": "16299.1387",
+            "updateUrl": "https://support.microsoft.com/help/4516066"
+        },
+        "KB4516071": {
+            "heading": "September 24, 2019&#x2014;KB4516071 (OS Build 16299.1420)",
+            "releaseDate": "2019-09-24",
+            "releaseVersion": "16299.1420",
+            "updateUrl": "https://support.microsoft.com/help/4516071"
+        },
+        "KB4518514": {
+            "heading": "September 10, 2019&#x2014;KB4518514 Update for Windows 10 Mobile (OS Build 15254.587)",
+            "releaseDate": "2019-09-10",
+            "releaseVersion": "15254.587",
+            "updateUrl": "https://support.microsoft.com/help/4518514"
+        },
+        "KB4520004": {
+            "heading": "October 8, 2019&#x2014;KB4520004 (OS Build 16299.1451)",
+            "releaseDate": "2019-10-08",
+            "releaseVersion": "16299.1451",
+            "updateUrl": "https://support.microsoft.com/help/4520004"
+        },
+        "KB4520006": {
+            "heading": "October 15, 2019&#x2014;KB4520006 (OS Build 16299.1481)",
+            "releaseDate": "2019-10-15",
+            "releaseVersion": "16299.1481",
+            "updateUrl": "https://support.microsoft.com/help/4520006"
+        },
+        "KB4522012": {
+            "heading": "September 23, 2019&#x2014;KB4522012 (OS Build 16299.1392)",
+            "releaseDate": "2019-09-23",
+            "releaseVersion": "16299.1392",
+            "updateUrl": "https://support.microsoft.com/help/4522012"
+        },
+        "KB4522809": {
+            "heading": "October 8, 2019&#x2014;KB4522809 Update for Windows 10 Mobile (OS Build 15254.590)",
+            "releaseDate": "2019-10-08",
+            "releaseVersion": "15254.590",
+            "updateUrl": "https://support.microsoft.com/help/4522809"
+        },
+        "KB4522811": {
+            "heading": "November 12, 2019&#x2014;KB4522811 Update for Windows 10 Mobile (OS Build 15254.597)",
+            "releaseDate": "2019-11-12",
+            "releaseVersion": "15254.597",
+            "updateUrl": "https://support.microsoft.com/help/4522811"
+        },
+        "KB4522812": {
+            "heading": "December 10, 2019&#x2014;KB4522812 Update for Windows 10 Mobile (OS Build 15254.600)",
+            "releaseDate": "2019-12-10",
+            "releaseVersion": "15254.600",
+            "updateUrl": "https://support.microsoft.com/help/4522812"
+        },
+        "KB4524150": {
+            "heading": "October 3, 2019&#x2014;KB4524150 (OS Build 16299.1421)",
+            "releaseDate": "2019-10-03",
+            "releaseVersion": "16299.1421",
+            "updateUrl": "https://support.microsoft.com/help/4524150"
+        },
+        "KB4525241": {
+            "heading": "November 12, 2019&#x2014;KB4525241 (OS Build 16299.1508)",
+            "releaseDate": "2019-11-12",
+            "releaseVersion": "16299.1508",
+            "updateUrl": "https://support.microsoft.com/help/4525241"
+        },
+        "KB4530714": {
+            "heading": "December 10, 2019&#x2014;KB4530714 (OS Build 16299.1565)",
+            "releaseDate": "2019-12-10",
+            "releaseVersion": "16299.1565",
+            "updateUrl": "https://support.microsoft.com/help/4530714"
+        },
+        "KB4534276": {
+            "heading": "January 14, 2020&#x2014;KB4534276 (OS Build 16299.1625)",
+            "releaseDate": "2020-01-14",
+            "releaseVersion": "16299.1625",
+            "updateUrl": "https://support.microsoft.com/help/4534276"
+        },
+        "KB4534318": {
+            "heading": "January 23, 2020&#x2014;KB4534318 (OS Build 16299.1654)",
+            "releaseDate": "2020-01-23",
+            "releaseVersion": "16299.1654",
+            "updateUrl": "https://support.microsoft.com/help/4534318"
+        },
+        "KB4535289": {
+            "heading": "January 14, 2020&#x2014;KB4535289 Update for Windows 10 Mobile (OS Build 15254.603)",
+            "releaseDate": "2020-01-14",
+            "releaseVersion": "15254.603",
+            "updateUrl": "https://support.microsoft.com/help/4535289"
+        },
+        "KB4537789": {
+            "heading": "February 11, 2020&#x2014;KB4537789 (OS Build 16299.1686)",
+            "releaseDate": "2020-02-11",
+            "releaseVersion": "16299.1686",
+            "updateUrl": "https://support.microsoft.com/help/4537789"
         }
     },
     "1803": {
@@ -2057,11 +2387,89 @@
             "releaseVersion": "17134.885",
             "updateUrl": "https://support.microsoft.com/help/4507435"
         },
+        "KB4507466": {
+            "heading": "July 16, 2019&#x2014;KB4507466 (OS Build 17134.915)",
+            "releaseDate": "2019-07-16",
+            "releaseVersion": "17134.915",
+            "updateUrl": "https://support.microsoft.com/help/4507466"
+        },
         "KB4509478": {
             "heading": "June 26, 2019&#x2014;KB4509478 (OS Build 17134.860)",
             "releaseDate": "2019-06-26",
             "releaseVersion": "17134.860",
             "updateUrl": "https://support.microsoft.com/help/4509478"
+        },
+        "KB4512501": {
+            "heading": "August 13, 2019&#x2014;KB4512501 (OS Build 17134.950)",
+            "releaseDate": "2019-08-13",
+            "releaseVersion": "17134.950",
+            "updateUrl": "https://support.microsoft.com/help/4512501"
+        },
+        "KB4512509": {
+            "heading": "August 19, 2019&#x2014;KB4512509 (OS Build 17134.984)",
+            "releaseDate": "2019-08-19",
+            "releaseVersion": "17134.984",
+            "updateUrl": "https://support.microsoft.com/help/4512509"
+        },
+        "KB4516045": {
+            "heading": "September 24, 2019&#x2014;KB4516045 (OS Build 17134.1039)",
+            "releaseDate": "2019-09-24",
+            "releaseVersion": "17134.1039",
+            "updateUrl": "https://support.microsoft.com/help/4516045"
+        },
+        "KB4516058": {
+            "heading": "September 10, 2019&#x2014;KB4516058 (OS Build 17134.1006)",
+            "releaseDate": "2019-09-10",
+            "releaseVersion": "17134.1006",
+            "updateUrl": "https://support.microsoft.com/help/4516058"
+        },
+        "KB4519978": {
+            "heading": "October 15, 2019&#x2014;KB4519978 (OS Build 17134.1099)",
+            "releaseDate": "2019-10-15",
+            "releaseVersion": "17134.1099",
+            "updateUrl": "https://support.microsoft.com/help/4519978"
+        },
+        "KB4520008": {
+            "heading": "October 8, 2019&#x2014;KB4520008 (OS Build 17134.1069)",
+            "releaseDate": "2019-10-08",
+            "releaseVersion": "17134.1069",
+            "updateUrl": "https://support.microsoft.com/help/4520008"
+        },
+        "KB4522014": {
+            "heading": "September 23, 2019&#x2014;KB4522014 (OS Build 17134.1009)",
+            "releaseDate": "2019-09-23",
+            "releaseVersion": "17134.1009",
+            "updateUrl": "https://support.microsoft.com/help/4522014"
+        },
+        "KB4524149": {
+            "heading": "October 3, 2019&#x2014;KB4524149 (OS Build 17134.1040)",
+            "releaseDate": "2019-10-03",
+            "releaseVersion": "17134.1040",
+            "updateUrl": "https://support.microsoft.com/help/4524149"
+        },
+        "KB4525237": {
+            "heading": "November 12, 2019&#x2014;KB4525237 (OS Build 17134.1130)",
+            "releaseDate": "2019-11-12",
+            "releaseVersion": "17134.1130",
+            "updateUrl": "https://support.microsoft.com/help/4525237"
+        },
+        "KB4530717": {
+            "heading": "December 10, 2019&#x2014;KB4530717 (OS Build 17134.1184)",
+            "releaseDate": "2019-12-10",
+            "releaseVersion": "17134.1184",
+            "updateUrl": "https://support.microsoft.com/help/4530717"
+        },
+        "KB4534293": {
+            "heading": "January 14, 2020&#x2014;KB4534293 (OS Build 17134.1246)",
+            "releaseDate": "2020-01-14",
+            "releaseVersion": "17134.1246",
+            "updateUrl": "https://support.microsoft.com/help/4534293"
+        },
+        "KB4534308": {
+            "heading": "January 23, 2020&#x2014;KB4534308 (OS Build 17134.1276)",
+            "releaseDate": "2020-01-23",
+            "releaseVersion": "17134.1276",
+            "updateUrl": "https://support.microsoft.com/help/4534308"
         }
     },
     "1809": {
@@ -2185,6 +2593,12 @@
             "releaseVersion": "17763.504",
             "updateUrl": "https://support.microsoft.com/help/4505056"
         },
+        "KB4505658": {
+            "heading": "July 22, 2019&#x2014;KB4505658 (OS Build 17763.652)",
+            "releaseDate": "2019-07-22",
+            "releaseVersion": "17763.652",
+            "updateUrl": "https://support.microsoft.com/help/4505658"
+        },
         "KB4507469": {
             "heading": "July 9, 2019&#x2014;KB4507469 (OS Build 17763.615)",
             "releaseDate": "2019-07-09",
@@ -2196,6 +2610,78 @@
             "releaseDate": "2019-06-26",
             "releaseVersion": "17763.593",
             "updateUrl": "https://support.microsoft.com/help/4509479"
+        },
+        "KB4511553": {
+            "heading": "August 13, 2019&#x2014;KB4511553 (OS Build 17763.678)",
+            "releaseDate": "2019-08-13",
+            "releaseVersion": "17763.678",
+            "updateUrl": "https://support.microsoft.com/help/4511553"
+        },
+        "KB4512534": {
+            "heading": "August 17, 2019&#x2014;KB4512534 (OS Build 17763.720)",
+            "releaseDate": "2019-08-17",
+            "releaseVersion": "17763.720",
+            "updateUrl": "https://support.microsoft.com/help/4512534"
+        },
+        "KB4512578": {
+            "heading": "September 10, 2019&#x2014;KB4512578 (OS Build 17763.737)",
+            "releaseDate": "2019-09-10",
+            "releaseVersion": "17763.737",
+            "updateUrl": "https://support.microsoft.com/help/4512578"
+        },
+        "KB4516077": {
+            "heading": "September 24, 2019&#x2014;KB4516077 (OS Build 17763.774)",
+            "releaseDate": "2019-09-24",
+            "releaseVersion": "17763.774",
+            "updateUrl": "https://support.microsoft.com/help/4516077"
+        },
+        "KB4519338": {
+            "heading": "October 8, 2019&#x2014;KB4519338 (OS Build 17763.805)",
+            "releaseDate": "2019-10-08",
+            "releaseVersion": "17763.805",
+            "updateUrl": "https://support.microsoft.com/help/4519338"
+        },
+        "KB4520062": {
+            "heading": "October 15, 2019&#x2014;KB4520062 (OS Build 17763.832)",
+            "releaseDate": "2019-10-15",
+            "releaseVersion": "17763.832",
+            "updateUrl": "https://support.microsoft.com/help/4520062"
+        },
+        "KB4522015": {
+            "heading": "September 23, 2019&#x2014;KB4522015 (OS Build 17763.740)",
+            "releaseDate": "2019-09-23",
+            "releaseVersion": "17763.740",
+            "updateUrl": "https://support.microsoft.com/help/4522015"
+        },
+        "KB4523205": {
+            "heading": "November 12, 2019&#x2014;KB4523205 (OS Build 17763.864)",
+            "releaseDate": "2019-11-12",
+            "releaseVersion": "17763.864",
+            "updateUrl": "https://support.microsoft.com/help/4523205"
+        },
+        "KB4524148": {
+            "heading": "October 3, 2019&#x2014;KB4524148 (OS Build 17763.775)",
+            "releaseDate": "2019-10-03",
+            "releaseVersion": "17763.775",
+            "updateUrl": "https://support.microsoft.com/help/4524148"
+        },
+        "KB4530715": {
+            "heading": "December 10, 2019&#x2014;KB4530715 (OS Build 17763.914)",
+            "releaseDate": "2019-12-10",
+            "releaseVersion": "17763.914",
+            "updateUrl": "https://support.microsoft.com/help/4530715"
+        },
+        "KB4534273": {
+            "heading": "January 14, 2020&#x2014;KB4534273 (OS Build 17763.973)",
+            "releaseDate": "2020-01-14",
+            "releaseVersion": "17763.973",
+            "updateUrl": "https://support.microsoft.com/help/4534273"
+        },
+        "KB4534321": {
+            "heading": "January 23, 2020&#x2014;KB4534321 (OS Build 17763.1012)",
+            "releaseDate": "2020-01-23",
+            "releaseVersion": "17763.1012",
+            "updateUrl": "https://support.microsoft.com/help/4534321"
         }
     },
     "1903": {
@@ -2222,11 +2708,101 @@
             "releaseVersion": "18362.116",
             "updateUrl": "https://support.microsoft.com/help/4505057"
         },
+        "KB4505903": {
+            "heading": "July 26, 2019&#x2014;KB4505903 (OS Build 18362.267)",
+            "releaseDate": "2019-07-26",
+            "releaseVersion": "18362.267",
+            "updateUrl": "https://support.microsoft.com/help/4505903"
+        },
         "KB4507453": {
             "heading": "July 9, 2019&#x2014;KB4507453 (OS Build 18362.239)",
             "releaseDate": "2019-07-09",
             "releaseVersion": "18362.239",
             "updateUrl": "https://support.microsoft.com/help/4507453"
+        },
+        "KB4512508": {
+            "heading": "August 13, 2019&#x2014;KB4512508 (OS Build 18362.295)",
+            "releaseDate": "2019-08-13",
+            "releaseVersion": "18362.295",
+            "updateUrl": "https://support.microsoft.com/help/4512508"
+        },
+        "KB4512941": {
+            "heading": "August 30, 2019&#x2014;KB4512941 (OS Build 18362.329)",
+            "releaseDate": "2019-08-30",
+            "releaseVersion": "18362.329",
+            "updateUrl": "https://support.microsoft.com/help/4512941"
+        },
+        "KB4515384": {
+            "heading": "September 10, 2019&#x2014;KB4515384 (OS Build 18362.356)",
+            "releaseDate": "2019-09-10",
+            "releaseVersion": "18362.356",
+            "updateUrl": "https://support.microsoft.com/help/4515384"
+        },
+        "KB4517211": {
+            "heading": "September 26, 2019&#x2014;KB4517211 (OS Build 18362.387)",
+            "releaseDate": "2019-09-26",
+            "releaseVersion": "18362.387",
+            "updateUrl": "https://support.microsoft.com/help/4517211"
+        },
+        "KB4517389": {
+            "heading": "October 8, 2019&#x2014;KB4517389 (OS Build 18362.418)",
+            "releaseDate": "2019-10-08",
+            "releaseVersion": "18362.418",
+            "updateUrl": "https://support.microsoft.com/help/4517389"
+        },
+        "KB4522016": {
+            "heading": "September 23, 2019&#x2014;KB4522016 (OS Build 18362.357)",
+            "releaseDate": "2019-09-23",
+            "releaseVersion": "18362.357",
+            "updateUrl": "https://support.microsoft.com/help/4522016"
+        },
+        "KB4522355": {
+            "heading": "October 24, 2019&#x2014;KB4522355 (OS Build 18362.449)",
+            "releaseDate": "2019-10-24",
+            "releaseVersion": "18362.449",
+            "updateUrl": "https://support.microsoft.com/help/4522355"
+        },
+        "KB4524147": {
+            "heading": "October 3, 2019&#x2014;KB4524147 (OS Build 18362.388)",
+            "releaseDate": "2019-10-03",
+            "releaseVersion": "18362.388",
+            "updateUrl": "https://support.microsoft.com/help/4524147"
+        },
+        "KB4524570": {
+            "heading": "November 12, 2019&#x2014;KB4524570 (OS Builds 18362.476 and 18363.476)",
+            "otherWindowsVersions": [
+                "1909"
+            ],
+            "releaseDate": "2019-11-12",
+            "releaseVersion": "18362.476",
+            "updateUrl": "https://support.microsoft.com/help/4524570"
+        },
+        "KB4528760": {
+            "heading": "January 14, 2020&#x2014;KB4528760 (OS Builds 18362.592 and 18363.592)",
+            "otherWindowsVersions": [
+                "1909"
+            ],
+            "releaseDate": "2020-01-14",
+            "releaseVersion": "18362.592",
+            "updateUrl": "https://support.microsoft.com/help/4528760"
+        },
+        "KB4530684": {
+            "heading": "December 10, 2019&#x2014;KB4530684 (OS Builds 18362.535 and 18363.535)",
+            "otherWindowsVersions": [
+                "1909"
+            ],
+            "releaseDate": "2019-12-10",
+            "releaseVersion": "18362.535",
+            "updateUrl": "https://support.microsoft.com/help/4530684"
+        },
+        "KB4532695": {
+            "heading": "January 28, 2020&#x2014;KB4532695 (OS Builds 18362.628 and 18363.628)",
+            "otherWindowsVersions": [
+                "1909"
+            ],
+            "releaseDate": "2020-01-28",
+            "releaseVersion": "18362.628",
+            "updateUrl": "https://support.microsoft.com/help/4532695"
         }
     }
 }
