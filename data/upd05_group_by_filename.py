@@ -245,6 +245,15 @@ def assert_file_info_close_enough(file_info_1, file_info_2):
             # msttsloc.dll
             'e4530349fed4fd1ceab455f70e1a0698e467e21c070f38140410c95e5f08d77e',
             'fb9cb560f224f0284465b14b7c89dc4831ce2b3f837a37ea4e350c148d21ddf5',
+
+            # rdpcorets.dll
+            '8ab519e778998d195f29561384cb148825d57e83d8672e6adf140b40ba063de9',
+
+            # mshtmled.dll
+            '591ca99e103a802608ba0ab6c5cb3450192813fd8f69dd821d6cb5403d093d51',
+
+            # appxdeploymentserver.dll
+            '269392facd1ee472aa824ad3a70d377b81679f379a7f416c8606268a5efcca19',
         ]:
             assert file_info_1.keys() - {'signingDate'} == file_info_2.keys() - {'signingDate'}, (file_info_1, file_info_2)
         else:
