@@ -420,6 +420,10 @@ def add_file_info_from_update(data, *,
 virustotal_info_cache = {}
 
 
+class VirusTotalBadInfo(Exception):
+    pass
+
+
 def get_virustotal_info(file_hash):
     # https://stackoverflow.com/a/57027610
     def is_power_of_two(n):
@@ -437,7 +441,7 @@ def get_virustotal_info(file_hash):
     elif len(file_hash) == 40:
         source_dir = 'virustotal_sha1'
     else:
-        assert False, file_hash
+        raise VirusTotalBadInfo(f'Bad file_hash')
 
     filename = config.out_path.joinpath(source_dir, file_hash + '.json')
     if not filename.is_file():
@@ -454,7 +458,8 @@ def get_virustotal_info(file_hash):
 
     # Handle special cases.
     if attr.get('signature_info', {}).get('description') in config.tcb_launcher_descriptions:
-        assert first_section['virtual_address'] in config.tcb_launcher_large_first_section_virtual_addresses, file_hash
+        if first_section['virtual_address'] not in config.tcb_launcher_large_first_section_virtual_addresses:
+            raise VirusTotalBadInfo(f'Unexpected TCB launcher VA: 0x{first_section["virtual_address"]:x}')
         section_alignment = 0x1000
     elif unusual_section_alignment_info := config.file_hashes_unusual_section_alignment.get(file_hash):
         assert first_section['virtual_address'] == unusual_section_alignment_info['first_section_virtual_address']
@@ -471,7 +476,8 @@ def get_virustotal_info(file_hash):
     if 'timestamp' in attr['pe_info']:
         timestamp = attr['pe_info']['timestamp']
     else:
-        assert file_hash in config.file_hashes_zero_timestamp, file_hash
+        if file_hash not in config.file_hashes_zero_timestamp:
+            raise VirusTotalBadInfo(f'Unexpected zero timestamp')
         timestamp = 0
 
     info = {
@@ -488,7 +494,8 @@ def get_virustotal_info(file_hash):
     if 'overlay' in attr['pe_info']:
         overlay_size = attr['pe_info']['overlay']['size']
         if overlay_size < 0x20:
-            assert file_hash in config.file_hashes_small_non_signature_overlay, file_hash
+            if file_hash not in config.file_hashes_small_non_signature_overlay:
+                raise VirusTotalBadInfo(f'Unexpected small overlay: {overlay_size}')
         elif file_hash in config.file_hashes_unsigned_with_overlay:
             pass
         elif any(attr.get('signature_info', {}).get(x['k']) == x['v'] and overlay_size == x['overlay_size']
@@ -541,7 +548,8 @@ def get_virustotal_info(file_hash):
             # has_signature_overlay should be False.
             assert datetime_object.timestamp() < attr['first_submission_date'], file_hash
 
-    assert not has_signature_overlay or file_signed, file_hash
+    if has_signature_overlay and not file_signed:
+        raise VirusTotalBadInfo(f'Unexpected overlay')
 
     if config.high_mem_usage_for_performance:
         virustotal_info_cache[file_hash] = info
@@ -800,7 +808,13 @@ def process_virustotal_data():
                 # Was already added with one of the updates.
                 continue
 
-            virustotal_info = get_virustotal_info(file_hash)
+            try:
+                virustotal_info = get_virustotal_info(file_hash)
+            except VirusTotalBadInfo as e:
+                print(f'WARNING: Bad VirusTotal info for {file_hash}')
+                print(f'         {e}')
+                continue
+
             assert virustotal_info is not None
             if file_hash != virustotal_info['sha256']:
                 assert file_hash == virustotal_info['sha1']
