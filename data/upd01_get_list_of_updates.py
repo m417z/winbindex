@@ -1,6 +1,7 @@
 import calendar
 import requests
 import json
+import time
 import re
 
 import config
@@ -50,7 +51,17 @@ def consolidate_overlapping_updates(updates):
 
 
 def get_updates_from_microsoft_support_for_version(windows_major_version, url):
-    html = requests.get(url).text
+    while True:
+        try:
+            request = requests.get(url)
+            request.raise_for_status()
+            break
+        except Exception as e:
+            print(f'Failed to get {url}, retrying...')
+            print(f'       {e}')
+            time.sleep(10)
+
+    html = request.text
 
     p = (
         r'<div [^>]*\bid="supLeftNav"[^>]*>'
@@ -182,7 +193,17 @@ def get_updates_from_microsoft_support():
 
 
 def get_updates_from_release_health_for_version(windows_major_version, url):
-    html = requests.get(url).text
+    while True:
+        try:
+            request = requests.get(url)
+            request.raise_for_status()
+            break
+        except Exception as e:
+            print(f'Failed to get {url}, retrying...')
+            print(f'       {e}')
+            time.sleep(10)
+
+    html = request.text
 
     p = (
         r'<strong>Version (\w+)(?: \(RTM\)| \(original release\))? \(OS build \d+\)</strong>'
