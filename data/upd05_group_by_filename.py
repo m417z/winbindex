@@ -241,6 +241,10 @@ def assert_file_info_close_enough(file_info_1, file_info_2):
             '07738d6463336020e6f0ab08d3b289ffaa4cf63d92e82922b055ebfb130be659',
             '4075db17b433e3bc65afb2ae8750169568ae6cbb0f5120777a2fc261dcfacf2d',
             'a01432b9b3dfdb5f808f87c043deb551ee23fae93dbe609801e0263705435c10',
+
+            # msttsloc.dll
+            'e4530349fed4fd1ceab455f70e1a0698e467e21c070f38140410c95e5f08d77e',
+            'fb9cb560f224f0284465b14b7c89dc4831ce2b3f837a37ea4e350c148d21ddf5',
         ]:
             assert file_info_1.keys() - {'signingDate'} == file_info_2.keys() - {'signingDate'}, (file_info_1, file_info_2)
         else:
