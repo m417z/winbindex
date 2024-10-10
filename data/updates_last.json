@@ -292,6 +292,12 @@
             "releaseDate": "2018-10-09",
             "releaseVersion": "10240.18005",
             "updateUrl": "https://support.microsoft.com/help/4462922"
+        },
+        "KB4467680": {
+            "heading": "November 13, 2018-KB4467680 (OS Build 10240.18036)",
+            "releaseDate": "2018-11-13",
+            "releaseVersion": "10240.18036",
+            "updateUrl": "https://support.microsoft.com/help/4467680"
         }
     },
     "1511": {
@@ -876,6 +882,12 @@
             "releaseDate": "2018-10-09",
             "releaseVersion": "14393.2551",
             "updateUrl": "https://support.microsoft.com/help/4462917"
+        },
+        "KB4462928": {
+            "heading": "October 18, 2018&#x2014;KB4462928 (OS Build 14393.2580)",
+            "releaseDate": "2018-10-18",
+            "releaseVersion": "14393.2580",
+            "updateUrl": "https://support.microsoft.com/help/4462928"
         }
     },
     "1703": {
@@ -1100,6 +1112,18 @@
             "releaseDate": "2018-09-20",
             "releaseVersion": "15063.1358",
             "updateUrl": "https://support.microsoft.com/help/4457141"
+        },
+        "KB4462937": {
+            "heading": "October 9, 2018&#x2014;KB4462937 (OS Build 15063.1387)",
+            "releaseDate": "2018-10-09",
+            "releaseVersion": "15063.1387",
+            "updateUrl": "https://support.microsoft.com/help/4462937"
+        },
+        "KB4462939": {
+            "heading": "October 18, 2018&#x2014;KB4462939 (OS Build 15063.1418)",
+            "releaseDate": "2018-10-18",
+            "releaseVersion": "15063.1418",
+            "updateUrl": "https://support.microsoft.com/help/4462939"
         }
     },
     "1709": {
@@ -1318,11 +1342,29 @@
             "releaseVersion": "15254.530",
             "updateUrl": "https://support.microsoft.com/help/4459082"
         },
+        "KB4462918": {
+            "heading": "October 9, 2018&#x2014;KB4462918 (OS Build 16299.726)",
+            "releaseDate": "2018-10-09",
+            "releaseVersion": "16299.726",
+            "updateUrl": "https://support.microsoft.com/help/4462918"
+        },
+        "KB4462932": {
+            "heading": "October 18, 2018&#x2014;KB4462932 (OS Build 16299.755)",
+            "releaseDate": "2018-10-18",
+            "releaseVersion": "16299.755",
+            "updateUrl": "https://support.microsoft.com/help/4462932"
+        },
         "KB4464217": {
             "heading": "September 17, 2018&#x2014;KB4464217 (OS Build 16299.666)",
             "releaseDate": "2018-09-17",
             "releaseVersion": "16299.666",
             "updateUrl": "https://support.microsoft.com/help/4464217"
+        },
+        "KB4464853": {
+            "heading": "October 9, 2018&#x2014;KB4464853 Update for Windows 10 Mobile (OS Build 15254.538)",
+            "releaseDate": "2018-10-09",
+            "releaseVersion": "15254.538",
+            "updateUrl": "https://support.microsoft.com/help/4464853"
         }
     },
     "1803": {
@@ -1398,11 +1440,31 @@
             "releaseVersion": "17134.320",
             "updateUrl": "https://support.microsoft.com/help/4458469"
         },
+        "KB4462919": {
+            "heading": "October 9, 2018&#x2014;KB4462919 (OS Build 17134.345)",
+            "releaseDate": "2018-10-09",
+            "releaseVersion": "17134.345",
+            "updateUrl": "https://support.microsoft.com/help/4462919"
+        },
+        "KB4462933": {
+            "heading": "October 24, 2018&#x2014;KB4462933 (OS Build 17134.376)",
+            "releaseDate": "2018-10-24",
+            "releaseVersion": "17134.376",
+            "updateUrl": "https://support.microsoft.com/help/4462933"
+        },
         "KB4464218": {
             "heading": "September 17, 2018&#x2014;KB4464218 (OS Build 17134.286)",
             "releaseDate": "2018-09-17",
             "releaseVersion": "17134.286",
             "updateUrl": "https://support.microsoft.com/help/4464218"
+        }
+    },
+    "1809": {
+        "KB4464330": {
+            "heading": "October 9, 2018&#x2014;KB4464330 (OS Build 17763.55)",
+            "releaseDate": "2018-10-09",
+            "releaseVersion": "17763.55",
+            "updateUrl": "https://support.microsoft.com/help/4464330"
         }
     }
 }
