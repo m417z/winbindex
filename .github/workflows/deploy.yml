@@ -46,8 +46,8 @@ jobs:
           pip install 'git+https://github.com/m417z/pymultitor.git' isal mitmproxy orjson requests signify
       - name: Set up Git config
         run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
+          git config --global user.email "69083578+winbindex-deploy-bot@users.noreply.github.com"
+          git config --global user.name "winbindex-deploy-bot"
 
           # Make sure git clean doesn't fail on long paths.
           git config --global core.longpaths true
