@@ -352,6 +352,12 @@
             "releaseDate": "2019-05-14",
             "releaseVersion": "10240.18215",
             "updateUrl": "https://support.microsoft.com/help/4499154"
+        },
+        "KB4505051": {
+            "heading": "May 19, 2019-KB4505051 (OS Build 10240.18218)",
+            "releaseDate": "2019-05-19",
+            "releaseVersion": "10240.18218",
+            "updateUrl": "https://support.microsoft.com/help/4505051"
         }
     },
     "1511": {
@@ -1021,10 +1027,22 @@
             "releaseVersion": "14393.2941",
             "updateUrl": "https://support.microsoft.com/help/4493473"
         },
+        "KB4494440": {
+            "heading": "May 14, 2019&#x2014;KB4494440 (OS Build 14393.2969)",
+            "releaseDate": "2019-05-14",
+            "releaseVersion": "14393.2969",
+            "updateUrl": "https://support.microsoft.com/help/4494440"
+        },
         "KB4499418": {
             "releaseDate": "2019-04-25",
             "releaseVersion": "14393.2908",
             "updateUrl": "https://support.microsoft.com/help/4499418"
+        },
+        "KB4505052": {
+            "heading": "May 19, 2019&#x2014;KB4505052 (OS Build 14393.2972)",
+            "releaseDate": "2019-05-19",
+            "releaseVersion": "14393.2972",
+            "updateUrl": "https://support.microsoft.com/help/4505052"
         }
     },
     "1703": {
@@ -1333,6 +1351,12 @@
             "releaseDate": "2019-04-09",
             "releaseVersion": "15063.1746",
             "updateUrl": "https://support.microsoft.com/help/4493474"
+        },
+        "KB4499181": {
+            "heading": "May 14, 2019&#x2014;KB4499181 (OS Build 15063.1805)",
+            "releaseDate": "2019-05-14",
+            "releaseVersion": "15063.1805",
+            "updateUrl": "https://support.microsoft.com/help/4499181"
         },
         "KB4502112": {
             "heading": "May 2, 2019&#x2014;KB4502112 (OS Build 15063.1785)",
@@ -1688,6 +1712,18 @@
             "releaseDate": "2019-04-09",
             "releaseVersion": "15254.562",
             "updateUrl": "https://support.microsoft.com/help/4495357"
+        },
+        "KB4499179": {
+            "heading": "May 14, 2019&#x2014;KB4499179 (OS Build 16299.1146)",
+            "releaseDate": "2019-05-14",
+            "releaseVersion": "16299.1146",
+            "updateUrl": "https://support.microsoft.com/help/4499179"
+        },
+        "KB4500154": {
+            "heading": "May 14, 2019&#x2014;KB4500154 Update for Windows 10 Mobile (OS Build 15254.566)",
+            "releaseDate": "2019-05-14",
+            "releaseVersion": "15254.566",
+            "updateUrl": "https://support.microsoft.com/help/4500154"
         }
     },
     "1803": {
@@ -1852,6 +1888,12 @@
             "releaseDate": "2019-04-09",
             "releaseVersion": "17134.706",
             "updateUrl": "https://support.microsoft.com/help/4493464"
+        },
+        "KB4499167": {
+            "heading": "May 14, 2019&#x2014;KB4499167 (OS Build 17134.765)",
+            "releaseDate": "2019-05-14",
+            "releaseVersion": "17134.765",
+            "updateUrl": "https://support.microsoft.com/help/4499167"
         }
     },
     "1809": {
@@ -1932,6 +1974,12 @@
             "releaseDate": "2019-04-09",
             "releaseVersion": "17763.437",
             "updateUrl": "https://support.microsoft.com/help/4493509"
+        },
+        "KB4494441": {
+            "heading": "May 14, 2019&#x2014;KB4494441 (OS Build 17763.503)",
+            "releaseDate": "2019-05-14",
+            "releaseVersion": "17763.503",
+            "updateUrl": "https://support.microsoft.com/help/4494441"
         },
         "KB4495667": {
             "heading": "May 3, 2019&#x2014;KB4495667 (OS Build 17763.475)",
