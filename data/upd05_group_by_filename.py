@@ -311,7 +311,38 @@ def add_file_info_from_update(data, *,
     x = x.setdefault(windows_version, {})
     x = x.setdefault(update_kb, {})
 
-    if 'updateInfo' not in x:
+    # Temporary. TODO: remove.
+    if 'updateInfo' not in x or (x['updateInfo'] == {
+            'heading': (
+                'October 28, 2022&#x2014;KB5020953 (OS Builds 19042.2194, 19043.2194,'
+                ' and 19044.2194) Out-of-band'
+            ),
+            'otherWindowsVersions': ['21H1', '21H2'],
+            'releaseDate': '2022-10-28',
+            'releaseVersion': '19042.2194',
+            'updateUrl': 'https://support.microsoft.com/help/5020953',
+        } and update_info == {
+            'heading': (
+                'October 28, 2022&#x2014;KB5020953 (OS Builds 19042.2194, 19043.2194,'
+                ' 19044.2194, and 19045.2194) Out-of-band'
+            ),
+            'otherWindowsVersions': ['21H1', '21H2', '22H2'],
+            'releaseDate': '2022-10-28',
+            'releaseVersion': '19042.2194',
+            'updateUrl': 'https://support.microsoft.com/help/5020953',
+        }) or (
+        # Temporary. TODO: remove.
+        x['updateInfo'] == {'heading': 'November 29, 2022&#x2014;KB5020044 (OS Build 22621.900) Preview', 'releaseDate': '2022-11-29', 'releaseVersion': '22621.900', 'updateUrl': 'https://support.microsoft.com/help/5020044'}
+        and update_info == {'heading': 'November 29, 2022&#x2014;KB5020044 (OS Build 22621.900) Preview ', 'releaseDate': '2022-11-29', 'releaseVersion': '22621.900', 'updateUrl': 'https://support.microsoft.com/help/5020044'}
+    ) or (
+        # Temporary. TODO: remove.
+        x['updateInfo'] == {'heading': 'January 26, 2023&#x2014;KB5022360 (OS Build 22621.1194) Preview ', 'releaseDate': '2023-01-26', 'releaseVersion': '22621.1194', 'updateUrl': 'https://support.microsoft.com/help/5022360'}
+        and update_info == {'heading': 'January 26, 2023&#x2014;KB5022360 (OS Build 22621.1194) Preview', 'releaseDate': '2023-01-26', 'releaseVersion': '22621.1194', 'updateUrl': 'https://support.microsoft.com/help/5022360'}
+    ) or (
+        # Temporary. TODO: remove.
+        x['updateInfo'] == {'heading': 'October 26, 2023&#x2014;KB5031455 (OS Build 22621.2506) Preview', 'releaseDate': '2023-10-26', 'releaseVersion': '22621.2506', 'updateUrl': 'https://support.microsoft.com/help/5031455'}
+        and update_info == {'heading': 'October 31, 2023&#x2014;KB5031455 (OS Builds 22621.2506 and 22631.2506) Preview', 'otherWindowsVersions': ['11-23H2'], 'releaseDate': '2023-10-31', 'releaseVersion': '22621.2506', 'updateUrl': 'https://support.microsoft.com/help/5031455'}
+    ):
         x['updateInfo'] = update_info
     else:
         assert x['updateInfo'] == update_info, (x['updateInfo'], update_info)
