@@ -16,7 +16,12 @@ updates_unsupported = {
     'KB5016139',
 }
 
-updates_alternative_links = {}
+updates_alternative_links = {
+    # The update server returns "The website has encountered a problem", "Error number: 8DDD0024".
+    ('11-21H2', 'KB5012643'): 'https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2022/04/windows10.0-kb5012643-x64_a29610770b67091e324340e3e9eb236b1974cbee.msu',
+    # The update server returns "The update requested could not be found", "Error number: 8DDD0024".
+    ('20H2', 'KB5018410'): 'https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/secu/2022/10/windows10.0-kb5018410-x64_10cd6ef1410df754abafee3870f7c133b7f9e34d.msu',
+}
 
 updates_architecture = 'x64'
 updates_never_removed = True
