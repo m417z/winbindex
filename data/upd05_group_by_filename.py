@@ -303,7 +303,12 @@ def add_file_info_from_update(data, *,
     x = x.setdefault(windows_version, {})
     x = x.setdefault(update_kb, {})
 
-    if 'updateInfo' not in x:
+    # Temporary. TODO: remove.
+    if 'updateInfo' not in x or (
+        # Temporary. TODO: remove.
+        x['updateInfo'] == {'releaseDate': '2024-10-08', 'releaseVersion': '22000.3260', 'updateUrl': 'https://support.microsoft.com/help/5044280'}
+        and update_info == {'heading': 'October 8, 2024&#x2014;KB5044280 (OS Build 22000.3260)', 'releaseDate': '2024-10-08', 'releaseVersion': '22000.3260', 'updateUrl': 'https://support.microsoft.com/help/5044280'}
+    ):
         x['updateInfo'] = update_info
     else:
         assert x['updateInfo'] == update_info, (x['updateInfo'], update_info)
