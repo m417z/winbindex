@@ -440,14 +440,14 @@ def update_readme_stats():
         stats += f'Some stats:\n'
         stats += f'\n'
 
-        files_with_link = files_total - files_by_status['none']
-        stats += f'* {100 * files_with_link / files_total:.1f}% of files with a link\n'
+        files_count = files_total - files_by_status['none']
+        stats += f'* {100 * files_count / files_total:.1f}% of files with a link\n'
 
-        files_with_link = files_total - files_by_status['none'] - files_by_status['delta']
-        stats += f'* {100 * files_with_link / files_total:.1f}% of files with a single link\n'
+        files_count = files_total - files_by_status['none'] - files_by_status['delta']
+        stats += f'* {100 * files_count / files_total:.1f}% of files with a single link\n'
 
-        files_with_full_info = files_by_status['vt'] + files_by_status['file']
-        stats += f'* {100 * files_with_full_info / files_total:.1f}% of files with full information\n'
+        files_count = files_by_status['pe'] + files_by_status['vt'] + files_by_status['file']
+        stats += f'* {100 * files_count / files_total:.1f}% of files with full information\n'
 
     with open(config.out_path.joinpath('README.md'), 'r') as f:
         readme = f.read()
