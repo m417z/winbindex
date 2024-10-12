@@ -1,1 +1,183 @@
-{}
+{
+    "1507": {
+        "KB3074683": {
+            "releaseDate": "2015-07-29",
+            "releaseVersion": "10240.16405",
+            "updateUrl": "https://support.microsoft.com/help/3074683"
+        },
+        "KB3081424": {
+            "releaseDate": "2015-08-05",
+            "releaseVersion": "10240.16413",
+            "updateUrl": "https://support.microsoft.com/help/3081424"
+        },
+        "KB3081436": {
+            "releaseDate": "2015-08-11",
+            "releaseVersion": "10240.16430",
+            "updateUrl": "https://support.microsoft.com/help/3081436"
+        },
+        "KB3081438": {
+            "releaseDate": "2015-08-14",
+            "releaseVersion": "10240.16433",
+            "updateUrl": "https://support.microsoft.com/help/3081438"
+        },
+        "KB3081444": {
+            "releaseDate": "2015-08-18",
+            "releaseVersion": "10240.16445",
+            "updateUrl": "https://support.microsoft.com/help/3081444"
+        },
+        "KB3081448": {
+            "releaseDate": "2015-08-27",
+            "releaseVersion": "10240.16463",
+            "updateUrl": "https://support.microsoft.com/help/3081448"
+        },
+        "KB3081455": {
+            "releaseDate": "2015-09-08",
+            "releaseVersion": "10240.16487",
+            "updateUrl": "https://support.microsoft.com/help/3081455"
+        },
+        "KB3093266": {
+            "releaseDate": "2015-09-30",
+            "releaseVersion": "10240.16520",
+            "updateUrl": "https://support.microsoft.com/help/3093266"
+        },
+        "KB3097617": {
+            "releaseDate": "2015-10-13",
+            "releaseVersion": "10240.16549",
+            "updateUrl": "https://support.microsoft.com/help/3097617"
+        },
+        "KB3105210": {
+            "releaseDate": "2015-10-27",
+            "releaseVersion": "10240.16566",
+            "updateUrl": "https://support.microsoft.com/help/3105210"
+        },
+        "KB3105213": {
+            "releaseDate": "2015-11-10",
+            "releaseVersion": "10240.16590",
+            "updateUrl": "https://support.microsoft.com/help/3105213"
+        },
+        "KB3116869": {
+            "releaseDate": "2015-12-08",
+            "releaseVersion": "10240.16601",
+            "updateUrl": "https://support.microsoft.com/help/3116869"
+        },
+        "KB3124266": {
+            "releaseDate": "2016-01-12",
+            "releaseVersion": "10240.16644",
+            "updateUrl": "https://support.microsoft.com/help/3124266"
+        },
+        "KB3135174": {
+            "heading": "February 9, 2016 &#x2014; KB3135174 (OS Build 10240.16683)",
+            "releaseDate": "2016-02-09",
+            "releaseVersion": "10240.16683",
+            "updateUrl": "https://support.microsoft.com/help/4001781"
+        },
+        "KB3140745": {
+            "heading": "March 8, 2016 &#x2014; KB3140745 (OS Build 10240.16725)",
+            "releaseDate": "2016-03-08",
+            "releaseVersion": "10240.16725",
+            "updateUrl": "https://support.microsoft.com/help/4001780"
+        },
+        "KB3147461": {
+            "heading": "April 12, 2016 &#x2014; KB3147461 (OS Build 10240.16769)",
+            "releaseDate": "2016-04-12",
+            "releaseVersion": "10240.16769",
+            "updateUrl": "https://support.microsoft.com/help/4001779"
+        },
+        "KB3156387": {
+            "heading": "May 10, 2016 &#x2014; KB3156387 (OS Build 10240.16854)",
+            "releaseDate": "2016-05-10",
+            "releaseVersion": "10240.16854",
+            "updateUrl": "https://support.microsoft.com/help/4001778"
+        },
+        "KB3163017": {
+            "heading": "June 14, 2016 &#x2014; KB3163017 (OS Build 10240.16942)",
+            "releaseDate": "2016-06-14",
+            "releaseVersion": "10240.16942",
+            "updateUrl": "https://support.microsoft.com/help/4001777"
+        },
+        "KB3163912": {
+            "heading": "July 12, 2016 &#x2014; KB3163912 (OS Build 10240.17024)",
+            "releaseDate": "2016-07-12",
+            "releaseVersion": "10240.17024",
+            "updateUrl": "https://support.microsoft.com/help/4001776"
+        }
+    },
+    "1511": {
+        "KB3105211": {
+            "releaseDate": "2015-11-10",
+            "releaseVersion": "10586.3",
+            "updateUrl": "https://support.microsoft.com/help/3105211"
+        },
+        "KB3116900": {
+            "releaseDate": "2015-12-08",
+            "releaseVersion": "10586.29",
+            "updateUrl": "https://support.microsoft.com/help/3116900"
+        },
+        "KB3116908": {
+            "releaseDate": "2015-12-02",
+            "releaseVersion": "10586.17",
+            "updateUrl": "https://support.microsoft.com/help/3116908"
+        },
+        "KB3118754": {
+            "releaseDate": "2015-11-18",
+            "releaseVersion": "10586.11",
+            "updateUrl": "https://support.microsoft.com/help/3118754"
+        },
+        "KB3120677": {
+            "releaseDate": "2015-11-24",
+            "releaseVersion": "10586.14",
+            "updateUrl": "https://support.microsoft.com/help/3120677"
+        },
+        "KB3124200": {
+            "releaseDate": "2015-12-17",
+            "releaseVersion": "10586.36",
+            "updateUrl": "https://support.microsoft.com/help/3124200"
+        },
+        "KB3124262": {
+            "releaseDate": "2016-01-27",
+            "releaseVersion": "10586.71",
+            "updateUrl": "https://support.microsoft.com/help/3124262"
+        },
+        "KB3124263": {
+            "releaseDate": "2016-01-12",
+            "releaseVersion": "10586.63",
+            "updateUrl": "https://support.microsoft.com/help/3124263"
+        },
+        "KB3135173": {
+            "heading": "February 9, 2016 &#x2014; KB3135173 (OS Build 10586.104)",
+            "releaseDate": "2016-02-09",
+            "releaseVersion": "10586.104",
+            "updateUrl": "https://support.microsoft.com/help/4001771"
+        },
+        "KB3140743": {
+            "heading": "March 1, 2016 &#x2014; KB3140743 (OS Build 10586.122)",
+            "releaseDate": "2016-03-01",
+            "releaseVersion": "10586.122",
+            "updateUrl": "https://support.microsoft.com/help/4001770"
+        },
+        "KB3140768": {
+            "heading": "March 8, 2016 &#x2014; KB3140768 (OS Build 10586.164)",
+            "releaseDate": "2016-03-08",
+            "releaseVersion": "10586.164",
+            "updateUrl": "https://support.microsoft.com/help/4001769"
+        },
+        "KB3147458": {
+            "heading": "April 12, 2016 &#x2014; KB3147458 (OS Build 10586.218)",
+            "releaseDate": "2016-04-12",
+            "releaseVersion": "10586.218",
+            "updateUrl": "https://support.microsoft.com/help/4001768"
+        },
+        "KB3156421": {
+            "heading": "May 10, 2016 &#x2014; KB3156421 (OS Build 10586.318)",
+            "releaseDate": "2016-05-10",
+            "releaseVersion": "10586.318",
+            "updateUrl": "https://support.microsoft.com/help/4001767"
+        },
+        "KB3163018": {
+            "heading": "June 14, 2016 &#x2014; KB3163018 (OS Build 10586.420)",
+            "releaseDate": "2016-06-14",
+            "releaseVersion": "10586.420",
+            "updateUrl": "https://support.microsoft.com/help/4001766"
+        }
+    }
+}

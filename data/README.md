@@ -14,5 +14,5 @@ Some stats:
 
 * 98.5% of files with a link
 * 96.9% of files with a single link
-* 79.9% of files with full information
+* 89.5% of files with full information
 <!--/FileStats-->
