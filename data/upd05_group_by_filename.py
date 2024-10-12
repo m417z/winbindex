@@ -245,12 +245,7 @@ def update_file_info(existing_file_info, new_file_info, new_file_info_source):
     unknown_sig_file_info = None
     other_file_info = None
     other_file_info_type = None
-    if existing_file_info_type == 'file_unknown_sig' and new_file_info_type == 'file_unknown_sig':
-        # Temporarily prefer new file info. TODO: remove.
-        unknown_sig_file_info = new_file_info
-        other_file_info = existing_file_info
-        other_file_info_type = existing_file_info_type
-    elif existing_file_info_type == 'file_unknown_sig':
+    if existing_file_info_type == 'file_unknown_sig':
         unknown_sig_file_info = existing_file_info
         other_file_info = new_file_info
         other_file_info_type = new_file_info_type
@@ -271,9 +266,9 @@ def update_file_info(existing_file_info, new_file_info, new_file_info_source):
             other_file_info_type not in ['vt', 'vt_or_file']
             and other_file_info.get('signingDate') != unknown_sig_file_info.get('signingDate')
         ):
-            print(
-                f'WARNING: Updating signing date of {other_file_info["sha256"]}:'
-                f' {other_file_info["signingDate"]} ->'
+            raise Exception(
+                f'Different signing date of {other_file_info["sha256"]}:'
+                f' {other_file_info["signingDate"]} !='
                 f' {unknown_sig_file_info["signingDate"]}'
             )
 
