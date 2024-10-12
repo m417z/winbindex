@@ -100,6 +100,36 @@
             "releaseDate": "2016-07-12",
             "releaseVersion": "10240.17024",
             "updateUrl": "https://support.microsoft.com/help/4001776"
+        },
+        "KB3176492": {
+            "heading": "August 9, 2016 &#x2014; KB3176492 (OS Build 10240.17071)",
+            "releaseDate": "2016-08-09",
+            "releaseVersion": "10240.17071",
+            "updateUrl": "https://support.microsoft.com/help/4001775"
+        },
+        "KB3185611": {
+            "heading": "September 13, 2016 &#x2014; KB3185611 (OS Build 10240.17113)",
+            "releaseDate": "2016-09-13",
+            "releaseVersion": "10240.17113",
+            "updateUrl": "https://support.microsoft.com/help/4001774"
+        },
+        "KB3192440": {
+            "heading": "October 11, 2016 &#x2014; KB3192440 (OS Build 10240.17146)",
+            "releaseDate": "2016-10-11",
+            "releaseVersion": "10240.17146",
+            "updateUrl": "https://support.microsoft.com/help/4001772"
+        },
+        "KB3193821": {
+            "heading": "September 20, 2016 &#x2014; KB3193821 (OS Build 10240.17113)",
+            "releaseDate": "2016-09-20",
+            "releaseVersion": "10240.17113",
+            "updateUrl": "https://support.microsoft.com/help/4001773"
+        },
+        "KB3198585": {
+            "heading": "November 8, 2016 &#x2014; KB3198585 (OS Build 10240.17190)",
+            "releaseDate": "2016-11-08",
+            "releaseVersion": "10240.17190",
+            "updateUrl": "https://support.microsoft.com/help/4001882"
         }
     },
     "1511": {
@@ -178,6 +208,92 @@
             "releaseDate": "2016-06-14",
             "releaseVersion": "10586.420",
             "updateUrl": "https://support.microsoft.com/help/4001766"
+        },
+        "KB3172985": {
+            "heading": "July 12, 2016 &#x2014; KB3172985 (OS Build 10586.494)",
+            "releaseDate": "2016-07-12",
+            "releaseVersion": "10586.494",
+            "updateUrl": "https://support.microsoft.com/help/4001765"
+        },
+        "KB3176493": {
+            "heading": "August 9, 2016 &#x2014; KB3176493 (OS Build 10586.545)",
+            "releaseDate": "2016-08-09",
+            "releaseVersion": "10586.545",
+            "updateUrl": "https://support.microsoft.com/help/4001764"
+        },
+        "KB3185614": {
+            "heading": "September 13, 2016 &#x2014; KB3185614 (OS Build 10586.589)",
+            "releaseDate": "2016-09-13",
+            "releaseVersion": "10586.589",
+            "updateUrl": "https://support.microsoft.com/help/4001763"
+        },
+        "KB3192441": {
+            "heading": "October 11, 2016 &#x2014; KB3192441 (OS Build 10586.633)",
+            "releaseDate": "2016-10-11",
+            "releaseVersion": "10586.633",
+            "updateUrl": "https://support.microsoft.com/help/4001762"
+        },
+        "KB3198586": {
+            "heading": "November 8, 2016 &#x2014; KB3198586 (OS Build 10586.679)",
+            "releaseDate": "2016-11-08",
+            "releaseVersion": "10586.679",
+            "updateUrl": "https://support.microsoft.com/help/4001883"
+        }
+    },
+    "1607": {
+        "KB3176495": {
+            "heading": "August 9, 2016 &#x2014; KB3176495 (OS Build 14393.51)",
+            "releaseDate": "2016-08-09",
+            "releaseVersion": "14393.51",
+            "updateUrl": "https://support.microsoft.com/help/4001760"
+        },
+        "KB3176929": {
+            "heading": "August 2, 2016 &#x2014; KB3176929 (OS Build 14393.10)",
+            "releaseDate": "2016-08-02",
+            "releaseVersion": "14393.10",
+            "updateUrl": "https://support.microsoft.com/help/4001761"
+        },
+        "KB3176934": {
+            "heading": "August 23, 2016 &#x2014; KB3176934 (OS Build 14393.82)",
+            "releaseDate": "2016-08-23",
+            "releaseVersion": "14393.82",
+            "updateUrl": "https://support.microsoft.com/help/4001759"
+        },
+        "KB3176938": {
+            "heading": "August 31, 2016 &#x2014; KB3176938 (OS Build 14393.105)",
+            "releaseDate": "2016-08-31",
+            "releaseVersion": "14393.105",
+            "updateUrl": "https://support.microsoft.com/help/4001758"
+        },
+        "KB3189866": {
+            "heading": "September 13, 2016 &#x2014; KB3189866 (OS Builds 14393.187 and 14393.189)",
+            "releaseDate": "2016-09-13",
+            "releaseVersion": "14393.187",
+            "updateUrl": "https://support.microsoft.com/help/4001757"
+        },
+        "KB3193494": {
+            "heading": "September 20, 2016 &#x2014; KB3193494 (OS Builds 14393.187 and 14393.189)",
+            "releaseDate": "2016-09-20",
+            "releaseVersion": "14393.187",
+            "updateUrl": "https://support.microsoft.com/help/4001756"
+        },
+        "KB3194496": {
+            "heading": "September 29, 2016 &#x2014; KB3194496 (OS Builds 14393.222)",
+            "releaseDate": "2016-09-29",
+            "releaseVersion": "14393.222",
+            "updateUrl": "https://support.microsoft.com/help/4001755"
+        },
+        "KB3194798": {
+            "heading": "October 11, 2016 &#x2014; KB3194798 (OS Build 14393.321)",
+            "releaseDate": "2016-10-11",
+            "releaseVersion": "14393.321",
+            "updateUrl": "https://support.microsoft.com/help/4001754"
+        },
+        "KB3197954": {
+            "heading": "October 27, 2016 &#x2014; KB3197954 (OS Build 14393.351)",
+            "releaseDate": "2016-10-27",
+            "releaseVersion": "14393.351",
+            "updateUrl": "https://support.microsoft.com/help/4001753"
         }
     }
 }
