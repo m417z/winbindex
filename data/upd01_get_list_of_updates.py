@@ -299,10 +299,7 @@ def main():
     consolidate_overlapping_updates(updates_from_release_health)
     windows_version_updates_sanity_check(updates_from_release_health)
 
-    assert updates_from_microsoft_support.keys() == updates_from_release_health.keys() | {
-        # Temporarily (?) missing in Release Health.
-        '11-24H2',
-    }
+    assert updates_from_microsoft_support.keys() == updates_from_release_health.keys()
 
     result = updates_from_microsoft_support
     merge_updates(result, updates_from_release_health)
