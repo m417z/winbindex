@@ -213,6 +213,26 @@ def update_file_info(existing_file_info, new_file_info, new_file_info_source):
     if new_file_info is None:
         return existing_file_info
 
+    # temp, TODO: remove {
+    if (
+        'version' not in existing_file_info
+        and 'description' not in existing_file_info
+        and 'version' in new_file_info
+        and 'description' in new_file_info
+        and new_file_info
+        == existing_file_info
+        | {
+            'version': new_file_info['version'],
+            'description': new_file_info['description'],
+        }
+    ):
+        print(
+            f'WARNING: Returning new file info for {new_file_info["sha256"]} which only'
+            f' adds version and description: {new_file_info}'
+        )
+        return new_file_info
+    # }
+
     assert_file_info_close_enough(existing_file_info, new_file_info)
 
     if new_file_info_source == 'iso':
