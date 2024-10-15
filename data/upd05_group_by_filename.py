@@ -84,16 +84,6 @@ def get_file_info_type(file_info):
     assert 'lastSectionVirtualAddress' not in file_info
     assert 'lastSectionPointerToRawData' not in file_info
 
-    # For old info.
-    if file_info.keys() == {
-        'size',
-        'md5',
-        'machineType',
-        'timestamp',
-        'virtualSize',
-    }:
-        return 'pe'
-
     assert file_info.keys() - {
         'version',
         'description',
