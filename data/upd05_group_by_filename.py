@@ -328,14 +328,6 @@ def add_file_info_from_update(data, *,
 
     if 'updateInfo' not in x:
         x['updateInfo'] = update_info
-    elif (
-        # Temporary. TODO: remove.
-        x['updateInfo'] == update_info | {
-            'heading': update_info['heading'].removesuffix(' - EXPIRED'),
-        }
-    ):
-        print('WARNING: Allowing expired update: ' + update_info['heading'])
-        x['updateInfo'] = update_info
     else:
         assert x['updateInfo'] == update_info, (x['updateInfo'], update_info)
 
