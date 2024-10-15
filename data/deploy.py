@@ -458,7 +458,7 @@ def update_readme_stats():
         f.write(readme)
 
 
-def commit_deploy(pr_title, skip_push):
+def commit_deploy(pr_title):
     # Make sure no accidental changes in the main repo.
     # https://stackoverflow.com/a/25149786
     status = subprocess.check_output(['git', 'status', '--porcelain'], text=True)
@@ -486,17 +486,14 @@ def commit_deploy(pr_title, skip_push):
         current_time_iso = datetime.now().isoformat(timespec='seconds').replace('T', ' ')
         new_body = f'[{current_time_iso}] {pr_title}\n\n{last_commit_body}'
         subprocess.check_call(git_cmd + ['commit', '--amend', '-m', new_body])
+        subprocess.check_call(git_cmd + ['push', '--force-with-lease'])
 
-        # Temp check.
-        if not skip_push:
-            subprocess.check_call(git_cmd + ['push', '--force-with-lease'])
+        # Free disk space by removing old objects.
+        subprocess.check_call(git_cmd + ['reflog', 'expire', '--expire=all', '--all'])
 
-            # Free disk space by removing old objects.
-            subprocess.check_call(git_cmd + ['reflog', 'expire', '--expire=all', '--all'])
-
-            # Use `git prune` instead of `git gc --prune=now` to hopefully prevent
-            # out-of-disk errors: https://stackoverflow.com/a/47890963
-            subprocess.check_call(git_cmd + ['prune'])
+        # Use `git prune` instead of `git gc --prune=now` to hopefully prevent
+        # out-of-disk errors: https://stackoverflow.com/a/47890963
+        subprocess.check_call(git_cmd + ['prune'])
     else:
         subprocess.check_call(git_cmd + ['commit', '-m', pr_title])
         subprocess.check_call(git_cmd + ['push'])
@@ -516,44 +513,27 @@ def main():
     # Unsupported in this flow.
     assert not config.extract_in_a_new_thread
 
-    # Temp
-    skip_push = False
-
     while True:
-        # Temp
-        start_time = time.time()
-
         pr_title = run_deploy()
         if not pr_title:
             print('run_deploy() returned None, exiting')
-            break
-
-        # Temp
-        end_time = time.time()
-        total_seconds = end_time - start_time
-        # Skip push if less than 30 seconds.
-        skip_push = total_seconds < 30
+            return
 
         build_html_index_of_hashes()
 
         update_readme_stats()
 
-        commit_deploy(pr_title, skip_push)
+        commit_deploy(pr_title)
 
         # Stop once we get non-update files from VirusTotal. Otherwise, continue
         # as long as there are other tasks.
         match = re.match(r'Updated info of (\d+) files from VirusTotal$', pr_title)
         if match and not is_handling_update_in_info_progress_virustotal():
             print('Done')
-            break
+            return
 
         if config.deploy_save_disk_space:
             clean_deploy_files()
-
-    # Temp. Push what's left.
-    if skip_push:
-        git_cmd = ['git', '-C', config.out_path]
-        subprocess.check_call(git_cmd + ['push', '--force-with-lease'])
 
 
 if __name__ == '__main__':
