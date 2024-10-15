@@ -109,13 +109,7 @@ def get_update(windows_version: str, update_kb: str):
 
 
 def download_update(windows_version: str, update_kb: str):
-    # download_url = config.updates_alternative_links.get((windows_version, update_kb))
-
-    # Temporary. TODO: remove.
-    download_url = config.updates_alternative_links.get(windows_version, {}).get(update_kb, {}).get('x64')
-    if not download_url:
-        raise UpdateNotSupported
-
+    download_url = config.updates_alternative_links.get((windows_version, update_kb))
     if not download_url:
         update_uid, update_title = get_update(windows_version, update_kb)
 
