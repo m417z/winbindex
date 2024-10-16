@@ -203,41 +203,6 @@ def update_file_info(existing_file_info, new_file_info, new_file_info_source):
     if new_file_info is None:
         return existing_file_info
 
-    # temp {
-    sha256 = new_file_info.get('sha256')
-    if sha256 in [
-        '47226fbae75dd10db902e7d9fea6ac35b8307345aa645e94b6b9dcddbde854fa',
-        'b4b841299a1915acb86341ac2bd30116f4cbff61cf0a5953e440dd4e74546f46',
-        'c5db92e1e5c3f0c980205d4ffe34da9a730d3da4c508f51da67827352975b2d0',
-        'b909d09a16b2e1ae8bbef6b7a33b4db8847f3d4f487f00f7a00e047d58200042',
-        '8c29ff4fb5c5ca3e56556bf3c9acf97c11289eb61fa626ffffdc4022f87c07ac',
-        '2680cb65257dcd26e85be7823de9572569c71dc9d62b268dc908fd162052ccfe',
-        '7b25f42ce9a5331b3b54e4a3e6ac22f322ac43dbaca60b159d76bcd71c7941fa',
-        '5463db6698bac760da2331e4182f3edf2d3ecec4d7d7fae6eb8ad21cfc6204c9',
-        '78d7df2d2488850963f25c76818f5607ebb4642a0cc2f990d6871dc30aced65b',
-    ]:
-        assert sha256 == existing_file_info['sha256']
-        if new_file_info == existing_file_info:
-            return existing_file_info
-
-        assert 'version' not in existing_file_info
-        assert 'description' not in existing_file_info
-        assert (
-            new_file_info == existing_file_info | {
-                'version': new_file_info['version'],
-                'description': new_file_info['description'],
-            }
-        ) or (
-            new_file_info == existing_file_info | {
-                'version': new_file_info['version'],
-                'description': new_file_info['description'],
-                'signingStatus': 'Signed',
-                'signatureType': 'Catalog file',
-            }
-        ), (existing_file_info, new_file_info)
-        return new_file_info
-    # }
-
     assert_file_info_close_enough(existing_file_info, new_file_info)
 
     if new_file_info_source == 'iso':
