@@ -694,21 +694,31 @@ def process_virustotal_data():
 
     pending = info_progress_virustotal.get('pending', {})
 
+    errors = 0
+
     for name in pending:
         for file_hash in pending[name]:
             if file_hash in virustotal_info_cache:
                 # Was already added with one of the updates.
                 continue
 
-            virustotal_info = get_virustotal_info(file_hash)
-            assert virustotal_info is not None
-            if file_hash != virustotal_info['sha256']:
-                assert file_hash == virustotal_info['sha1']
-                file_hash = virustotal_info['sha256']
+            try:
+                virustotal_info = get_virustotal_info(file_hash)
+                assert virustotal_info is not None
+                if file_hash != virustotal_info['sha256']:
+                    assert file_hash == virustotal_info['sha1']
+                    file_hash = virustotal_info['sha256']
 
-            add_file_info_from_virustotal_data(name, output_dir,
-                file_hash=file_hash,
-                file_info=virustotal_info)
+                add_file_info_from_virustotal_data(name, output_dir,
+                    file_hash=file_hash,
+                    file_info=virustotal_info)
+            except Exception as e:
+                print(f'Error while processing VirusTotal data of {file_hash}: {e}')
+                errors += 1
+                continue
+
+    if errors > 0:
+        raise Exception(f'Aborting due to {errors} errors')
 
     info_progress_virustotal['pending'] = {}
 
