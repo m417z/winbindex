@@ -1,26 +1,11 @@
 {
 "next": null,
 "next_updates": [
-"certenc.dll",
-"62d8adf6b669eaa119fd2cfb7674b65cebc19a103436986306678aaeffb67dd9"
+"clussvc.exe",
+"fff19a50be329a4d6da7ff824f6ed5a06dfb85e4506cc38d3636d25561399c00"
 ],
 "pending": {},
-"retry": [
-    ["msttsengine_onecore.dll","5463db6698bac760da2331e4182f3edf2d3ecec4d7d7fae6eb8ad21cfc6204c9"]
-    ,
-[
-"msttsloc_onecore.dll",
-"2680cb65257dcd26e85be7823de9572569c71dc9d62b268dc908fd162052ccfe"
-],
-[
-"rdpnano.dll",
-"47226fbae75dd10db902e7d9fea6ac35b8307345aa645e94b6b9dcddbde854fa"
-],
-[
-"rdpnano.dll",
-"b4b841299a1915acb86341ac2bd30116f4cbff61cf0a5953e440dd4e74546f46"
-]
-],
+"retry": [],
 "updates": [
 "KB3074683",
 "KB3081424",
