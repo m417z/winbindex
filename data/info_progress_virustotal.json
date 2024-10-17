@@ -1,11 +1,16 @@
 {
 "next": null,
 "next_updates": [
-"d2d1.dll",
-"b79998282046d2062123ba600271649cc7dac8a0a77f4ac5980013f5e2d3ab77"
+"dataclen.dll",
+"804b52c2bca1db2f2c8f7c2669fdc6f4ebb9097f04f3771e206000704fbc04fb"
 ],
 "pending": {},
-"retry": [],
+"retry": [
+[
+"d3dcompiler_47.dll",
+"0b74f88e7fcd625563ab46eac73dcedb35e8685be8c2e433463c1e5c2ac5e700"
+]
+],
 "updates": [
 "KB3074683",
 "KB3081424",
