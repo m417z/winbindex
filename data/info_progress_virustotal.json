@@ -1,16 +1,11 @@
 {
 "next": null,
 "next_updates": [
-"dataclen.dll",
-"804b52c2bca1db2f2c8f7c2669fdc6f4ebb9097f04f3771e206000704fbc04fb"
+"dumpfve.sys",
+"70a85c19d0ae2be0c0c85740e7de7c02582d7f1e4ab154ff85328311257da4c0"
 ],
 "pending": {},
-"retry": [
-[
-"d3dcompiler_47.dll",
-"0b74f88e7fcd625563ab46eac73dcedb35e8685be8c2e433463c1e5c2ac5e700"
-]
-],
+"retry": [],
 "updates": [
 "KB3074683",
 "KB3081424",
