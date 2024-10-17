@@ -3,6 +3,7 @@ from isal import igzip as gzip
 from datetime import datetime
 from itertools import repeat
 from pathlib import Path
+import traceback
 import bisect
 import orjson
 import json
@@ -712,8 +713,9 @@ def process_virustotal_data():
                 add_file_info_from_virustotal_data(name, output_dir,
                     file_hash=file_hash,
                     file_info=virustotal_info)
-            except Exception as e:
-                print(f'Error while processing VirusTotal data of {file_hash}: {e}')
+            except Exception:
+                print(f'Error while processing VirusTotal data of {file_hash}')
+                traceback.print_exc()
                 errors += 1
                 continue
 
