@@ -1,11 +1,24 @@
 {
 "next": null,
 "next_updates": [
-"dumpfve.sys",
-"70a85c19d0ae2be0c0c85740e7de7c02582d7f1e4ab154ff85328311257da4c0"
+"edgehtml.dll",
+"2f42fee04e217213795b146bb0f91d7fcf412f786aacb1b6bbe4fb1f2de757c6"
 ],
 "pending": {},
-"retry": [],
+"retry": [
+[
+"edata.dll",
+"fa53b14d380c8dde2d243ff7448d2000d700bbe3b4edaa17688828019946bec2"
+],
+[
+"edata.dll",
+"fc42d2960c7437a87c3574a99b051a4279d2fc6afb57600f6b3473853ddab934"
+],
+[
+"edata.dll",
+"fd9a14ab195f4f0af00a2dc254c32f3a24392706284a03b92ff5f4452631d9dc"
+]
+],
 "updates": [
 "KB3074683",
 "KB3081424",
