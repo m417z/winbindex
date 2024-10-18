@@ -1,14 +1,14 @@
 {
 "next": null,
 "next_updates": [
-"errordetails.dll",
-"6db86fd4932d9bef133c91d0f48c714750080a816ab39c8f88092df09c9c3f42"
+"gdiplus.dll",
+"80a3caaa6c6a23a91feac5b13f226f4b170df5840888f43e3792ddd7b7ac1dc6"
 ],
 "pending": {},
 "retry": [
 [
-"efswrt.dll",
-"64cf48b1ca7f8e4cf2228cc37103efb8e7246c988e67d792c93dbf47c0aa5e54"
+"gdi32full.dll",
+"32410638e0fac4a87cf4ad553fbd484d2da706f6aff1aca764456e60c8412b0e"
 ]
 ],
 "updates": [
