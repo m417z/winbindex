@@ -195,39 +195,6 @@ def update_file_info(existing_file_info, new_file_info, new_file_info_source):
     if new_file_info is None:
         return existing_file_info
 
-    # temp {
-    sha256 = new_file_info.get('sha256')
-    if sha256 in [
-        'bae9fbad7a525211fde65172099c77e6cb62c0c8f4ce3860646a175be13b6558',
-    ]:
-        assert sha256 == existing_file_info['sha256']
-        if new_file_info == existing_file_info:
-            return existing_file_info
-
-        assert 'version' not in existing_file_info
-        assert 'description' not in existing_file_info
-
-        existing_file_info_enriched = existing_file_info.copy()
-        if 'version' in new_file_info:
-            existing_file_info_enriched['version'] = new_file_info['version']
-        if 'description' in new_file_info:
-            existing_file_info_enriched['description'] = new_file_info['description']
-
-        if (
-            existing_file_info_enriched.get('signingStatus') == 'Unsigned'
-            and new_file_info.get('signingStatus') == 'Signed'
-            and new_file_info.get('signatureType') == 'Catalog file'
-        ):
-            existing_file_info_enriched['signingStatus'] = 'Signed'
-            existing_file_info_enriched['signatureType'] = 'Catalog file'
-
-        assert new_file_info == existing_file_info_enriched, (
-            existing_file_info,
-            new_file_info,
-        )
-        return new_file_info
-    # }
-
     assert_file_info_close_enough(existing_file_info, new_file_info)
 
     if new_file_info_source == 'iso':
