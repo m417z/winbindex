@@ -39,10 +39,7 @@ def write_all_file_info():
 def get_file_info_type(file_info):
     if 'machineType' not in file_info:
         k = {'size'}
-        if file_info.keys() in [
-            k | {'md5'},
-            k | {'sha256'},
-        ]:
+        if k < file_info.keys() <= k | {'md5', 'sha256'}:
             return 'raw'
 
         if file_info.keys() == {
@@ -62,10 +59,7 @@ def get_file_info_type(file_info):
         'lastSectionVirtualAddress',
         'lastSectionPointerToRawData',
     }
-    if file_info.keys() in [
-        k | {'md5'},
-        k | {'sha256'},
-    ]:
+    if k < file_info.keys() <= k | {'md5', 'sha256'}:
         return 'delta'
 
     k = {
@@ -76,10 +70,7 @@ def get_file_info_type(file_info):
         'lastSectionPointerToRawData',
         'virtualSize',
     }
-    if file_info.keys() in [
-        k | {'md5'},
-        k | {'sha256'},
-    ]:
+    if k < file_info.keys() <= k | {'md5', 'sha256'}:
         return 'delta+'
 
     assert 'lastSectionVirtualAddress' not in file_info
@@ -304,7 +295,28 @@ def update_file_info(existing_file_info, new_file_info, new_file_info_source):
         return new_file_info
 
     if sources.index(new_file_info_type) == sources.index(existing_file_info_type):
-        assert new_file_info == existing_file_info
+        if new_file_info == existing_file_info:
+            return existing_file_info
+
+        # Older delta files have md5, while newer have sha256, merge hashes.
+        hashes = {}
+
+        md5 = list(filter(None, {existing_file_info.get('md5'), new_file_info.get('md5')}))
+        if md5:
+            assert len(md5) == 1
+            hashes['md5'] = md5.pop()
+
+        sha256 = list(filter(None, {existing_file_info.get('sha256'), new_file_info.get('sha256')}))
+        if sha256:
+            assert len(sha256) == 1
+            hashes['sha256'] = sha256.pop()
+
+        assert (new_file_info | hashes) == (existing_file_info | hashes), (
+            existing_file_info,
+            new_file_info,
+        )
+
+        return existing_file_info | hashes
 
     return existing_file_info
 
