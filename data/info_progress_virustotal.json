@@ -1,22 +1,22 @@
 {
 "next": null,
 "next_updates": [
-"ieproxy.dll",
-"5141fe2815079d9620be9784e613d6dce6a9884116cdbbb43326ca48f673435b"
+"iscsidsc.dll",
+"a87f239a2aaf3b74d393debec7403c280b076c8b936ebcb4f3b40f2f8690d7ae"
 ],
 "pending": {},
 "retry": [
 [
-"iedkcs32.dll",
-"68ea4e541c2f5c76e387c23dee6746362f9b29ae37819f4bbdbbfe2f57db6c8c"
+"iprtrmgr.dll",
+"49a2da380660ca2bed8567a93cb088ddf73cc3c4e8656544e185f192af9cb68a"
 ],
 [
-"iedkcs32.dll",
-"6f1b3dac23ed5c8a5dca15a8e142742dd04c1bf1b49726f3316a538355d36948"
+"iscsicli.exe",
+"4acdb2508029b9a1a68e392f44fcda95314d6c909da49c1809e664e1b56e3112"
 ],
 [
-"iedkcs32.dll",
-"78ad5db710dccf8855aa678ab307260668634ad58f81333e9f5e471ce615e3a4"
+"iscsicli.exe",
+"a50fb99fd27e64282a9f6ad17723f8aea935a4248c620fc1dfcc33211fb92fb2"
 ]
 ],
 "updates": [
