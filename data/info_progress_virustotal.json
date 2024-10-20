@@ -1,11 +1,20 @@
 {
 "next": null,
 "next_updates": [
-"mbr2gpt.exe",
-"29ca3956aa92fbb34dbef83ca873af67f15a03a299d96ea4d51c133815e7a421"
+"microsoft.powershell.scheduledjob.dll",
+"1c659f8ecd048ac6b853508afea1d6437093234067526dcfad4fa0deb9bb0ac3"
 ],
 "pending": {},
-"retry": [],
+"retry": [
+[
+"microsoft.networkcontroller.fnmservice.dll",
+"466125ce7ac48f6b10a15ec9ea6ad393728c7842517095b3d47cf563d8d1aefc"
+],
+[
+"microsoft.networkcontroller.vswitchsbdriver.dll",
+"317b9b89945f65385cf09ace3f5f19a8dc4f92b30c401e6393bbe9bf5079c284"
+]
+],
 "updates": [
 "KB3074683",
 "KB3081424",
