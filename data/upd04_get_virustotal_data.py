@@ -70,6 +70,9 @@ def identify_virustotal_result(file_hash, virustotal_json):
         type_tag = virustotal_json['data']['attributes']['type_tag']
         if type_tag == 'neexe':
             return 'win16'
+
+        if type_tag not in ['peexe', 'pedll']:
+            print(f'WARNING: Unknown type_tag {type_tag} for {file_hash}')
     except KeyError:
         type_tag = None
 
@@ -87,19 +90,7 @@ def identify_virustotal_result(file_hash, virustotal_json):
         and 'signature_info' not in virustotal_json['data']['attributes']
     )
 
-    # Temporary log.
-    if missing_signature_info:
-        print(f'WARNING: signature_info is missing for {file_hash}')
-
-    # Warn about unexpected type_tag, and proceed anyway. Don't warn if both
-    # type_tag and PE info are missing as that's to be expected.
-    if type_tag is None:
-        if pe_info:
-            print(f'WARNING: type_tag is missing for {file_hash}')
-    elif type_tag not in ['peexe', 'pedll']:
-        print(f'WARNING: Unknown type_tag {type_tag} for {file_hash}')
-
-    if not pe_info or missing_signature_info:
+    if not type_tag or not pe_info or missing_signature_info:
         # VirusTotal often doesn't have PE information for large files.
         # https://twitter.com/sixtyvividtails/status/1697355272568643970
         if virustotal_json['data']['attributes']['size'] > 250000000:
