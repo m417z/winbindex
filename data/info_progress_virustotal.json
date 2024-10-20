@@ -1,22 +1,30 @@
 {
 "next": null,
 "next_updates": [
-"iscsidsc.dll",
-"a87f239a2aaf3b74d393debec7403c280b076c8b936ebcb4f3b40f2f8690d7ae"
+"jscript9.dll",
+"6bbe6f8f1f20e0109f4712a9655d8cd989a293fb2c3ecb46c2c17c5a93c68d94"
 ],
 "pending": {},
 "retry": [
 [
-"iprtrmgr.dll",
-"49a2da380660ca2bed8567a93cb088ddf73cc3c4e8656544e185f192af9cb68a"
+"iscsidsc.dll",
+"a87f239a2aaf3b74d393debec7403c280b076c8b936ebcb4f3b40f2f8690d7ae"
 ],
 [
-"iscsicli.exe",
-"4acdb2508029b9a1a68e392f44fcda95314d6c909da49c1809e664e1b56e3112"
+"iscsied.dll",
+"4e1fe85ed0446f50b33962acc2159e63c88cfbbaa2ba817f292e5e357f3b6552"
 ],
 [
-"iscsicli.exe",
-"a50fb99fd27e64282a9f6ad17723f8aea935a4248c620fc1dfcc33211fb92fb2"
+"iscsium.dll",
+"36e6cd6678e37a49cb60925dec24175232856290c78205708c671f5dfe2bb538"
+],
+[
+"iscsium.dll",
+"849475e9865b130ab13d2ce3b9bd2c694e9be450bc9314ae804fec504bb9e059"
+],
+[
+"iscsiwmiv2.dll",
+"49cac55c1ba0f168ea277be3a5bb4e6af2254ac711e795bb659aff126e3292ed"
 ]
 ],
 "updates": [
