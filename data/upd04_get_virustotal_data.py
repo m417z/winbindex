@@ -84,13 +84,23 @@ def identify_virustotal_result(file_hash, virustotal_json):
     except KeyError:
         pe_info = None
 
-    missing_signature_info = (
+    missing_version_info = (
         pe_info
-        and 'RT_VERSION' in pe_info.get('resource_types', [])
-        and 'signature_info' not in virustotal_json['data']['attributes']
+        and 'RT_VERSION' in pe_info.get('resource_types', {})
+        and not (
+            virustotal_json['data']['attributes'].get('signature_info', {}).keys()
+            & {
+                'copyright',
+                'description',
+                'file version',
+                'internal name',
+                'original name',
+                'product',
+            }
+        )
     )
 
-    if not type_tag or not pe_info or missing_signature_info:
+    if not type_tag or not pe_info or missing_version_info:
         # VirusTotal often doesn't have PE information for large files.
         # https://twitter.com/sixtyvividtails/status/1697355272568643970
         if virustotal_json['data']['attributes']['size'] > 250000000:
