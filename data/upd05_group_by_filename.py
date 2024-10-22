@@ -198,7 +198,7 @@ def update_file_info(existing_file_info, new_file_info, new_file_info_source):
     # temp {
     sha256 = new_file_info.get('sha256')
     if sha256 in [
-        '30c90d6b1583d1937709433f0ff9c246846387e074595c04e9d6d10370342b84',
+        'a8edbf0a76192aa7361149c68d117ea2aa2fb421bf2825b48953f3302399ec98',
     ]:
         assert sha256 == existing_file_info['sha256']
         if new_file_info == existing_file_info:
