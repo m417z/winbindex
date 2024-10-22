@@ -1,16 +1,11 @@
 {
 "next": null,
 "next_updates": [
-"ntdsa.dll",
-"8ff7133254821779f1187e46b7ad2a073015488d211fa2749744c062ebb7a850"
+"peprovider.dll",
+"b86d638010726d4447943f175297960ca4292b4aa2f4c8195b5214b0b514011a"
 ],
 "pending": {},
-"retry": [
-[
-"nltest.exe",
-"d850dcdb110ae18d93a97b272c92acbda71a52dbf516b3a852275248ce5e73ed"
-]
-],
+"retry": [],
 "updates": [
 "KB3074683",
 "KB3081424",
