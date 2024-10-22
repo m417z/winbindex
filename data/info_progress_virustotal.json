@@ -1,9 +1,6 @@
 {
 "next": null,
-"next_updates": [
-"peprovider.dll",
-"b86d638010726d4447943f175297960ca4292b4aa2f4c8195b5214b0b514011a"
-],
+"next_updates": null,
 "pending": {},
 "retry": [],
 "updates": [
@@ -1044,6 +1041,8 @@
 "KB5044273",
 "KB5044280",
 "KB5044285",
-"KB5044284"
+"KB5044284",
+"KB5045594",
+"KB5044380"
 ]
 }

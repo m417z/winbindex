@@ -742,6 +742,15 @@
             "releaseDate": "2024-10-08",
             "releaseVersion": "22621.4317",
             "updateUrl": "https://support.microsoft.com/help/5044285"
+        },
+        "KB5044380": {
+            "heading": "October 22, 2024&#x2014;KB5044380 (OS Builds 22621.4391 and 22631.4391) Preview",
+            "otherWindowsVersions": [
+                "11-23H2"
+            ],
+            "releaseDate": "2024-10-22",
+            "releaseVersion": "22621.4391",
+            "updateUrl": "https://support.microsoft.com/help/5044380"
         }
     },
     "11-24H2": {
@@ -6701,6 +6710,12 @@
             "releaseDate": "2024-09-24",
             "releaseVersion": "19045.4957",
             "updateUrl": "https://support.microsoft.com/help/5043131"
+        },
+        "KB5045594": {
+            "heading": "October 22, 2024&#x2014;KB5045594 (OS Build 19045.5073) Preview",
+            "releaseDate": "2024-10-22",
+            "releaseVersion": "19045.5073",
+            "updateUrl": "https://support.microsoft.com/help/5045594"
         }
     }
 }
