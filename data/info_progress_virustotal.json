@@ -1,11 +1,20 @@
 {
 "next": null,
 "next_updates": [
-"audioeng.dll",
-"3ddb7916b483d28d38ba8aca7f6c170aa88cb6ba2fa21e5e0f9b369421a695de"
+"bfe.dll",
+"5c819d1d09193fbe4f4b99370bb9c91c6b82be096842335d2dd1a139e394aded"
 ],
 "pending": {},
-"retry": [],
+"retry": [
+[
+"bcastdvr.proxy.dll",
+"934c4e27b166c9d7b236d7ee66796eecbc066ce9d071be9d7ce95f8f377ee13c"
+],
+[
+"bcryptprimitives.dll",
+"059a6b7fa444363f676d593eacef36aa2815e7616ef4861dc5d07b3073eee432"
+]
+],
 "updates": [
 "KB3074683",
 "KB3081424",
