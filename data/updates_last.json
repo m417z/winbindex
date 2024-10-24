@@ -807,6 +807,12 @@
             "releaseDate": "2024-10-08",
             "releaseVersion": "26100.2033",
             "updateUrl": "https://support.microsoft.com/help/5044284"
+        },
+        "KB5044384": {
+            "heading": "October 24, 2024&#x2014;KB5044384 (OS Build 26100.2161) Preview",
+            "releaseDate": "2024-10-24",
+            "releaseVersion": "26100.2161",
+            "updateUrl": "https://support.microsoft.com/help/5044384"
         }
     },
     "1507": {
