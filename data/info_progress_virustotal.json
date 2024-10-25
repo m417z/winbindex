@@ -1,16 +1,11 @@
 {
 "next": null,
 "next_updates": [
-"securityhealthhost.exe",
-"c8cc1d2a4892d081c858879754f27e1df0079e3d5b34666cc514874c352c55ce"
+"smdiagnostics.resources.dll",
+"e75f68a0c2c996b361bfd8a78ff329dc2f617185667d206c849c7aece173370e"
 ],
 "pending": {},
-"retry": [
-[
-"secureassessmentbrowser.exe",
-"116f89aa1fc7053598ec2681152a1fa065752787b62dc7c2df030859401900da"
-]
-],
+"retry": [],
 "updates": [
 "KB3074683",
 "KB3081424",
