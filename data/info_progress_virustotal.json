@@ -1,11 +1,16 @@
 {
 "next": null,
 "next_updates": [
-"smdiagnostics.resources.dll",
-"e75f68a0c2c996b361bfd8a78ff329dc2f617185667d206c849c7aece173370e"
+"system.core.resources.dll",
+"c98cd599411af32c131bd28e39d9e1a73d2281bbf8bb50bbcaafae888f2d46b5"
 ],
 "pending": {},
-"retry": [],
+"retry": [
+[
+"syncsharesrv.dll",
+"9e6826e59c3d56945728e9a0bf71f7b78792368e3c42450e8a069ccf19129e2e"
+]
+],
 "updates": [
 "KB3074683",
 "KB3081424",
