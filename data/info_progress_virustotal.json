@@ -1,14 +1,14 @@
 {
 "next": null,
 "next_updates": [
-"systemsettings.dll",
-"56a11898cd9a14c77b3e39ca38f38e6cd0b4be74f0fb8906eae3f33c710b34c8"
+"telemetry.common.dll",
+"f68f4e33450232713386e4293ebdcfc681ac331813eccf0417d815d45725e186"
 ],
 "pending": {},
 "retry": [
 [
-"system.xaml.resources.dll",
-"7da9df5e8abca7c7355b1eacc3446586861ba71194ecd775a0257a4ad8fa3854"
+"tdh.dll",
+"d9f6547eb4603b094c9af03e0297970bdb63ea576a07a35184ba5a7558e4c11a"
 ]
 ],
 "updates": [
