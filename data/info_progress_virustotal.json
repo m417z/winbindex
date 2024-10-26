@@ -1,14 +1,14 @@
 {
 "next": null,
 "next_updates": [
-"system.core.resources.dll",
-"c98cd599411af32c131bd28e39d9e1a73d2281bbf8bb50bbcaafae888f2d46b5"
+"systemsettings.dll",
+"56a11898cd9a14c77b3e39ca38f38e6cd0b4be74f0fb8906eae3f33c710b34c8"
 ],
 "pending": {},
 "retry": [
 [
-"syncsharesrv.dll",
-"9e6826e59c3d56945728e9a0bf71f7b78792368e3c42450e8a069ccf19129e2e"
+"system.xaml.resources.dll",
+"7da9df5e8abca7c7355b1eacc3446586861ba71194ecd775a0257a4ad8fa3854"
 ]
 ],
 "updates": [
