@@ -1,14 +1,14 @@
 {
 "next": null,
 "next_updates": [
-"thumbnailextractionhost.exe",
-"b819cdaa229b534b6ef9a5325bcec01f2950b057d3d221d4de2ecfd32c554448"
+"twinapi.appcore.dll",
+"013fa3224f16d096875a95d6a28bfb3186da4615429179e55f48c826e44858e0"
 ],
 "pending": {},
 "retry": [
 [
-"textinputframework.dll",
-"8d693a5697d66f9ccce8d18cd36f7be939e0a91107bf5464b03cffd9f077f183"
+"tserrredir.dll",
+"79eeab07fdc2e294beab97524135365e5bc7b791d0b94411c85b60522ce1cb07"
 ]
 ],
 "updates": [
