@@ -1,16 +1,11 @@
 {
 "next": null,
 "next_updates": [
-"twinapi.appcore.dll",
-"013fa3224f16d096875a95d6a28bfb3186da4615429179e55f48c826e44858e0"
+"unires.dll",
+"997cd960be4ddea95adb6286181651f48cacbb53046582e9c6bf2aabfebf24f1"
 ],
 "pending": {},
-"retry": [
-[
-"tserrredir.dll",
-"79eeab07fdc2e294beab97524135365e5bc7b791d0b94411c85b60522ce1cb07"
-]
-],
+"retry": [],
 "updates": [
 "KB3074683",
 "KB3081424",
