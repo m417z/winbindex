@@ -1,14 +1,14 @@
 {
 "next": null,
 "next_updates": [
-"telemetry.common.dll",
-"f68f4e33450232713386e4293ebdcfc681ac331813eccf0417d815d45725e186"
+"thumbnailextractionhost.exe",
+"b819cdaa229b534b6ef9a5325bcec01f2950b057d3d221d4de2ecfd32c554448"
 ],
 "pending": {},
 "retry": [
 [
-"tdh.dll",
-"d9f6547eb4603b094c9af03e0297970bdb63ea576a07a35184ba5a7558e4c11a"
+"textinputframework.dll",
+"8d693a5697d66f9ccce8d18cd36f7be939e0a91107bf5464b03cffd9f077f183"
 ]
 ],
 "updates": [
