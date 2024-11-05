@@ -4,10 +4,6 @@
 "pending": {},
 "retry": [
 [
-"hdaudbus.sys",
-"750ae55a8d1cc722616c16fe1a956bc47ba7adb49cbacbf5dc40d14b091a09d3"
-],
-[
 "ksthunk.sys",
 "73c3482795e99919875ba2aacac127814fe71ac387f005d798ed724ddd85380c"
 ]
