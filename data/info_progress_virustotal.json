@@ -2,11 +2,6 @@
 "next": null,
 "next_updates": null,
 "pending": {},
-"retry": [
-[
-"wscapi.dll",
-"a9e84e8e68519374866b7b4c0fdb469b5f3b03802ed6886c5f0efbf198760d18"
-]
-],
+"retry": [],
 "updates": null
 }
