@@ -2,6 +2,11 @@
 "next": null,
 "next_updates": null,
 "pending": {},
-"retry": [],
+"retry": [
+[
+"photoacq.dll",
+"eed10795b734cc6ec22430887e8d7137d9a253567d77c06301d77a6bae556765"
+]
+],
 "updates": null
 }
