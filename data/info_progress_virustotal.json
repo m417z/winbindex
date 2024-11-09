@@ -4,8 +4,12 @@
 "pending": {},
 "retry": [
 [
-"photoacq.dll",
-"eed10795b734cc6ec22430887e8d7137d9a253567d77c06301d77a6bae556765"
+"dafescl.dll",
+"3b242ce0766a95732e6682bc0340e5000e6c2c6ea7d1f38dde7b01cb8b5193a4"
+],
+[
+"hvix64.exe",
+"5ff2db18caf8b1da38e6c1fd431d019a967e4874bd43251cb4205a53722c04bb"
 ]
 ],
 "updates": null
