@@ -1618,6 +1618,12 @@
             "releaseDate": "2024-10-08",
             "releaseVersion": "10240.20796",
             "updateUrl": "https://support.microsoft.com/help/5044286"
+        },
+        "KB5046665": {
+            "heading": "November 12, 2024-KB5046665 (OS Build 10240.20826)",
+            "releaseDate": "2024-11-12",
+            "releaseVersion": "10240.20826",
+            "updateUrl": "https://support.microsoft.com/help/5046665"
         }
     },
     "1511": {
