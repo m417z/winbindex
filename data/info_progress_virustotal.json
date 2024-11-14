@@ -4,12 +4,12 @@
 "pending": {},
 "retry": [
 [
-"launchwinapp.exe",
-"6da23ef48e89f88d53fdae7fa99b4768eda1bd87b5b2665d11c36721bda3fd62"
+"cmservice.dll",
+"e02e38b7b8a3bf486b63fb4629bd637aa479a0b4a12c6863f432c6f720340c1b"
 ],
 [
-"windowscodecs.dll",
-"291d0c3e48a47c4e1949ec5eba2d11218e636232cd24b4e564ba1551c95822fb"
+"icm32.dll",
+"05d3e9ec9c5810f1a441c6c4c54d1fc1f1ea0757296844e5ef64cb1cc4b61a15"
 ]
 ],
 "updates": null
