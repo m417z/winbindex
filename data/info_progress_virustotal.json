@@ -2,6 +2,47 @@
 "next": null,
 "next_updates": null,
 "pending": {},
-"retry": [],
+"retry": [
+[
+"cbscore.dll",
+"60c81c798fedfb8b9fd11dfbcb2aa8c55a2917817cb4f2e473307f279def416b"
+],
+[
+"dpx.dll",
+"5b06f284a4055de38f4d9eb7116d3c04661ff2dd9f3f2e5945f7d3bdf2872ed2"
+],
+[
+"extendedsecurityupdatesai.dll",
+"c73acc0142abac418af96dc2b5b2da06d79a7a8159169512d4bcb419957041fd"
+],
+[
+"icm32.dll",
+"3f81e98c86e9572d799f098c20f441a70dcffebd7604227e1f013153f3b77038"
+],
+[
+"mdmdiagnostics.dll",
+"5e3381cea600a17fab70770966fa40c4593c9ccbc33dc658171b5d2a5eab191a"
+],
+[
+"poqexec.exe",
+"b1f490fa3fbc71bcc3c3c04b0d25e7ea53baa5726bd430afc299d220cae2d3e2"
+],
+[
+"settingshandlers_storage.dll",
+"11f37607f3f1b63dd5dd302d714dffde8418bf38881f4696b4e903697521993a"
+],
+[
+"wcp.dll",
+"4aa92d7c446c38bf59c712d0a72d54881084c41f9bc281b7a7e802ffc79cccfa"
+],
+[
+"webauthn.dll",
+"f5bd30e526373bd1aa48da359f2f5deb2a2baef2fea2db9500372e3d0e4e32c1"
+],
+[
+"wmiutils.dll",
+"2ebe566c98df7665e38b0b3915d6b8e65e82502866cd68b83e7f609638c5477c"
+]
+],
 "updates": null
 }
