@@ -2,6 +2,15 @@
 "next": null,
 "next_updates": null,
 "pending": {},
-"retry": [],
+"retry": [
+[
+"tdh.dll",
+"2682133b4724bcc50fd22efff26948621d9589511ce7889abcc6b1b6e3bc5f11"
+],
+[
+"version.dll",
+"1ce8229c256717ab1924cc7535f29b635331fdd0fc422cb037d7e9124345b427"
+]
+],
 "updates": null
 }
