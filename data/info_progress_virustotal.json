@@ -4,17 +4,9 @@
 "pending": {},
 "retry": [
 [
-"tdh.dll",
-"2682133b4724bcc50fd22efff26948621d9589511ce7889abcc6b1b6e3bc5f11"
-],
-[
-"version.dll",
-"1ce8229c256717ab1924cc7535f29b635331fdd0fc422cb037d7e9124345b427"
+"msinfo32.exe",
+"843ef47ef42bb433bd2336a722af87dd7143405b9c44f8b2bd157f32ba768b13"
 ]
 ],
-"updates": [
-"KB5046714",
-"KB5046732",
-"KB5046740"
-]
+"updates": null
 }
