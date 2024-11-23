@@ -4,8 +4,28 @@
 "pending": {},
 "retry": [
 [
-"msinfo32.exe",
-"843ef47ef42bb433bd2336a722af87dd7143405b9c44f8b2bd157f32ba768b13"
+"apphelp.dll",
+"846233dbb8ba9ec7ac24d84a9104512358ea3453667af63e39c5aa18f342a1ef"
+],
+[
+"dismprov.dll",
+"d5b535b654ef3ed0faaf9771a84f283821c1fc5349e7c20f5110e73442414759"
+],
+[
+"logprovider.dll",
+"81ca3e3efef367b6d4ef4e01b455143103c113a7bfb065209de20c0900e098db"
+],
+[
+"propsys.dll",
+"a0472dfbd2c7275524ea4715c9eac4dd692d7aea8b14e7eb1f4f94c20323cf0e"
+],
+[
+"setupcompat.dll",
+"0ee13778e2f1999f19ebdad44fc914c35f58b0049df7f01bc065c28bae72d513"
+],
+[
+"tbauth.dll",
+"6fd9220912bc6274edc3f6e2800e2ee311d7f5ae5ba096cb297df91f054daf7f"
 ]
 ],
 "updates": null
