@@ -4,12 +4,8 @@
 "pending": {},
 "retry": [
 [
-"mfcore.dll",
-"4f410ac778a1ebcf1dcba9d7f66ba8bcc2707debfe1453a878a4ad192d138ed2"
-],
-[
-"vsgraphicsremoteengine.exe",
-"57b3c77a1a1fbdfc497ebc113a21c26482253e7957b7a10081a3ade3818baf22"
+"searchindexercore.dll",
+"1195c88830ac8efc156c7b4917775bf3f9f55130e4e1c13c39b482993285eacb"
 ]
 ],
 "updates": null
