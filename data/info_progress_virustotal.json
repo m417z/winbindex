@@ -4,8 +4,12 @@
 "pending": {},
 "retry": [
 [
-"searchindexercore.dll",
-"1195c88830ac8efc156c7b4917775bf3f9f55130e4e1c13c39b482993285eacb"
+"cloudexperiencehostbroker.dll",
+"d1d51e28746750309804d0bb99b2b9a998082d99979eca410e9f5823a2b6e435"
+],
+[
+"settingshandlers_backup.dll",
+"2f426f56009545687c8b141bae884e3935080c487d9cce52a98f90b6bcba0ee0"
 ]
 ],
 "updates": null
