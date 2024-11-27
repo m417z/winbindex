@@ -4,12 +4,8 @@
 "pending": {},
 "retry": [
 [
-"cloudexperiencehostbroker.dll",
-"d1d51e28746750309804d0bb99b2b9a998082d99979eca410e9f5823a2b6e435"
-],
-[
-"settingshandlers_backup.dll",
-"2f426f56009545687c8b141bae884e3935080c487d9cce52a98f90b6bcba0ee0"
+"sensorshid.dll",
+"e9eb4e8ed357f67a8162e5e51fbafe67220d9131127c0bb42b5c379dc41c7484"
 ]
 ],
 "updates": null
