@@ -4,8 +4,20 @@
 "pending": {},
 "retry": [
 [
-"sensorshid.dll",
-"e9eb4e8ed357f67a8162e5e51fbafe67220d9131127c0bb42b5c379dc41c7484"
+"faceprocessor.dll",
+"183ce9707b9dd8a093905785864c047446d2b262dc6b17e5592840ac183be751"
+],
+[
+"msftedit.dll",
+"49ecf661c7357a0f77fc42a72e9e64a991264bf5671ac2f31d5d2af08f4979c7"
+],
+[
+"mstscax.dll",
+"b7e9f81dce41e241eed67152675a4c0b26de6d1bfefceb50d666caa9ccee518c"
+],
+[
+"tiptsf.dll",
+"9babb81b076873666ae1114bb8092474dc09e108923b568ca3cb5bc1cf6ab3a5"
 ]
 ],
 "updates": null
