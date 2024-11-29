@@ -4,20 +4,16 @@
 "pending": {},
 "retry": [
 [
-"faceprocessor.dll",
-"183ce9707b9dd8a093905785864c047446d2b262dc6b17e5592840ac183be751"
+"dafgip.dll",
+"16971079b85b2f3802f07aed7b374d45d67bd3c00091ea951b756da6daa1116f"
 ],
 [
-"msftedit.dll",
-"49ecf661c7357a0f77fc42a72e9e64a991264bf5671ac2f31d5d2af08f4979c7"
+"devicemetadataretrievalclient.dll",
+"7354154c35e0773bb4fb7034ec6d2a7252e9acd0219dfcefb47ef02d73021623"
 ],
 [
-"mstscax.dll",
-"b7e9f81dce41e241eed67152675a4c0b26de6d1bfefceb50d666caa9ccee518c"
-],
-[
-"tiptsf.dll",
-"9babb81b076873666ae1114bb8092474dc09e108923b568ca3cb5bc1cf6ab3a5"
+"prnntfy.dll",
+"7ebd08517d150dd61eaca604b5fed2bcbec0acb8799e0b72707ee923a14479b7"
 ]
 ],
 "updates": null
