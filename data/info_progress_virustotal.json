@@ -4,16 +4,8 @@
 "pending": {},
 "retry": [
 [
-"dafgip.dll",
-"16971079b85b2f3802f07aed7b374d45d67bd3c00091ea951b756da6daa1116f"
-],
-[
-"devicemetadataretrievalclient.dll",
-"7354154c35e0773bb4fb7034ec6d2a7252e9acd0219dfcefb47ef02d73021623"
-],
-[
-"prnntfy.dll",
-"7ebd08517d150dd61eaca604b5fed2bcbec0acb8799e0b72707ee923a14479b7"
+"windows.internal.graphics.display.displaycolormanagement.dll",
+"f49e6ac3ab9c8124adf266ff136697cf93ba1325503585534a7d883d20859664"
 ]
 ],
 "updates": null
