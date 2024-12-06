@@ -158,14 +158,14 @@ def extract_update_files(local_dir: Path, local_path: Path, windows_version: str
         # New cab files fail to be extracted with the older system expand tool,
         # and old cab files fail to be extracted with the newer expand tool.
         expand = 'tools/expand/expand.exe' if windows_version.startswith('11-') else 'expand.exe'
-        args = [expand, '-r', f'-f:*', from_file, to_dir]
+        args = [expand, '-r', '-f:*', from_file, to_dir]
         subprocess.check_call(args, stdout=None if config.verbose_run else subprocess.DEVNULL)
 
     def run_7z_extract(from_file: Path, to_dir: Path):
         args = ['7z.exe', 'x', from_file, f'-o{to_dir}', '-y']
         subprocess.check_call(args, stdout=None if config.verbose_run else subprocess.DEVNULL)
 
-    def psf_extract(from_file: Path, to_dir: Path):
+    def psf_extract(from_file: Path, to_dir: Path, delete=False):
         # Extract delta files from the PSF file which can be found in Windows 11
         # updates. References:
         # https://www.betaarchive.com/forum/viewtopic.php?t=43163
@@ -174,14 +174,16 @@ def extract_update_files(local_dir: Path, local_path: Path, windows_version: str
         if not description_file.exists():
             cab_file = from_file.with_suffix('.cab')
             wim_file = from_file.with_suffix('.wim')
-            if cab_file.exists():
-                assert not wim_file.exists()
+            if cab_file.exists() and wim_file.exists():
+                raise Exception(f'PSF description ambiguity: {from_file}')
+            elif cab_file.exists():
                 cab_extract(cab_file, to_dir)
-                cab_file.unlink()
+                if delete:
+                    cab_file.unlink()
             elif wim_file.exists():
-                assert not cab_file.exists()
                 run_7z_extract(wim_file, to_dir)
-                wim_file.unlink()
+                if delete:
+                    wim_file.unlink()
             else:
                 raise Exception(f'PSF description file not found: {from_file}')
 
@@ -189,6 +191,9 @@ def extract_update_files(local_dir: Path, local_path: Path, windows_version: str
 
         args = ['tools/PSFExtractor.exe', '-v2', from_file, description_file, to_dir]
         subprocess.check_call(args, stdout=None if config.verbose_run else subprocess.DEVNULL)
+
+        if delete:
+            from_file.unlink()
 
     first_unhandled_extract_dir_num = 1
     next_extract_dir_num = 1
@@ -217,8 +222,7 @@ def extract_update_files(local_dir: Path, local_path: Path, windows_version: str
         extract_dir = local_dir.joinpath(f'_extract_{next_extract_dir_num}')
         print(f'Extracting {p} to {extract_dir}')
         next_extract_dir_num += 1
-        psf_extract(p, extract_dir)
-        p.unlink()
+        psf_extract(p, extract_dir, delete=True)
 
     # Extract all files from all cab files until no more cab files can be found.
     while first_unhandled_extract_dir_num < next_extract_dir_num:
@@ -239,7 +243,8 @@ def extract_update_files(local_dir: Path, local_path: Path, windows_version: str
     for extract_dir in local_dir.glob('_extract_*'):
         def ignore_files(path, names):
             source_dir = Path(path)
-            destination_dir = local_dir.joinpath(Path(path).relative_to(extract_dir))
+            relative_dir = source_dir.relative_to(extract_dir)
+            destination_dir = local_dir.joinpath(relative_dir)
 
             ignore = []
             for name in names:
@@ -268,9 +273,9 @@ def extract_update_files(local_dir: Path, local_path: Path, windows_version: str
         shutil.rmtree(extract_dir)
 
     # Make sure there are no archive files left.
-    for p in local_dir.glob('*'):
-        if p.suffix in {'.msu', '.cab', '.psf', '.wim'}:
-            raise Exception(f'Unexpected archive file left: {p}')
+    archives_left = [p for p in local_dir.glob('*') if p.suffix in {'.cab', '.psf', '.wim', '.msu', '.esd'}]
+    if archives_left:
+        raise Exception(f'Unexpected archive files left: {archives_left}')
 
     # Unpack null differential files.
     for file in local_dir.glob('*/n/**/*'):
