@@ -58,7 +58,7 @@ def consolidate_overlapping_updates(updates):
             del updates[windows_version]
 
 
-def get_updates_from_microsoft_support_for_version(windows_major_version, url):
+def get_updates_from_microsoft_support_for_version(windows_major_version, url, page_format):
     while True:
         try:
             request = requests.get(url)
@@ -71,32 +71,61 @@ def get_updates_from_microsoft_support_for_version(windows_major_version, url):
 
     html = request.text
 
-    p = (
-        r'<div [^>]*\bid="supLeftNav"[^>]*>'
-        r'([\s\S]*?)'
-        r'</div>\s*'
-        r'<main [^>]*\bid="supArticleContent"[^>]*>'
-    )
-    updates_navigation_links = re.findall(p, html)
+    # The support pages exist in two layouts, selected by page_format: 'new' uses
+    # 'learnRender*' class names for the left navigation and slug-based article URLs,
+    # 'old' uses 'sup*' names and '/help/<id>' URLs.
+    if page_format == 'new':
+        navigation_p = (
+            r'<div [^>]*\bid="learnRenderLeftNav"[^>]*>'
+            r'([\s\S]*?)'
+            r'<main [^>]*\bid="supMainContent"[^>]*>'
+        )
+        section_p = (
+            r'<div class="learnRenderLeftNavCategoryTitle">\s*<a [^>]*>(.*?)</a>\s*</div>\s*'
+            r'<ul class="learnRenderLeftNavArticles[^"]*">([\s\S]*?)</ul>'
+        )
+        item_anchor_p = r'<a href="([^"]*)" class="learnRenderLeftNavLink" data-bi-slot="\d+"[^>]*>'
+        # Key: URL to skip, value: URL containing the same update.
+        windows_update_urls_to_skip = {
+            '1511': {
+                '../../2016/11/november-14-2016-kb3198586-os-build-10586-682':
+                    '../../2016/11/november-8-2016-kb3198586-os-build-10586-679',  # KB3198586
+            },
+            '1607': {
+                '../../2016/11/november-9-2016-kb3200970-os-build-14393-448':
+                    '../../2016/11/november-8-2016-kb3200970-os-build-14393-447',  # KB3200970
+            },
+        }
+    elif page_format == 'old':
+        navigation_p = (
+            r'<div [^>]*\bid="supLeftNav"[^>]*>'
+            r'([\s\S]*?)'
+            r'</div>\s*'
+            r'<main [^>]*\bid="supArticleContent"[^>]*>'
+        )
+        section_p = (
+            r'<div class="supLeftNavCategoryTitle">\s*<a [^>]*>(.*?)</a>\s*</div>\s*'
+            r'<ul class="supLeftNavArticles">([\s\S]*?)</ul>'
+        )
+        item_anchor_p = r'<a class="supLeftNavLink" data-bi-slot="\d+"[^>]* href="/en-us(/help/\d+)">'
+        # Key: URL to skip, value: URL containing the same update.
+        windows_update_urls_to_skip = {
+            '1511': {
+                '/help/4001884': '/help/4001883',  # KB3198586
+            },
+            '1607': {
+                '/help/4001886': '/help/4001885',  # KB3200970
+            },
+        }
+    else:
+        raise ValueError(f'Unknown page format: {page_format!r}')
+
+    updates_navigation_links = re.findall(navigation_p, html)
     assert len(updates_navigation_links) == 1
     updates_navigation_links = updates_navigation_links[0]
 
-    p = (
-        r'<div class="supLeftNavCategoryTitle">\s*<a [^>]*>(.*?)</a>\s*</div>\s*'
-        r'<ul class="supLeftNavArticles">([\s\S]*?)</ul>'
-    )
-    updates_section_match = re.findall(p, updates_navigation_links)
+    updates_section_match = re.findall(section_p, updates_navigation_links)
     assert len(updates_section_match) > 0
-
-    # Key: URL to skip, value: URL containing the same update.
-    windows_update_urls_to_skip = {
-        '1511': {
-            '/help/4001884': '/help/4001883',  # KB3198586
-        },
-        '1607': {
-            '/help/4001886': '/help/4001885',  # KB3200970
-        },
-    }
 
     all_updates = {}
     for windows_version_title, updates_section in updates_section_match:
@@ -160,7 +189,7 @@ def get_updates_from_microsoft_support_for_version(windows_major_version, url):
         elif windows_major_version == 11:
             updates_section = re.sub(r'<a [^>]*>Windows 11, version \w+\s*</a>', '', updates_section, flags=re.IGNORECASE)
 
-        p = r'<a class="supLeftNavLink" data-bi-slot="\d+" href="/en-us(/help/\d+)">((\w+) (\d+), (\d+) ?(?:&#x2014;|-) ?KB(\d{7})(?: Update for Windows 10 Mobile|: Windows 10, version \w+)? \(OS Builds? .+?\).*?)</a>'
+        p = item_anchor_p + r'((\w+) (\d+), (\d+) ?(?:\u2014|&#x2014;|-) ?KB(\d{7})(?: Update for Windows 10 Mobile|:? ?Windows 10, version \w+)? \(OS Builds? .+?\).*?)</a>'
         items = re.findall(p, updates_section)
         assert len(items) == len(re.findall('<a ', updates_section)), windows_version
 
@@ -183,7 +212,7 @@ def get_updates_from_microsoft_support_for_version(windows_major_version, url):
             os_build = match[1]
 
             update_to_append = {
-                'updateUrl': 'https://support.microsoft.com' + url,
+                'updateUrl': 'https://support.microsoft.com/help/' + kb_number,
                 'releaseDate': full_date,
                 'releaseVersion': os_build,
                 'heading': heading
@@ -237,8 +266,35 @@ def get_updates_from_microsoft_support_for_version(windows_major_version, url):
 
 
 def get_updates_from_microsoft_support():
-    win10_updates = get_updates_from_microsoft_support_for_version(10, 'https://support.microsoft.com/en-us/help/4000823')
-    win11_updates = get_updates_from_microsoft_support_for_version(11, 'https://support.microsoft.com/en-us/help/5006099')
+    def merge_updates_asserting_equal(updates_a, updates_b):
+        # Combine two scrapes of the same data. updates_a takes precedence; where an
+        # update appears in both, the fields that don't depend on HTML formatting must
+        # match. The 'heading' is not compared: the layouts render it differently (e.g.
+        # a literal em dash versus the &#x2014; entity).
+        for windows_version in updates_b:
+            version_updates_a = updates_a.setdefault(windows_version, {})
+            for update_kb, update_b in updates_b[windows_version].items():
+                update_a = version_updates_a.get(update_kb)
+                if update_a is None:
+                    version_updates_a[update_kb] = update_b
+                    continue
+
+                assert update_a['updateUrl'] == update_b['updateUrl'], (windows_version, update_kb)
+                assert update_a['releaseDate'] == update_b['releaseDate'], (windows_version, update_kb)
+                p = r'^\d+\.'
+                assert re.sub(p, '', update_a['releaseVersion']) == re.sub(p, '', update_b['releaseVersion']), (
+                    windows_version, update_kb, update_a['releaseVersion'], update_b['releaseVersion'])
+
+    # The Windows 10 update history index page uses the new layout, while older
+    # per-update article pages still use the old layout. Their sidebars list
+    # overlapping but not identical sets of updates (the old one still includes
+    # Windows 10 Mobile and some older updates dropped from the new one, while the
+    # new one has the latest updates), so combine both, letting the new layout win.
+    win10_updates = get_updates_from_microsoft_support_for_version(10, 'https://support.microsoft.com/en-us/help/4000823', 'new')
+    win10_updates_old_layout = get_updates_from_microsoft_support_for_version(10, 'https://support.microsoft.com/help/4052314', 'old')
+    merge_updates_asserting_equal(win10_updates, win10_updates_old_layout)
+
+    win11_updates = get_updates_from_microsoft_support_for_version(11, 'https://support.microsoft.com/en-us/help/5006099', 'new')
     return {**win10_updates, **win11_updates}
 
 
