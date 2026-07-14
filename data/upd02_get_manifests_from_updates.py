@@ -167,7 +167,7 @@ def extract_update_files(local_dir: Path, local_path: Path, windows_version: str
         args = [expand, '-r', '-f:*', from_file, to_dir]
         result = subprocess.call(args, stdout=None if config.verbose_run else subprocess.DEVNULL)
         if result != 0:
-            if from_file.name == "Cab_1_for_KB5082198.cab":
+            if from_file.name in ["Cab_1_for_KB5082198.cab", "Cab_2_for_KB5099535.cab"]:
                 # This specific file extraction fails with error 0x80070302
                 # (ERROR_CANTFETCHBACKWARDS). It seems that the single file that
                 # fails to be extracted is:
