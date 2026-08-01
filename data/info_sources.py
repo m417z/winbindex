@@ -3,6 +3,9 @@ import json
 
 import config
 
+# The names are split into a file per bucket to keep the individual files small.
+BUCKETS = [f'{bucket:02x}' for bucket in range(0x100)]
+
 
 class InfoSource(StrEnum):
     """Where the information about a file comes from, declared from the least to the most informative."""
@@ -29,31 +32,49 @@ def best_source(old: InfoSource | None, new: InfoSource) -> InfoSource:
 
 
 class InfoSources:
-    """The info source of every known file hash, stored as info_sources.json."""
+    """The info source of every known file hash, stored in the info_sources folder."""
 
     def __init__(self, sources_by_name: dict[str, dict[str, InfoSource]]):
         self.sources_by_name = sources_by_name
 
     @staticmethod
     def path():
-        return config.out_path.joinpath('info_sources.json')
+        return config.out_path.joinpath('info_sources')
+
+    @classmethod
+    def bucket_path(cls, bucket: str):
+        return cls.path().joinpath(f'{bucket}.json')
 
     @classmethod
     def load(cls) -> 'InfoSources':
         """Load the stored data, defaulting to no known files if nothing was stored yet."""
-        path = cls.path()
-        if not path.is_file():
-            return cls({})
+        sources_by_name = {}
 
-        with open(path, 'r') as f:
-            stored = json.load(f)
+        for bucket in BUCKETS:
+            path = cls.bucket_path(bucket)
+            if not path.is_file():
+                continue
 
-        return cls({name: {file_hash: InfoSource(source) for file_hash, source in file_sources.items()}
-                    for name, file_sources in stored.items()})
+            with open(path, 'r') as f:
+                stored = json.load(f)
+
+            for name in stored:
+                sources_by_name[name] = {file_hash: InfoSource(source)
+                                         for file_hash, source in stored[name].items()}
+
+        return cls(sources_by_name)
 
     def save(self):
-        with open(self.path(), 'w') as f:
-            json.dump(self.sources_by_name, f, indent=0, sort_keys=True)
+        self.path().mkdir(parents=True, exist_ok=True)
+
+        sources_by_bucket = {bucket: {} for bucket in BUCKETS}
+
+        for name in self.sources_by_name:
+            sources_by_bucket[config.filename_bucket(name)][name] = self.sources_by_name[name]
+
+        for bucket in BUCKETS:
+            with open(self.bucket_path(bucket), 'w') as f:
+                json.dump(sources_by_bucket[bucket], f, indent=0, sort_keys=True)
 
     def names(self):
         return self.sources_by_name.keys()

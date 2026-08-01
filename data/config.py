@@ -6,6 +6,17 @@ index_of_hashes_title = 'Winbindex x64 Hashes'
 index_of_hashes_out_path =  out_path / '..' / 'hashes'
 
 
+def djb2_hash(s: str) -> int:
+    h = 5381
+    for c in s:
+        h = ((h << 5) + h + ord(c)) & 0xFFFFFFFF
+    return h
+
+
+def filename_bucket(filename: str) -> str:
+    return f"{djb2_hash(filename) & 0xFF:02x}"
+
+
 def compressed_filename_path(filename: str) -> Path:
     return out_path / 'by_filename_compressed' / (filename + '.json.gz')
 
