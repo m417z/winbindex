@@ -14,6 +14,7 @@ from upd03_parse_manifests import main as upd03_parse_manifests
 from upd04_get_virustotal_data import main as upd04_get_virustotal_data
 from upd05_group_by_filename import main as upd05_group_by_filename
 from symbol_server_link_enumerate import main as symbol_server_link_enumerate
+from info_sources import InfoSource, InfoSources
 import config
 
 deploy_start_time = datetime.now()
@@ -362,8 +363,7 @@ def build_html_index_of_hashes():
 
         return html
 
-    with open(config.out_path.joinpath('info_sources.json'), 'r') as f:
-        info_sources = json.load(f)
+    info_sources = InfoSources.load()
 
     output_dir = config.index_of_hashes_out_path
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -373,7 +373,7 @@ def build_html_index_of_hashes():
 
     html_content_main += '<h3>Files</h3>\n'
     html_content_main += '<div>\n'
-    for name in sorted(info_sources):
+    for name in sorted(info_sources.names()):
         html_content_main += f'<div><a href="{html.escape(name)}.html">{html.escape(name)}</a><div>\n'
     html_content_main += '</div>\n'
 
@@ -386,9 +386,9 @@ def build_html_index_of_hashes():
         html_content = make_hash_links(prefix_without_link=prefix)
 
         html_content += '<div>\n'
-        for name in sorted(info_sources):
+        for name in sorted(info_sources.names()):
             html_code_hashes = ''
-            for file_hash in sorted(info_sources[name]):
+            for file_hash in sorted(info_sources.file_hashes(name)):
                 if file_hash.startswith(prefix_str):
                     html_code_hashes += '<p>' + file_hash + '\n'
 
@@ -401,13 +401,13 @@ def build_html_index_of_hashes():
         with open(output_dir.joinpath(f'{prefix_str}.html'), 'w') as f:
             write_html(f, html_content, title=prefix_str)
 
-    for name in sorted(info_sources):
+    for name in sorted(info_sources.names()):
         html_content = '<h3>Hashes</h3>\n'
         html_content += make_hash_links()
 
         html_content += f'<h3>{html.escape(name)}</h3>\n'
         html_content += '<div>\n'
-        for file_hash in sorted(info_sources[name]):
+        for file_hash in sorted(info_sources.file_hashes(name)):
             html_content += '<p>' + file_hash + '\n'
         html_content += '</p>\n'
         html_content += '</div>\n'
@@ -417,47 +417,32 @@ def build_html_index_of_hashes():
 
 
 def update_readme_stats():
-    with open(config.out_path.joinpath('info_sources.json'), 'r') as f:
-        info_sources = json.load(f)
+    info_sources = InfoSources.load()
 
-    files_total = 0
-    files_by_status = {
-        'none': 0,
-        'delta': 0,
-        'delta+': 0,
-        'pe': 0,
-        'vt': 0,
-        'file': 0,
-    }
-
-    for name in info_sources:
-        file_hashes = info_sources[name]
-        for file_hash in file_hashes:
-            file_status = file_hashes[file_hash]
-            files_total += 1
-            files_by_status[file_status] += 1
+    files_by_status = info_sources.count_by_source()
+    files_total = sum(files_by_status.values())
 
     stats = f'Total amount of supported PE files: {files_total:,}\n'
     stats += f'\n'
-    stats += f'* No information: {files_by_status["none"]:,}\n'
-    stats += f'* Delta file information (multiple links): {files_by_status["delta"]:,}\n'
-    stats += f'* Delta file information: {files_by_status["delta+"]:,}\n'
-    stats += f'* PE file information: {files_by_status["pe"]:,}\n'
-    stats += f'* Full information (VirusTotal): {files_by_status["vt"]:,}\n'
-    stats += f'* Full information (file): {files_by_status["file"]:,}\n'
+    stats += f'* No information: {files_by_status[InfoSource.NONE]:,}\n'
+    stats += f'* Delta file information (multiple links): {files_by_status[InfoSource.DELTA]:,}\n'
+    stats += f'* Delta file information: {files_by_status[InfoSource.DELTA_PLUS]:,}\n'
+    stats += f'* PE file information: {files_by_status[InfoSource.PE]:,}\n'
+    stats += f'* Full information (VirusTotal): {files_by_status[InfoSource.VT]:,}\n'
+    stats += f'* Full information (file): {files_by_status[InfoSource.FILE]:,}\n'
     stats += f'\n'
 
     if files_total > 0:
         stats += f'Some stats:\n'
         stats += f'\n'
 
-        files_count = files_total - files_by_status['none']
+        files_count = files_total - files_by_status[InfoSource.NONE]
         stats += f'* {100 * files_count / files_total:.1f}% of files with a link\n'
 
-        files_count = files_total - files_by_status['none'] - files_by_status['delta']
+        files_count = files_total - files_by_status[InfoSource.NONE] - files_by_status[InfoSource.DELTA]
         stats += f'* {100 * files_count / files_total:.1f}% of files with a single link\n'
 
-        files_count = files_by_status['pe'] + files_by_status['vt'] + files_by_status['file']
+        files_count = files_by_status[InfoSource.PE] + files_by_status[InfoSource.VT] + files_by_status[InfoSource.FILE]
         stats += f'* {100 * files_count / files_total:.1f}% of files with full information\n'
 
     with open(config.out_path.joinpath('README.md'), 'r') as f:

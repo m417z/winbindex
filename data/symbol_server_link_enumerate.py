@@ -7,6 +7,7 @@ import orjson
 import json
 import time
 
+from info_sources import InfoSource, InfoSources
 import config
 
 
@@ -181,12 +182,7 @@ def get_symbol_server_links_for_files(names_and_hashes, session, time_to_stop):
 
 
 def main(time_to_stop=None):
-    info_sources_path = config.out_path.joinpath('info_sources.json')
-    if info_sources_path.is_file():
-        with open(info_sources_path, 'r') as f:
-            info_sources = json.load(f)
-    else:
-        info_sources = {}
+    info_sources = InfoSources.load()
 
     info_progress_symbol_server_path = config.out_path.joinpath('info_progress_symbol_server.json')
     if info_progress_symbol_server_path.is_file():
@@ -205,11 +201,7 @@ def main(time_to_stop=None):
 
     # Get names and hashes of all PE files with multiple links.
     names_and_hashes = []
-    for name in info_sources.keys():
-        file_hashes = set(hash for hash in info_sources[name] if info_sources[name][hash] == 'delta')
-        if not file_hashes:
-            continue
-
+    for name, file_hashes in info_sources.get_file_hashes_by_source([InfoSource.DELTA]).items():
         if progress_updates is not None:
             file_hashes &= get_file_hashes_of_updates(name, progress_updates)
 
@@ -239,11 +231,10 @@ def main(time_to_stop=None):
 
     # Update status of files for which full information was found.
     for name, hash in result['found']:
-        assert info_sources[name][hash] == 'delta'
-        info_sources[name][hash] = 'delta+'
+        assert info_sources.get_source(name, hash) == InfoSource.DELTA
+        info_sources.set_source(name, hash, InfoSource.DELTA_PLUS)
 
-    with open(info_sources_path, 'w') as f:
-        json.dump(info_sources, f, indent=0, sort_keys=True)
+    info_sources.save()
 
     with open(info_progress_symbol_server_path, 'w') as f:
         json.dump(info_progress_symbol_server, f, indent=0, sort_keys=True)

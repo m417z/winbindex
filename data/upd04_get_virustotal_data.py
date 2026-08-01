@@ -9,7 +9,11 @@ import random
 import json
 import time
 
+from info_sources import InfoSource, InfoSources
 import config
+
+# Sources which already hold everything VirusTotal could add.
+SOURCES_WITH_FULL_INFO = [InfoSource.VT, InfoSource.FILE]
 
 
 def get_file_hashes_of_updates(name, updates):
@@ -283,12 +287,7 @@ def main(time_to_stop=None):
     output_dir = config.out_path.joinpath('virustotal')
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    info_sources_path = config.out_path.joinpath('info_sources.json')
-    if info_sources_path.is_file():
-        with open(info_sources_path, 'r') as f:
-            info_sources = json.load(f)
-    else:
-        info_sources = {}
+    info_sources = InfoSources.load()
 
     info_progress_virustotal_path = config.out_path.joinpath('info_progress_virustotal.json')
     if info_progress_virustotal_path.is_file():
@@ -304,12 +303,9 @@ def main(time_to_stop=None):
         progress_next = tuple(progress_next)
 
     # Get names and hashes of all PE files without full information.
+    sources = [source for source in InfoSource if source not in SOURCES_WITH_FULL_INFO]
     names_and_hashes = []
-    for name in info_sources.keys():
-        file_hashes = set(hash for hash in info_sources[name] if info_sources[name][hash] not in ['vt', 'file'])
-        if not file_hashes:
-            continue
-
+    for name, file_hashes in info_sources.get_file_hashes_by_source(sources).items():
         if progress_updates is not None:
             file_hashes &= get_file_hashes_of_updates(name, progress_updates)
 
@@ -349,17 +345,16 @@ def main(time_to_stop=None):
 
     # Update status of files for which full information was found.
     for name, hash in result['found']:
-        if info_sources[name][hash] == 'vt':
+        if info_sources.get_source(name, hash) == InfoSource.VT:
             assert (name, hash) in names_and_hashes_to_retry
         else:
-            assert info_sources[name][hash] != 'file'
-            info_sources[name][hash] = 'vt'
+            assert info_sources.get_source(name, hash) != InfoSource.FILE
+            info_sources.set_source(name, hash, InfoSource.VT)
         pending_for_file = info_progress_virustotal.setdefault('pending', {}).setdefault(name, [])
         if hash not in pending_for_file:
             pending_for_file.append(hash)
 
-    with open(info_sources_path, 'w') as f:
-        json.dump(info_sources, f, indent=0, sort_keys=True)
+    info_sources.save()
 
     with open(info_progress_virustotal_path, 'w') as f:
         json.dump(info_progress_virustotal, f, indent=0, sort_keys=True)

@@ -11,45 +11,16 @@ import ctypes
 import json
 import re
 
+from info_sources import InfoSource, InfoSources, best_source
 import config
 
 file_hashes = {}
 
 
-def update_info_source(old, new):
-    sources = [
-        'none',
-        'delta',
-        'delta+',
-        'pe',
-        'vt',
-        'file',
-    ]
-
-    if old is None or sources.index(new) > sources.index(old):
-        return new
-
-    return old
-
-
 def update_file_hashes():
-    info_sources_path = config.out_path.joinpath('info_sources.json')
-    if info_sources_path.is_file():
-        with open(info_sources_path, 'r') as f:
-            info_sources = json.load(f)
-    else:
-        info_sources = {}
-
-    for name in file_hashes:
-        file_info_sources = info_sources.setdefault(name, {})
-
-        for file_hash in file_hashes[name]:
-            old = file_info_sources.get(file_hash)
-            new = file_hashes[name][file_hash]
-            file_info_sources[file_hash] = update_info_source(old, new)
-
-    with open(info_sources_path, 'w') as f:
-        json.dump(info_sources, f, indent=0, sort_keys=True)
+    info_sources = InfoSources.load()
+    info_sources.update_sources(file_hashes)
+    info_sources.save()
 
     file_hashes.clear()
 
@@ -384,15 +355,15 @@ def parse_manifest_file(manifest_path, file_el):
         'attributes': dict(file_el.attrib.items()),
     }
 
-    info_source = 'none'
+    info_source = InfoSource.NONE
 
     file_info = get_file_data_for_manifest_file(manifest_path, file_el.attrib['name'], algorithm, hash)
     if file_info:
-        info_source = 'pe'
+        info_source = InfoSource.PE
     else:
         file_info = get_delta_data_for_manifest_file(manifest_path, file_el.attrib['name'], algorithm, hash)
         if file_info:
-            info_source = 'delta'
+            info_source = InfoSource.DELTA
 
     if file_info:
         result['fileInfo'] = file_info
@@ -406,7 +377,7 @@ def parse_manifest_file(manifest_path, file_el):
             is_pe_file = hash not in config.file_hashes_non_pe
             if (is_pe_file and
                 file_info and
-                info_source in ['pe', 'delta'] and
+                info_source in [InfoSource.PE, InfoSource.DELTA] and
                 is_raw_file(file_info)):
                 if config.allow_unknown_non_pe_files:
                     is_pe_file = False
@@ -415,16 +386,16 @@ def parse_manifest_file(manifest_path, file_el):
 
             if not is_pe_file:
                 if file_info:
-                    assert info_source in ['pe', 'delta'] and is_raw_file(file_info)
+                    assert info_source in [InfoSource.PE, InfoSource.DELTA] and is_raw_file(file_info)
                 else:
-                    assert info_source == 'none'
+                    assert info_source == InfoSource.NONE
                 assert hash not in file_hashes.get(filename, {})
                 print(f'Skipping non-pe file {filename} with hash {hash}')
             else:
-                assert info_source == 'none' or (file_info and 'machineType' in file_info), (filename, hash)
+                assert info_source == InfoSource.NONE or (file_info and 'machineType' in file_info), (filename, hash)
                 file_hashes_for_filename = file_hashes.setdefault(filename, {})
                 old_info_source = file_hashes_for_filename.get(hash)
-                file_hashes_for_filename[hash] = update_info_source(old_info_source, info_source)
+                file_hashes_for_filename[hash] = best_source(old_info_source, info_source)
 
     return result
 

@@ -6,6 +6,7 @@ import os
 import re
 
 from extract_data_from_pe_files import extract_data_from_pe_files
+from info_sources import InfoSource, InfoSources
 import config
 
 # To get data from an ISO file use the following commands:
@@ -144,19 +145,10 @@ def main(folder: Path, windows_version: str, iso_sha256: str, release_date: str)
     with open(output_dir.joinpath(windows_version + '.json'), 'w') as f:
         json.dump(result, f, indent=4)
 
-    info_sources_path = config.out_path.joinpath('info_sources.json')
-    if info_sources_path.is_file():
-        with open(info_sources_path, 'r') as f:
-            info_sources = json.load(f)
-    else:
-        info_sources = {}
-
-    for name in pe_file_hashes:
-        for file_hash in pe_file_hashes[name]:
-            info_sources.setdefault(name, {})[file_hash] = 'file'
-
-    with open(info_sources_path, 'w') as f:
-        json.dump(info_sources, f, indent=0, sort_keys=True)
+    info_sources = InfoSources.load()
+    info_sources.update_sources({name: {file_hash: InfoSource.FILE for file_hash in pe_file_hashes[name]}
+                                 for name in pe_file_hashes})
+    info_sources.save()
 
 
 if __name__ == '__main__':
