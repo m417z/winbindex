@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="An index of Windows binaries, including download links for executables such as exe, dll and sys files">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Winbindex - The Windows Binaries Index</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+    <link rel="manifest" href="icons/site.webmanifest">
+    <link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" content="icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="modules/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="modules/bootstrap4-dialog/css/bootstrap-dialog.min.css">
+    <link rel="stylesheet" href="modules/datatables/datatables.min.css">
+    <link rel="stylesheet" href="modules/select2/css/select2.min.css">
+    <link rel="stylesheet" href="modules/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <link rel="stylesheet" href="modules/dataTables-yadcf/jquery.dataTables.yadcf.css">
+    <link rel="stylesheet" href="modules/virtual-select/virtual-select.css">
+    <link rel="stylesheet" href="loader.css">
+    <link rel="stylesheet" href="winbindex.css">
+</head>
+<body class="bg-light">
+<div class="container d-flex flex-column min-vh-100">
+    <header class="py-5 text-center">
+        <!-- Source: https://upload.wikimedia.org/wikipedia/commons/e/ee/Windows_logo_%E2%80%93_2012_%28dark_blue%29.svg -->
+        <svg height="0" width="0">
+            <defs>
+                <clipPath id="windows-clip">
+                    <path d="m0,12.402,35.687-4.8602,0.0156,34.423-35.67,0.20313zm35.67,33.529,0.0277,34.453-35.67-4.9041-0.002-29.78zm4.3261-39.025,47.318-6.906,0,41.527-47.318,0.37565zm47.329,39.349-0.0111,41.34-47.318-6.6784-0.0663-34.739z" />
+                </clipPath>
+            </defs>
+        </svg>
+        <div class="mx-auto mb-4">
+            <a id="main-logo-link" href="." class="d-inline-block">
+                <canvas id="main-logo-canvas">Winbindex - The Windows Binaries Index</canvas>
+                <span id="main-logo-arch-badge" class="d-none badge badge-danger"></span>
+            </a>
+        </div>
+        <h2 id="main-title">Winbindex</h2>
+        <div id="main-description" class="text-muted text-center text-small">The Windows Binaries Index</div>
+    </header>
+
+    <div id="winbindex-container" class="flex-fill d-flex flex-column">
+        <div class="loading" id="page-loader">Loading&#8230;</div>
+
+        <div id="winbindex-file-select-container" class="d-none flex-fill flex-column justify-content-center gap-5">
+            <div class="row">
+                <div class="col-12 col-lg-6 offset-lg-3">
+                    <div id="arch-links" class="btn-group d-flex" role="group">
+                        <a href="." class="btn btn-outline-primary active w-100">x64</a>
+                        <a href="?arch=arm64" class="btn btn-outline-primary w-100">ARM64</a>
+                        <a href="?arch=insider" class="btn btn-outline-primary w-100" title="Recent binaries from Unified Update Platform builds" data-toggle="tooltip">Insider</a>
+                    </div>
+                </div>
+            </div>
+
+            <form>
+                <div class="row">
+                    <div class="col-12 col-lg-6 offset-lg-3">
+                        <input id="winbindex-arch" type="hidden" name="arch" disabled>
+
+                        <!--select id="winbindex-file-select" name="file" class="form-control" required>
+                            <option></option>
+                        </select-->
+                        <div id="winbindex-file-select"></div>
+                        <input id="winbindex-file-value" type="hidden" name="file">
+
+                        <button type="submit" class="btn btn-primary" disabled>Show</button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="text-muted text-center">
+                For technical details and the background story please refer to the blog post:<br>
+                <a href="https://m417z.com/Introducing-Winbindex-the-Windows-Binaries-Index/" target="_blank" rel="noopener">
+                    Introducing Winbindex - the Windows Binaries Index
+                </a>
+            </div>
+        </div>
+
+        <div class="d-none">
+            <div id="winbindex-settings-button" class="d-inline-block ml-3 align-top">
+                <button class="btn btn-secondary btn-sm settings-button dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <!-- https://icons.getbootstrap.com/icons/gear-fill/ -->
+                    <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-gear-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 0 0-5.86 2.929 2.929 0 0 0 0 5.858z"/>
+                    </svg>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right pre-scrollable" aria-labelledby="dropdownMenuButton">
+                    <h6 class="dropdown-header">Show/hide columns</h6>
+                    <a class="dropdown-item dropdown-item-column disabled" href="#"><input type="checkbox" disabled> SHA256</a>
+                    <a class="dropdown-item dropdown-item-column" href="#"><input type="checkbox"> SHA1</a>
+                    <a class="dropdown-item dropdown-item-column" href="#"><input type="checkbox"> MD5</a>
+                    <a class="dropdown-item dropdown-item-column" href="#"><input type="checkbox"> Windows</a>
+                    <a class="dropdown-item dropdown-item-column" href="#"><input type="checkbox"> Update</a>
+                    <a class="dropdown-item dropdown-item-column" href="#"><input type="checkbox"> File architecture</a>
+                    <a class="dropdown-item dropdown-item-column" href="#"><input type="checkbox"> File version</a>
+                    <a class="dropdown-item dropdown-item-column" href="#"><input type="checkbox"> File size</a>
+                    <a class="dropdown-item dropdown-item-column" href="#"><input type="checkbox"> Signing date</a>
+                    <a class="dropdown-item dropdown-item-column" href="#"><input type="checkbox"> Assembly architecture</a>
+                    <a class="dropdown-item dropdown-item-column" href="#"><input type="checkbox"> Assembly version</a>
+                    <a class="dropdown-item dropdown-item-column" href="#"><input type="checkbox"> Extra</a>
+                    <a class="dropdown-item dropdown-item-column" href="#"><input type="checkbox"> Download</a>
+                    <h6 class="dropdown-header">Other options</h6>
+                    <a class="dropdown-item dropdown-item-full-width" href="#"><input type="checkbox"> Full width</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="winbindex-table-container" class="winbindex-table-container-hidden">
+            <table id="winbindex-table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <thead>
+                <tr>
+                    <th class="target-hash">SHA256</th>
+                    <th class="target-hash hidden-by-default">SHA1</th>
+                    <th class="target-hash hidden-by-default">MD5</th>
+                    <th class="target-array-of-values"><span class="winbindex-column-header-with-yadcf winbindex-yadcf-multiple">Windows</span></th>
+                    <th class="target-array-of-values order-default-sort"><span class="winbindex-column-header-with-yadcf winbindex-yadcf-multiple">Update</span></th>
+                    <th class="target-file-arch"><span class="winbindex-column-header-with-yadcf">File arch</span></th>
+                    <th class="target-file-version"><span class="winbindex-column-header-with-yadcf winbindex-yadcf-natural-sort">File version</span></th>
+                    <th class="target-file-size">File size</th>
+                    <th class="target-file-signing-date hidden-by-default">Signing date</th>
+                    <th class="target-array-of-values hidden-by-default"><span class="winbindex-column-header-with-yadcf winbindex-yadcf-multiple">Asm arch</span></th>
+                    <th class="target-array-of-values hidden-by-default"><span class="winbindex-column-header-with-yadcf winbindex-yadcf-natural-sort winbindex-yadcf-multiple">Asm version</span></th>
+                    <th class="target-extra-button">Extra</th>
+                    <th class="target-download-button">Download</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                    <th>SHA256</th>
+                    <th>SHA1</th>
+                    <th>MD5</th>
+                    <th>Windows</th>
+                    <th>Update</th>
+                    <th>File arch</th>
+                    <th>File version</th>
+                    <th>File size</th>
+                    <th>Signing date</th>
+                    <th>Asm arch</th>
+                    <th>Asm version</th>
+                    <th>Extra</th>
+                    <th>Download</th>
+                </tr>
+                </tfoot>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">
+            By <a href="https://m417z.com/" target="_blank" rel="noopener">m417z</a> &bull;
+            <a href="https://github.com/m417z/winbindex" target="_blank" rel="noopener">GitHub repository</a>
+        </p>
+    </footer>
+</div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-143074342-2"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-143074342-2');
+</script>
+<script src="modules/jquery/jquery-3.5.1.min.js"></script>
+<script src="modules/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="modules/bootstrap4-dialog/js/bootstrap-dialog.min.js"></script>
+<script src="modules/datatables/datatables.min.js"></script>
+<script src="modules/select2/js/select2.min.js"></script>
+<script src="modules/dataTables-yadcf/jquery.dataTables.yadcf.js"></script>
+<script src="modules/q/q.js"></script>
+<script src="modules/virtual-select/virtual-select-jquery.min.js"></script>
+<script src="modules/paco/pako_inflate.min.js"></script>
+<script src="winbindex.js"></script>
+<script>
+    $('body').tooltip({ selector: '[data-toggle=tooltip]', boundary: 'window' });
+</script>
+</body>
+</html>

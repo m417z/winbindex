@@ -1,0 +1,162 @@
+#main-logo-link {
+    position: relative;
+}
+
+#main-logo-canvas {
+    width: 88px;
+    height: 88px;
+    clip-path: url(#windows-clip);
+}
+
+#main-logo-arch-badge {
+    position: absolute;
+    right: -14px;
+    transform: rotate(20deg);
+    font-weight: normal;
+}
+
+#main-title {
+    overflow-wrap: break-word;
+}
+
+.winbindex-table-container-hidden {
+    height: 0;
+    overflow: hidden;
+}
+
+th .winbindex-column-header-with-yadcf {
+    display: none;
+}
+
+/* Mark filtered columns with a different color */
+div.yadcf-filter-wrapper:has(> .yadcf-filter.inuse) {
+    color: rgb(0,123,255,.75);
+}
+
+/* Cursor for disabled buttons: https://stackoverflow.com/a/50349274 */
+button:disabled {
+    cursor: not-allowed;
+}
+
+.disabled-cursor {
+    cursor: not-allowed;
+}
+
+/* Cursor for abbr inside links - inherit pointer */
+a abbr {
+    cursor: inherit !important;
+}
+
+/* bootstrap4-dialog - add spacing between buttons */
+.bootstrap-dialog .bootstrap-dialog-footer-buttons .btn {
+    margin-right: .5rem;
+}
+
+/* select2 - make block and not inline-block */
+.yadcf-filter-wrapper {
+    display: block;
+}
+
+/* select2 bootstrap4 improve width with bold text */
+.yadcf-filter {
+    font-weight: bold;
+    padding-left: 14px;
+}
+
+/* Unset nowrap style that causes scrolling on mobile */
+div.dataTables_wrapper div.dataTables_info {
+    white-space: normal;
+}
+
+/* large select2 on front page: https://stackoverflow.com/a/41830955 */
+/*#winbindex-file-select-container {
+    font-size: 1.6rem;
+}
+#winbindex-file-select-container .select2-selection__rendered {
+    line-height: 61px !important;
+}
+#winbindex-file-select-container .select2-container .select2-selection--single {
+    height: 65px !important;
+}
+#winbindex-file-select-container .select2-selection__arrow {
+    height: 64px !important;
+}*/
+
+/* Virtual select and the button below customizations */
+#winbindex-file-select {
+    max-height: 60px;
+}
+#winbindex-file-select .ui-virtual-select--search-input {
+    font-size: 1.6rem;
+}
+#winbindex-file-select .ui-virtual-select--items {
+    /* fix redundant scrollbar */
+    box-sizing: content-box;
+    overflow-y: auto !important;
+    /* keep dropdown list on top */
+    position: relative;
+    z-index: 1;
+}
+#winbindex-file-select-container button {
+    width: 100%;
+    font-size: 1.6rem;
+    margin-top: 1rem;
+    height: 65px;
+}
+
+/* Fixed select validation placement: https://github.com/select2/select2/issues/128#issuecomment-288606061 */
+/*#winbindex-file-select-container .form-control.select2-hidden-accessible {
+    top: 40px;
+    right: 25px;
+}*/
+
+/* Add a horizontal scrollbar when needed */
+#winbindex-table_wrapper > .row:nth-child(2) > .col-sm-12 {
+    overflow-x: auto;
+}
+#winbindex-table_wrapper > .row:nth-child(3) > .col-sm-12:nth-child(2) {
+    overflow-x: auto;
+}
+
+/* select2 bootstrap4 - reduce height */
+#winbindex-table .select2-container--bootstrap4 .select2-selection--single {
+    height: 28px !important;
+}
+#winbindex-table .select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered {
+    line-height: 28px;
+}
+
+#winbindex-settings-button .settings-button {
+    font-size: .8rem;
+}
+
+#winbindex-settings-button .dropdown-item input[type="checkbox"] {
+    pointer-events: none;
+}
+
+.winbindex-scrollable-info-box-contents {
+    /* https://stackoverflow.com/a/28852473 */
+    max-height: calc(100vh - 225px);
+    padding: 10px;
+    margin-bottom: 0;
+    overflow: auto;
+}
+
+.gap-0 {
+    gap: 0 !important;
+}
+.gap-1 {
+    gap: .25rem !important;
+}
+.gap-2 {
+    gap: .5rem !important;
+}
+.gap-3 {
+    gap: 1rem !important;
+}
+.gap-4 {
+    gap: 1.5rem !important;
+}
+.gap-5 {
+    gap: 3rem !important;
+}

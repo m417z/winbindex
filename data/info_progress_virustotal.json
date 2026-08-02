@@ -1,0 +1,23 @@
+{
+"next": [
+"opengl32.dll",
+"29359ff8a916b44308ba839bc8e29f354a957c5a47d641d5eec3e3974b4b3f23"
+],
+"next_updates": null,
+"pending": {},
+"retry": [
+[
+"microsoft.ceres.docparsing.formathandlers.common.configuration.dll",
+"563ba711761821f9e3fcd5cac84e52a74b26f1a5e94208792e7940823a4618c7"
+],
+[
+"microsoft.ceres.docparsing.formathandlers.common.jpeginterop.dll",
+"ebfaad13cc741efb12338de190ecc924ad371fc24a8d167238fa6fb104ad4a75"
+],
+[
+"wdssdc.dll",
+"14635b7482587f4b3e76f4a6cece0657e2f88e660c7d0246da1e97d128b264b9"
+]
+],
+"updates": null
+}
