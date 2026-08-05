@@ -966,7 +966,7 @@
 "ff257f5bb07bc87a3aefcfb829429f0ddd98e41a124bc3e3480f052b1bf12b0c": "vt"
 },
 "microsoft.cognitiveservices.speech.core.dll": {
-"00b8c930a414ab37148beb359adbcecf828ef7e9dd4452dc1dde378a6a5fd3bd": "pe",
+"00b8c930a414ab37148beb359adbcecf828ef7e9dd4452dc1dde378a6a5fd3bd": "vt",
 "3218d74f0afeba5bc6177c91a974bd1a0c108659dcd54f945bc4945529c5ad50": "vt",
 "33157b55fc2fb794fd238036ef907ea222176bf12744528752d6024d6fcd0ffe": "vt",
 "549537923bd3534e8839d6d23e52cfa5f9a6ac3f696cd92311d04417927d13e9": "delta+",

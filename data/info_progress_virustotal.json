@@ -1,14 +1,14 @@
 {
 "next": [
-"setupplatform.dll",
-"38bcbd197a7ce60b30bd9db565d2a228c5e1949061af40c077920617c9170090"
+"msconfig.exe",
+"f64696cc7ef97a57670bc1fdb6dbb32f00f3d76bf71dd8d1ece9c78a0cbb4294"
 ],
 "next_updates": null,
 "pending": {},
 "retry": [
 [
-"connectedaccountstate.dll",
-"a1bc77116dfa6dbec8e0981a0a91dbf9333809ec1fc77d53e6c77a8f8200e5d8"
+"cryptnet.dll",
+"2c947ad231814b2fb9fc924345757eb919bb91139493d2cc751da867efd569cb"
 ],
 [
 "microsoft.ceres.docparsing.formathandlers.common.configuration.dll",
@@ -17,6 +17,10 @@
 [
 "microsoft.ceres.docparsing.formathandlers.common.jpeginterop.dll",
 "ebfaad13cc741efb12338de190ecc924ad371fc24a8d167238fa6fb104ad4a75"
+],
+[
+"ssdpapi.dll",
+"bef1224d0b162b6fed0252524c25d9b9dda134f9ebb50ee1b4eeaab63755daea"
 ],
 [
 "wdssdc.dll",
