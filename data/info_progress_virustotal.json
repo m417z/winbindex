@@ -1,15 +1,11 @@
 {
 "next": [
-"msconfig.exe",
-"f64696cc7ef97a57670bc1fdb6dbb32f00f3d76bf71dd8d1ece9c78a0cbb4294"
+"microsoft.ceres.docparsing.formathandlers.common.configuration.dll",
+"4e8408f9b66ecf316e03887226086458471abbb4aa59815d911a785c02efa154"
 ],
 "next_updates": null,
 "pending": {},
 "retry": [
-[
-"cryptnet.dll",
-"2c947ad231814b2fb9fc924345757eb919bb91139493d2cc751da867efd569cb"
-],
 [
 "microsoft.ceres.docparsing.formathandlers.common.configuration.dll",
 "563ba711761821f9e3fcd5cac84e52a74b26f1a5e94208792e7940823a4618c7"
@@ -17,10 +13,6 @@
 [
 "microsoft.ceres.docparsing.formathandlers.common.jpeginterop.dll",
 "ebfaad13cc741efb12338de190ecc924ad371fc24a8d167238fa6fb104ad4a75"
-],
-[
-"ssdpapi.dll",
-"bef1224d0b162b6fed0252524c25d9b9dda134f9ebb50ee1b4eeaab63755daea"
 ],
 [
 "wdssdc.dll",
