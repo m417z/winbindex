@@ -134,6 +134,16 @@ div.dataTables_wrapper div.dataTables_info {
     pointer-events: none;
 }
 
+/* dark-mode-toggle customizations */
+footer dark-mode-toggle {
+    display: inline-block;
+    vertical-align: bottom;
+    line-height: 0;
+}
+footer dark-mode-toggle::part(fieldset) {
+    padding: 0;
+}
+
 .winbindex-scrollable-info-box-contents {
     /* https://stackoverflow.com/a/28852473 */
     max-height: calc(100vh - 225px);
