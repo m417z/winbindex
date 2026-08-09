@@ -1,43 +1,11 @@
 {
 "next": [
-"windows.media.winmd",
-"5821a632d8a16547de418bb434eb254be5c241036a1d208e5bae5877e5239b8d"
+"aarsvc.dll",
+"7ac4e8cf28676d81a22a2baf714e81bb1bb04b9d2393f0abf9eb333e4775e9dc"
 ],
 "next_updates": null,
 "pending": {},
 "retry": [
-[
-"chxinputrouter.dll",
-"7ad657aebae5fd0dfe044a83599a5faf45e1fd188ce2f35affe6ca95d1f09740"
-],
-[
-"cimfs.dll",
-"59e2f408a38d69500a43ff3759c6a1559940925a3e690abcf1c6b1c14bcf4fdf"
-],
-[
-"ime_textinputhelpers.dll",
-"9ce729f847bb34c653878e87a44f74a055e0bbd2075bdfe6eb892c4302d755ab"
-],
-[
-"input.dll",
-"8b7603d7f571bce2a1ead6685226567846542ec01b387fbe143c3704842f02c8"
-],
-[
-"invagent.dll",
-"f7b8a130150e8a2a28cacd37c0d307a631af5757abe1d89a97777442ef470f3a"
-],
-[
-"iprtprio.dll",
-"5fa0d2990e61f7286a212418be01701290ad46c4e9af607321475adb586bfbdf"
-],
-[
-"jpnserviceds.dll",
-"8c054743441f24228a47adfb3e2deea28b47cb0db17875355128e92d288463a8"
-],
-[
-"mfaacenc.dll",
-"6eb55a50fcedc0fce57126077cd1352d0e6a5eb0b4d19309b762900ce9648605"
-],
 [
 "microsoft.ceres.docparsing.formathandlers.common.configuration.dll",
 "563ba711761821f9e3fcd5cac84e52a74b26f1a5e94208792e7940823a4618c7"
@@ -47,20 +15,8 @@
 "ebfaad13cc741efb12338de190ecc924ad371fc24a8d167238fa6fb104ad4a75"
 ],
 [
-"midi2.midisrvtransport.dll",
-"bdd9de92683f5af4f01bc0c89528d6fe53456fdfd138ca0548d8d1fa6b0fc215"
-],
-[
 "wdssdc.dll",
 "14635b7482587f4b3e76f4a6cece0657e2f88e660c7d0246da1e97d128b264b9"
-],
-[
-"windows.graphics.display.displayenhancementoverride.dll",
-"12b695110d6ee4677224c8cc859fd2591545dcb95720aeebef9c2323f716e1d7"
-],
-[
-"windows.media.backgroundmediaplayback.dll",
-"701884232ffba58d2e6a399c63422b6f1d9ac2a4e859a8e9cff5f290f6500ea5"
 ]
 ],
 "updates": null
