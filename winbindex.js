@@ -59,15 +59,57 @@ var globalFunctions = {};
     function animateLogo() {
         var canvas = document.getElementById('main-logo-canvas');
         var ctx = canvas.getContext('2d');
-        var charArr = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-        var fallingCharArr = [];
-        var fontSize = 8;
-        var ch = canvas.getBoundingClientRect().height;
-        var cw = canvas.getBoundingClientRect().width;
-        var maxColumns = cw / fontSize;
+        var fontSize = 10;
+        // Japanese-capable families first, so the katakana get a compact and evenly
+        // spaced form at this size.
+        var fontFamily = '"MS Gothic", "Osaka", "Hiragino Kaku Gothic Pro", "Noto Sans JP", monospace';
+        // The leading glyph is a pale green, the tail behind it is phosphor green.
+        var headColor = '#AAFFAA';
+        var trailRgb = '0, 255, 65';
+        // Every glyph gets a phosphor bloom, strongest on the leading one.
+        var glowColor = 'rgba(' + trailRgb + ', 0.9)';
+        var headGlow = 6;
+        var trailGlow = 2;
+        // How far out of focus the tube is, how wide the bloom around bright
+        // phosphor spreads, and how dark the gaps between scanlines are.
+        var focusBlur = 0.45;
+        var haloBlur = 2.2;
+        var haloAlpha = 0.4;
+        var scanlineAlpha = 0.15;
 
-        canvas.width = cw;
-        canvas.height = ch;
+        var rect = canvas.getBoundingClientRect();
+        var ch = rect.height;
+        var cw = rect.width;
+        var columnCount = Math.ceil(cw / fontSize);
+        var rowCount = Math.ceil(ch / fontSize);
+
+        // Match the backing store to the device pixel ratio so the blur has real
+        // resolution to work with rather than smearing an already coarse image, and
+        // scale the context back so that all drawing stays in CSS pixels.
+        var pixelRatio = window.devicePixelRatio || 1;
+        canvas.width = cw * pixelRatio;
+        canvas.height = ch * pixelRatio;
+        ctx.scale(pixelRatio, pixelRatio);
+
+        // The rain is drawn sharp into this buffer and composited onto the visible
+        // canvas out of focus, which costs two blur passes per frame rather than one
+        // per glyph.
+        var buffer = document.createElement('canvas');
+        buffer.width = canvas.width;
+        buffer.height = canvas.height;
+
+        var bufferCtx = buffer.getContext('2d');
+        bufferCtx.scale(pixelRatio, pixelRatio);
+        bufferCtx.font = 'bold ' + fontSize + 'px ' + fontFamily;
+        // Glyphs vary in width, so center each one in its column instead of
+        // aligning it to the left edge.
+        bufferCtx.textAlign = 'center';
+        bufferCtx.textBaseline = 'top';
+        // Only the blur radius varies between the leading glyph and the tail.
+        bufferCtx.shadowColor = glowColor;
+
+        // Browsers without canvas filter support draw the rain sharp instead.
+        var canBlur = typeof ctx.filter === 'string';
 
         function randomInt(min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -77,28 +119,120 @@ var globalFunctions = {};
             return Math.random() * (max - min) + min;
         }
 
-        function Point(x, y) {
-            this.x = x;
-            this.y = y;
-            this.speed = randomFloat(2, 5);
+        // Whether the font stack can actually draw a character, by comparing its
+        // rendering against a character that is guaranteed to have no glyph.
+        function glyphExists(char) {
+            var probeSize = 24;
+            var probe = document.createElement('canvas');
+            probe.width = probeSize;
+            probe.height = probeSize;
+
+            var probeCtx = probe.getContext('2d');
+            probeCtx.font = probeSize + 'px ' + fontFamily;
+            probeCtx.textBaseline = 'top';
+
+            function render(value) {
+                probeCtx.clearRect(0, 0, probeSize, probeSize);
+                probeCtx.fillText(value, 0, 0);
+                return probeCtx.getImageData(0, 0, probeSize, probeSize).data.toString();
+            }
+
+            // U+FFFF is a permanent noncharacter, so it always draws as the
+            // missing-glyph box that an unsupported character would draw as.
+            return render(char) !== render(String.fromCharCode(0xFFFF));
         }
 
-        Point.prototype.draw = function (ctx) {
-            this.value = charArr[randomInt(0, charArr.length - 1)].toUpperCase();
+        // The rain is mostly halfwidth katakana mixed with digits. A system without a
+        // Japanese font draws the katakana as missing-glyph boxes, so fall back to
+        // Latin letters when they are unavailable.
+        function buildCharSet() {
+            var digits = '0123456789'.split('');
+            var katakana = [];
+            for (var code = 0xFF66; code <= 0xFF9D; code++) {
+                katakana.push(String.fromCharCode(code));
+            }
 
-            ctx.fillStyle = '#0F0';
-            ctx.font = fontSize + 'px san-serif';
-            ctx.fillText(this.value, this.x, this.y);
+            if (!glyphExists(katakana[0])) {
+                return digits.concat('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''));
+            }
 
-            this.y += this.speed;
-            if (this.y > ch) {
-                this.y = randomFloat(-100, 0);
-                this.speed = randomFloat(2, 5);
+            return digits.concat(katakana);
+        }
+
+        var charArr = buildCharSet();
+
+        function randomChar() {
+            return charArr[randomInt(0, charArr.length - 1)];
+        }
+
+        // One column of rain: a bright leading glyph with a fading tail behind it.
+        function Stream(column) {
+            this.x = column * fontSize + fontSize / 2;
+
+            // Seed every row so that a stream starting mid-canvas has a tail to draw.
+            this.glyphs = [];
+            for (var row = 0; row < rowCount; row++) {
+                this.glyphs.push(randomChar());
+            }
+
+            this.restart(randomFloat(-rowCount, rowCount));
+        }
+
+        Stream.prototype.restart = function (head) {
+            this.head = head;
+            this.speed = randomFloat(0.15, 0.45);
+            this.length = randomInt(5, rowCount);
+        };
+
+        Stream.prototype.draw = function () {
+            // Stepping row by row rather than by a fraction of a pixel keeps the glyphs
+            // on a grid, the way they are in the film.
+            var headRow = Math.floor(this.head);
+
+            // The leading glyph keeps flickering as it descends, and whatever it shows
+            // when it moves on is what stays behind in the tail.
+            if (headRow >= 0 && headRow < rowCount) {
+                this.glyphs[headRow] = randomChar();
+            }
+
+            // Draw back to front so that the glow of the leading glyph lands on top.
+            for (var i = this.length - 1; i >= 0; i--) {
+                var row = headRow - i;
+                if (row < 0 || row >= rowCount) {
+                    continue;
+                }
+
+                if (i === 0) {
+                    bufferCtx.shadowBlur = headGlow;
+                    bufferCtx.fillStyle = headColor;
+                } else {
+                    // Glyphs settled in the tail flip every so often.
+                    if (Math.random() < 0.03) {
+                        this.glyphs[row] = randomChar();
+                    }
+
+                    var fade = 1 - i / this.length;
+                    // Let the bloom fade out along with the glyph.
+                    bufferCtx.shadowBlur = trailGlow * fade;
+                    bufferCtx.fillStyle = 'rgba(' + trailRgb + ', ' + fade * fade + ')';
+                }
+
+                bufferCtx.fillText(this.glyphs[row], this.x, row * fontSize);
+            }
+
+            bufferCtx.shadowBlur = 0;
+
+            this.head += this.speed;
+            if (this.head - this.length > rowCount) {
+                // Re-enter from above after a short, uneven pause. A fixed gap makes
+                // the columns fall back into lockstep.
+                this.restart(-randomFloat(0, rowCount / 2));
             }
         };
 
-        for (var i = 0; i < maxColumns; i++) {
-            fallingCharArr.push(new Point(i * fontSize, randomFloat(-500, 0)));
+        var streams = [];
+        for (var column = 0; column < columnCount; column++) {
+            streams.push(new Stream(column));
         }
 
         var animationOn = false;
@@ -106,13 +240,41 @@ var globalFunctions = {};
         var animationFramePending = false;
         var frameCount = 0;
         var update = function () {
-            ctx.fillStyle = 'rgba(0,0,0,0.05)';
+            // Each stream draws its own tail with an explicit fade, so clear the frame
+            // outright instead of dimming the previous one.
+            bufferCtx.clearRect(0, 0, cw, ch);
+
+            for (var i = 0; i < streams.length; i++) {
+                streams[i].draw();
+            }
+
+            ctx.fillStyle = '#000';
             ctx.fillRect(0, 0, cw, ch);
 
-            var i = fallingCharArr.length;
+            // Lay the rain down slightly out of focus, then add a wider, dimmer copy
+            // for the bloom a CRT throws around bright phosphor.
+            if (canBlur) {
+                ctx.filter = 'blur(' + focusBlur + 'px)';
+            }
 
-            while (i--) {
-                fallingCharArr[i].draw(ctx);
+            ctx.drawImage(buffer, 0, 0, cw, ch);
+
+            if (canBlur) {
+                ctx.filter = 'blur(' + haloBlur + 'px)';
+                ctx.globalCompositeOperation = 'lighter';
+                ctx.globalAlpha = haloAlpha;
+                ctx.drawImage(buffer, 0, 0, cw, ch);
+
+                ctx.filter = 'none';
+                ctx.globalCompositeOperation = 'source-over';
+                ctx.globalAlpha = 1;
+            }
+
+            // Scanlines. These have to land on the composited image, so they are drawn
+            // here rather than into the buffer where the blur would smear them away.
+            ctx.fillStyle = 'rgba(0, 0, 0, ' + scanlineAlpha + ')';
+            for (var y = 0; y < ch; y += 2) {
+                ctx.fillRect(0, y, cw, 1);
             }
 
             frameCount++;
@@ -136,14 +298,14 @@ var globalFunctions = {};
             }
         };
 
-        canvas.parentNode.onmouseover = function () {
+        canvas.parentNode.onmouseenter = function () {
             animationOn = true;
             if (!animationFramePending) {
                 update();
             }
         };
 
-        canvas.parentNode.onmouseout = function () {
+        canvas.parentNode.onmouseleave = function () {
             animationOn = false;
         };
 

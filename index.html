@@ -22,6 +22,10 @@
     <link rel="stylesheet" href="modules/virtual-select/virtual-select.css">
     <link rel="stylesheet" href="loader.css">
     <link rel="stylesheet" href="winbindex.css">
+    <noscript id="dark-mode-toggle-stylesheets">
+        <link rel="stylesheet" href="winbindex-dark.css" media="(prefers-color-scheme: dark)">
+    </noscript>
+    <script src="dark-mode-toggle-stylesheets-loader.js"></script>
 </head>
 <body class="bg-light">
 <div class="container d-flex flex-column min-vh-100">
@@ -156,7 +160,8 @@
     <footer class="my-5 pt-5 text-muted text-center text-small">
         <p class="mb-1">
             By <a href="https://m417z.com/" target="_blank" rel="noopener">m417z</a> &bull;
-            <a href="https://github.com/m417z/winbindex" target="_blank" rel="noopener">GitHub repository</a>
+            <a href="https://github.com/m417z/winbindex" target="_blank" rel="noopener">GitHub repository</a> &bull;
+            <dark-mode-toggle permanent></dark-mode-toggle>
         </p>
     </footer>
 </div>
@@ -178,6 +183,7 @@
 <script src="modules/q/q.js"></script>
 <script src="modules/virtual-select/virtual-select-jquery.min.js"></script>
 <script src="modules/paco/pako_inflate.min.js"></script>
+<script type="module" src="modules/dark-mode-toggle/dark-mode-toggle-0.14.6.min.mjs"></script>
 <script src="winbindex.js"></script>
 <script>
     $('body').tooltip({ selector: '[data-toggle=tooltip]', boundary: 'window' });
