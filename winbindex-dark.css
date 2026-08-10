@@ -195,18 +195,15 @@ div.yadcf-filter-wrapper:has(> .yadcf-filter.inuse) {
     border-color: var(--winbindex-border);
 }
 
+/* No text color here: the selected value inherits the color of the wrapper,
+   which is what marks a column as filtered. */
 .select2-container--bootstrap4 .select2-selection {
-    color: var(--winbindex-text);
     background-color: var(--winbindex-bg-input);
     border-color: var(--winbindex-border);
 }
 
 .select2-container--bootstrap4 .select2-dropdown {
     border-color: var(--winbindex-border);
-}
-
-.select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered {
-    color: var(--winbindex-text);
 }
 
 .select2-container--bootstrap4 .select2-selection--single .select2-selection__placeholder {
