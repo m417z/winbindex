@@ -127,7 +127,9 @@ var globalFunctions = {};
             probe.width = probeSize;
             probe.height = probeSize;
 
-            var probeCtx = probe.getContext('2d');
+            // This canvas exists only to be read back, so keep it off the GPU
+            // and spare each getImageData a readback.
+            var probeCtx = probe.getContext('2d', { willReadFrequently: true });
             probeCtx.font = probeSize + 'px ' + fontFamily;
             probeCtx.textBaseline = 'top';
 
