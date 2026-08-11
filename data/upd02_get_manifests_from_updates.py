@@ -165,16 +165,17 @@ def extract_update_files(local_dir: Path, local_path: Path, windows_version: str
         # and old cab files fail to be extracted with the newer expand tool.
         expand = 'tools/expand/expand.exe' if windows_version.startswith('11-') else 'expand.exe'
         args = [expand, '-r', '-f:*', from_file, to_dir]
-        result = subprocess.call(args, stdout=None if config.verbose_run else subprocess.DEVNULL)
-        if result != 0:
-            if from_file.name in ["Cab_1_for_KB5082198.cab", "Cab_2_for_KB5099535.cab"]:
-                # This specific file extraction fails with error 0x80070302
-                # (ERROR_CANTFETCHBACKWARDS). It seems that the single file that
-                # fails to be extracted is:
-                # amd64_microsoft-windows-c..iser-inboxdatafiles_31bf3856ad364e35_10.0.14393.9060_none_e74414373b76256e\appraiser.sdb
-                pass
-            else:
-                raise Exception(f'Failed to extract {from_file} with {expand}: exit code {result}')
+        result = subprocess.run(args, stdout=subprocess.PIPE, text=True, errors='replace')
+        if config.verbose_run:
+            print(result.stdout, end='')
+        if result.returncode != 0:
+            # Some 1607 updates fail to extract a single file with error
+            # 0x80070302 (ERROR_CANTFETCHBACKWARDS), such as:
+            # amd64_microsoft-windows-c..iser-inboxdatafiles_31bf3856ad364e35_10.0.14393.9060_none_e74414373b76256e\appraiser.sdb
+            ignore_error = (windows_version == '1607'
+                            and 'Delta Package Expander Returned 0x80070302' in result.stdout)
+            if not ignore_error:
+                raise Exception(f'Failed to extract {from_file} with {expand}: exit code {result.returncode}')
 
     def run_7z_extract(from_file: Path, to_dir: Path):
         args = ['7z.exe', 'x', from_file, f'-o{to_dir}', '-y']
