@@ -1,7 +1,7 @@
 {
 "next": [
-"windows.devices.winmd",
-"306c4b6ad39fcb193ff270b74c289159b3a0f0983ea071083f0bb5a9906daac3"
+"microsoft.powershell.commands.utility.dll",
+"cf0e47df2321aa7e9c7de0d34e8715ccd2cd3d6d579366529506193bb5853b01"
 ],
 "next_updates": null,
 "pending": {},
@@ -13,10 +13,6 @@
 [
 "microsoft.ceres.docparsing.formathandlers.common.jpeginterop.dll",
 "ebfaad13cc741efb12338de190ecc924ad371fc24a8d167238fa6fb104ad4a75"
-],
-[
-"microsoft.ink.dll",
-"4903e1497f4b45ab24054aa1d1678f078884a4459ae0abf2a23f426f20cdacc2"
 ],
 [
 "wdssdc.dll",
