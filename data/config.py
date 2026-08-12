@@ -96,14 +96,12 @@ file_hashes_unusual_section_alignment = {
 file_names_zero_timestamp = {
     '*.interop.dll',
     '*.winmd',
+    'microsoft.ink.dll',
 }
 
 file_hashes_zero_timestamp = {
     '18dd945c04ce0fbe882cd3f234c2da2d0faa12b23bd6df7b1edc31faecf51c69',  # brlapi-0.8.dll
     '7a9113d00a274c075c58b22a3ebacf1754e7da7cfb4d3334b90367b602158d78',  # brltty.exe
-    'ef5ea5d93b65a46dd43fa73bd4e74440ac88f7717052f5f780e7a71700d20a26',  # microsoft.ink.dll
-    'de7c16afa5d0134036471fbb66133601db7c33d3742e202b1172c7270c5fd401',  # microsoft.ink.dll
-    '4903e1497f4b45ab24054aa1d1678f078884a4459ae0abf2a23f426f20cdacc2',  # microsoft.ink.dll
 }
 
 file_hashes_small_non_signature_overlay = {
