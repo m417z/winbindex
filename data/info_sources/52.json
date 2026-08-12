@@ -1291,7 +1291,7 @@
 "fd250a61f9bdfea9e9f726bbf9f1d6840bc6d0bf8e7aff8841e554ed688bfc84": "file"
 },
 "microsoft.asg.semanticindex.aifabric.compatibility.winmd": {
-"6ab83b95b0f0915f22fd9cdf1f3d44b139b10d4f113ddf7ede632f70a217075f": "pe",
+"6ab83b95b0f0915f22fd9cdf1f3d44b139b10d4f113ddf7ede632f70a217075f": "vt",
 "e4a2577aa1a8bd37ffa39f8b969032aa98bd4eb47e838f48ede658db96fa2d14": "vt"
 },
 "microsoft.grouppolicy.serveradmintools.gpoadmingrid.dll": {
