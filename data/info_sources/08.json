@@ -1665,7 +1665,7 @@
 },
 "microsoft.windows.ai.text.experimental.winmd": {
 "40daf1fcbd57452b7a8d43552060073dc5da24830495efbeda75418b3d38e0f9": "vt",
-"ee8945b109f77b58d2d306e52be5f9a30c993834f5ca1cad4fad3b11e33c5e24": "pe"
+"ee8945b109f77b58d2d306e52be5f9a30c993834f5ca1cad4fad3b11e33c5e24": "vt"
 },
 "microsoft.windows.diagnosis.sdengine.dll": {
 "000d8bc475e434de2a1eda5f5be841fefd6b481861b50a1d335a556a93021643": "file",

@@ -1,27 +1,22 @@
 {
-"next": null,
+"next": [
+"windows.cortana.desktop.dll",
+"1b8b42a9e2f39a8f1fcf0dd53a10e20f31a177add01872de05a373d83424b9b9"
+],
 "next_updates": null,
 "pending": {},
 "retry": [
 [
-"aadcloudap.dll",
-"4f7eccf909e6d64792c43d876fabd8bb2d6b742e7e0f9f0b5a10d3a07688e1f5"
+"afd.sys",
+"c283d1556b05579b4c7b3acfd2420a1b6c50dcfe6485f6c0fbaf6db9801da38c"
 ],
 [
-"autoconv.exe",
-"7e025d09f8bf8cfdb205fce10a8114ee7fa618ed0fe9de272fa6f82fe00e5d9a"
+"appidtel.exe",
+"9e414bbbf160f667bc3963491222248d84bcd3623696359cb3fc8bdc817097b9"
 ],
 [
-"certreq.exe",
-"685e7f7c587c5af001da8349f62ad05cf3b0eb853aa00690d924825e01f88582"
-],
-[
-"ism.dll",
-"b8f769a220ccbeeffdbb3c6d340efea8aa02bb84eec8a2cd27c8ba777b77016a"
-],
-[
-"locksearchapi.dll",
-"e0dc2cc13fd84bfac09e367f9ffdee300f3b47e994dd76f6ce832b94ad5c919c"
+"logcollector.exe",
+"39a5b504a57f4a27f45b5fb291da99f6dbbe2d3e5c649733f808f5fc14490c48"
 ],
 [
 "microsoft.ceres.docparsing.formathandlers.common.configuration.dll",
@@ -32,20 +27,32 @@
 "ebfaad13cc741efb12338de190ecc924ad371fc24a8d167238fa6fb104ad4a75"
 ],
 [
-"microsoftaccountwamextension.dll",
-"036d7b770f6092937ff45a7888dcfb345a5b4513c356118e93a42de5d61a90dd"
+"mqac.sys",
+"caab5c6898a683e39ee62d8ab57cdccd3029f45f503d1168026e169b190616b8"
 ],
 [
-"semanticsearchhelper.dll",
-"5c489831df8dda5ae55a97fb1975c1d4ada0dc5ac7fe3bb837920f398d8b76d2"
+"ndistapi.sys",
+"5f726ec29f0b2371cbbc4af41e173dfc27959eb68d6880e0058f0c215314a39b"
+],
+[
+"sensorsnativeapi.dll",
+"a7e9fbceb44bd8a5713ce9835899f25788b996b7dadb2c2c7ade698437c01915"
+],
+[
+"srv2.sys",
+"cb099dc8fe8c8719856d361654ac39f4710076648bba379c53effd43cb23ce94"
+],
+[
+"srv2.sys",
+"e929d93570111cfbc5080d80771081b8c69f6eba81dfa2435a0a0f0cb97464d9"
 ],
 [
 "wdssdc.dll",
 "14635b7482587f4b3e76f4a6cece0657e2f88e660c7d0246da1e97d128b264b9"
 ],
 [
-"wlidprov.dll",
-"385e560f396302878329abe803f8772ac5ceccf50b94527932e896c688ea1c83"
+"wecutil.exe",
+"590b1fe76f2d67171c208f2debc91da42ee78b46e26ada8456ae381d668fdcfe"
 ]
 ],
 "updates": null
