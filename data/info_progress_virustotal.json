@@ -1,7 +1,7 @@
 {
 "next": [
-"windows.cortana.desktop.dll",
-"1b8b42a9e2f39a8f1fcf0dd53a10e20f31a177add01872de05a373d83424b9b9"
+"gamemode.dll",
+"d41d96427d7dbd698140079dfc35dfa25cf1bba3b6d16ac51311fb4eaee8ada3"
 ],
 "next_updates": null,
 "pending": {},
@@ -9,14 +9,6 @@
 [
 "afd.sys",
 "c283d1556b05579b4c7b3acfd2420a1b6c50dcfe6485f6c0fbaf6db9801da38c"
-],
-[
-"appidtel.exe",
-"9e414bbbf160f667bc3963491222248d84bcd3623696359cb3fc8bdc817097b9"
-],
-[
-"logcollector.exe",
-"39a5b504a57f4a27f45b5fb291da99f6dbbe2d3e5c649733f808f5fc14490c48"
 ],
 [
 "microsoft.ceres.docparsing.formathandlers.common.configuration.dll",
@@ -27,32 +19,16 @@
 "ebfaad13cc741efb12338de190ecc924ad371fc24a8d167238fa6fb104ad4a75"
 ],
 [
-"mqac.sys",
-"caab5c6898a683e39ee62d8ab57cdccd3029f45f503d1168026e169b190616b8"
-],
-[
 "ndistapi.sys",
 "5f726ec29f0b2371cbbc4af41e173dfc27959eb68d6880e0058f0c215314a39b"
-],
-[
-"sensorsnativeapi.dll",
-"a7e9fbceb44bd8a5713ce9835899f25788b996b7dadb2c2c7ade698437c01915"
 ],
 [
 "srv2.sys",
 "cb099dc8fe8c8719856d361654ac39f4710076648bba379c53effd43cb23ce94"
 ],
 [
-"srv2.sys",
-"e929d93570111cfbc5080d80771081b8c69f6eba81dfa2435a0a0f0cb97464d9"
-],
-[
 "wdssdc.dll",
 "14635b7482587f4b3e76f4a6cece0657e2f88e660c7d0246da1e97d128b264b9"
-],
-[
-"wecutil.exe",
-"590b1fe76f2d67171c208f2debc91da42ee78b46e26ada8456ae381d668fdcfe"
 ]
 ],
 "updates": null
