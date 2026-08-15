@@ -1,15 +1,8 @@
 {
-"next": [
-"gamemode.dll",
-"d41d96427d7dbd698140079dfc35dfa25cf1bba3b6d16ac51311fb4eaee8ada3"
-],
+"next": null,
 "next_updates": null,
 "pending": {},
 "retry": [
-[
-"afd.sys",
-"c283d1556b05579b4c7b3acfd2420a1b6c50dcfe6485f6c0fbaf6db9801da38c"
-],
 [
 "microsoft.ceres.docparsing.formathandlers.common.configuration.dll",
 "563ba711761821f9e3fcd5cac84e52a74b26f1a5e94208792e7940823a4618c7"
@@ -19,8 +12,12 @@
 "ebfaad13cc741efb12338de190ecc924ad371fc24a8d167238fa6fb104ad4a75"
 ],
 [
-"ndistapi.sys",
-"5f726ec29f0b2371cbbc4af41e173dfc27959eb68d6880e0058f0c215314a39b"
+"mstsc.exe",
+"47733c22056a88624e9459bc97f98ffeaae4270a4a1dd15ace5caf8a3e83bf5c"
+],
+[
+"prxyqry.dll",
+"1e16d28905716c1c817d889c083b01e3356499b2f350f4a795679b709cf6500b"
 ],
 [
 "srv2.sys",
