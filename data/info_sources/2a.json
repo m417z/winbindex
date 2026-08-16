@@ -422,7 +422,7 @@
 "fe30ad06955d1a36e07bb68e93ccc39b664330f1b7a9c540807db6320f495944": "file"
 },
 "crossdevicevirtualcamerasource.dll": {
-"317d8ec54c4b61728edc68699072785738b4c49c070a8018e6a48c310eea3ab1": "pe"
+"317d8ec54c4b61728edc68699072785738b4c49c070a8018e6a48c310eea3ab1": "vt"
 },
 "dcm.networkmanager.physicalinventorymanager.dll": {
 "13ea1c1bb30f7c9d5258ba80bbaff9ad44fa8e43769994d6b73299d3d52e28fd": "delta",
