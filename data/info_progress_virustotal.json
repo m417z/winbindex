@@ -1,8 +1,5 @@
 {
-"next": [
-"wpnapps.dll",
-"eaa5b6918b8d82e3adc9ef0319ff246dcd67104ebfacc5b1af5f0e2c3a5ebb3e"
-],
+"next": null,
 "next_updates": null,
 "pending": {},
 "retry": [
@@ -21,10 +18,6 @@
 [
 "wdssdc.dll",
 "14635b7482587f4b3e76f4a6cece0657e2f88e660c7d0246da1e97d128b264b9"
-],
-[
-"windows.ui.immersive.dll",
-"d291efd8c39503dedd420bce42fc2c15fb7fd909c497846bcd5226cd42296f98"
 ],
 [
 "wmsadminuilibrary.resources.dll",
