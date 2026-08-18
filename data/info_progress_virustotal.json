@@ -1,5 +1,8 @@
 {
-"next": null,
+"next": [
+"tsworkspace.dll",
+"ead39ae8873c23578642b272a60fd679f1a2449a2294c82ed6ebcb3b4ead0f6a"
+],
 "next_updates": null,
 "pending": {},
 "retry": [
@@ -12,16 +15,8 @@
 "ebfaad13cc741efb12338de190ecc924ad371fc24a8d167238fa6fb104ad4a75"
 ],
 [
-"prxyqry.dll",
-"1e16d28905716c1c817d889c083b01e3356499b2f350f4a795679b709cf6500b"
-],
-[
 "wdssdc.dll",
 "14635b7482587f4b3e76f4a6cece0657e2f88e660c7d0246da1e97d128b264b9"
-],
-[
-"wmsadminuilibrary.resources.dll",
-"ab4a6e49074f0fd81fff3e73a8ab1f7e7301dee951e0ec9499092184973fe03e"
 ]
 ],
 "updates": null
