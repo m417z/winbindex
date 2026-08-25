@@ -1,15 +1,8 @@
 {
-"next": [
-"settingshandlers_nt.dll",
-"fb40d35f270b0855f54f33faed8a2a11b66fc191f9a25aa5af263669fa639ce7"
-],
+"next": null,
 "next_updates": null,
 "pending": {},
 "retry": [
-[
-"bootvhd.dll",
-"c4b95094b0cd9e7a1d481655eff86788071796149921bf134e17371b3dfafc8f"
-],
 [
 "microsoft.ceres.docparsing.formathandlers.common.configuration.dll",
 "563ba711761821f9e3fcd5cac84e52a74b26f1a5e94208792e7940823a4618c7"
