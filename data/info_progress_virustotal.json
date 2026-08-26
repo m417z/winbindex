@@ -1,5 +1,8 @@
 {
-"next": null,
+"next": [
+"usbd.sys",
+"b33fb236ea4cca0638f1c6d9486ca4228e3278038741f0b327413c50b3ca0a86"
+],
 "next_updates": null,
 "pending": {},
 "retry": [
