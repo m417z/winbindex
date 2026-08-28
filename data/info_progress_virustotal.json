@@ -1,26 +1,26 @@
 {
 "next": [
-"usbd.sys",
-"b33fb236ea4cca0638f1c6d9486ca4228e3278038741f0b327413c50b3ca0a86"
+"ieframe.dll",
+"fcf35bc342dc57a9965dedc5f85267eb00145870b2c0cd73195df83388d51624"
 ],
 "next_updates": null,
 "pending": {},
 "retry": [
 [
-"cxwmbclass.sys",
-"afa4809fdef5ca4b896e39a0c625cd5b31eb8722724df3844b8db5b6bb098c22"
+"dmomacpmo.exe",
+"fe7c9271d14b7b70475eba6b1081a18fb4dd1f78b8500df7f526e24b7ced1dec"
 ],
 [
-"fileexplorer.exe",
-"2f9fbc0caad50c75e421d16812a986ffd8125392546c9a7300c2540dd1c1289f"
+"dxcpl.exe",
+"875012c3ee07dcdc027d4afdf1e7849252058456700e40264f95ecca9306294d"
 ],
 [
 "gameinputsvc.exe",
 "83ba5166dd6397ade67f4b6fddae6be61a694f487ed88ea83ee204f20be6d075"
 ],
 [
-"hvc.exe",
-"cab324823d1733ec69c84e9d5d4946c8484e441bc909090f6da9c3121a8ce209"
+"gdiplus.dll",
+"94ecb17a7f918f12d45ef666d4f2f21257785ead211875e7cb0417e3a351e7a8"
 ],
 [
 "microsoft.ceres.docparsing.formathandlers.common.configuration.dll",
@@ -29,22 +29,6 @@
 [
 "microsoft.ceres.docparsing.formathandlers.common.jpeginterop.dll",
 "ebfaad13cc741efb12338de190ecc924ad371fc24a8d167238fa6fb104ad4a75"
-],
-[
-"pinningconfirmationdialog.exe",
-"a6528df6f031ee0437a59652641ae7a369149b37f2b6a0ba0bbe6860a6efad61"
-],
-[
-"runexehelper.exe",
-"64c5d7a8b8765b310bba9b28095c07fb3583f5bbc6e515ff38ec00f02ddb9bd2"
-],
-[
-"sensordataservice.exe",
-"75475837d811085ea059e096e60cb2b4c0160481fc9cf6878afd68cf07672bcb"
-],
-[
-"vmms.exe",
-"38f17124a71d5df8b0131f4b60938f621288c69ab93f42e2e43f1e5bcb3ca2e1"
 ],
 [
 "wdssdc.dll",
