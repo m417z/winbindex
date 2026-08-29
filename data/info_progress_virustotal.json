@@ -1,27 +1,11 @@
 {
 "next": [
-"ieframe.dll",
-"fcf35bc342dc57a9965dedc5f85267eb00145870b2c0cd73195df83388d51624"
+"dmiprovider.dll",
+"d704529006ac711373c472d450e792cccc977564e4836561b7ecbdeb84a25941"
 ],
 "next_updates": null,
 "pending": {},
 "retry": [
-[
-"dmomacpmo.exe",
-"fe7c9271d14b7b70475eba6b1081a18fb4dd1f78b8500df7f526e24b7ced1dec"
-],
-[
-"dxcpl.exe",
-"875012c3ee07dcdc027d4afdf1e7849252058456700e40264f95ecca9306294d"
-],
-[
-"gameinputsvc.exe",
-"83ba5166dd6397ade67f4b6fddae6be61a694f487ed88ea83ee204f20be6d075"
-],
-[
-"gdiplus.dll",
-"94ecb17a7f918f12d45ef666d4f2f21257785ead211875e7cb0417e3a351e7a8"
-],
 [
 "microsoft.ceres.docparsing.formathandlers.common.configuration.dll",
 "563ba711761821f9e3fcd5cac84e52a74b26f1a5e94208792e7940823a4618c7"
@@ -29,6 +13,10 @@
 [
 "microsoft.ceres.docparsing.formathandlers.common.jpeginterop.dll",
 "ebfaad13cc741efb12338de190ecc924ad371fc24a8d167238fa6fb104ad4a75"
+],
+[
+"microsoft.web.management.webdavclient.resources.dll",
+"79cdd6edb78bc2becf27a796684d348bb7cc7f2e5bae390fb88993456ea7337d"
 ],
 [
 "wdssdc.dll",
