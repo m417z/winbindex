@@ -1,5 +1,8 @@
 {
-"next": null,
+"next": [
+"bcryptprimitives.dll",
+"39fb97e85f28e9061e17fc2068dd21ba0a29196cadf389c079476aad5e89d070"
+],
 "next_updates": null,
 "pending": {},
 "retry": [
