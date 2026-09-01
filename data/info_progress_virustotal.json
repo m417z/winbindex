@@ -1,0 +1,23 @@
+{
+"next": [
+"ism.dll",
+"3186ba0a4e8b8270308c88005c737a4ea8e6a3eccabcf8f44afa5be63afdeb21"
+],
+"next_updates": null,
+"pending": {},
+"retry": [
+[
+"microsoft.ceres.docparsing.formathandlers.common.configuration.dll",
+"563ba711761821f9e3fcd5cac84e52a74b26f1a5e94208792e7940823a4618c7"
+],
+[
+"microsoft.ceres.docparsing.formathandlers.common.jpeginterop.dll",
+"ebfaad13cc741efb12338de190ecc924ad371fc24a8d167238fa6fb104ad4a75"
+],
+[
+"wdssdc.dll",
+"14635b7482587f4b3e76f4a6cece0657e2f88e660c7d0246da1e97d128b264b9"
+]
+],
+"updates": null
+}
