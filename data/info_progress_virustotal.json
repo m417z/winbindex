@@ -4,18 +4,6 @@
 "pending": {},
 "retry": [
 [
-"d2d1.dll",
-"30ead9976995e49fcf1f3ecce5c71c010a2c7d1f6b7e4733939bff2251b79239"
-],
-[
-"dispbroker.desktop.dll",
-"b0e8d27b3d17c7b1b66838e35f69686d3bef0d655ff053e4511cff714d223b37"
-],
-[
-"microsoft.bluetooth.audio.dll",
-"2a5c3c6d8b07caa9f675cd1a416cb6b0fde1737317530914b087ba37bc0ec3ac"
-],
-[
 "microsoft.ceres.docparsing.formathandlers.common.configuration.dll",
 "563ba711761821f9e3fcd5cac84e52a74b26f1a5e94208792e7940823a4618c7"
 ],
@@ -26,10 +14,6 @@
 [
 "wdssdc.dll",
 "14635b7482587f4b3e76f4a6cece0657e2f88e660c7d0246da1e97d128b264b9"
-],
-[
-"windows.networking.sockets.pushenabledapplication.dll",
-"79a45491d02d32c16b790f9446739ad4cec77e72d2750ac24e8ec84b2b93bc89"
 ]
 ],
 "updates": null
