@@ -3,35 +3,12 @@
 "microsoft.ceres.docparsing.formathandlers.common.configuration.dll",
 "86e2eac22ac346a33f1e8a0907786d6cc9b2a6c492d98fac7e5a237d95acfe58"
 ],
-"next_updates": [
-"vfuprov.dll",
-"f8b98941d699a3bb90839285dd56bb68432ef132b4b27b8a19ee03b0f27856aa"
-],
+"next_updates": null,
 "pending": {},
 "retry": [
 [
-"autofmt.exe",
-"e53b81cc866705cb1f549c244750394ec12c249b0af1cae63331a837329ffc36"
-],
-[
-"chkdsk.exe",
-"e4ca0c8bb70af2a851a5ab31bb77df6d40db8d7fab131a449b0a1af628a46bd0"
-],
-[
-"fastfat.sys",
-"5605ccbefd5c7d3e04853c174db27b368b40228f85d2481f8bf3f0b499a91527"
-],
-[
 "fhmanagew.exe",
 "b8bf4b1647dd2f0943228b46ddd92276f6d10bf5235c89a735f44dcc66334998"
-],
-[
-"http.sys",
-"7aacdd6818c18eaa8698e792154218d503bc014f860bee62985711d929cdcbe6"
-],
-[
-"ksecpkg.sys",
-"21d772cc4fea73e79da356955ad423a27652dbb5951081276d9ca313b28dc0bc"
 ],
 [
 "microsoft.ceres.docparsing.formathandlers.common.configuration.dll",
@@ -50,40 +27,17 @@
 "ebfaad13cc741efb12338de190ecc924ad371fc24a8d167238fa6fb104ad4a75"
 ],
 [
-"setupplatform.exe",
-"fa51971730637813039a705dc8b2a78866aa8aff856095f8c0f04826aacb68fb"
-],
-[
-"spacedump.sys",
-"91a8ded2233fb6e754eb9d2154657bb72efc97c630ec04d0b0aed9e6c7e59eb0"
-],
-[
-"ssh-keygen.exe",
-"47f009c35523b6997aff0f0528dae84f1545465479d722292499941cd5cb83b5"
-],
-[
-"tdhres.dll",
-"006c361f7ed75419f5b20a5414aba1284a0cb20c6c6db58bb5e018db652aaa5a"
-],
-[
-"uaspstor.sys",
-"f14db954cf2730e64d3092ba0c6462be7340deed467f74b84779e423833414c5"
-],
-[
-"udfs.sys",
-"eac56f6c5c65b8c00d5e6c6ffcee33c73f515f14c70413a40e72abb626abf3dd"
-],
-[
 "wdssdc.dll",
 "14635b7482587f4b3e76f4a6cece0657e2f88e660c7d0246da1e97d128b264b9"
+],
+[
+"wincsflags.exe",
+"da7033f24984447b8b5b01d72abd130efc8e0f90e21360c393d84bc7b6ffc677"
+],
+[
+"wpr.exe",
+"c961e14863ba7c71ccbcd2fa8059f33672b5d4153f014dd4ad455bfa6b2f34b3"
 ]
 ],
-"updates": [
-"KB5123099",
-"KB5122876",
-"KB5122878",
-"KB5122880",
-"KB5124008",
-"KB5124012"
-]
+"updates": null
 }

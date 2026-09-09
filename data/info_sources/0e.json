@@ -3409,7 +3409,7 @@
 },
 "windows.shell.autodarkmode.dll": {
 "69fb83587e14f76c2ea13344fbb8f37e651bda90b4eb76527426da0dd9b0e72b": "vt",
-"cb54c0d7d930ce8b826fe0ac3184652a118c0ca4bd4218c77eaec8db5edeafc1": "pe"
+"cb54c0d7d930ce8b826fe0ac3184652a118c0ca4bd4218c77eaec8db5edeafc1": "vt"
 },
 "windowsinternal.composableshell.experiences.textinput.dll": {
 "00794889f2ee19feae843ff11c57993403661d7f76425ec4b8d77494f5091c05": "vt",
