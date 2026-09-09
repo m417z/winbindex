@@ -1,7 +1,7 @@
 {
 "next": [
-"microsoft.ceres.docparsing.formathandlers.common.configuration.dll",
-"86e2eac22ac346a33f1e8a0907786d6cc9b2a6c492d98fac7e5a237d95acfe58"
+"tprtdll.dll",
+"2409e35bef00068cedc9f28876882bf070206b2decf13c52c35fa3490659fd56"
 ],
 "next_updates": null,
 "pending": {},
@@ -20,6 +20,10 @@
 ],
 [
 "microsoft.ceres.docparsing.formathandlers.common.jpeginterop.dll",
+"0118e0fcd676509ed9a750bf47467282e1c57332f8ed4a928d833a9faf57e23c"
+],
+[
+"microsoft.ceres.docparsing.formathandlers.common.jpeginterop.dll",
 "d5388caa8a6120058a4f205d53f721416a1f483fcd488a942046c9b69d56faca"
 ],
 [
@@ -27,16 +31,28 @@
 "ebfaad13cc741efb12338de190ecc924ad371fc24a8d167238fa6fb104ad4a75"
 ],
 [
+"microsoft.uev.appagent.dll",
+"2e136ead606945ef96023f17b6389f09225257bf7aeb314c55a1c5195979194b"
+],
+[
+"mprddm.dll",
+"8cd3ffdafdb952df6b51491c48817fcd0d13d2701d01010b95a708d82d6aee29"
+],
+[
+"nsisvc.dll",
+"2ff241823c2e37813682189cee4dbc53b5dc551a3a43778377c4da0d1b8cb32a"
+],
+[
+"plasrv.exe",
+"1a632d2bd39ba6d7ba33ef7502b11404447435f30bc0e2cc26121162f5309145"
+],
+[
+"qmrdatatask.dll",
+"d96898c5c8895549cc95496a7433ce4e889e44549c60dc248a0b7eed974769dd"
+],
+[
 "wdssdc.dll",
 "14635b7482587f4b3e76f4a6cece0657e2f88e660c7d0246da1e97d128b264b9"
-],
-[
-"wincsflags.exe",
-"da7033f24984447b8b5b01d72abd130efc8e0f90e21360c393d84bc7b6ffc677"
-],
-[
-"wpr.exe",
-"c961e14863ba7c71ccbcd2fa8059f33672b5d4153f014dd4ad455bfa6b2f34b3"
 ]
 ],
 "updates": null
