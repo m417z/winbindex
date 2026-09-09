@@ -168,6 +168,11 @@ def get_updates_from_microsoft_support_for_version(windows_major_version, url, p
             updates_section = updates_section.replace(
                 'KB5055518 (OS Builds 19044.5736 and 19045.5736)',
                 'KB5055518 (OS Builds 19044.5737 and 19045.5737)')
+            # Likely a mistake, the page says build 19045.7725, and the release
+            # health page says so too.
+            updates_section = updates_section.replace(
+                'KB5122878 (OS Builds 19045.7720 and 19044.7720)',
+                'KB5122878 (OS Builds 19045.7725 and 19044.7725)')
 
         if windows_version == '1809':
             updates_section = updates_section.replace('(OS Build OS 17763.529)', '(OS Build 17763.529)')
@@ -186,6 +191,7 @@ def get_updates_from_microsoft_support_for_version(windows_major_version, url, p
         if windows_major_version == 10:
             updates_section = re.sub(r'<a [^>]*>Windows 10 Extended Security Updates \(ESU\) program</a>', '', updates_section, flags=re.IGNORECASE)
             updates_section = re.sub(r'<a [^>]*>Support for Windows Server \d+ will end in .*?</a>', '', updates_section, flags=re.IGNORECASE)
+            updates_section = re.sub(r'<a [^>]*>Extended Security Updates \(ESU\) Licensing Preparation Package for Windows 10</a>', '', updates_section, flags=re.IGNORECASE)
         elif windows_major_version == 11:
             updates_section = re.sub(r'<a [^>]*>Windows 11, version \w+\s*</a>', '', updates_section, flags=re.IGNORECASE)
 
