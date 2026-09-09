@@ -39,6 +39,10 @@ updates_unsupported = {
 
     # Missing on the Update Catalog.
     'KB5071959',
+
+    # The package served by the update servers is corrupt: its first 224 MiB
+    # are zeros, and its SHA-1 doesn't match the digest of the Update Catalog.
+    'KB5123099',
 }
 
 updates_alternative_links = {
