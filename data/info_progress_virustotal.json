@@ -1,7 +1,7 @@
 {
 "next": [
-"basecsp.dll",
-"76f09a73fcef45b01cb41aaea0b42f13857eea52b8f11922168b6a2f44416942"
+"mfasfsrcsnk.dll",
+"aeebaeb4d565f91278afff9f19d5179ed09b950f26708ea14cf46fa6ead6ce37"
 ],
 "next_updates": null,
 "pending": {},
@@ -9,6 +9,18 @@
 [
 "autopilot.dll",
 "44866e34330f34adefa0f393b3d4c14773b62eb0d0c5bc80b66083b901686635"
+],
+[
+"das.dll",
+"af62c77265984abceea3a250a10dc4504958c512b678b8b438260f4f74843e1d"
+],
+[
+"dcsvc.dll",
+"cf64ff29ae34e89f3d219fe8b20c9977904c96690fb31fb5547559acdb1934b3"
+],
+[
+"fwpkclnt.sys",
+"e846c63a88a153ee7785a68a1cc0a73dea598736c5cc4490cce95abf3e7d1143"
 ],
 [
 "microsoft.ceres.docparsing.formathandlers.common.configuration.dll",
@@ -25,10 +37,6 @@
 [
 "microsoft.ceres.docparsing.formathandlers.common.jpeginterop.dll",
 "ebfaad13cc741efb12338de190ecc924ad371fc24a8d167238fa6fb104ad4a75"
-],
-[
-"uwfrtl.sys",
-"30482f9d15cf118c5201cce8bfb69ca690d9a5d5a33c92298041d69a856af36f"
 ],
 [
 "wdssdc.dll",
