@@ -4,10 +4,6 @@
 "pending": {},
 "retry": [
 [
-"iscsidsc.dll",
-"9f46e51ee2a77874aa60a05f80413dd13112caeafb81481318ad5a3e72a984a9"
-],
-[
 "microsoft.ceres.docparsing.formathandlers.common.configuration.dll",
 "4ea2c850a6d7f9a889c9297b8bff7fe458b7291b59f032f720afacdc3ceb38f3"
 ],
@@ -22,18 +18,6 @@
 [
 "microsoft.ceres.docparsing.formathandlers.common.jpeginterop.dll",
 "ebfaad13cc741efb12338de190ecc924ad371fc24a8d167238fa6fb104ad4a75"
-],
-[
-"prxyqry.dll",
-"034b47cdffadd7f96051ca7fd0f570b4a7c9d27bb371a06d0a580e5e87e3ad2f"
-],
-[
-"rpcxdr.sys",
-"b0445c73a9bcf87a003edd42596837df66e08f856a93f9e9610b2bf633a11bd3"
-],
-[
-"upnphost.dll",
-"039d710917e4961634e568324bf05498feee0797838c3495e966ae5b631c9f5e"
 ],
 [
 "wdssdc.dll",
