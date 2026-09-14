@@ -1,5 +1,8 @@
 {
-"next": null,
+"next": [
+"windows.devices.pointofservice.dll",
+"7937c42ef70f0eab09adab37a19feeef98fc6cb6a88861b9a84a484eee50519a"
+],
 "next_updates": null,
 "pending": {},
 "retry": [
@@ -18,6 +21,10 @@
 [
 "microsoft.ceres.docparsing.formathandlers.common.jpeginterop.dll",
 "ebfaad13cc741efb12338de190ecc924ad371fc24a8d167238fa6fb104ad4a75"
+],
+[
+"peerdisthttptrans.dll",
+"bea73f795412c8b9abf43616340ea9df3cc99cacbf65342010e8061a4f64e914"
 ],
 [
 "wdssdc.dll",
