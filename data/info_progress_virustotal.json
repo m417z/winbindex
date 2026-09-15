@@ -1,15 +1,11 @@
 {
 "next": [
-"windows.devices.pointofservice.dll",
-"7937c42ef70f0eab09adab37a19feeef98fc6cb6a88861b9a84a484eee50519a"
+"msedge.dll",
+"1448c5774e46e46011fe23ad8d33b450d5c19cd0b767157a79063d2d2f1b7f18"
 ],
 "next_updates": null,
 "pending": {},
 "retry": [
-[
-"d3dcompiler_47.dll",
-"2e3526354dbcd9cf013f7b741c549df2170fe6af607628442216a21e7d584883"
-],
 [
 "microsoft.ceres.docparsing.formathandlers.common.configuration.dll",
 "4ea2c850a6d7f9a889c9297b8bff7fe458b7291b59f032f720afacdc3ceb38f3"
@@ -25,10 +21,6 @@
 [
 "microsoft.ceres.docparsing.formathandlers.common.jpeginterop.dll",
 "ebfaad13cc741efb12338de190ecc924ad371fc24a8d167238fa6fb104ad4a75"
-],
-[
-"uwfvol.sys",
-"3d9c81ec169dd89c2d48f39c4f8314d3669854bd6a6931119f8f7c119afaa52e"
 ],
 [
 "wdssdc.dll",
