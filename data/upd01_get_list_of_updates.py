@@ -184,6 +184,7 @@ def get_updates_from_microsoft_support_for_version(windows_major_version, url, p
             updates_section = updates_section.replace(' - KB4346877', '&#x2014;KB4346877')
             updates_section = updates_section.replace('KB4025334  (', 'KB4025334 (')
             updates_section = updates_section.replace('KB 3216755', 'KB3216755')
+            updates_section = updates_section.replace('September 14, 2026, 2026', 'September 14, 2026')  # KB5129239
 
         updates_section = re.sub(r'<a [^>]*>Windows.*? update history</a>', '', updates_section, flags=re.IGNORECASE)
         updates_section = re.sub(r'<a [^>]*>End of (service|servicing) statement</a>', '', updates_section, flags=re.IGNORECASE)
