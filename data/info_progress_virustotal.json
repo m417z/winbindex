@@ -7,6 +7,10 @@
 "pending": {},
 "retry": [
 [
+"d3dcompiler_47.dll",
+"2e3526354dbcd9cf013f7b741c549df2170fe6af607628442216a21e7d584883"
+],
+[
 "microsoft.ceres.docparsing.formathandlers.common.configuration.dll",
 "4ea2c850a6d7f9a889c9297b8bff7fe458b7291b59f032f720afacdc3ceb38f3"
 ],
@@ -23,12 +27,16 @@
 "ebfaad13cc741efb12338de190ecc924ad371fc24a8d167238fa6fb104ad4a75"
 ],
 [
-"peerdisthttptrans.dll",
-"bea73f795412c8b9abf43616340ea9df3cc99cacbf65342010e8061a4f64e914"
+"uwfvol.sys",
+"3d9c81ec169dd89c2d48f39c4f8314d3669854bd6a6931119f8f7c119afaa52e"
 ],
 [
 "wdssdc.dll",
 "14635b7482587f4b3e76f4a6cece0657e2f88e660c7d0246da1e97d128b264b9"
+],
+[
+"wevtutil.exe",
+"de2e59d41b6286ba2b11cd134aa87049f56a777a210c9bb96ea8b2222071a534"
 ]
 ],
 "updates": null
