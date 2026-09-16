@@ -1,8 +1,5 @@
 {
-"next": [
-"msedge.dll",
-"1448c5774e46e46011fe23ad8d33b450d5c19cd0b767157a79063d2d2f1b7f18"
-],
+"next": null,
 "next_updates": null,
 "pending": {},
 "retry": [
@@ -25,10 +22,6 @@
 [
 "wdssdc.dll",
 "14635b7482587f4b3e76f4a6cece0657e2f88e660c7d0246da1e97d128b264b9"
-],
-[
-"wevtutil.exe",
-"de2e59d41b6286ba2b11cd134aa87049f56a777a210c9bb96ea8b2222071a534"
 ]
 ],
 "updates": null
