@@ -1,5 +1,8 @@
 {
-"next": null,
+"next": [
+"windows.staterepositoryclient.dll",
+"dd1acbff19395f046cd7e25a06a1388948ff4c6a8c3e15db94460f46aec824fc"
+],
 "next_updates": null,
 "pending": {},
 "retry": [
