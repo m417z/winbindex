@@ -1,5 +1,8 @@
 {
-"next": null,
+"next": [
+"migisol.dll",
+"7bd8e2f72b766a73db70ae2d7143d8ef1ac437dbcfe4b9aefbb68b4dd9aefe5d"
+],
 "next_updates": null,
 "pending": {},
 "retry": [
