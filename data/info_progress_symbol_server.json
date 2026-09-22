@@ -1,4 +1,10 @@
 {
-"next": null,
-"updates": []
+"next": [
+"vmfirmwarehcl.dll",
+"1f4dfac9b3cb667b0096ef39bd88126b051b6ca0022920f9036244cd6a05d9bb"
+],
+"updates": [
+"KB5124010",
+"KB5124006"
+]
 }
