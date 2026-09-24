@@ -792,7 +792,7 @@
 "fa91b35c42d25f445c25c80fa37d17709175bec7362dc82e9212c2858dc0f4f9": "delta"
 },
 "microsoft.updateservices.reporting.dll": {
-"5e87ae35b897520b82bdb9593b069fbfc939dfe2fb49bd2e64883108222ab349": "pe",
+"5e87ae35b897520b82bdb9593b069fbfc939dfe2fb49bd2e64883108222ab349": "vt",
 "63fba6884e0dec5051b0e3747376e3655dbbfd3d66b8bbe55e29bc5bb48e55e3": "delta",
 "a1ae33aa3f1a0a31ce4aae229f82eebc7bfb94278fdb337e4fc6b5f8d4aaac96": "vt",
 "a8e7ab49dc5cb3ca9303a42a1f4ad9c8735ddcfa728e2be72f881361663c6ce4": "delta",
