@@ -1,14 +1,19 @@
 {
-"next": [
-"certenroll.dll",
-"6ddc39310a3194004ae9ebe3be0a5175ef2036c82d180736ae167d76dd11ef2b"
-],
+"next": null,
 "next_updates": null,
 "pending": {},
 "retry": [
 [
-"atbroker.exe",
-"7ba907d2c1dbf08db0194e021919b58819fe747a55e0775b2c1d57d5a53aa7b1"
+"bthmini.sys",
+"02d6b7d3698bd0f12e4e9c56e589416309d9ae2dc3821881f8c1902a42798a2c"
+],
+[
+"dafdnssd.dll",
+"e73b01048f8bd91f3046f61ec3aaa1a18136c18756a409c81ccd8a959bb8e2ec"
+],
+[
+"launchwinapp.exe",
+"df6a70a1dd89dacd22c22f375989c6e2c177863485d42b8abfa3c966f64786e6"
 ],
 [
 "microsoft.ceres.docparsing.formathandlers.common.configuration.dll",
@@ -29,10 +34,6 @@
 [
 "wdssdc.dll",
 "14635b7482587f4b3e76f4a6cece0657e2f88e660c7d0246da1e97d128b264b9"
-],
-[
-"wshqos.dll",
-"c58b63d5181ab35971d84b4e11e28963faa74ca1168d84600365f252ed984338"
 ]
 ],
 "updates": null
