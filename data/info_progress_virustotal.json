@@ -4,18 +4,6 @@
 "pending": {},
 "retry": [
 [
-"bthmini.sys",
-"02d6b7d3698bd0f12e4e9c56e589416309d9ae2dc3821881f8c1902a42798a2c"
-],
-[
-"dafdnssd.dll",
-"e73b01048f8bd91f3046f61ec3aaa1a18136c18756a409c81ccd8a959bb8e2ec"
-],
-[
-"launchwinapp.exe",
-"df6a70a1dd89dacd22c22f375989c6e2c177863485d42b8abfa3c966f64786e6"
-],
-[
 "microsoft.ceres.docparsing.formathandlers.common.configuration.dll",
 "4ea2c850a6d7f9a889c9297b8bff7fe458b7291b59f032f720afacdc3ceb38f3"
 ],
