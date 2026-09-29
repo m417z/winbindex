@@ -27,6 +27,8 @@ def consolidate_overlapping_updates(updates):
                     ('21H2', '22H2'),
                     ('11-22H2', '11-23H2'),
                     ('11-24H2', '11-25H2'),
+                    ('11-24H2', '11-26H2'),
+                    ('11-25H2', '11-26H2'),
                 ], (update_kb, seen_windows_version, windows_version)
 
                 assert update['updateUrl'] == seen_update['updateUrl']
@@ -35,6 +37,10 @@ def consolidate_overlapping_updates(updates):
                     # - 2004, 20H2: 2021-05-11
                     # - 21H1: 2021-05-18
                     'KB5003173',
+                    # Different release dates in the release health page:
+                    # - 11-24H2, 11-25H2: 2026-09-22
+                    # - 11-26H2: 2026-09-29 (the 26H2 release date)
+                    'KB5124010',
                 ]:
                     assert update['releaseDate'] == seen_update['releaseDate']
                 p = r'^\d+\.'
