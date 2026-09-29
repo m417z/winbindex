@@ -1,8 +1,19 @@
 {
-"next": null,
+"next": [
+"wordbreakers.dll",
+"038d5a2ef4cb7c49cc1165990a3cca0053a67175fdb8c0bec46d0cdc0aab7d81"
+],
 "next_updates": null,
 "pending": {},
 "retry": [
+[
+"chsstrokeds.dll",
+"aa127b177349f7b959da93dda5624596892c7088c522d48543432d63e6611a11"
+],
+[
+"credprovhost.dll",
+"90e601673a4b2c040256459f84f1bafa98cbdea0b03e0b8acedca03faebc879c"
+],
 [
 "microsoft.ceres.docparsing.formathandlers.common.configuration.dll",
 "4ea2c850a6d7f9a889c9297b8bff7fe458b7291b59f032f720afacdc3ceb38f3"
@@ -22,6 +33,10 @@
 [
 "wdssdc.dll",
 "14635b7482587f4b3e76f4a6cece0657e2f88e660c7d0246da1e97d128b264b9"
+],
+[
+"windowsperformancerecordercontrol.dll",
+"4a5a35df3f453f9de08a59a3c2163d8c9a656e90d14bc7b3a3e6de19690f8811"
 ]
 ],
 "updates": null
