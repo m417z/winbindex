@@ -1,0 +1,244 @@
+/*
+ * Dark theme. Loaded on top of every other stylesheet, so the rules here only
+ * need to recolor what Bootstrap and the plugins paint light.
+ */
+
+:root {
+    --winbindex-bg: #1c1f23;
+    --winbindex-bg-raised: #24282d;
+    --winbindex-bg-hover: #2f343a;
+    --winbindex-bg-input: #22262b;
+    --winbindex-border: #3c424a;
+    --winbindex-text: #d8dce0;
+    --winbindex-text-muted: #98a0a8;
+    --winbindex-link: #6ea8fe;
+    --winbindex-link-hover: #9ec5fe;
+
+    /* Let the browser paint scrollbars, checkboxes and other native controls
+       to match. */
+    color-scheme: dark;
+}
+
+/* Page */
+
+body.bg-light {
+    background-color: var(--winbindex-bg) !important;
+    color: var(--winbindex-text);
+}
+
+.text-muted {
+    color: var(--winbindex-text-muted) !important;
+}
+
+/* Buttons carry their own colors, and links inside them must not be recolored. */
+a:not(.btn) {
+    color: var(--winbindex-link);
+}
+
+a:not(.btn):hover,
+a:not(.btn):focus {
+    color: var(--winbindex-link-hover);
+}
+
+hr {
+    border-top-color: var(--winbindex-border);
+}
+
+pre,
+code {
+    color: var(--winbindex-text);
+}
+
+/* Loading spinner */
+
+.loading:not(:required):after {
+    box-shadow:
+        rgba(255, 255, 255, 0.75) 1.5em 0 0 0,
+        rgba(255, 255, 255, 0.75) 1.1em 1.1em 0 0,
+        rgba(255, 255, 255, 0.75) 0 1.5em 0 0,
+        rgba(255, 255, 255, 0.75) -1.1em 1.1em 0 0,
+        rgba(255, 255, 255, 0.75) -1.5em 0 0 0,
+        rgba(255, 255, 255, 0.75) -1.1em -1.1em 0 0,
+        rgba(255, 255, 255, 0.75) 0 -1.5em 0 0,
+        rgba(255, 255, 255, 0.75) 1.1em -1.1em 0 0;
+}
+
+/* Form controls */
+
+.form-control,
+.form-control:focus {
+    color: var(--winbindex-text);
+    background-color: var(--winbindex-bg-input);
+    border-color: var(--winbindex-border);
+}
+
+.form-control::placeholder {
+    color: var(--winbindex-text-muted);
+}
+
+.form-control:disabled,
+.form-control[readonly] {
+    background-color: var(--winbindex-bg-raised);
+}
+
+.custom-select {
+    color: var(--winbindex-text);
+    background-color: var(--winbindex-bg-input);
+    border-color: var(--winbindex-border);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23d8dce0' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e");
+}
+
+/* Table */
+
+.table {
+    color: var(--winbindex-text);
+}
+
+.table th,
+.table td,
+.table thead th,
+.table tbody + tbody,
+.table-bordered,
+.table-bordered th,
+.table-bordered td {
+    border-color: var(--winbindex-border);
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(255, 255, 255, 0.04);
+}
+
+/* Mark filtered columns with a different color */
+div.yadcf-filter-wrapper:has(> .yadcf-filter.inuse) {
+    color: var(--winbindex-link);
+}
+
+/* Pagination */
+
+.page-link {
+    color: var(--winbindex-link);
+    background-color: var(--winbindex-bg-raised);
+    border-color: var(--winbindex-border);
+}
+
+.page-link:hover {
+    color: var(--winbindex-link-hover);
+    background-color: var(--winbindex-bg-hover);
+    border-color: var(--winbindex-border);
+}
+
+.page-item.disabled .page-link {
+    color: var(--winbindex-text-muted);
+    background-color: var(--winbindex-bg-raised);
+    border-color: var(--winbindex-border);
+}
+
+/* Dropdowns */
+
+.dropdown-menu {
+    color: var(--winbindex-text);
+    background-color: var(--winbindex-bg-raised);
+    border-color: var(--winbindex-border);
+}
+
+.dropdown-item {
+    color: var(--winbindex-text);
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    color: var(--winbindex-text);
+    background-color: var(--winbindex-bg-hover);
+}
+
+.dropdown-item.disabled,
+.dropdown-item:disabled,
+.dropdown-header {
+    color: var(--winbindex-text-muted);
+}
+
+.dropdown-divider {
+    border-top-color: var(--winbindex-border);
+}
+
+/* Modals, including the ones created by bootstrap4-dialog */
+
+.modal-content {
+    color: var(--winbindex-text);
+    background-color: var(--winbindex-bg-raised);
+    border-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-header,
+.modal-footer {
+    border-color: var(--winbindex-border);
+}
+
+.close,
+.close:hover {
+    color: var(--winbindex-text);
+    text-shadow: none;
+}
+
+.bootstrap-dialog.type-default .modal-header {
+    background-color: var(--winbindex-bg-hover);
+}
+
+.bootstrap-dialog.type-default .bootstrap-dialog-title {
+    color: var(--winbindex-text);
+}
+
+/* select2, used for the column filters */
+
+.select2-dropdown {
+    background-color: var(--winbindex-bg-raised);
+    border-color: var(--winbindex-border);
+}
+
+/* No text color here: the selected value inherits the color of the wrapper,
+   which is what marks a column as filtered. */
+.select2-container--bootstrap4 .select2-selection {
+    background-color: var(--winbindex-bg-input);
+    border-color: var(--winbindex-border);
+}
+
+.select2-container--bootstrap4 .select2-dropdown {
+    border-color: var(--winbindex-border);
+}
+
+.select2-container--bootstrap4 .select2-selection--single .select2-selection__placeholder {
+    color: var(--winbindex-text-muted);
+}
+
+.select2-container--bootstrap4 .select2-selection--single .select2-selection__arrow b {
+    border-top-color: var(--winbindex-text);
+}
+
+/* The highlighted option keeps the theme's blue, in both themes. */
+.select2-container--bootstrap4 .select2-dropdown .select2-results__option[aria-selected="true"]:not(.select2-results__option--highlighted) {
+    background-color: var(--winbindex-bg-hover);
+}
+
+.select2-search--dropdown .select2-search__field {
+    color: var(--winbindex-text);
+    background-color: var(--winbindex-bg-input);
+    border-color: var(--winbindex-border);
+}
+
+/* Virtual select, the file picker on the front page */
+
+.ui-virtual-select--search-input {
+    color: var(--winbindex-text);
+    background-color: var(--winbindex-bg-input);
+}
+
+.ui-virtual-select--items,
+.ui-virtual-select--loading-indicator {
+    color: var(--winbindex-text);
+    background-color: var(--winbindex-bg-raised);
+    border-color: var(--winbindex-border);
+}
+
+.ui-virtual-select--item.active {
+    background-color: var(--winbindex-bg-hover);
+}

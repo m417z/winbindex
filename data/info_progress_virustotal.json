@@ -1,0 +1,31 @@
+{
+"next": [
+"microsoft.ceres.docparsing.formathandlers.common.configuration.dll",
+"4e8408f9b66ecf316e03887226086458471abbb4aa59815d911a785c02efa154"
+],
+"next_updates": null,
+"pending": {},
+"retry": [
+[
+"microsoft.ceres.docparsing.formathandlers.common.configuration.dll",
+"4ea2c850a6d7f9a889c9297b8bff7fe458b7291b59f032f720afacdc3ceb38f3"
+],
+[
+"microsoft.ceres.docparsing.formathandlers.common.configuration.dll",
+"563ba711761821f9e3fcd5cac84e52a74b26f1a5e94208792e7940823a4618c7"
+],
+[
+"microsoft.ceres.docparsing.formathandlers.common.jpeginterop.dll",
+"d5388caa8a6120058a4f205d53f721416a1f483fcd488a942046c9b69d56faca"
+],
+[
+"microsoft.ceres.docparsing.formathandlers.common.jpeginterop.dll",
+"ebfaad13cc741efb12338de190ecc924ad371fc24a8d167238fa6fb104ad4a75"
+],
+[
+"wdssdc.dll",
+"14635b7482587f4b3e76f4a6cece0657e2f88e660c7d0246da1e97d128b264b9"
+]
+],
+"updates": null
+}
