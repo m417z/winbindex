@@ -1,7 +1,7 @@
 {
 "next": [
-"usbpmapi.dll",
-"72f0e5c01934a13d9c58ecd3c7d124f73eb534d0483c7d966fbb24b1b5c7b328"
+"trie.dll",
+"9e08b059124e5fba88820769384475a76687e71b4ff9bfa8eea4119a94d52bed"
 ],
 "next_updates": null,
 "pending": {},
@@ -21,6 +21,14 @@
 [
 "microsoft.ceres.docparsing.formathandlers.common.jpeginterop.dll",
 "ebfaad13cc741efb12338de190ecc924ad371fc24a8d167238fa6fb104ad4a75"
+],
+[
+"usbpmapi.dll",
+"72f0e5c01934a13d9c58ecd3c7d124f73eb534d0483c7d966fbb24b1b5c7b328"
+],
+[
+"useraccountcontrolsettings.exe",
+"53fa3c6ac59db3a3ca457ae4a464045adf864cf532ea5c039d0c28e3efa6034e"
 ],
 [
 "wdssdc.dll",
