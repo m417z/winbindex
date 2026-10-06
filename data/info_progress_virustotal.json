@@ -1,7 +1,7 @@
 {
 "next": [
-"npsm.dll",
-"c19732b598571bdc1f216a9a6ed68343e5d0c446dd3b07aeee5ba27f090d7891"
+"cbmr_driver.efi",
+"adf15843e562e7c836e38472813d7738e98ef9f1d954cdff7508e66e4666de4d"
 ],
 "next_updates": null,
 "pending": {},
@@ -21,6 +21,10 @@
 [
 "microsoft.ceres.docparsing.formathandlers.common.jpeginterop.dll",
 "ebfaad13cc741efb12338de190ecc924ad371fc24a8d167238fa6fb104ad4a75"
+],
+[
+"systemsettingsadminflows.exe",
+"a69a3c52b0dccae4f88c4e74e93195d2dd0b683b9471a22bf3ed59d1a23119fc"
 ],
 [
 "wdssdc.dll",
