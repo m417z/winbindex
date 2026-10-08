@@ -527,7 +527,7 @@
 "isosessionclient.dll": {
 "38929e1818f0791f637211181b620ada08acce58174c4628d01bea7bc31a2dd9": "pe",
 "6c8107be04b03bf9791c538ef8790feec19556ec2c16f8bfbdfcc5c7c006a9bc": "vt",
-"c3b15640dfe6ce18729a3fcd65f7b3be7451ef9e09c321b7facb47387f5d6dd9": "pe"
+"c3b15640dfe6ce18729a3fcd65f7b3be7451ef9e09c321b7facb47387f5d6dd9": "vt"
 },
 "kbdlk41a.dll": {
 "035deac8c39f28337994e524191af41fc4ca84f156df85df0c6b47b2ed7ca931": "file",
