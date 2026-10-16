@@ -1,47 +1,11 @@
 {
 "next": [
-"logcollector.exe",
-"4b08c46ab99f28278e937ea6ad82cd0cce39a82eecb08348975a61febe91a518"
+"portabledeviceapi.dll",
+"544390c9ee30ed991a10ef792189456acad47f96bcd2578b256a045db09becd9"
 ],
 "next_updates": null,
 "pending": {},
 "retry": [
-[
-"acpi.sys",
-"af76da98b5bbd0cd959fde3a75b4c4d2fbd0c1ee5dcca6f8468ca5250bc460a5"
-],
-[
-"activationvdev.dll",
-"d9c097e92a9decc3ea98a375e25a1e57a9d9be33d15b08685fd5c72375576518"
-],
-[
-"bthenum.sys",
-"fab41f4e9ca0c7114922504f979633573208e62b8a92bc1a5cc5c5a50c26d3c8"
-],
-[
-"dxgmms2.sys",
-"09cce6a3530a4dfa2e06f62e3a9980c7fabae5666af167b68011261cc6510a78"
-],
-[
-"eventvwr.exe",
-"1dd8da8325222ce2025845995873b99e652f4bfe81a22d5a9e2ed6378bfcaf58"
-],
-[
-"hpt4qic.sys",
-"773cf156e067def6c5ad3be82d5353e9174b19f6a06d1b84990fd1c74f966764"
-],
-[
-"iashlpr.dll",
-"2dda2d531299720a50e26248f3eb0bab72a9e4d86ba272f08b24a2aa38e33840"
-],
-[
-"iemigplugin.dll",
-"33370c16c0a6ac4b8e395269db4504fc8fb184c4450098cc0c77927907be1e74"
-],
-[
-"imebroker.exe",
-"c52120872e2ea283372a569db900af8c83d5740e3f9951dfdd1ebc809fbba3e2"
-],
 [
 "microsoft.ceres.docparsing.formathandlers.common.configuration.dll",
 "4ea2c850a6d7f9a889c9297b8bff7fe458b7291b59f032f720afacdc3ceb38f3"
@@ -61,10 +25,6 @@
 [
 "wdssdc.dll",
 "14635b7482587f4b3e76f4a6cece0657e2f88e660c7d0246da1e97d128b264b9"
-],
-[
-"wdsutil.dll",
-"9a9113245494af7d7c934418fbc9043920a7af4f5a6fff010a750ef32fb93db7"
 ]
 ],
 "updates": null
