@@ -1566,7 +1566,7 @@
 },
 "secfw_genuineintel.dll": {
 "08db6770a18bf2d18dc3bade3f61289fb3e9b6d84a8c3e2dd45fb4d1cffd3a20": "vt",
-"ebd84fa0fb0d6036d8ec6c79039e49a9f155d72deb44f2f3ab1b2b94497e63f6": "delta+"
+"ebd84fa0fb0d6036d8ec6c79039e49a9f155d72deb44f2f3ab1b2b94497e63f6": "vt"
 },
 "servercoreshell.exe": {
 "01412c7c59ab702e452c333dbf2c2a4f20baffb4d6fd8846394bf8cb520f5d6e": "vt",

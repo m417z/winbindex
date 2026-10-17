@@ -1,7 +1,7 @@
 {
 "next": [
-"portabledeviceapi.dll",
-"544390c9ee30ed991a10ef792189456acad47f96bcd2578b256a045db09becd9"
+"tlsrepplugin.dll",
+"4e9fe64dd498de4ee18477e0ae7c2ebfd760e19d90e93a56b4ebfd5dc2ce6a0f"
 ],
 "next_updates": null,
 "pending": {},
@@ -21,6 +21,46 @@
 [
 "microsoft.ceres.docparsing.formathandlers.common.jpeginterop.dll",
 "ebfaad13cc741efb12338de190ecc924ad371fc24a8d167238fa6fb104ad4a75"
+],
+[
+"presentationcore.dll",
+"ccf6c506475ecb9802fb92176e3b8fe8a6d22f63707e063f6f3f3775607030d4"
+],
+[
+"reseteng.dll",
+"9b66cd0f318495d18c680aa4a814d3cc760ec58cfd13b7a30deadd4ce021d244"
+],
+[
+"settingshandlers_flights.dll",
+"69b0d6131b925d494658df380c939e29efa61d3f210aa716a1115e03c109d8c5"
+],
+[
+"setuphost.exe",
+"79904a1a90eb60e42f0622adb90ffe7950f6115b76f983103871b93cc806b4c0"
+],
+[
+"setuphost.exe",
+"a627da81c2963f99e48359a6513be2c86607858388472a2048d2fb9876b9d48f"
+],
+[
+"shimeng.dll",
+"c52304cb6d5f3ccbab10a3da47802eabea5885ddfcf2df4bcd1fb8d69f15381e"
+],
+[
+"sisraid2.sys",
+"44116ff204cf0b7bf5f0d6de153260f77dc8f2b57b85fb773ebf8dd039a92ab0"
+],
+[
+"sppnp.dll",
+"fabb59d72150624722d304492a1ebb5bb61dc7c72149af285a9799bb2842502d"
+],
+[
+"spsreng.dll",
+"5193df7d60f789af90e6f44980127442afa0e9496c106b8964c67e3c687c989d"
+],
+[
+"tlscsp.dll",
+"e8ce5be3ed445a5ecf35bb618d4ef401beca010e218a74b885ff9db9fbb5bbb7"
 ],
 [
 "wdssdc.dll",
