@@ -1,11 +1,31 @@
 {
 "next": [
-"wow64win.dll",
-"952bf4123f636d38bb46295cc4bc911038348c732ab04227d8ed7c27cf717c70"
+"commandexecutorextension.dll",
+"b4a6f5fa1f1ae2ab345af730b160c08f0a482a942838f28474f7ab5ad828f43d"
 ],
 "next_updates": null,
 "pending": {},
 "retry": [
+[
+"apphelp.dll",
+"87f69e162c3053d6006bed18a7a5ad4e738819e3db958f017baf2fc26ab654e2"
+],
+[
+"bthprops.cpl",
+"80884b25a89bd6e98d833125b5b8386143fd46d0839675b78fe1871421713028"
+],
+[
+"cbsprovider.dll",
+"a2890aaeb446d21c53a3cd5b0dd4f950435f4c2a482ce735ffe2f9057284e394"
+],
+[
+"clipsp.sys",
+"57100daa463afa131ef874b0c3ebbeaba31451f08ed0dca307c765494532ab4e"
+],
+[
+"comctl32.dll",
+"5e88e76f2c01e08f7eb10f7a96f66ec35c89c674cb467790ec6eebdf7ee2eca6"
+],
 [
 "microsoft.ceres.docparsing.formathandlers.common.configuration.dll",
 "4ea2c850a6d7f9a889c9297b8bff7fe458b7291b59f032f720afacdc3ceb38f3"
@@ -31,12 +51,16 @@
 "70f33fe9c9457ab51b03d13fabf41664013595cfb92c4d89a71688ba0c285568"
 ],
 [
-"windowsadmincentersetup.resources.dll",
-"4f4981772eb4058e3b229f740206e55e8221785b12472f584133fcc7d980c924"
+"wssg.web.domainprovidermanagerservice.dll",
+"1408f255064469e72807c922526cf45336df59a48f7ec810561997f1a273d61a"
 ],
 [
-"windowsinternal.ai.context.winmd",
-"e61fc5ca33ae9b0df9ad87bc864ad0e30ac14815ce31c579e4a86a4e6633ae59"
+"xpsdocumenttargetprint.dll",
+"51f1996649a1f6f734a70f25bd5f9db09fd415d49c1aee05580afe06f28230d8"
+],
+[
+"xpstotiffconverter.dll",
+"3bad86c3f9e62bc620a7f0569740725799e8e59a0b93034aba65716506d7227f"
 ]
 ],
 "updates": null
