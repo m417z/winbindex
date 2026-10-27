@@ -23,12 +23,8 @@
 "ebfaad13cc741efb12338de190ecc924ad371fc24a8d167238fa6fb104ad4a75"
 ],
 [
-"mp43decd.dll",
-"4b33d7ccc81376bfaa83a26a4a9a57121785969344be46ed04e325eb99a4e454"
-],
-[
-"mprddm.dll",
-"b761fd8eae1fa313efc1fc966463ef87a700cf5bd3267367ef4510531575a5f3"
+"reportingcsp.dll",
+"a645bc68438f55f32a1690c036f31b83cad7fde9f2dcb0c58b83985e4aac994b"
 ],
 [
 "wdssdc.dll",
@@ -39,11 +35,5 @@
 "70f33fe9c9457ab51b03d13fabf41664013595cfb92c4d89a71688ba0c285568"
 ]
 ],
-"updates": [
-"KB5134123",
-"KB5134124",
-"KB5134125",
-"KB5134130",
-"KB5134133"
-]
+"updates": null
 }
