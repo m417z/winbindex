@@ -27,9 +27,10 @@ deploy_amend_last_commit = True
 windows_versions_unsupported = {}
 
 updates_unsupported = {
-    # ARM only.
+    # ARM64 only.
     'KB5016138',
     'KB5016139',
+    'KB5134134',
 
     # Windows Server only.
     'KB5070881',
