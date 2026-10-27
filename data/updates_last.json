@@ -1706,6 +1706,12 @@
             "releaseDate": "2026-09-14",
             "releaseVersion": "28000.2956",
             "updateUrl": "https://support.microsoft.com/help/5129194"
+        },
+        "KB5134134": {
+            "heading": "October 26, 2026\u2014KB5134134 (OS Build 28000.3237) Out-of-band",
+            "releaseDate": "2026-10-26",
+            "releaseVersion": "28000.3237",
+            "updateUrl": "https://support.microsoft.com/help/5134134"
         }
     },
     "1507": {
