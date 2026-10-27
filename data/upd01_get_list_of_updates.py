@@ -154,6 +154,9 @@ def get_updates_from_microsoft_support_for_version(windows_major_version, url, p
         assert windows_version not in all_updates
 
         # Specific title fixes.
+        if windows_version == '11-26H1':
+            updates_section = updates_section.replace('KB55134134 (OS Build 28000.3237)', 'KB5134134 (OS Build 28000.3237)')
+
         if windows_version == '11-24H2':
             updates_section = updates_section.replace('KB5055627(OS Build', 'KB5055627 (OS Build')
 
