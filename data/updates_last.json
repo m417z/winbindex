@@ -1598,6 +1598,17 @@
             "updateUrl": "https://support.microsoft.com/help/5134133"
         }
     },
+    "11-25H2": {
+        "KB5127936": {
+            "heading": "October 28, 2026\u2014KB5127936 (OS Builds 26300.9818 and 26200.9818) Preview",
+            "otherWindowsVersions": [
+                "11-26H2"
+            ],
+            "releaseDate": "2026-10-28",
+            "releaseVersion": "26300.9818",
+            "updateUrl": "https://support.microsoft.com/help/5127936"
+        }
+    },
     "11-26H1": {
         "KB5077179": {
             "heading": "February 10, 2026\u2014KB5077179 (OS Build 28000.1575)",
@@ -1700,6 +1711,12 @@
             "releaseDate": "2026-10-13",
             "releaseVersion": "28000.3231",
             "updateUrl": "https://support.microsoft.com/help/5127646"
+        },
+        "KB5127653": {
+            "heading": "October 28, 2026\u2014KB5127653 (OS Build 28000.3365) Preview",
+            "releaseDate": "2026-10-28",
+            "releaseVersion": "28000.3365",
+            "updateUrl": "https://support.microsoft.com/help/5127653"
         },
         "KB5129194": {
             "heading": "September 14, 2026\u2014KB5129194 (OS Build 28000.2956) Out-of-band",
