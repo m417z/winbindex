@@ -23,12 +23,8 @@
 "ebfaad13cc741efb12338de190ecc924ad371fc24a8d167238fa6fb104ad4a75"
 ],
 [
-"ntkrla57.exe",
-"b97aa07e7c1aa620a3b9f64f9b673e20e412632fa05fe30891f6c6dada71933b"
-],
-[
-"offlinelsa.dll",
-"bf62b392c28ac6e5a9f7cbddc3b40cd13977a103bc6c03b7b47043b8a8474d6c"
+"waasmedicagent.exe",
+"dd10fef921fc8c14b6b96add869804c4f6664b6e471dc616e4a49ece508ea09b"
 ],
 [
 "wdssdc.dll",
@@ -37,10 +33,27 @@
 [
 "wdssdc.dll",
 "70f33fe9c9457ab51b03d13fabf41664013595cfb92c4d89a71688ba0c285568"
+],
+[
+"windows.devices.sensors.dll",
+"389ac0bf0f5b1af2cc892642726bde6058fee4e2b6000c4b4f9202b78933b2ef"
+],
+[
+"windows.internal.shell.broker.dll",
+"03f7b8527335620ef64a02a62d106a9e0acaf29c2e4ef9fa6833e953bb7ea5ac"
+],
+[
+"wowreg32.exe",
+"b159e1d76a4e15ba35539f611eab9b6fd7729f85ebb26a264777f9d9a0f93b4f"
+],
+[
+"wpd_ci.dll",
+"bdadcd60e51c869f4a0c189f4051f99fc57cdf633875f7b4d275db52bb03d615"
+],
+[
+"wscript.exe",
+"a15a60eaca5b31cba46d30bce85ce577345c2c715a27481e968e207fb925b097"
 ]
 ],
-"updates": [
-"KB5127936",
-"KB5127653"
-]
+"updates": null
 }
