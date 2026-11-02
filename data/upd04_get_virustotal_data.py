@@ -128,6 +128,10 @@ def identify_virustotal_result(file_hash: str, virustotal_json: dict) -> str:
             # microsoft.ceres.docparsing.formathandlers.common.configuration.dll
             '4e8408f9b66ecf316e03887226086458471abbb4aa59815d911a785c02efa154',
             # microsoft.ceres.docparsing.formathandlers.common.configuration.dll
+            '4ea2c850a6d7f9a889c9297b8bff7fe458b7291b59f032f720afacdc3ceb38f3',
+            # microsoft.ceres.docparsing.formathandlers.common.configuration.dll
+            '563ba711761821f9e3fcd5cac84e52a74b26f1a5e94208792e7940823a4618c7',
+            # microsoft.ceres.docparsing.formathandlers.common.configuration.dll
             '86e2eac22ac346a33f1e8a0907786d6cc9b2a6c492d98fac7e5a237d95acfe58',
             # microsoft.ceres.docparsing.formathandlers.common.jpeginterop.dll
             '0118e0fcd676509ed9a750bf47467282e1c57332f8ed4a928d833a9faf57e23c',
@@ -135,6 +139,8 @@ def identify_virustotal_result(file_hash: str, virustotal_json: dict) -> str:
             '04f8591186445243c2e6a8f8161852de4f027381f077e8c78fadc09ee022f899',
             # microsoft.ceres.docparsing.formathandlers.common.jpeginterop.dll
             '0bf23e9042cad8fdefbafeededf08cc8e8d9d3789fd561c040de2f66e1d8b9de',
+            # microsoft.ceres.docparsing.formathandlers.common.jpeginterop.dll
+            'd5388caa8a6120058a4f205d53f721416a1f483fcd488a942046c9b69d56faca',
             # microsoft.ceres.docparsing.formathandlers.common.linkdetector.dll
             '920a9eb0e61ee13af50e07abcc77bcc0202108b4b7ab84acecbd7add2ffd7b51',
             # vc_redist.arm64.exe
