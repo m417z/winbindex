@@ -38,7 +38,21 @@ jobs:
         run: python -m pip install -r .github/requirements.txt
       - name: Install Windows dependencies
         run: |
-          choco install -y aria2 tor
+          choco install -y aria2
+      - name: Install Tor
+        # Not from Chocolatey: its tor package (0.4.8) lacks protocols required
+        # by the Tor network.
+        env:
+          TOR_URL: https://archive.torproject.org/tor-package-archive/torbrowser/16.0/tor-expert-bundle-windows-x86_64-16.0.tar.gz
+          TOR_SHA256: 2ee123e9167318a3742778ff704e75f01d4780f05a14522d451fe011011077c4
+        run: |
+          tor_dir="$(cygpath -u "$RUNNER_TEMP")/tor"
+          mkdir -p "$tor_dir"
+          curl -fsSL -o "$tor_dir.tar.gz" "$TOR_URL"
+          echo "$TOR_SHA256  $tor_dir.tar.gz" | sha256sum -c -
+          tar -xzf "$tor_dir.tar.gz" -C "$tor_dir"
+          "$tor_dir/tor/tor.exe" --version
+          cygpath -w "$tor_dir/tor" >> "$GITHUB_PATH"
       - name: Set up Git config
         run: |
           git config --global user.email "69083578+winbindex-deploy-bot@users.noreply.github.com"
