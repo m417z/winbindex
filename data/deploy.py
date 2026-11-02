@@ -191,7 +191,7 @@ def check_pymultitor(endpoint='http://127.0.0.1:8080/status'):
 
 
 def start_pymultitor(args):
-    subprocess.Popen(['pymultitor'] + args, env={
+    process = subprocess.Popen(['pymultitor'] + args, env={
         **os.environ,
         'PYMULTITOR_TOKEN': pymultitor_token,
     })
@@ -199,6 +199,9 @@ def start_pymultitor(args):
     while True:
         if check_pymultitor():
             return
+
+        if process.poll() is not None:
+            raise Exception(f'PyMultitor exited with code {process.returncode}')
 
         print('Waiting for PyMultitor to start...')
 
