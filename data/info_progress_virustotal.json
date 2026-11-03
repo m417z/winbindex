@@ -1,30 +1,26 @@
 {
 "next": [
-"rdwebai.dll",
-"9b1f41f81394a4badda410d089c63ac107df5fa72b892a10efb3856fa97d63e4"
+"wldap32.dll",
+"0f7eeb5e742bc2393ae38dff501e736d882ebc10fa84b9722abe73357c467fb5"
 ],
 "next_updates": null,
 "pending": {},
 "retry": [
 [
-"microsoft.ceres.docparsing.formathandlers.common.configuration.dll",
-"4ea2c850a6d7f9a889c9297b8bff7fe458b7291b59f032f720afacdc3ceb38f3"
-],
-[
-"microsoft.ceres.docparsing.formathandlers.common.configuration.dll",
-"563ba711761821f9e3fcd5cac84e52a74b26f1a5e94208792e7940823a4618c7"
-],
-[
-"microsoft.ceres.docparsing.formathandlers.common.jpeginterop.dll",
-"d5388caa8a6120058a4f205d53f721416a1f483fcd488a942046c9b69d56faca"
-],
-[
 "microsoft.ceres.docparsing.formathandlers.common.jpeginterop.dll",
 "ebfaad13cc741efb12338de190ecc924ad371fc24a8d167238fa6fb104ad4a75"
 ],
 [
-"waasmedicagent.exe",
-"dd10fef921fc8c14b6b96add869804c4f6664b6e471dc616e4a49ece508ea09b"
+"shdocvw.dll",
+"60804aff5e9c78dd0f277a0c131c9327f817d4995e2af9bf277d819a85117a5a"
+],
+[
+"slui.exe",
+"ef144335af536b15f25eb7829209728ed2f5943929a0def69593d1890918d761"
+],
+[
+"wdsimage.dll",
+"fceee52ac0ed7003724a220aff12edae667c254443891af98198eb6c1e979e21"
 ],
 [
 "wdssdc.dll",
@@ -33,26 +29,6 @@
 [
 "wdssdc.dll",
 "70f33fe9c9457ab51b03d13fabf41664013595cfb92c4d89a71688ba0c285568"
-],
-[
-"windows.devices.sensors.dll",
-"389ac0bf0f5b1af2cc892642726bde6058fee4e2b6000c4b4f9202b78933b2ef"
-],
-[
-"windows.internal.shell.broker.dll",
-"03f7b8527335620ef64a02a62d106a9e0acaf29c2e4ef9fa6833e953bb7ea5ac"
-],
-[
-"wowreg32.exe",
-"b159e1d76a4e15ba35539f611eab9b6fd7729f85ebb26a264777f9d9a0f93b4f"
-],
-[
-"wpd_ci.dll",
-"bdadcd60e51c869f4a0c189f4051f99fc57cdf633875f7b4d275db52bb03d615"
-],
-[
-"wscript.exe",
-"a15a60eaca5b31cba46d30bce85ce577345c2c715a27481e968e207fb925b097"
 ]
 ],
 "updates": null
