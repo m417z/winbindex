@@ -1,7 +1,7 @@
 {
 "next": [
-"wldap32.dll",
-"0f7eeb5e742bc2393ae38dff501e736d882ebc10fa84b9722abe73357c467fb5"
+"qasf.dll",
+"1c63da05d81815e4eb26e51b304d0ecd269fdefa816ca1c6228f4cabf1b81a35"
 ],
 "next_updates": null,
 "pending": {},
@@ -11,24 +11,16 @@
 "ebfaad13cc741efb12338de190ecc924ad371fc24a8d167238fa6fb104ad4a75"
 ],
 [
-"shdocvw.dll",
-"60804aff5e9c78dd0f277a0c131c9327f817d4995e2af9bf277d819a85117a5a"
-],
-[
-"slui.exe",
-"ef144335af536b15f25eb7829209728ed2f5943929a0def69593d1890918d761"
-],
-[
-"wdsimage.dll",
-"fceee52ac0ed7003724a220aff12edae667c254443891af98198eb6c1e979e21"
-],
-[
 "wdssdc.dll",
 "14635b7482587f4b3e76f4a6cece0657e2f88e660c7d0246da1e97d128b264b9"
 ],
 [
 "wdssdc.dll",
 "70f33fe9c9457ab51b03d13fabf41664013595cfb92c4d89a71688ba0c285568"
+],
+[
+"workfoldersshell.dll",
+"ccc64179acd23919ac48835657751896beb8c446c64f386b8f19efd21c548022"
 ]
 ],
 "updates": null
