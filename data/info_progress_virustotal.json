@@ -1,8 +1,5 @@
 {
-"next": [
-"qasf.dll",
-"1c63da05d81815e4eb26e51b304d0ecd269fdefa816ca1c6228f4cabf1b81a35"
-],
+"next": null,
 "next_updates": null,
 "pending": {},
 "retry": [
@@ -17,10 +14,6 @@
 [
 "wdssdc.dll",
 "70f33fe9c9457ab51b03d13fabf41664013595cfb92c4d89a71688ba0c285568"
-],
-[
-"workfoldersshell.dll",
-"ccc64179acd23919ac48835657751896beb8c446c64f386b8f19efd21c548022"
 ]
 ],
 "updates": null
