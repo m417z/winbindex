@@ -1,7 +1,7 @@
 {
 "next": [
-"mxeagent.dll",
-"50968e07b08371123373b8919aacb473a7956e4a8bdc9580a7c278a801364bb5"
+"dragdropexperiencedataexchangedelegated.dll",
+"b7e3d3c9a91494f4512a4b1ec9c44632949e978ca6910f21e05902f8d6a51020"
 ],
 "next_updates": null,
 "pending": {},
@@ -15,8 +15,8 @@
 "ebfaad13cc741efb12338de190ecc924ad371fc24a8d167238fa6fb104ad4a75"
 ],
 [
-"ttlsauth.dll",
-"d460b7fde479d80b2213bb3adf1e84de2794ea5e9f11a0142dba58c9d817478c"
+"ntlmshared.dll",
+"c2855ae586becaf6934224044ec771d48c2639fbb5d3ed350f5f4a38abeece1e"
 ],
 [
 "wdssdc.dll",
@@ -25,10 +25,6 @@
 [
 "wdssdc.dll",
 "70f33fe9c9457ab51b03d13fabf41664013595cfb92c4d89a71688ba0c285568"
-],
-[
-"winscard.dll",
-"20cab88f544905842aa5af1d25f8c47e94be3bc4d8141246659454aa7c8c7df5"
 ]
 ],
 "updates": null
