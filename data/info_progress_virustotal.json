@@ -7,22 +7,6 @@
 "pending": {},
 "retry": [
 [
-"ahcache.sys",
-"efc38df8c5635d0857f6bba39602184b0f160998f0466b2e4e67bb0b08840420"
-],
-[
-"bindflt.sys",
-"1eff969e6c01ec05e91c1bff12eccd6d32e8445b1f307249733ddf73396be9cc"
-],
-[
-"dxgmms1.sys",
-"d4f6df9e35001abbd7eb46fd2be0c3e03380c91e23f39e9025a95564e971eff6"
-],
-[
-"edpnotify.exe",
-"e68ab59672fe01aa162508b3656f97b8a7c717d54111728342a63f30073b9630"
-],
-[
 "microsoft.ceres.docparsing.formathandlers.common.jpeginterop.dll",
 "ebfaad13cc741efb12338de190ecc924ad371fc24a8d167238fa6fb104ad4a75"
 ],
@@ -37,10 +21,6 @@
 [
 "wdssdc.dll",
 "70f33fe9c9457ab51b03d13fabf41664013595cfb92c4d89a71688ba0c285568"
-],
-[
-"wmiadap.exe",
-"7dace28d0711692ec1f10e83328e19cdddef71a4328f40eb2a694ab0c7a3425c"
 ]
 ],
 "updates": null
