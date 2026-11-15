@@ -1474,7 +1474,7 @@
 },
 "microsoft.windows.dsc.coreconfproviders.resources.dll": {
 "018f79fede71ebc8384412092faf14919c7812ebb4191dc3c5c6939d3446fd4a": "delta",
-"026bd2fcdede365227f91eb75fa3b33144f081bbf80f3db603729fad9b07935a": "delta",
+"026bd2fcdede365227f91eb75fa3b33144f081bbf80f3db603729fad9b07935a": "vt",
 "03af18e376ce475745fa1a79523f789467eac4102748c3db342445cbf069e4a5": "file",
 "05f2cb08f3e8a11a092fe6396a8a7a9d814dcfde7256fec3ccd56737429ae700": "vt",
 "0a1f2f9b81ccfd5da1806c3f2e25d5c21b69faf1a5cad61ff0821bcfe1842c14": "delta",
