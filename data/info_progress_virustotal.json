@@ -1,18 +1,54 @@
 {
 "next": [
-"cpfilters.dll",
-"b26fa3e026f4e764b34d3e9362e41774a4b1715a76af839980e1ae93643f3a17"
+"advapi32.dll",
+"c963ec882c53d76cad7797589057539e66d0812609f691ff83c35ca63cbb0325"
 ],
 "next_updates": null,
 "pending": {},
 "retry": [
 [
+"devicepairingwizard.exe",
+"07ace6fd495700654fe7cb6a0f57c92b7a579c65e98ffc802123df1f413b37f0"
+],
+[
+"dsacls.exe",
+"66017c2357c1be08e4c2af3de399c9123242025b76fa8806634a98124042fdaf"
+],
+[
+"esscli.dll",
+"96b28d68270f524247c9d6025e4ef0b3bf59b87c970ae188f8243e38e11b9b69"
+],
+[
+"iefileinstallai.dll",
+"4f9a2d322024ff390cffcb437f7b595c00eeab36014e6e1999a67d028cda1b5b"
+],
+[
 "microsoft.ceres.docparsing.formathandlers.common.jpeginterop.dll",
 "ebfaad13cc741efb12338de190ecc924ad371fc24a8d167238fa6fb104ad4a75"
 ],
 [
-"spopk.dll",
-"8208424aca695c67572d599ffd165c9d414edce510a9eae87db00876aea868a3"
+"mmc.exe",
+"fe5ee02bacf3233a94b78d7ec371153a4faee3261523b2e096dc7dac0f8ae9eb"
+],
+[
+"oposhost.exe",
+"76adcf4acd744e0dda8f2486f622705693fd921a60b22fedd5faffe829245e47"
+],
+[
+"rdpsa.exe",
+"df21f24d321a20ae554339a54399f4fc58980748a82797dc3d9bbc44776f1908"
+],
+[
+"subst.exe",
+"eeb8d3c9944ca2a75754d9eac8fbd93de0df4d5802185c2c39f3aeab2b5bb2b4"
+],
+[
+"tcmsetup.exe",
+"a0c17bd613e6eef85fd743f43ee27fbd14df0f6b40dc04625e48f346fc01694a"
+],
+[
+"tifilefetcher.exe",
+"356682f6a7e17a20f5cc7fd594c442f059f190c07420bcedaa2c2162d7dc9008"
 ],
 [
 "wdssdc.dll",
@@ -21,10 +57,6 @@
 [
 "wdssdc.dll",
 "70f33fe9c9457ab51b03d13fabf41664013595cfb92c4d89a71688ba0c285568"
-],
-[
-"wlanhlp.dll",
-"ddb563d4369011edc0049eb768483cc44d9911fe9dc4642052b159b6d854037c"
 ]
 ],
 "updates": null
