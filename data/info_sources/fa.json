@@ -884,7 +884,7 @@
 "8a31b3fcd6ee57115dca38b473fa247356a94d040255d94c10359682ec4d20fa": "file"
 },
 "microsoft.windows.update.automaticappupdater.dll": {
-"af9cbb0d6b1cecd26373809438336a1e6c8bfb0c0f1ece875e988b973d57663e": "pe"
+"af9cbb0d6b1cecd26373809438336a1e6c8bfb0c0f1ece875e988b973d57663e": "vt"
 },
 "monitor.sys": {
 "06c3b24d578bf0bb49ee40be95735bba1c9f7a20f444e572895566bc4df90297": "vt",
