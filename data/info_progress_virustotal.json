@@ -1,26 +1,11 @@
 {
-"next": [
-"windowsudkservices.shellcommon.dll",
-"5950a83572a46439cde80612e830e51d0559db3b16da3017b233435d950cc8a2"
-],
+"next": null,
 "next_updates": null,
 "pending": {},
 "retry": [
 [
-"dismhost.exe",
-"b6179fc166b7dbeb97f7b8a605626b5116aa2a43245d4db96b52fddcc498a2c9"
-],
-[
 "microsoft.ceres.docparsing.formathandlers.common.jpeginterop.dll",
 "ebfaad13cc741efb12338de190ecc924ad371fc24a8d167238fa6fb104ad4a75"
-],
-[
-"sdbinst.exe",
-"3a27d2cfed54cfad03901c827771fdb46354d2176d32c88602d944f2c616359d"
-],
-[
-"vmswitch.sys",
-"fe08a122f8681eac04f393a920e149cc8aa13fddcf068fac858a662729decd41"
 ],
 [
 "wdssdc.dll",
