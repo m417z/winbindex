@@ -2209,7 +2209,7 @@
 "ff26454eb68593f0f5030dfeca573309f8f7dcce28ff6664c7747087ae010a27": "vt"
 },
 "runux.interop.dll": {
-"33d88d6e3cd2b5cb86e64eefe0f768d052e953441ad264a987428d991111b9a6": "pe",
+"33d88d6e3cd2b5cb86e64eefe0f768d052e953441ad264a987428d991111b9a6": "vt",
 "5c43cb533f77fcad5f7a380bcecbbb1d9ef5ddfd0ca2efbae986eed9e56f084e": "pe"
 },
 "sessionmsg.exe": {

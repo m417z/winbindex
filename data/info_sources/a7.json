@@ -3076,7 +3076,7 @@
 "d6a2c7e5aed38448d8d7afa24a95ac036e44f9db79d51adb7fe2a0e41659925b": "file"
 },
 "sonar.native.dll": {
-"28e4caa7f98790d52f147b47a3e908b109535eeb52f574950ae36677e31fcdb8": "pe"
+"28e4caa7f98790d52f147b47a3e908b109535eeb52f574950ae36677e31fcdb8": "vt"
 },
 "sqmproviderutilities.dll": {
 "9a459e7dc0fecc16a2c9901b120c0fca23639000045e69e2eec5ec498b023d2e": "vt"

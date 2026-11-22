@@ -4,6 +4,10 @@
 "pending": {},
 "retry": [
 [
+"agentservice.exe",
+"52e0819086438a90d55317e174012212a1c30c7fb9941505b27dad14a629c467"
+],
+[
 "microsoft.ceres.docparsing.formathandlers.common.jpeginterop.dll",
 "ebfaad13cc741efb12338de190ecc924ad371fc24a8d167238fa6fb104ad4a75"
 ],

@@ -2093,7 +2093,7 @@
 "ffd4c75a09e9b7d3cfbb97a61b3fb2d8c97ad9d378e1d8ff9cea1794a6c75ad3": "pe"
 },
 "winact.aot.dll": {
-"1f76a89a1c18430e7c2367df8b02d6eeab5f914162ba98ee5df4d48b73017ee4": "pe",
+"1f76a89a1c18430e7c2367df8b02d6eeab5f914162ba98ee5df4d48b73017ee4": "vt",
 "f7e5cb7eaebb32773c031527145319def1c4cafe2b294045f96647144be8976a": "pe"
 },
 "windows.internal.shellcommon.filepickerexperiencemem.dll": {
