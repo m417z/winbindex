@@ -1212,7 +1212,7 @@
 },
 "plutonqcservice.exe": {
 "602d3ad2bd6add98a6b070768746e5c25d13cc54e0e7b7e6fa4f3b7949825ecb": "vt",
-"6624703eff6e58305c9af44893109063acbb0d24aa5cbe61bc310be3eb7da4a1": "pe",
+"6624703eff6e58305c9af44893109063acbb0d24aa5cbe61bc310be3eb7da4a1": "vt",
 "99b6ec9fc639b51ba8be5968847714f8aeafca481c46dbb238e1bfdbfa0186ad": "vt"
 },
 "provisioningcsp.dll": {
